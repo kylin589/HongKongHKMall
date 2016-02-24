@@ -1,0 +1,14 @@
+﻿
+@{
+    Layout = null;
+    var result = ViewBag.result;
+}
+
+@if (result == "true")
+{
+    @Html.Action("Success")
+}
+else
+{
+    @Html.Action("Fall")
+}

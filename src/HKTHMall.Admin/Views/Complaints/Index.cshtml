@@ -1,0 +1,153 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@model HKTHMall.Domain.Models.Orders.SearchComplaintsModel
+@{
+    ViewBag.Title = "The complaint list page";
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(49);
+    _Authority.Delete = _Authority.CheckAction(50);
+}
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>Order SN: </span>
+            @Html.TextBoxFor(x => x.OrderID, new { @class = "form-control w70", @placeholder = "Please enter order number" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Email: </span>
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control w70", @placeholder = "Please enter Phone" })
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-danger js_reset" onclick="Tool.ClearForm($('#user-toolbar'))">
+            <span class="glyphicon glyphicon-bullhorn"></span> Clear
+        </button>
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts{
+    <script type="text/javascript">
+        var $addCheck = eval("@(_Authority.Add.ToString().ToLower())");
+        var $deleteCheck = eval("@(_Authority.Delete.ToString().ToLower())");
+        //加载数据
+        $(function () {
+            var columns = [
+              { field: "OrderID", title: "Order SN", align: 'center', valign: 'middle', sortable: false },
+              { field: "ShopName", title: "Shop name(Respondent)", align: 'center', valign: 'middle', sortable: false },
+              { field: "NickName", title: "NickName(Complainant)", align: 'center', valign: 'middle', sortable: false },
+              { field: "Email", title: "Email", align: 'center', valign: 'middle', sortable: false },
+              { field: "Content", title: "Complaint content", align: 'center', valign: 'middle', sortable: false },
+              {
+                  field: "ComplaintsDate", title: "Time", align: 'center', valign: 'middle', sortable: false, formatter:
+                    function (val) {
+                        return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                    }
+              },
+              {
+                  field: "Flag", title: "Status", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+
+                      if (arguments && arguments[1]) {
+                          return arguments[1].Flag == 1 ? "Untreated" : "Handled";
+                      }
+                  }
+              },
+              { field: "Comments", title: "Process content", align: 'center', valign: 'middle', sortable: false },
+              {
+                  field: "ComplaintsID", title: "Operation", align: 'center', valign: 'middle',
+                  formatter: function (val) {
+                      var operation = '';
+                      if ($addCheck) {
+                          if (arguments[1].Flag == 1)
+                              operation += '<a class="edit ml10" href="javascript:void(0)" title="Update"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                      }
+                      if ($deleteCheck) {
+                          operation += '<a class="remove ml10" href="javascript:void(0)" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>';
+                      }
+                      if (operation == '') {
+                          operation = '-';
+                      }
+                      return [operation
+                      ].join('');
+                  },
+                  events: {
+                      //编辑
+                      'click .edit': function (e, value, row, index) {
+                          Tool.ShowModal('@Url.Action("Create")', { id: value, time: new Date().getTime() }, 'Handle complaint');
+                      },
+                      //删除
+                      'click .remove': function (e, value, row, index) {
+                          Tool.DeleteRecord('@Url.Action("Delete")', { complaintsID: value }, $('#u_grid'));
+                      }
+                  }
+              }];
+            //加载列表数据
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+                queryParams: function (params) {
+                    return {
+                        OrderID: $('#OrderID').val().trim(),
+                        Email: $("#Email").val().trim(),
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        time: new Date().getTime()
+                    };
+                },
+                sortOrder: 'desc',
+                pagination: true,
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns
+            });
+            //搜索事件
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+            //按Enter键回车搜索
+            $('#OrderID').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#Phone').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            //添加系统参数设置
+            $('.js_create').click(function () {
+                Tool.ShowModal("@Url.Action("Create")", {}, "Handle complaint");
+            });
+
+            //删除系统参数信息
+            function DelComplaints(complaintsID) {
+                var url = "/Complaints/Delete?complaintsID=" + complaintsID;
+                $.ajax({
+                    url: url,
+                    dataType: "text",
+                    success: function (data, status) {
+                        data = JSON.parse(data);
+                        Tool.ReloadDataTable($('#u_grid'));
+                        Tool.Alert(data.Messages, 1500);
+                    },
+                    error: function (data, status, e) {
+                        Tool.Alert("Complaint failed！", 1500);
+                    }
+                });
+            };
+        })
+        //保存
+        function Save() {
+            Tool.SaveModal($('#u_grid'));
+        }
+    </script>
+}

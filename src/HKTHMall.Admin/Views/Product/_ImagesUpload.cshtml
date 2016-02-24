@@ -1,0 +1,165 @@
+﻿
+
+<div id ="upload_img-toolbar">
+    <span class="btn btn-success fileinput-button">
+        <span>Choose file</span>
+        <input id="fileupload" type="file" name="files[]" multiple>
+    </span>
+</div>
+<table id="upload_img_grid" data-toolbar="#upload_img-toolbar"></table>
+
+<script type="text/javascript">
+    
+    $(function () {
+
+        var isOk = true;
+
+        $('#fileupload').fileupload({
+            url: '@Url.Action("UploadImage", "Upload")',
+            dataType: 'json',
+            autoUpload: true,
+            //acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            maxFileSize: 9990000,
+            sequentialUploads: false,
+            disableImageResize: /Android(?!.*Chrome)|Opera/
+                .test(window.navigator.userAgent),
+            previewMaxWidth: 100,
+            previewMaxHeight: 100,
+            previewCrop: true,
+            add: function (e, data) {
+                var rows = $('#upload_img_grid').bootstrapTable('getData');
+                if ((rows.length + data.originalFiles.length) > 5) {
+                    if (isOk) {
+                        isOk = false;
+                        $("<div>Can only upload 5<div>").dialog({
+                            title: "Tips",
+                            onClose: function() { $(this).dialog("close"); },
+                            buttons: [
+                                {
+                                    text: "Sure",
+                                    'class': "btn-primary",
+                                    click: function () {
+                                        isOk = true;
+                                        $(this).dialog("close");
+                                    }
+                                }
+                            ]
+                        });
+                    }
+                    return;
+                } else {
+                    data.submit();
+                }
+            },
+            done: function (e, data) {
+                if (data.result.IsValid) {
+                    var rows = $('#upload_img_grid').bootstrapTable('getData');
+                    var row = { PicUrl: data.result.Data, sort: rows.length + 1 };
+                    $('#upload_img_grid').bootstrapTable('append', row);
+                } else {
+                    $('.img_msg').text('File upload failed。');
+                }
+            },
+            fail: function (e, data) {
+                $('.img_msg').text('File upload failed。');
+            }
+        });
+
+        var columns = [
+            { field: 'sort', title: 'SN', align: 'center', valign: 'middle', sortable: true },
+            {
+                field: 'PicUrl',
+                title: 'Product picture',
+                align: 'center',
+                valign: 'middle',
+                sortable: true,
+                formatter: function (value, row, index) {
+                    return '<img src="' + Tool.RootImage + row.PicUrl + '" style="width:80px;" />';
+                }
+            },
+            {
+                field: '',
+                title: 'Operation',
+                align: 'center',
+                valign: 'middle',
+                sortable: true,
+                formatter: function (value, row, index) {
+                    if ($('#Status').val() != 4) {
+                        return [
+                            '<a class="ssorts" href="javascript:void(0)" title="move up">',
+                            '<i class="glyphicon glyphicon-arrow-up"></i>',
+                            '</a>&nbsp;&nbsp;&nbsp;&nbsp;',
+                            '<a class="xsorts" href="javascript:void(0)" title="Down">',
+                            '<i class="glyphicon glyphicon-arrow-down"></i>',
+                            '</a>&nbsp;&nbsp;&nbsp;&nbsp;',
+                            '<a class="remove" href="javascript:void(0)" title="Remove">',
+                            '<i class="glyphicon glyphicon-remove"></i>',
+                            '</a>'
+                        ].join('');
+                    } else {
+                        return '';
+                    }
+                    
+                },
+                events: {
+                    'click .ssorts': function (e, value, row, index) {
+                        try {
+                            if (index == 0) {
+                                return;
+                            }
+                            var rows = $('#upload_img_grid').bootstrapTable('getData');
+                            var uporder = rows[index - 1].sort;
+                            rows[index - 1].sort = row.sort;
+                            row.sort = uporder;
+                            $('#upload_img_grid').bootstrapTable('updateRow', index, row);
+                            $('#upload_img_grid').bootstrapTable('updateRow', index - 1, rows[index - 1]);
+                            rows = $('#upload_img_grid').bootstrapTable('getData');
+                            $('#upload_img_grid').bootstrapTable('load', rows);
+                        } catch (ex) {
+                            //$.messager.alert(ex.message);
+                        }
+                    },
+                    'click .xsorts': function (e, value, row, index) {
+                        try {
+                            var rows = $('#upload_img_grid').bootstrapTable('getData');
+                            if (index == rows.length) {
+                                return;
+                            }
+                            var uporder = rows[index + 1].sort;
+                            rows[index + 1].sort = row.sort;
+                            row.sort = uporder;
+                            $('#upload_img_grid').bootstrapTable('updateRow', index, row);
+                            $('#upload_img_grid').bootstrapTable('updateRow', index + 1, rows[index + 1]);
+                            rows = $('#upload_img_grid').bootstrapTable('getData');
+                            $('#upload_img_grid').bootstrapTable('load', rows);
+                        } catch (ex) {
+                            //$.messager.alert(ex.message);
+                        }
+                    },
+                    'click .remove': function (e, value, row, index) {
+                        $('#upload_img_grid').bootstrapTable('remove', {
+                            field: 'sort',
+                            values: [row.sort]
+                        });
+                        //params.data.remove(row);
+                        var rows = $('#upload_img_grid').bootstrapTable('getData');
+                        $(rows).each(function (i) {
+                            this.sort = i + 1;
+                        });
+                        $('#upload_img_grid').bootstrapTable('load', rows);
+                    }
+                }
+            }
+        ];
+
+        $('#upload_img_grid').bootstrapTable({
+            sortOrder: 'asc',
+            sortName: 'sort',
+            height: 'auto',
+            idField: 'sort',
+            sidePagination: 'client',
+            columns: columns
+        });
+
+    });
+</script>

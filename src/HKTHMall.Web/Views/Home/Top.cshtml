@@ -1,0 +1,69 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = null;
+}
+
+
+@*<header class="header">
+    <div class="tophead">
+        <div class="tele">
+            <img src="~/Content/images/tele.png" />
+            @CultureHelper.GetLangString("HOME_TOP_KEFUREXIAN")：02-635-5484
+        </div>
+        <div class="languagehelp">
+            @if (!Request.IsAuthenticated)
+        {
+        <label>@CultureHelper.GetLangString("HOME_INDEX_HIQING")<a href="/login">@CultureHelper.GetLangString("LOGIN_LOGIN")</a>/<a href="~/Register/Index">@CultureHelper.GetLangString("HOME_INDEX_FREEREGIST")</a></label>
+        }
+        else
+        {
+        <div class="welcome dib f13 g8  fl" style="line-height: 1.3; vertical-align: middle;height:34px;line-height:38px;">@CultureHelper.GetLangString("HOME_INDEX_WELCOMECARD")<a href="@Url.Action("Index", "My", new { area = "Account" })" style="color:#e22028"> @ViewBag.Phone </a><a class="LoginOut" href="javascript:;" class="poi g8" id="logoutLink">@CultureHelper.GetLangString("HOME_INDEX_EXIT")</a></div>
+        <script>$(".LoginOut").click(function () { $.post("@Url.Action("LoginOut", "login", new { area = "" })", function () { window.location.reload(); }); })</script>
+
+        }
+
+            <div class="btn-group" id="language">
+                <div class="top_sd top_sd1"><span class="flag-df"></span><span class="flag-bt">@CultureHelper.GetLangString("HOME_INDEX_LANGUAGE")</span></div>
+                <ul class="dropdown-menu dropdown-menu1 dn">
+                    <li><a href="@Url.Action("SetCulture", "Home", new { culture = "th-Th" })"><span class="flag-th"></span>ภาษาไทย</a></li>
+                    <li><a href="@Url.Action("SetCulture", "Home", new { culture = "zh-cn" })"><span class="flag-cn"></span>中文</a></li>
+                    <li><a href="@Url.Action("SetCulture", "Home", new { culture = "en-Us" })"><span class="flag-en"></span>English</a></li>
+                    <li><a href="@Url.Action("SetCulture", "Home", new { culture = "zh-HK" })"><span class="flag-en"></span>繁體</a></li>
+                </ul>
+            </div>
+            <div class="btn-xian">|</div>
+            <div class="btn-group">
+                <div class="top_sd top_sd2"><span class="flag-bt">@CultureHelper.GetLangString("HOME_INDEX_MYCREDITCARD")</span></div>
+                <ul class="dropdown-menu dropdown-menu2 dn">
+                    <li><a href="@Url.Action("MyShoppingCart", "ShoppingCart", new { area = "money" })">@CultureHelper.GetLangString("HOME_INDEX_MYSHOPPINGCART")</a></li>
+                    <li><a href="/order/list.html">@CultureHelper.GetLangString("HOME_INDEX_MYORDER")</a></li>
+                    <li><a href="/Account/My/Collection" style="border:0 none;">@CultureHelper.GetLangString("HOME_INDEX_MYCOLLECTION")</a></li>
+                </ul>
+            </div>
+
+            <div class="btn-xian">|</div>
+
+            <div class="btn-group">
+                <div class="top_sd top_sd3">
+                    <span class="flag-bt">@CultureHelper.GetLangString("HOME_INDEX_HELPCENTER")</span>
+                </div>
+                <ul class="dropdown-menu dropdown-menu3 dn">
+                    <li><a href="@(Url.Action("Shopping", "Help"))">@CultureHelper.GetLangString("HOME_INDEX_SHOPPINGPROCESS")</a></li>
+                    <li><a href="@(Url.Action("About", "Help"))">@CultureHelper.GetLangString("HOME_INDEX_ABOUTHUIPOWDER")</a></li>
+                    <li><a href="@(Url.Action("AboutAgent", "Help"))">@CultureHelper.GetLangString("HOME_INDEX_AGENT")</a></li>
+                    <li><a href="@(Url.Action("Pay", "Help"))">@CultureHelper.GetLangString("HOME_FOOTER_PAY")</a></li>
+                    <li><a href="@(Url.Action("Distribution", "Help"))">@CultureHelper.GetLangString("HOME_INDEX_SHIPINSTRUCTIONS")</a></li>
+                    <li><a href="@(Url.Action("Question", "Help"))" style="border:0 none;">@CultureHelper.GetLangString("HOME_INDEX_COMMONPROBLEMS")</a></li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</header>
+<script type="text/javascript">
+    $(".btn-group").hover(function () {
+        $(this).find('ul').slideDown(500);
+    }, function () {
+        $(this).find('ul').stop().slideUp(500);
+    });
+</script>*@

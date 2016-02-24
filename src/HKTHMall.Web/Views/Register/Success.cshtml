@@ -1,0 +1,36 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys;
+@{
+    var aa = CultureHelper.GetLangString("LOGIN_REGISTER_ZIDONGTIAOZHUAN");
+}
+<div class="main_about">
+
+    <div class="m_reg_succ">
+        <div class="m_reg_succ_sb">
+            <div class="m_reg_succ_er">
+                <ul><i></i><ins>@CultureHelper.GetLangString("LOGIN_REGISTER_GONGXIZHUCECHENGONG")</ins></ul>
+                <dl><b>——  @CultureHelper.GetLangString("LOGIN_REGISTER_WANSHANZILIAO")  ——</b></dl>
+            </div>
+        </div>
+        <div class="m_reg_succ_wq">
+            @Html.Raw(string.Format(aa,"<span id=\"jumpTo\">5</span>","<a href=\"javascript:flag=false;window.location.href='/Home/Index'\">huikamall.hk</a>"))
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var flag = true;
+ $(document).ready(function() {
+     delayURL("/Home/Index");
+});
+ function delayURL(url) {
+    var delay = parseInt(document.getElementById("jumpTo").innerHTML);
+    if (delay > 0&&flag) {
+        delay--;
+        document.getElementById("jumpTo").innerHTML = delay;
+        setTimeout("delayURL('" + url + "')", 500);
+    } else {
+        window.top.location.href = url;
+    }
+}
+</script>

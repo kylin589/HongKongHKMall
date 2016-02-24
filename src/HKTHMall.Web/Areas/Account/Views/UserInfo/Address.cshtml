@@ -1,0 +1,247 @@
+﻿@using HKTHMall.Domain.WebModel.Models.Login
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    List<UserAddress> prodocutList = Model.UserAddresss;
+
+}
+<div class="main_a">
+
+    <div class="main_about">
+        <div class="ls_member">
+            @Html.Partial("_userLeft")
+            <!--右边的写在这里-->
+            <div class="ls_member_rg">
+
+
+                <!--右侧会员信息展示-->
+                <div class="ls_member_info">
+                    <div class="addressAdd">
+                        <h3>@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_RECEIVING_ADDRESS")@*收货地址*@</h3>
+                    </div>
+                    <div class="addBut">
+                        @{
+
+                            if (ViewBag.Count < 20)
+                            {
+                                <a href="javascript:" class="addPlaceWeb"><i></i>@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_NEWSHIPADDRESS")@*添加新的收货地址*@</a>
+
+                            }
+                        }
+                        <span>
+                            @if (prodocutList != null && prodocutList.Count > 0)
+                            {
+                                @Html.Raw(string.Format(@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_PRESERVEDADDRESSES"), ViewBag.Count, (20 - ViewBag.Count)))
+                            }
+                        </span>
+                        <div class="clearfix"></div>
+                    </div>
+
+
+
+
+                    @if (prodocutList != null && prodocutList.Count > 0)
+                    {
+                        foreach (UserAddress ua in prodocutList)
+                        {
+                            <div class="appendCover_2016 ls_2016">
+                                <div class="appendedAddress @(ua.Flag==1?"appendEd":"")">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <td colspan="2">@ua.Receiver</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td width="45%" rowspan="2" valign="top">
+                                                    <div class="appendCover">
+                                                        <span class="appendTitle">@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_CONSIGNEE")：</span>
+                                                        <span>@ua.Receiver</span>
+                                                    </div>
+                                                    <div class="appendCover">
+                                                        <span class="appendTitle">@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_MOBILEPHONE")：</span>
+                                                        <span>@ua.Mobile</span>
+                                                        <span>@ua.Phone</span>
+                                                    </div>
+                                                    @*<div class="appendCover">
+                                                        <span class="appendTitle">@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_ZIPCODE")：</span>
+                                                        <span>@ua.PostalCode</span>
+                                                    </div>*@
+                                                    <div class="appendCover">
+                                                        <span class="appendTitle">@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_RECIPIENTEMAIL")：</span>
+                                                        <span>@ua.Email</span>
+                                                    </div>
+                                                </td>
+                                                <td width="55%" valign="top" style="border-left: 1px solid #e2e2e2;">
+                                                    <div class="appendCover2">
+                                                        <span class="appendTitle">@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_RECEIVING_ADDRESS")：</span>
+                                                        <span>@HKTHMall.Services.Common.AddressHelper.ShowUserAddress(ua.CountryTHAreaName, ua.ShengAreaName, ua.ShiAreaName, ua.QuAreaName, "", CultureHelper.GetLanguageID())</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="55%" valign="top" style="border-left: 1px solid #e2e2e2;">
+                                                    <div class="appendCover3">
+                                                        <span class="appendTitle">@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_DETAILEDADDRESS")：</span>
+                                                        <span>@ua.DetailsAddress</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    @if (ua.Flag == 1)
+                                    {
+                                        <i class="appendedChecked"></i><!--设为默认的时候增加这个标签-->
+                                    }
+                                </div>
+                                <div class="appendSeting">
+                                    @if (ua.Flag == 0)
+                                    {
+                                        <a href="javascript:;" onclick="UpdateUserAddressFlag('@ua.UserAddressId','@ua.UserID')" class="setDefault2016"><i></i>@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_SETDEFAULT")</a>
+                                    }
+                                    <a href="javascript:;" onclick="ShowEditAddressById(@ua.UserAddressId)" class="setEdit2016"><i></i>@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_MODIFY")</a>
+                                    <a href="javascript:;" onclick="DelUserAddress(@ua.UserAddressId)" class="setDelete2016"><i></i>@CultureHelper.GetLangString("MONEY_SHOPPINGCART_DELETE")</a>
+                                </div>
+                            </div>
+
+                        }
+                    }
+                    else
+                    {<div class="m_add_emp">
+                        <p><i></i>@CultureHelper.GetLangString("HOME_SHOPING_ADDRESSEMPTY")</p>
+                        <div><span></span><b>@CultureHelper.GetLangString("HOME_SHOPING_ADDRESSEMPTYTIPS")</b></div>
+                        <div class="m_add_emp_Button">
+                            <a href="javascript:" class="addPlaceWeb"><i></i>@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_NEWSHIPADDRESS")@*添加新的收货地址*@</a>
+                        </div>
+                    </div>
+                    }
+                    <div class="sectionPaging">
+                        <ul>
+                            @Html.Raw(Html.ToPageHtmlNew((int)ViewBag.Page, 4, (int)ViewBag.Count))
+                            @*<script>jQuery('.tunepage>li>a').Page({ type: 0 })</script>*@
+                        </ul>
+                    </div>
+                    <div class="clear" style="height:20px;"></div>
+                    @Html.Partial("_EditAddress")
+                </div>
+            </div>
+            <!--右边结束-->
+            <div class="clear clearfix"></div>
+        </div>
+    </div>
+
+</div>
+<div class="dialogCover">
+    <div class="dialogMain" id="showDialog">
+        <p id=""></p>
+    </div>
+</div>
+
+
+<script src="~/Content/js/jquery-powerSwitch.js"></script>
+<script src="~/Content/js/address.js"></script>
+<script src="~/Content/js/animate.js"></script>
+<script src="~/Content/js/jquery-ui.min.js"></script>
+<script src="~/Content/js/public.js"></script>
+<script>
+    var _htmlADD = $("#showDialog");
+    function showDailog(msg, isreload) {
+        _htmlADD.html(msg);
+        ds.dialog({
+            title: $commonLang.MONEY_ORDER_INFO,
+            content: _htmlADD,
+            yesText: $commonLang.HOME_SHOPPING_SURE,
+            onyes: function () {
+                location.reload();
+            },
+        });
+    }
+    //Load Style
+    $(document).ready(function () {
+        var _htmlADDRES = $("#addressDialog");
+        $(".addPlaceWeb").click(function () {
+            ResetMessage(_htmlADDRES);
+            ds.dialog({
+                title: '@CultureHelper.GetLangString("HOME_SHOPING_ADDADDRESS")',
+                content: _htmlADDRES,
+                tijiao: function () {
+
+                }
+            });
+
+        });
+
+        $("body").on('change', '#slCountry', function () {
+            _htmlADDRES.find("#slSheng").html("<option value='-1'>-" + $commonLang.SIMPLE_SELECT + "-</option>");
+            _htmlADDRES.find("#slShi").html("<option value='-1'>-" + $commonLang.SIMPLE_SELECT + "-</option>");
+            _htmlADDRES.find("#slQu").html("<option value='-1'>-" + $commonLang.SIMPLE_SELECT + "-</option>");
+            SelectChange($(this).val(), "slSheng");
+        })
+
+        $("body").on('change', '#slSheng', function () {
+            _htmlADDRES.find("#slShi").html("<option value='-1'>-" + $commonLang.SIMPLE_SELECT + "-</option>");
+            _htmlADDRES.find("#slQu").html("<option value='-1'>-" + $commonLang.SIMPLE_SELECT + "-</option>");
+            SelectChange($(this).val(), "slShi");
+        })
+
+        $("body").on('change', '#slShi', function () {
+            _htmlADDRES.find("#slQu").html("<option value='-1'>-" + $commonLang.SIMPLE_SELECT + "-</option>");
+            SelectChange($(this).val(), "slQu");
+        })
+
+        $("body").on('change', '#slQu', function () {
+            if ($(this).val() == "-1") {
+                $("#pTHAreaID").show();
+            } else {
+                $("#pTHAreaID").hide();
+            }
+        })
+      
+
+        $("#closeBut").click(function () {
+            $("#ShippingAddress").hide().stop();
+            $("#mask").hide().stop();
+        });
+
+        $("body").on('click', '.dialogSubmit', function () {
+            if (ValidateText()) {
+                $(".dialogSubmit").hide();
+                $.ajax({
+                    url: "/UserInfo/CreateAddress",
+                    data: {
+                        userAddressId: $("#txtUserAddressId").val(),
+                        Receiver: $("#txtReceiver").val(),
+                        THAreaID: $("#slQu").val(),
+                        DetailsAddress: $("#txtDetailsAddress").val(),
+                        Mobile: $("#txtMobile").val(),
+                        Phone: $("#txtPhone").val(),
+                        Email: $("#txtEmail").val(),
+                        PostalCode: $("#txtPostalCode").val(),
+                        Time: new Date().getTime()
+                    },
+                    type: "POST",
+                    dataType: "json",
+                    success: function (data, status) {
+                        //data = JSON.parse(data);
+                        if (data.IsValid) {
+                            location.reload();
+                            return false;
+                        } else {
+                            showDailog(data.Messages, false);
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+    //function ShowDelDiv(userAddressId) {
+    //    $("#hidDelUserAddressId").val(userAddressId);
+    //    $("#delete").show();
+    //    $("#mask").show().fadeIn();
+    //}
+
+</script>

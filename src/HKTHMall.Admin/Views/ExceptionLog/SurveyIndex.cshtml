@@ -1,0 +1,56 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.AC.SearchExceptionLogModel
+@{
+    ViewBag.Title = "System Survey";
+}
+
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            var columns = [
+                { field: 'ServiceName', title: 'ServiceName', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'ResultType', title: 'Result', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        if (val == 1) {
+                            return "<font color='red'>运行异常</font>";
+                        } else {
+                            return "正常";
+                        }
+                    }
+                },
+                { field: 'CreateDT', title: 'Create Time', align: 'center', valign: 'middle', sortable: false, formatter: function (val) { return val.formatterString(false)/*true 日期格式2015-5-5*/ } }
+            ];
+
+            //初始化表哥
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("SurveyList")',
+
+                queryParams: function (params) {
+                    return {
+                        Time: new Date().getTime()
+                    };
+                },
+                sortOrder: 'desc',
+                pagination: true,
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns
+
+            });
+
+            //刷新
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+        });
+    </script>
+}

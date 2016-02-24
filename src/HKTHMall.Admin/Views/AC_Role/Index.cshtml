@@ -1,0 +1,212 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+@model HKTHMall.Domain.Models.AC.SearchAC_RoleModel
+@{
+    ViewBag.Title = "System role list page";
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(100);
+    _Authority.Edit = _Authority.CheckAction(101);
+    
+}
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>Role name: </span>
+            @Html.TextBoxFor(x => x.RoleName, new { @class = "form-control w70" })
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;
+        @if (_Authority.Add)
+        {
+            <button type="button" class="btn btn-primary js_create">
+                <span class="glyphicon glyphicon-plus"></span> Creat role
+            </button>
+        }
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts{
+    <script type="text/javascript" src="~/Content/js/common/StringBuilder.js"></script>
+    <script type="text/javascript">
+        var editCheck = eval("@(_Authority.Edit.ToString().ToLower())");
+        //加载数据
+        $(function () {
+            var columns = [
+            { field: "RoleName", title: "Role name", align: 'center', valign: 'middle', sortable: false },
+              //{ field: "RoleModuleValue", title: "角色模块值", align: 'center', valign: 'middle', sortable: true },
+              //  { field: "RoleFuctionValue", title: "角色功能值", align: 'center', valign: 'middle', sortable: true },
+                 { field: "RoleDescription", title: "Role Info", align: 'center', valign: 'middle', sortable: true },
+                       { field: "CreateUser", title: "Creater", align: 'center', valign: 'middle', sortable: true },
+                         //{ field: "CreateDT", title: "添加时间", align: 'center', valign: 'middle', sortable: true },
+                         { field: "CreateDT", title: 'Create time', align: 'center', valign: 'middle', sortable: true, formatter: function (val) { return val.formatterString(true) } },
+            {
+                field: "RoleID", title: "Operation", align: 'center', valign: 'middle',
+                formatter: function (val) {
+                    //if (1 == 1)
+                    //{
+                    //    return "";
+                    //}
+                    if (editCheck) {
+                        return [
+                                '<a class="edit ml10" href="javascript:void(0)" title="Change">',
+                                '<i class="glyphicon glyphicon-edit"></i>',
+                                '</a>'
+                        ].join('');
+                    }
+                },
+                events: {
+                    //编辑
+                    'click .edit': function (e, value, row, index) {
+                        Tool.ShowModal('@Url.Action("Edit")', { id: value }, 'Modify the role permissions');
+                    },
+                    //删除
+                    'click .remove': function (e, value, row, index) {
+                        DelParameterSet(value);
+                    }
+                }
+            }
+            ];
+            iniData();
+            //加载列表数据
+            function iniData() {
+                $('#u_grid').bootstrapTable({
+                    url: '@Url.Action("List")',
+                    queryParams: function (params) {
+                        return {
+                            RoleName: $('#RoleName').val(),
+                            PagedIndex: this.pageNumber - 1,
+                            PagedSize: this.pageSize
+                        };
+                    },
+                    sortOrder: 'desc',
+                    sortName: 'CreateDT',
+                    pagination: true,
+                    showRefresh: true,
+                    showColumns: true,
+                    striped: true,
+                    sidePagination: 'server',
+                    columns: columns
+                });
+            }
+            //搜索事件
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+            //添加系统参数设置
+            $('.js_create').click(function () {
+                Tool.ShowModal("@Url.Action("Create")", {}, "Creat role");
+            });
+
+
+            //全选,全不选
+            $("#modal-form").on("click", "#allCheckbox", function () {
+
+                $("#role :checkbox").prop('checked', this.checked);
+
+            });
+            //第一级
+            $("#modal-form").on("click", ".panel-title :checkbox", function () {
+
+                var obj = $(this);
+                var $id = obj.attr("data-id");
+                $("#" + $id).find(":checkbox").prop('checked', this.checked);
+
+            });
+            //$(".panel-title :checkbox").click(function () {
+            //    var obj = $(this);
+            //    var $id = obj.attr("data-id");
+            //    $("#" + $id).find(":checkbox").prop('checked', this.checked);
+            //});
+            //第二级
+            $("#modal-form").on("click", ".h4Title :checkbox", function () {
+                // $(".h4Title :checkbox").click(function () {
+                var obj = $(this);
+                var tmp = obj.parent().parent().siblings();
+                tmp.find(":checkbox").prop('checked', this.checked);
+                var $tempId = $("#" + obj.attr("data-fid")) //obj.attr("data-fid");
+                var oneTmp = $tempId.siblings().find(":checkbox");
+                if (this.checked) {
+                    oneTmp.prop('checked', true);
+                }
+                else {
+                    var tempcheck = $tempId.find(":checkbox");
+                    for (var i = 0; i <= tempcheck.length; i++) {
+                        if (tempcheck.eq(i).prop('checked')) {
+                            oneTmp.prop('checked', true);
+                            return;
+                        } else {
+                            oneTmp.prop('checked', false);
+                        }
+                    }
+                }
+
+            });
+            $("#modal-form").on("click", ".treeDivList :checkbox", function () {
+                // $(".treeDivList :checkbox").click(function () {
+                var obj = $(this);
+                //var $id = obj.attr("data-fid");
+                //  $("#" + $id).find(":checkbox").prop('checked', this.checked);
+                var $twoId = $("#" + obj.attr("data-fid")) //obj.attr("data-fid");
+                var twoTmp = $twoId.siblings().find(":checkbox");
+
+                var $tempId = $("#" + twoTmp.attr("data-fid")) //obj.attr("data-fid");
+                var oneTmp = $tempId.siblings().find(":checkbox");
+                if (this.checked) {
+                    twoTmp.prop('checked', true);
+                    oneTmp.prop('checked', true);
+                }
+                else {
+                    var tempcheck = $twoId.find(":checkbox");
+                    for (var i = 0; i <= tempcheck.length; i++) {
+                        if (tempcheck.eq(i).prop('checked')) {
+                            twoTmp.prop('checked', true);
+                            return;
+                        } else {
+                            twoTmp.prop('checked', false);
+                        }
+                    }
+                    var oneTempcheck = $tempId.find(":checkbox");
+                    for (var i = 0; i <= tempcheck.length; i++) {
+                        if (oneTempcheck.eq(i).prop('checked')) {
+                            oneTmp.prop('checked', true);
+                            return;
+                        } else {
+                            oneTmp.prop('checked', false);
+                        }
+                    }
+
+                }
+            });
+
+        })
+        //保存
+        function Save() {
+            $("#RoleModuleValue").val(CollectCheckItems("moduleCheck"));
+            $("#RoleFuctionValue").val(CollectCheckItems("funCheck"));
+            Tool.SaveModal($('#u_grid'));
+        }
+        function CollectCheckItems(name) {
+            var ids = new StringBuilder();
+            $("input[type=checkbox][name=" + name + "]").each(function () {
+                //$("input[type=checkbox][name=moduleCheck]").each(function () {
+                //if ($(this).attr("checked")) {
+                //    ids.Append($(this).val());
+                //    ids.Append(",");
+                //}
+
+                if (this.checked) {
+                    ids.Append($(this).val());
+                    ids.Append(",");
+                }
+            });
+            var strIds = ids.ToString();
+            return strIds.substr(0, strIds.length - 1);
+        }
+    </script>
+}

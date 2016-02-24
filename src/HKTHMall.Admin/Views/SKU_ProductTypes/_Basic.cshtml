@@ -1,0 +1,52 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.SKU.SKU_ProductTypesModel
+@{
+    bool isEdit = Model.SkuTypeId > 0;
+    string disabledString = (Model.SkuTypeId > 0 ? " disabled" : "");
+}
+
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Type Name :
+    </label>
+    <div class="controls">
+        @if (isEdit)
+        {
+            @Html.HiddenFor(x => x.UseExtend)
+            @Html.HiddenFor(x => x.UseParameter)
+        }
+        @Html.HiddenFor(t => t.SkuTypeId)
+        @Html.HiddenFor(t => t.IsUse)
+        @Html.HiddenFor(t => t.IsGoods)
+        @Html.TextBoxFor(t => t.Name, new { @class = "form-control", @placeholder = "Please enter type name" })
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Enable Extended attributes :
+    </label>
+    <div class="controls">
+        <label>
+            @Html.Raw("<input type='radio' name='UseExtend' id='UseExtend1' class='js-chk-UseExtend' data-value='1' value='1'  " + (Model.UseExtend.Value == 1 ? "checked" : "") + disabledString + " />&nbsp;Enable")
+        </label>
+        &nbsp;&nbsp;
+        <label>
+            @Html.Raw("<input type='radio' name='UseExtend' id='UseExtend0' class='js-chk-UseExtend' data-value='0' value='0'  " + (Model.UseExtend.Value == 0 ? "checked" : "") + disabledString + " />&nbsp;Disable")
+        </label>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Enable Detailed parameter :
+    </label>
+    <div class="controls">
+        <label>
+            
+            @Html.Raw("<input type='radio' name='UseParameter' id='UseParameter1' class='js-chk-UseParam' data-value='1' value='1' " + (Model.UseParameter.Value == 1 ? "checked" : "") + disabledString + " />&nbsp;Enable")
+        </label>
+        &nbsp;&nbsp;
+        <label>
+            @Html.Raw("<input type='radio' name='UseParameter' id='UseParameter0' class='js-chk-UseParam' data-value='0' value='0' " + (Model.UseParameter.Value == 0 ? "checked" : "") + disabledString + " />&nbsp;Disable")
+        </label>
+    </div>
+</div>

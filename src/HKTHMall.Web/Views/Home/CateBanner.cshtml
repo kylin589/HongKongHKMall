@@ -1,0 +1,49 @@
+﻿@using HKTHMall.Domain.Models.banner
+@using HKTHMall.Core.Extensions
+ 
+@{
+    //获取首页广告的
+    List<bannerModel> listbanner = ViewBag.BannerData;
+}
+<div class="BannerImg" style="max-width:965px;min-width:965px;height:300px;">
+    @{
+        if (listbanner != null)
+        {
+            int j = 0;
+             <ul id="tabAutoTrigger" class="Numlist" style="left:40%;bottom:2%;">
+                 @for (int i = 0; i < listbanner.Count; i++)
+                 {
+                     if (i == 0)
+                     {
+                         <li class="tabNum"><a href="javascript:" class="Num_a Num_on" data-rel="tabAutoPlay@(i+1)">@(i+1)</a></li>
+                     }
+                     else
+                     {
+                         <li class="tabNum"><a href="javascript:" class="Num_a" data-rel="tabAutoPlay@(i+1)">@(i+1)</a></li>
+                     }
+                 }
+             </ul>
+            <ul class="imgBlock imgBlock_rel" id="imgBanner" style="min-width:965px;height:300px;background-color:#fff;">
+                @foreach (bannerModel item in listbanner)
+                {
+                    if (j == 0)
+                    {
+                        <li id="tabAutoPlay@(j+1)" class="imgBlock_abs"><a href="@(item.bannerUrl)" target="_blank"><img src="@Html.GetImagesUrl(item.bannerPic,964,300)" width="964" height="300" style="width:964px;height:300px;"></a></li>
+                    }
+                    else
+                    {
+                        <li id="tabAutoPlay@(j+1)" class="imgBlock_abs" style="display:none;"><a href="@(item.bannerUrl)" target="_blank"><img src="@Html.GetImagesUrl(item.bannerPic,964,300)" width="964" height="300" style="width:964px;height:300px;"></a></li>
+                    }
+                    j++;
+                }
+
+            </ul>
+             
+        }
+    }
+</div>
+<script src="~/Content/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="~/Content/js/jquery-powerSwitch.js"></script>
+<script type="text/javascript">
+</script>
+

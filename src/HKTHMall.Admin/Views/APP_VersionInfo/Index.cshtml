@@ -1,0 +1,294 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@model HKTHMall.Domain.AdminModel.Models.APP.SearchAPP_VersionInfoModel
+
+@{
+    var ImagePath11 = ViewBag.ImagePath;
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(122);
+    _Authority.Delete = _Authority.CheckAction(123);
+    
+}
+
+
+<div id="user-toolbar">
+   
+        <div class="form-inline" role="form">
+
+            
+            @if (_Authority.Add)
+            {
+                <button type="button" class="btn btn-primary js_create">
+                    <span class="glyphicon glyphicon-plus"></span> Add
+                </button>
+            }
+        </div>
+    
+    
+
+</div>
+<script type="text/javascript">var imgeurl = " @ImagePath11"; </script>
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+
+@Html.Partial("_FormModal")
+
+
+@section scripts
+{
+    <script type="text/javascript">
+        var addCheck = eval("@(_Authority.Add.ToString().ToLower())");
+        var deleterCheck = eval("@(_Authority.Delete.ToString().ToLower())");
+        var moveCheck = eval("@(_Authority.Move.ToString().ToLower())");
+        var Operation = "";
+        
+        if (addCheck) {
+
+            Operation += '<a class="edit ml10" href="javascript:void(0)" title="Update">';
+            Operation += '<i class="glyphicon glyphicon-edit"></i>';
+            Operation += '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+        }
+        if (deleterCheck) {
+
+            Operation += '<a class="remove ml10" href="javascript:void(0)" title="Delete">';
+            Operation += '<i class="glyphicon glyphicon-remove"></i>';
+            Operation += '</a>';
+
+        }
+        if (Operation=="") {
+            Operation = "-";
+        }
+
+        $(function () {
+
+            var columns = [
+
+                //列表行
+                {
+                    field: 'ID',
+                    title: 'Operation',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (val) {
+
+                        return [
+                            Operation
+                        ].join('');
+                    },
+                    events: {
+                        
+                        'click .edit': function (e, value, row, index) {
+                            console.log(1);
+                            Tool.ShowModal('@Url.Action("Create")', { id: value }, 'Edit APP version information');
+                        },
+                        'click .remove': function (e, value, row, index) {
+
+                            //DeleteOperateLog(value);
+                            Tool.DeleteRecord('@Url.Action("DeleteAPP_VersionInfo")', { id: value }, $('#u_grid'));
+                        }
+                    }
+                },
+                {
+                    field: 'APPName', title: 'APP Name', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var m = '<spen  title="' + val + '" > ' + val + '</spen>';
+                        if (val != "" && val.length > 30) {
+                            m = '<spen  title="' + val + '" > ' + val.substring(0, 29) + '...</spen>';
+                            return m;
+                        }
+                        return m;
+                    }
+                },
+                {
+                    field: 'PackageName', title: 'Package name', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var m = '<spen  title="' + val + '" > ' + val + '</spen>';
+                        if (val != "" && val.length > 30) {
+                            m = '<spen  title="' + val + '" > ' + val.substring(0, 29) + '...</spen>';
+                            return m;
+                        }
+                        return m;
+                    }
+                },
+                {
+                    field: 'Platform', title: 'APP Platform', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var m = "Android";
+                        if (val != "" && val == "1") {
+                            m = "IOS";
+                            return m;
+                        }
+                        return m;
+
+                    }
+                },
+                {
+                    field: 'VersionNO', title: 'Version number', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var m = '<spen  title="' + val + '" > ' + val + '</spen>';
+                        if (val != "" && val.length > 30) {
+                            m = '<spen  title="' + val + '" > ' + val.substring(0, 29) + '...</spen>';
+                            return m;
+                        }
+                        return m;
+                    }
+                },
+                {
+                    field: 'VersionName', title: 'Version name', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var m = '<spen  title="' + val + '" > ' + val + '</spen>';
+                        if (val != "" && val.length > 30) {
+                            m = '<spen  title="' + val + '" > ' + val.substring(0, 29) + '...</spen>';
+                            return m;
+                        }
+                        return m;
+                    }
+                },
+
+                
+                {
+                    field: 'FileSize', title: 'File size', align: 'center', valign: 'middle', sortable: false
+                },
+
+                {
+                    field: 'DownloadURL', title: 'Download URL', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var m = "";
+                        if (val!=null&& val!="") {
+                            m = " @ImagePath11" + val;
+                        }
+                        return m;
+                    }
+                },
+                {
+                    field: 'UpdateInfo', title: 'Update content(Chinese)', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var m = '<spen  title="' + val + '" > ' + val + '</spen>';
+                        if (val != null && val != "" && val.length > 30) {
+                            m = '<spen  title="' + val + '" > ' + val.substring(0, 29) + '...</spen>';
+                            return m;
+                        }
+                        return m;
+                    }
+                },
+                {
+                    field: 'UpdateInfoEN', title: 'Update content(English)', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var m = '<spen  title="' + val + '" > ' + val + '</spen>';
+                        if (val!=null&& val != "" && val.length > 30) {
+                            m = '<spen  title="' + val + '" > ' + val.substring(0, 29) + '...</spen>';
+                            return m;
+                        }
+                        return m;
+                    }
+                },
+                {//update by liujc
+                    field: 'UpdateInfoTH', title: 'Update content(zh-hk)', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var m = '<spen  title="' + val + '" > ' + val + '</spen>';
+                        if (val != null && val != "" && val.length > 30) {
+                            m = '<spen  title="' + val + '" > ' + val.substring(0, 29) + '...</spen>';
+                            return m;
+                        }
+                        return m;
+                    }
+                },
+                {
+                    field: 'IsForceUpdate', title: 'Whether Forced Update ', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var m = "False";
+                        if (val != "" && val == "1") {
+                            m = "Yes";
+                            return m;
+                        }
+                        return m;
+                    }
+                },
+
+
+                { field: 'CreateBy', title: 'Creater', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'CreateDT', title: 'Create time', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        if (val != null && val != "") {
+                            return val.formatterString(true)/*true 日期格式2015-5-5*/
+                        }
+                        return "-";
+                    }
+                }
+                //{ field: 'UpdateBy', title: '修改人', align: 'center', valign: 'middle', sortable: false },
+                //{
+                //    field: 'UpdateDT', title: '修改时间', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                //        if (val != null && val != "") {
+                //            return val.formatterString(true)/*true 日期格式2015-5-5*/
+                //        }
+                //        return "-";
+                //    }
+                //},
+                //{ field: 'Sorts', title: '排序', align: 'center', style: "display:none", valign: 'middle', sortable: false },
+                
+            ];
+
+            //绑定列表
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+
+                queryParams: function (params) {
+                    return {
+
+                        //IdentityStatus: $('#dentityStatus').val(),
+                        //PlaceCode: $('#selBannerPlaceCode').val(),
+                        PagedIndex: this.pageNumber - 1,//params.pageNumber - 1  params.offset
+                        PagedSize: this.pageSize       //params.pageSize  params.limit
+                    };
+                },
+                sortOrder: 'desc',
+                pagination: true,
+                sortName: 'ID',
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns,
+                onLoadSuccess: function () {
+                    screenshotPreview();
+                }
+
+            });
+
+           
+            
+
+
+           
+
+            //刷新列表
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+
+           
+
+            //添加
+            $('.js_create').click(function () {
+                var actionUrl = "@Url.Action("Create")";
+                var param = {};
+                Tool.ShowModal(actionUrl, param, "Add APP version");
+            });
+
+        });
+
+        var t = 0;//防止多次点击
+        //保存
+        function Save() {
+
+
+            //if (t!=0) {
+            //    return;
+            //}
+            
+
+            t = 1;
+
+            
+            Tool.SaveModal($('#u_grid'));
+        }
+
+        
+        
+        
+        
+
+
+    </script>
+}

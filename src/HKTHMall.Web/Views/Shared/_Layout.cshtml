@@ -1,0 +1,207 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys;
+@{
+    var lankey = CultureHelper.GetCurrentCulture();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>@CultureHelper.GetLangString("HOME_INDEX_TITEL")</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    @*<link href="~/Content/plugins/mallbox/css/mallbox.default.css" rel="stylesheet" />*@
+    <link href="~/Content/newcss/css/base.css" rel="stylesheet" />
+    @System.Web.Optimization.Styles.Render("~/Content/css/" + (CultureHelper.GetCurrentCulture() + ".css"))
+    @*<script src="~/Scripts/jquery-1.8.2.min.js"></script>*@
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src='~/Scripts/lang/@(CultureHelper.GetCurrentCulture()+".js")'></script>
+    <script src="~/Content/plugins/mallbox/js/mallbox.js"></script>
+    <script src="~/Content/newcss/js/public.js"></script>
+    <script src="~/Content/newcss/js/flipclock.min.js"></script>
+    <script src="~/Content/newcss/js/swiper-3.2.7.jquery.min.js"></script>
+    <script src="~/Content/newcss/js/dsdialog.js"></script>
+    <script src="~/Content/newcss/js/jquery.fly.min.js"></script>
+    <!--[if IE 9]>
+        <script src="~/Content/newcss/js/requestAnimationFrame.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <!--公共头部-->
+    <div class="header">
+        <div class="layoutHeader">
+            <div class="headMain">
+                <ul class="floatLeft fl">
+                    <li class="dropDown">
+                        <div class="dropShow">
+                            <span>
+                                @{
+                                    var userData = Request.IsAuthenticated ? Json.Decode<Dictionary<string, string>>(((System.Web.Security.FormsIdentity)((ViewContext.HttpContext.User.Identity))).Ticket.UserData) : new Dictionary<string, string>();
+                                    var uname = "";
+                                    if (userData != null && userData.Count > 0)
+                                    {
+                                        if (!string.IsNullOrEmpty(userData["NickName"]))
+                                        {
+                                            uname = userData["NickName"];
+                                        }
+                                        else
+                                        {
+                                            uname = userData["Email"];
+                                        }
+
+                                        //if (!string.IsNullOrEmpty(userData["NickName"]))
+                                        //{
+                                        //    uname += userData["NickName"];
+                                        //}
+                                        //if (uname != "" && !string.IsNullOrEmpty(userData["Email"]))
+                                        //{
+                                        //    uname += "/";
+                                        //    uname += userData["Email"];
+                                        //}
+                                    }
+                                }
+                                @CultureHelper.GetLangString("HOME_INDEX_WELCOMECARD")
+                                <a href="@Url.Action("Index", "My", new { area = "Account" })" style="color:#e22028">@(uname)</a>
+                                @if (Request.IsAuthenticated)
+                                {
+                                    <a class="LoginOut" href="javascript:;" id="logoutLink">
+                                        @CultureHelper.GetLangString("HOME_INDEX_EXIT")
+                                    </a>
+                                    <script>
+                                        $(".LoginOut").click(function () {
+                                            var url = window.location;
+                                            $.post("@Url.Action("LoginOut", "login", new { area = "" })", function () {
+                                                window.location = url;
+                                                //location.href
+                                            });
+                                        })
+                                    </script>
+                                }
+                            </span>
+                            <span>
+                                @*<i></i>*@
+                                <span>@*Email: Info@8hkhk.com*@</span>
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="floatRight fr">
+                    <li class="force1">
+
+                        @if (!Request.IsAuthenticated)
+                        {
+                            <a href="@Url.Action("Index", "login", new { area=""})" @*href="javascript:;"*@ id="loginBtn">@(CultureHelper.GetLangString("HOME_INDEX_LOGIN"))</a>
+                            <a href="@Url.Action("Index", "Register", new { area=""})">@(CultureHelper.GetLangString("HOME_INDEX_FREEREGIST")) </a>
+                        }
+                        <!--<a href="javascript:void">用户名</a>
+                          <a href="javascript:void">退出</a>-->
+                    </li>
+                    <li class="force2 forceSldier_2016">
+                        <div class="dropShow">
+                            <i class="dropIcon fa-angle-down"></i>
+                            <a href="@Url.Content("~/Account/My")">@(CultureHelper.GetLangString("ACCOUNT_MY_INDEX_HUIKA"))</a>
+                        </div>
+                        <div class="dropHide">
+                            <ul>
+                                <li><a href="@Url.Action("MyShoppingCart", "ShoppingCart", new { area = "money" })" data-checklogin>@CultureHelper.GetLangString("HOME_INDEX_MYSHOPPINGCART")</a></li>
+                                <li><a href="@Url.Action("Order", "My", new { area = "Account" })" data-checklogin>@CultureHelper.GetLangString("HOME_INDEX_MYORDER")</a></li>
+                                <li><a href="@Url.Content("~/Account/My/Collection")" data-checklogin>@CultureHelper.GetLangString("HOME_INDEX_MYCOLLECTION")</a></li>
+                            </ul>
+                            <input type="hidden" id="hidredirect" />
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('a[data-checklogin]').click(function () {
+                                        var redirectUrl = $(this).attr("href");
+                                        $("#hidredirect").val(redirectUrl);
+                                        var cook = getCookie("UserID");
+                                        if (cook != null) {
+                                            return true;
+                                        }
+                                        ($(this).hasClass("clicked")) ? removeClick($(this)) : dialogLogin_click($(this));
+                                        return false;
+                                    });
+                                });
+
+                            </script>
+                        </div>
+                    </li>
+                    <li class="force3 forceSldier_2016">
+                        <div class="dropShow">
+                            <i class="dropIcon fa-angle-down"></i>
+                            <a href="javascript:void">@(CultureHelper.GetLangString("HOME_INDEX_HELPCENTER"))</a>
+                        </div>
+                        <div class="dropHide">
+                            <ul>
+                                <li><a href="@(Url.Action("Shopping", "Help",new{area=""}))">@CultureHelper.GetLangString("HOME_INDEX_SHOPPINGPROCESS")</a></li>
+                                @*<li><a href="@(Url.Action("About", "Help"))">@CultureHelper.GetLangString("HOME_INDEX_ABOUTHUIPOWDER")</a></li>
+                                    <li><a href="@(Url.Action("AboutAgent", "Help"))">@CultureHelper.GetLangString("HOME_INDEX_AGENT")</a></li>*@
+                                <li><a href="@(Url.Action("Pay", "Help", new { area = "" }))">@CultureHelper.GetLangString("HOME_FOOTER_PAY")</a></li>
+                                <li><a href="@(Url.Action("Distribution", "Help", new { area = "" }))">@CultureHelper.GetLangString("HOME_INDEX_SHIPINSTRUCTIONS")</a></li>
+                                <li><a href="@(Url.Action("Question", "Help", new { area = "" }))" style="border:0 none;">@CultureHelper.GetLangString("HOME_INDEX_COMMONPROBLEMS")</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="force4 forceSldier_2016">
+                        <div class="dropShow">
+                            @if (lankey.ToLower() == "zh-cn")
+                            {
+                                <i class="flagSelctor chinaFlag"></i>
+                                <i class="dropIcon fa-angle-down"></i>
+                                <a href="javascript:void">中文简体</a>
+                            }
+                            else if (lankey.ToLower() == "en-us")
+                            {
+                                <i class="flagSelctor Englandflag"></i>
+                                <i class="dropIcon fa-angle-down"></i>
+                                <a href="javascript:void">English</a>
+                            }
+                            else
+                            {
+                                <i class="flagSelctor HongKongflag"></i>
+                                <i class="dropIcon fa-angle-down"></i>
+                                <a href="javascript:void">中文繁體</a>
+                            }
+                        </div>
+                        <div class="dropHide">
+                            <ul>
+                                @if (lankey.ToLower() == "zh-cn")
+                                {
+                                    <li><a href="@Url.Action("SetCulture", "Home", new {area="", culture = "zh-HK" })"><i class="flagSelctor HongKongflag"></i>中文繁體</a></li>
+                                    <li><a href="@Url.Action("SetCulture", "Home", new { area = "", culture = "en-US" })"><i class="flagSelctor Englandflag"></i>English</a></li>
+                                }
+                                else if (lankey.ToLower() == "en-us")
+                                {
+                                    <li><a href="@Url.Action("SetCulture", "Home", new { area = "", culture = "zh-CN" })"><i class="flagSelctor chinaFlag"></i>中文简体</a></li>
+                                    <li><a href="@Url.Action("SetCulture", "Home", new { area = "", culture = "zh-HK" })"><i class="flagSelctor HongKongflag"></i>中文繁體</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("SetCulture", "Home", new { area = "", culture = "zh-CN" })"><i class="flagSelctor chinaFlag"></i>中文简体</a></li>
+                                    <li><a href="@Url.Action("SetCulture", "Home", new { area = "", culture = "en-US" })"><i class="flagSelctor Englandflag"></i>English</a></li>
+                                }
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <!-- 查询区域 -->
+        @Html.Partial("_Search")
+        <!--公共头部导航-->
+        @{Html.RenderAction("_PartialMenu", "Shared", new { languageid = CultureHelper.GetLanguageID(), area = "" });}
+    </div>
+
+    <!--内容主体-->
+    <div class="main_a" id="mainDiv">
+        @RenderBody()
+    </div>
+
+    <!--内容主体-->
+    @{ Html.RenderAction("_Footer", "Shared", new { area = "" });}
+
+    <!--登录弹窗模态层-->
+    @*<div id="dialogForLogin">33</div>*@
+
+
+    @RenderSection("scripts", false)
+</body>
+</html>

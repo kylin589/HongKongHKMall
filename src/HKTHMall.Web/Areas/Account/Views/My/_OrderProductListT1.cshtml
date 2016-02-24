@@ -1,0 +1,108 @@
+﻿@using HKTHMall.Core.Extensions
+@using HKTHMall.Domain.Enum
+@using HKTHMall.Services.Common.MultiLangKeys
+@using Microsoft.Ajax.Utilities
+@using HKTHMall.Services.Common.MultiLangKeys
+@model HKTHMall.Domain.WebModel.Models.Orders.OrderView
+
+<div class="z_dtzhuangtai2">
+    <table>
+        <tr>
+            @******商品******@
+            <td align="left" valign="middle" class="z_dtattab1"><p class="z_text2">@CultureHelper.GetLangString("MONEY_SHOPPINGCART_GOODS")</p></td>
+            @******规格******@
+            <td align="center" valign="middle" class="z_dtattab2">@CultureHelper.GetLangString("MONEY_SHOPPINGCART_SPECIFICATIONS")</td>
+            @******状态******@
+            <td align="center" valign="middle" class="z_dtattab3">@CultureHelper.GetLangString("ORDER_LIST_STATE")</td>
+            @******单价(港元)******@
+            <td align="center" valign="middle" class="z_dtattab4">@CultureHelper.GetLangString("ORDER_LIST_PRICE")<text>@CultureHelper.GetLangString("WEBSITE_DOLLARS")</text></td>
+            @******数量******@
+            <td align="center" valign="middle" class="z_dtattab5">@CultureHelper.GetLangString("HOME_SHOPPING_NUMBER")</td>
+            @******商品总价******@
+            <td align="center" valign="middle" class="z_dtattab6">@CultureHelper.GetLangString("ACCOUNT_MY_ORDERPRODUCTLISTT1_COMMOPRICE")</td>
+        </tr>
+    </table>
+</div>
+<div class="z_dttabdet2">
+    @foreach (var orderDetail in Model.OrderDetailViews)
+    {
+
+        <table class="z_tabxq">
+            <tr>
+                <td align="left" valign="middle" width="40%">
+                    <div class="z_ddgoods2">
+                        <div class="z_ddimg2">
+                            <a href="@Url.Action("shopping", "home", new { id = orderDetail.ProductId ,area=""})" class="fl">
+                                <img src="@Html.GetImagesUrl(orderDetail.PicUrl, 75, 75)" width="92" height="83">
+                            </a>
+                        </div>
+                        <div class="z_dddetail2">
+                            <p class="z_detail_text1_2"><a href="@Url.Action("shopping", "home", new { id = orderDetail.ProductId ,area=""})" class="productlist2">@orderDetail.ProductName</a></p>
+                        </div>
+                    </div>
+                </td>
+                <td align="left" valign="middle" width="12%">
+                    @if (!string.IsNullOrEmpty(orderDetail.SkuName))
+                    {
+                        foreach (string sku in orderDetail.SkuName.Split(','))
+                        {
+                            <p class="z_skutext">@sku</p>
+                        }
+                    }
+                </td>
+                <td align="left" valign="middle" width="12%">
+                    <p class="z_skutext2">@ML_OrderStatus.GetLocalOrderStatusDescription(CultureHelper.GetLanguageID(), (OrderEnums.OrderStatus)Model.OrderStatus)</p>
+                </td>
+                <td align="left" valign="middle" width="12%">
+                    <p class="z_skutext">@orderDetail.SalesPrice.ToString("0.00") <em>@CultureHelper.GetLangString("WEBSITE_DOLLARS")</em></p>
+                </td>
+                <td align="left" valign="middle" width="12%">
+                    <p class="z_skucount">@orderDetail.Quantity</p>
+                </td>
+                <td align="right" valign="middle" width="12%">
+                    <p class="z_skuprice">@orderDetail.TotalPrice.ToString("0.00") <em>@CultureHelper.GetLangString("WEBSITE_DOLLARS")</em></p>
+                    @******(邮费：0.00)******@
+                    @*<p class="z_skuyoufei">(@CultureHelper.GetLangString("ACCOUNT_MY_ORDERPRODUCTLISTT1_POSTAGE"):<em>0.00 港元</em>)</p>*@
+                </td>
+            </tr>
+        </table>
+    }
+
+</div>
+
+
+<div class="z_jisuan">
+    <label>
+        @******总商品金额******@
+        <p class="z_jisuan1">@CultureHelper.GetLangString("MONEY_ORDER_DETAIL_ORDERAMOUNT"):</p>
+        <p class="z_jisuan2">@Model.OrderAmount.Value.ToString("0.00")</p>
+        <p class="z_jisuan3">&nbsp;@CultureHelper.GetLangString("WEBSITE_DOLLARS")</p>
+    </label>
+
+    <label>
+        @******运费******@
+        <p class="z_jisuan1">+@CultureHelper.GetLangString("MONEY_ORDER_ORDERINFO_FREIGHT"):</p>
+        <p class="z_jisuan2">@Model.ExpressMoney.ToString("0.00")</p>
+        <p class="z_jisuan3">&nbsp;@CultureHelper.GetLangString("WEBSITE_DOLLARS")</p>
+    </label>
+</div>
+<div class="z_shifukuan">
+    <label class="z_shifukuan2">
+        @******应付总额******@
+        <p class="z_sfktext1">
+            @(Model.PayChannel == (int)OrderEnums.PayChannel.COD
+        ? CultureHelper.GetLangString("ACCOUNT_MY_ORDERPRODUCTLISTT1_COD_TOTALPRICE")
+        : CultureHelper.GetLangString("ACCOUNT_MY_ORDERPRODUCTLISTT1_REALPAYMENT")):
+        </p>
+        <p class="z_sfktext2">@Model.TotalAmount.Value.ToString("0.00")</p>
+        <p class="z_sfktext3">@CultureHelper.GetLangString("WEBSITE_DOLLARS")</p>
+    </label>
+</div>
+
+@if (((OrderEnums.OrderStatus)Model.OrderStatus) == OrderEnums.OrderStatus.Obligation)
+{
+    <div class="z_lijifukuan2">
+        @******立即付款******@
+        <a href="@Url.Action("AgainPaymentOrder", "Order", new { area = "Money", orderId = Model.OrderID })" class="z_lijifukuan_text">@CultureHelper.GetLangString("ACCOUNT_MY_ORDERACTION_IMMPAYMENT")</a>
+    </div>
+}

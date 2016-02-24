@@ -1,0 +1,105 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.Products.SearchSalesRuleModel
+@{
+    ViewBag.Title = "促销规则列表页";
+}
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>促销名称: </span>
+            @Html.TextBoxFor(x => x.RuleName, new { @class = "form-control w70" })
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-primary js_create">
+            <span class="glyphicon glyphicon-plus"></span> Add
+        </button>
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts{
+    <script type="text/javascript">
+        //加载数据
+        $(function () {
+            var columns = [
+            { field: "SalesRuleId", title: "Key ID", align: 'center', valign: 'middle', sortable: false },
+              { field: "RuleName", title: "促销名称", align: 'center', valign: 'middle', sortable: false },
+            {
+                field: "SalesRuleIds", title: "Operation", align: 'center', valign: 'middle',
+                formatter: function (val) {
+                    return [
+                            '<a class="edit ml10" href="javascript:void(0)" title="Update">',
+                            '<i class="glyphicon glyphicon-edit"></i>',
+                            '</a>',
+                             '&nbsp;&nbsp;&nbsp;&nbsp;<a class="remove ml10" href="javascript:void(0)" title="Remove">',
+                            '<i class="glyphicon glyphicon-remove"></i>',
+                            '</a>'
+                    ].join('');
+                },
+                events: {
+                    //编辑
+                    'click .edit': function (e, value, row, index) {
+                        Tool.ShowModal('@Url.Action("Create")', { id: row.SalesRuleId }, '编辑促销规则');
+                    },
+                    //删除
+                    'click .remove': function (e, value, row, index) {
+                        DelSalesRule(row.SalesRuleId);
+                    }
+                }
+            }];
+            iniData();
+            //加载列表数据
+            function iniData() {
+                $('#u_grid').bootstrapTable({
+                    url: '@Url.Action("List")',
+                    queryParams: function (params) {
+                        return {
+                            RuleName: $('#RuleName').val().trim(),
+                            PagedIndex: this.pageNumber - 1,
+                            PagedSize: this.pageSize
+                        };
+                    },
+                    pagination: true,
+                    showRefresh: true,
+                    showColumns: true,
+                    striped: true,
+                    sidePagination: 'server',
+                    columns: columns
+                });
+            }
+            //搜索事件
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+            //添加促销规则
+            $('.js_create').click(function () {
+                Tool.ShowModal("@Url.Action("Create")", {}, "添加促销规则");
+            });
+
+            //删除促销规则信息
+            function DelSalesRule(salesRuleId) {
+                var url = "/SalesRule/Delete?salesRuleId=" + salesRuleId;
+                $.ajax({
+                    url: url,
+                    dataType: "text",
+                    success: function (data, status) {
+                        data = JSON.parse(data);
+                        Tool.ReloadDataTable($('#u_grid'));
+                        Tool.Alert(data.Messages, 1500);
+                    },
+                    error: function (data, status, e) {
+                        Tool.Alert("Delete failed！", 1500);
+                    }
+                });
+            };
+        })
+        //保存
+        function Save() {
+            Tool.SaveModal($('#u_grid'));
+        }
+    </script>
+}

@@ -1,0 +1,168 @@
+﻿@model HKTHMall.Domain.Models.banner.bannerProductModel
+
+@{
+    var BannerPlaceCodeModellist1 = ViewData["BannerPlaceCodeModel1"] as List<HKTHMall.Admin.Models.BannerPlaceCodeModel>;
+
+    var mg = ViewBag.messges;
+
+    var PlaceCodeselec = "0";
+}
+
+<script type="text/javascript">
+    var mgs = "@mg";
+    t = 0;
+    function onchangeBannerPlaceCode(value1) {
+
+        if (value1 == "100001") {
+            $("#PlaceCode").val("");
+        }
+        else {
+            $("#PlaceCode").val(value1);//给model赋值
+        }
+
+        //if (mgs != "" || mgs == "推荐位置（分类）跟商品的分类不相同") {
+
+        //    $("#lbmg").attr("style", "display:none");//
+        //}
+
+        t = 0;//控制多次保存,修改
+    }
+</script>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Product SN :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.bannerProductId)
+        @if (Model.bannerProductId > 0)
+        {
+            @Html.HiddenFor(t => t.productId)
+            <input type="text" class="form-control" placeholder="@Model.productId" disabled="" />
+        }
+        else
+        {
+            @Html.TextBoxFor(t => t.productId, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.productId)
+        }
+
+    </div>
+</div>
+@if (Model.bannerProductId != null && Model.bannerProductId > 0)
+{
+    <div class="control-group">
+        <label class="control-label-form">
+            <label class="red"></label>Name :
+        </label>
+
+        <div class="controls">
+            <label>@Model.ProductName</label>
+
+
+        </div>
+
+    </div>
+    <div class="control-group">
+        <label class="control-label-form">
+            <label class="red"></label>Price :
+        </label>
+
+        <div class="controls">
+
+            <label>@Model.HKPrice</label>
+        </div>
+
+    </div>
+}
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Picture URL :
+    </label>
+
+    <div class="controls">
+        @Html.ValidationMessageFor(m => m.PicAddress)
+        @Html.EditorFor(x => x.PicAddress, "FileUploadT1", new { RootImage = ViewBag.RootImage })
+        <label class="red">*Best picture size 305*271</label>
+
+
+    </div>
+
+</div>
+
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Location(Category) :
+    </label>
+    <div class="controls">
+        <div style="display:none">
+            @Html.TextBoxFor(t => t.PlaceCode, new { @class = "form-control" })
+        </div>
+
+        @if (Model.bannerProductId <= 0)
+        {
+            if (BannerPlaceCodeModellist1!=null)
+            {
+                
+            
+            <select id="selBannerPlaceCodec" onchange="onchangeBannerPlaceCode(this.value)" class="form-control">
+
+                @for (int i = 0; i < BannerPlaceCodeModellist1.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        PlaceCodeselec = BannerPlaceCodeModellist1[i].PlaceCode.ToString();
+                    }
+                    if (Model.PlaceCode == BannerPlaceCodeModellist1[i].PlaceCode)
+                    {
+                        PlaceCodeselec = BannerPlaceCodeModellist1[i].PlaceCode.ToString();
+                        <option selected="selected" value="@BannerPlaceCodeModellist1[i].PlaceCode">@BannerPlaceCodeModellist1[i].PlaceCodeName</option>
+                    }
+                    else
+                    {
+
+                        <option value="@BannerPlaceCodeModellist1[i].PlaceCode">@BannerPlaceCodeModellist1[i].PlaceCodeName</option>
+
+                    }
+                }
+            </select>
+            
+            }
+            @Html.ValidationMessageFor(m => m.PlaceCode)
+            if (!string.IsNullOrEmpty(mg))
+            {
+                <br />
+                <label class="red" id="lbmg">@mg</label>
+            }
+        }
+        else
+        {
+            if (BannerPlaceCodeModellist1!=null)
+            {
+            for (int i = 0; i < BannerPlaceCodeModellist1.Count; i++)
+            {
+                if (Model.PlaceCode == BannerPlaceCodeModellist1[i].PlaceCode)
+                {
+
+                    <label>@BannerPlaceCodeModellist1[i].PlaceCodeName</label>
+
+                }
+            }
+            }
+            if (!string.IsNullOrEmpty(mg))
+            {
+                <br />
+                <label class="red" id="lbmg">@mg</label>
+            }
+        }
+
+    </div>
+</div>
+
+<input type="hidden" id="PlaceCodeselec" value="@PlaceCodeselec" />
+
+<!-- 为了给标识赋值 在父页面-->
+<div style="display:none">
+    @Html.TextBoxFor(t => t.IdentityStatus, new { @class = "form-control" })
+</div>
+
+
+

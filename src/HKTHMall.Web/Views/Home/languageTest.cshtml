@@ -1,0 +1,59 @@
+﻿@{
+    Layout = null;
+    var culture = System.Threading.Thread.CurrentThread.CurrentCulture.Name.ToLowerInvariant();
+    //IsRighToLeft
+}
+@using HKTHMall.Services.Common.MultiLangKeys;
+
+<!DOCTYPE html>
+
+<html lang="@CultureHelper.GetCurrentNeutralCulture()" dir="@(CultureHelper.IsRighToLeft() ? "rtl" : "")">
+>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    @helper selected(string c, string culture)
+{
+    if (c == culture)
+    {
+        @:checked="checked"
+    }
+}
+    @*@using (Html.BeginForm("SetCulture", "Home"))
+        {*@
+    @*<fieldset>
+        <legend></legend>
+        <div class="control-group">
+            <div class="controls">
+                <label for="zh-cn">
+                    <input name="culture" id="zh-cn" value="zh-cn" type="radio" @selected("zh-cn", culture) /> @Html.ActionLink("中文", "SetCulture", "Home", new { culture = Server.HtmlEncode("1") },null)
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label for="en-us">
+                    <input name="culture" id="en-us" value="en-us" type="radio" @selected("en-us", culture) />@Html.ActionLink("English", "SetCulture", "Home", new { culture = "en-us" },null)
+                </label>
+            </div>
+        </div>
+        @*<div class="control-group">
+            <div class="controls">
+                <label for="en-us">
+                    <input name="culture" id="ar" value="ar" type="radio" @selected("ar", culture) />  عربي
+                </label>
+            </div>
+        </div>*@
+
+    @*</fieldset>*@
+
+    @Html.ActionLink("中文", "SetCulture", "Home", new { culture = "zh-cn" }, null)
+    @Html.ActionLink("English", "SetCulture", "Home", new { culture = "en-Us" }, null)
+    <div>
+        @CultureHelper.GetLangString("ACCOUNT_MY_ACCOUNTRECHARGE_ACCOUNTNUMBEREMPTY")<br />
+        @CultureHelper.GetLangString("ACCOUNT_MY_ACCOUNTRECHARGE_DECIMALPLACES")
+    </div>
+</body>
+</html>

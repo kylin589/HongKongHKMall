@@ -1,0 +1,40 @@
+﻿@model HKTHMall.Domain.WebModel.Models.Orders.PaymentOrderView
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="main_a">
+    <div class="l_main_a">
+        <div class="l_payment_sb">
+            @*感谢您，订单提交成功！*@
+            <p style="color: #7abd54;">@CultureHelper.GetLangString("ORDER_SUBMIT_SUCCESS_MESSAGE")</p>
+            @*货到付款金额：{0}港元  快递将于工作日为您送达，请注意查收！*@
+            <span>
+            @{
+                if (CultureHelper.GetLanguageID() == 2)
+                {
+                    @Html.Raw(string.Format(CultureHelper.GetLangString("ORDER_COD_DELIVER_MONEY"), Model.ProductAmount.ToString("0.00")))
+                    <br />
+                    @CultureHelper.GetLangString("ORDER_COD_DELIVER_DELIVER");
+                }
+                else
+                {
+                    @Html.Raw(string.Format(CultureHelper.GetLangString("ORDER_COD_DELIVER"), Model.ProductAmount.ToString("0.00")))
+                }
+            }
+                 
+            </span>
+            <em>
+                @*我的订单>>*@
+                <a href="~/Account/My/Order">@CultureHelper.GetLangString("HOME_INDEX_MYORDER")>></a>
+                @*返回首页>>*@
+                <a href="/" style="color:#ee343c;margin-left: 30px;">@CultureHelper.GetLangString("GO_HOME")>></a>
+            </em>
+        </div>
+    </div>
+    <br />
+    @*@Html.Action("LikeGuess", "Home", new { area = "" })*@
+    @Html.Action("HuikaRecommend", "Home", new { area = "" })
+    <div class="c_public_bottom"></div>
+</div>
+

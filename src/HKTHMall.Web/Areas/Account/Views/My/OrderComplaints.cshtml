@@ -1,0 +1,152 @@
+﻿@using HKTHMall.Core.Extensions
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="main_a">
+    <div class="main_about">
+        <div class="z_personal">
+            <div class="PersonMain">
+                @Html.Partial("_userLeft")
+
+                @if (Model != null)
+            {
+            <div class="ls_member_rg">
+                <div class="m_user_pubtitle">
+                    @*我的订单*@
+                    @CultureHelper.GetLangString("HOME_INDEX_MYORDER") >
+                    @*投诉*@
+                    @CultureHelper.GetLangString("ACCOUNT_MY_ORDERACTION_COMPLAINTS")
+                </div>
+                <div class="ls_tousu">
+                    <div class="ls_tousu_1">
+                        <ul>
+                            <li>
+                                <span>
+                                    @*订单编号*@
+                                    @CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_ORDERNO")：
+                                </span>@Model.OrderID
+                            </li>
+                            <li><span>@CultureHelper.GetLangString("ORDER_FREIGHT")@*运费*@：</span>@Model.ExpressMoney</li>
+                            <li><span>@CultureHelper.GetLangString("ACCOUNT_My_OrderComplaints_TotalAmount")@*总计*@：</span>@Model.TotalAmount</li>
+                            <li><span>@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_COMPLETETIME")@*成交时间*@：</span>@Model.PaidDate.ToString("yyyy-MM-dd HH:mm:ss")</li>
+                        </ul>
+                    </div>
+                    @if (Model.ComplaintStatus == 0)
+                        {
+                        <div class="ls_tousu_2">
+                            <div class="ls_tousu_2_bt">@*投诉原因*@@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_COMPLAINTSREASONS")：</div>
+                            <div class="ls_tousu_2_nr">
+                                <textarea name="" id="Content" rows="" cols="" maxlength="500" placeholder=""></textarea>
+                                <span>500</span>
+                            </div>
+                            <div class="ls_tousu_2_btn"><a href="javascript:void(0)" id="btnSave">@*提交申请*@@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_SUBMITAPPLY")</a></div>
+                        </div>
+                        }
+                    else
+                    {
+                        <div class="ls_tousu_2">
+                            <div class="ls_tousu_2_bt">@*投诉原因*@@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_COMPLAINTSREASONS")：</div>
+                            <div class="ls_tousu_2_nr">
+                                <textarea name="" readonly="readonly" id="Content" rows="" cols="" maxlength="500" placeholder="">@Model.Content</textarea>                                
+                            </div>                            
+                        </div>
+                    }
+                </div>
+
+            </div>
+            <div class="clear"></div>
+
+
+
+
+
+
+            @*<div class="PmainRight" id="PmainRight">
+                    <div class="l_tous">
+                        <div class="l_PersonInfomation clr">
+                            <span>@CultureHelper.GetLangString("HOME_INDEX_MYORDER")><a>@CultureHelper.GetLangString("ACCOUNT_MY_ORDERACTION_COMPLAINTS")</a></span>
+                            <div class="l_PersonInfomation_left">
+                                <div class="l_left_head">@CultureHelper.GetLangString("ACCOUNT_MY_ORDERACTION_COMPLAINTS")</div>
+                                <div class="l_left_main">
+                                    <div class="l_left_main1">
+                                        <p>@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_ORDERNO")：<em>@Model.OrderID</em></p>
+                                        <p>@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_POSTAGEFEE")：<em>@(Model.ExpressMoney) 港元</em></p>
+                                        <p>@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_ALLFEE")：<em>@(Model.TotalAmount) 港元</em></p>
+                                        <p>@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_COMPLETETIME")：<em>@(DateTimeExtensions.DateTimeToString(Model.OrderDate, "yyyy-MM-dd HH:mm"))</em></p>
+                                    </div>
+                                </div>
+                            </div>
+                            @if (Model.ComplaintStatus == 0)
+                            {
+                                <div class="l_PersonInfomation_right fl">
+                                    <div class="l_right_head">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_COMPLAINTSREASONS")：</div>
+                                    <textarea type="text" class="l_right_text" id="Content" maxlength="500" placeholder=""></textarea>
+                                    <p>@CultureHelper.GetLangString("ACCOUNT_MY_COMMENTLIST_ATMOSTWORDS")</p>
+                                    <a href="javascript:void(0)" id="btnSave">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_SUBMITAPPLY")</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>*@
+            <input id="orderId" type="hidden" value="@Model.OrderID" />
+
+            }
+            </div>
+            <div class="clear"></div>
+            <div class="dialogCover"><div class="dialogMain"></div></div>
+        </div>
+        <div class="c_public_bottom"></div>
+    </div>
+</div>
+<script src="~/Content/js/format.js"></script>
+<script>
+    //Load Style
+    $(document).ready(function () {
+        $("div.PmainLeft .dingdan").parent().addClass("Checked");
+        $("div.PmainLeft .dingdan").removeClass("dingdan").addClass("Rdingdan");
+
+        $("#btnSave").click(function () {
+            SaveComplaints();
+        });
+    });
+
+    function SaveComplaints() {
+        var content = $("#Content").val();
+        if (content == null || content == "") {
+            alert($commonLang.ACCOUNT_MY_ORDERCOMPLAINT_INPUTCONTENT);
+        } else if (content.length > 500) {
+            alert($commonLang.ACCOUNT_MY_ORDERCOMPLAINT_OUTOFRANGE.format((content.length - 500)));
+        } else {
+            $.ajax({
+                url: "/Account/My/SaveComplaints",
+                type: "Post",
+                data: {
+                    orderId: $("#orderId").val(),
+                    context: content,
+                    Time: new Date().getTime()
+                },
+                dataType: "text",
+                success: function (data, status) {
+                    data = JSON.parse(data);
+                    if (data.IsValid) {
+                        $(".dialogMain").html(data.Messages);
+                        var msg = $(".dialogCover").html();
+                        ds.dialog({
+                            title: "",//data.Messages,
+                            content: msg,
+                            yesText: $commonLang.MESSAGEBOX_SURE,
+                            onyes: function () {
+                                window.location.href = "/Account/My/Order";
+                                this.close();
+                            },
+                        });
+                    }
+                },
+                error: function (data, status, e) {
+                    //mallbox.alert({ message: $commonLang.ACCOUNT_MY_ORDERCOMPLAINT_COMPLAINTFAIL });
+                }
+            });
+        }
+    }
+</script>

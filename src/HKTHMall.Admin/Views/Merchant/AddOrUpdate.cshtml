@@ -1,0 +1,145 @@
+﻿@using BrCms.Framework.Mvc.Extensions
+@using HKTHMall.Domain.Enum
+@model dynamic
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class = "form-inline" >
+    <button id = "save_user_manage" class = "btn btn-success" >
+        <i class = "glyphicon glyphicon-floppy-save" ></i> 保存
+    </button>
+    <a class = "btn btn-info" href = "@Url.Action("Index")" >
+        <i class = "glyphicon glyphicon-log-out" ></i> 返回
+    </a>
+</div>
+
+<form id = "merchant_form" method = "POST" action = "@Url.Action("AddOrUpdate")" >
+    <input type = "hidden" value = "@Model.MerchantID" name = "MerchantID" />
+    <div class = "row" >
+        <div class = "col-md-2" >ShopName:</div>
+        <div class = "col-md-5" >
+            <input type = "text" name = "ShopName" value = "@Model.ShopName" class = "form-control" />
+        </div>
+        <div class = "col-md-3" >
+            @Html.ValidationMessage("ShopName")
+        </div>
+    </div>
+    <div class = "row" >
+        <div class = "col-md-2" >MerchantType:</div>
+        <div class = "col-md-2" >
+            @Html.DropDownList("MerchantType", MerchantEnum.Store.ToSelectList(), new Dictionary<string, object> {{"class", "form-control"}})
+        </div>
+        <div class = "col-md-3" >
+            @Html.ValidationMessage("MerchantType")
+        </div>
+    </div>
+    <div class = "row" >
+        <div class = "col-md-2" >AreaName:</div>
+        <div class = "col-md-5" >
+            <input type = "hidden" name = "AreaID" id="merchant_areaId" value = "@Model.AreaID" class = "form-control" />
+            <a class = "btn btn-primary" href = "#" id = "setArea_btn" >设置区域</a>
+            <span></span>
+        </div>
+        <div class = "col-md-3" >
+            @Html.ValidationMessage("AreaID")
+        </div>
+    </div>
+    <div class = "row" >
+        <div class = "col-md-2" >LeasingManager:</div>
+        <div class = "col-md-5" >
+            <input type = "text" name = "LeasingManager" value = "@Model.LeasingManager" class = "form-control" />
+        </div>
+        <div class = "col-md-3" >
+            @Html.ValidationMessage("LeasingManager")
+        </div>
+    </div>
+    <div class = "row" >
+        <div class = "col-md-2" >LeasingPhone:</div>
+        <div class = "col-md-5" >
+            <input type = "text" name = "LeasingPhone" value = "@Model.LeasingPhone" class = "form-control" />
+        </div>
+        <div class = "col-md-3" >
+            @Html.ValidationMessage("LeasingPhone")
+        </div>
+    </div>
+    <div class = "row" >
+        <div class = "col-md-2" >BusinessContacter:</div>
+        <div class = "col-md-5" >
+            <input type = "text" name = "BusinessContacter" value = "@Model.BusinessContacter" class = "form-control" />
+        </div>
+        <div class = "col-md-3" >
+            @Html.ValidationMessage("BusinessContacter")
+        </div>
+    </div>
+    <div class = "row" >
+        <div class = "col-md-2" >BusinessTel:</div>
+        <div class = "col-md-5" >
+            <input type = "text" name = "BusinessTel" value = "@Model.BusinessTel" class = "form-control" />
+        </div>
+        <div class = "col-md-3" >
+            @Html.ValidationMessage("BusinessTel")
+        </div>
+    </div>
+</form>
+
+@section scripts
+{
+    <script>
+        $(function() {
+
+            var treeData;
+
+            $.ajax({
+                url: '@Url.Action("GetTHAreaTree", "THArea")',
+                data: { "time": new Date().getTime() },
+                cache: true,
+                success: function(data) {
+                    if (data) {
+                        treeData = data;
+
+                    }
+                }
+            });
+
+            $('#save_user_manage').click(function() {
+                $('#merchant_form').submit();
+            });
+
+            $('#setArea_btn').click(function() {
+
+                bootbox.dialog({
+                    title: "Choose Spec",
+                    message: '<div id="merchant_tree"></div>',
+                    buttons: {
+                        success: {
+                            label: "Choose",
+                            className: "btn-default",
+                            callback: function() {
+                                $(this).dialog("close");
+                            }
+                        }
+                    }
+                });
+
+                $.get("@Url.Action("GetTHAreaTree","THArea")", { "time": new Date().getTime() }, function(data) {
+                    if (!treeData) {
+                        treeData = data;
+                    }
+                    $('#tree').treeview({
+                        data: treeData,
+                        onhoverColor: "orange",
+                        expandIcon: "glyphicon glyphicon-plus-sign",
+                        collapseIcon: "glyphicon glyphicon-minus-sign",
+                        nodeIcon: "glyphicon glyphicon-file",
+                        onNodeSelected: function(event, node) {
+                            $("#merchant_areaId").val(node.id);
+                        }
+                    });
+                });
+
+            });
+        });
+    </script>
+}

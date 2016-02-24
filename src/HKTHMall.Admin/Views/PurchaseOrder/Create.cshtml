@@ -1,0 +1,26 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.Orders.PurchaseOrderModel
+@{
+    //  var flagList = ViewData["flagList"] as List<SelectListItem>;
+}
+
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Status :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.PurchaseOrderId)
+        <label id="status" class="form-control">Ordered</label>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //修改按钮的文字
+    $(function () {
+        var $btnText = $(".btn-primary", "#modal-form");
+        $btnText.text("Handle");
+    });
+</script>
+
+
+
+

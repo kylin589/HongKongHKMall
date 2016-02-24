@@ -1,0 +1,37 @@
+﻿@model string
+@{
+    /* example
+     * @Html.EditorFor(x => x.bannerPic,"FileUploadT1",new {RootImage=ViewBag.RootImage})
+     */
+    var proName = this.ViewData.ModelMetadata.PropertyName;
+    var rootImage = this.ViewData.ContainsKey("RootImage") ? this.ViewData["RootImage"].ToString() : "";
+}
+<div>
+    <input type="file" id="imageItem@(proName)" name="imageItem@(proName)" class="js-item-file-@(proName) hide" />
+    @Html.HiddenFor(model => model, new { @class = "js-ImageUrl-" + proName })
+    <img src="@(string.IsNullOrEmpty(Model) ? "/Content/css/images/default-item.jpg" : rootImage+Model)" class="js-item-image-@(proName)" style="width:30px;height:30px;" />
+    <button class="btn btn-sm btn-default js-choice-item-@(proName)" type="button"><i class="glyphicon glyphicon-search"></i>&nbsp;Select picture</button>
+    <button class="btn btn-sm btn-default js-upload-item-@(proName)" type="button"><i class="glyphicon glyphicon-upload"></i>&nbsp;Upload picture</button>
+</div>
+<script type="text/javascript">
+    $(function () {
+        //上传图片
+        $('.js-upload-item-@(proName)').on('click', function () {
+            Tool.ImageUpload('#imageItem@(proName)', function(data) {
+                $('.js-item-image-@(proName)').attr('src', '@rootImage' + data.Data);
+                $('.js-ImageUrl-@(proName)').val(data.Data);
+                $('.js-choice-item-@(proName)').addClass("btn-default").removeClass('btn-success');
+            });
+        });
+
+        //选择图片
+        $('.js-item-file-@(proName)').on('change', function () {
+            $('.js-choice-item-@(proName)').removeClass("btn-default").addClass('btn-success');
+        });
+
+        //选择图片
+        $('.js-choice-item-@(proName)').on('click', function () {
+            $('.js-item-file-@(proName)').click();
+        });
+    });
+</script>

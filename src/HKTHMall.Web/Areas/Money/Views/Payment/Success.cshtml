@@ -1,0 +1,65 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+@using HKTHMall.Domain.WebModel.Models.Orders
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="main_a">
+    <div class="main_about">
+
+        <div class="m_pay_succ">
+            <div class="m_pay_succ_bt">
+                <div class="m_pay_succ_butt">
+                    @*恭喜您，付款成功!*@
+                    <ul><i></i><ins>@CultureHelper.GetLangString("PAY_SUCCESS_MESSAGE")</ins></ul>
+                    @*已经收到您的 1000元 付款了，我们会尽快安排发货，请耐心等待...*@
+                    <dl><b>——  @String.Format(CultureHelper.GetLangString("PAY_SUCCESS_MESSAGE_CAUSE"), ((ViewBag.Order != null && ViewBag.Order.Count > 0) ? ViewBag.Order[0].TotalAmount : null))...  ——</b></dl>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="m_pay_flase_nr">
+                @*我的订单*@
+                <a href="~/Account/My/Order" title="" class="m_pay_button1">@CultureHelper.GetLangString("HOME_INDEX_MYORDER")</a>
+                @*返回首页*@
+                <a href="/" title="" class="m_pay_button2">@CultureHelper.GetLangString("GO_HOME")</a>
+            </div>
+            <div class="m_pay_succ_ss">
+                @*温馨提示：返的惠米余额还可以在平台消费再次获得100%全返哦！*@
+                <dl>@CultureHelper.GetLangString("WEBSITE_TIPS_XIAOFEIQUANFAN")<span><a href="~/Account/My/Balance" title="">@CultureHelper.GetLangString("ORDER_MONEY_HUIKAYUER")@*我的惠米余额*@</a></span></dl>
+            </div>
+            <div class="m_pay_succ_list">
+                <table class="m_pay_table" cellpadding="0" cellspacing="0" border="1">
+                    <thead>
+                    <td><span class="m_pay_li1">@CultureHelper.GetLangString("PORDUCT_NAME")@*商品名称*@</span></td>
+                    <td><span class="m_pay_li2">@CultureHelper.GetLangString("HOME_PRODUCT_AMOUNT")@*商品金额*@</span></td>
+                    <td><span class="m_pay_li3">@CultureHelper.GetLangString("PRODUCT_QUANFANSHICHANG")@*全返时长*@</span></td>
+                    <td><span class="m_pay_li4">@CultureHelper.GetLangString("PRODUCT_FANXIANJINER")@*返现金额*@</span></td>
+                    </thead>
+                    <tbody>
+                        @if(ViewBag.Order != null)
+                        {
+                            if(ViewBag.Order.Count > 0)
+                            {
+                                foreach (OrderDetailsForPayResultView detail in ViewBag.Order)
+                                { 
+                                    <tr>
+                                        <td><span class="m_pay_li1"><a href="@Url.Action("shopping", "home", new { id = detail.ProductId, area = "" })" title="">@detail.ProductName</a></span></td>
+                                        <td><span class="m_pay_li2">@detail.SubTotal</span></td>
+                                        <td><span class="m_pay_li3">@detail.RetateDays @CultureHelper.GetLangString("HOME_ACTIVE_DAY")</span></td>
+                                        <td><span class="m_pay_li4">$@(Math.Round(detail.ReatePrice,2))/@CultureHelper.GetLangString("HOME_ACTIVE_DAY")</span></td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="clear"></div>
+        </div> 
+        @Html.Action("HuikaRecommend", "Home", new { area = "" })    
+
+    </div>
+</div><!--主体部分-->
+
+
+
+

@@ -1,0 +1,501 @@
+﻿@using System.Configuration
+@using Autofac
+@using BrCms.Framework.Infrastructure
+@using BrCms.Framework.Mvc.Extensions
+@using HKTHMall.Admin.common
+@using HKTHMall.Domain.Enum
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(148);
+    _Authority.Delete = _Authority.CheckAction(150);
+    //_Authority.
+}
+
+@section css{
+    <style type="text/css">
+        .form-horizontal .control-label {
+            min-width: 50px;
+            width: auto;
+        }
+
+        .form-horizontal .modal-dialog {
+            width: 800px;
+            text-align: left;
+        }
+
+        .table tr td {
+            border-bottom: 1px solid #dddddd;
+            text-align: center;
+            height: 37px;
+            white-space: nowrap;
+        }
+
+        .fixed-table-container tbody tr:first-child td {
+            vertical-align: middle;
+        }
+    </style>
+}
+
+<div id="product-toolbar" class="form-inline">
+    <div class="form-group">
+        <label>Product name:</label>
+        <input class="form-control" id="p_name" placeholder="Product name" />
+    </div>
+    <div class="form-group">
+        <label>Product SN:</label>
+        <input class="form-control" id="p_no" placeholder="Product SN" />
+    </div>
+    <div class="form-group">
+        <label>Brand:</label>
+        @Html.DropDownList("BrandId", (SelectList)ViewBag.Brands, "Select", new Dictionary<string, object>()
+        {
+           {"class","form-control"}
+        })
+    </div>
+    <div class="form-group">
+        <label>Category:</label>
+        @Html.DropDownList("CategoryId1", (SelectList)ViewBag.Categories, "Select", new Dictionary<string, object>()
+        {
+            {"class", "form-control"}
+            , {"data-bind", "value:select_category1,event:{change:category1_change}"}
+        })
+        <!-- ko if:category_list2().length>0 -->
+        <select class="form-control" id="CategoryId2" data-bind="foreach:category_list2,value:select_category2,event:{change:category2_change}">
+            <!-- ko if: $index()==0 -->
+            <option value="">Select</option>
+            <!-- /ko -->
+            <option data-bind="value:CategoryId,text:CategoryLanguageModel.CategoryName"></option>
+        </select>
+        <!-- /ko -->
+        <!-- ko if:category_list3().length>0 -->
+        <select class="form-control" id="CategoryId3" data-bind="foreach:category_list3,value:select_category3">
+            <!-- ko if: $index()==0 -->
+            <option value="">Select</option>
+            <!-- /ko -->
+            <option data-bind="value:CategoryId,text:CategoryLanguageModel.CategoryName"></option>
+        </select>
+        <!-- /ko -->
+    </div>
+    <div class="form-group">
+        <label>Review status:</label>
+        @Html.DropDownList("ProductStatus", ProductStatus.Uncommitted.ToSelectList(false), "Select", new Dictionary<string, object>() { { "class", "form-control" } })
+    </div>
+
+    <div class="form-group">
+        <button type="button" id="search_btn" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        @if (_Authority.Add)
+        {
+            <a href="@Url.Action("AddOrUpdate")" id="add_but" class="btn btn-primary js_create">
+                <span class="glyphicon glyphicon-plus"></span> Add
+            </a>
+           <button type="button" id="btn_Review" class="btn btn-danger">Review</button>
+        }
+        @if (_Authority.Delete)
+        {
+            <button type="button" id="btn_delete" class="btn btn-danger">Delete</button>
+        }
+    </div>
+</div>
+
+<div class="form-inline">
+    <table id="product_grid" data-toolbar="#product-toolbar"></table>
+</div>
+
+@section scripts{
+
+    <script type="text/javascript">
+
+    var viewModel = function () {
+        var selft = this;
+        selft.select_category1 = ko.observable();
+        selft.category_list2 = ko.observableArray();
+        selft.select_category2 = ko.observable();
+        selft.category_list3 = ko.observableArray();
+        selft.select_category3 = ko.observable();
+        selft.category1_change = function () {
+            selft.category_list2([]);
+            selft.category_list3([]);
+            var categoryId = selft.select_category1();
+            if (categoryId) {
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    url: '/Category/GetCategoryByParentId',
+                    data: { id: categoryId },
+                    success: function (result) {
+                        if (result.IsValid) {
+                            selft.category_list2(result.Data);
+                        } else {
+                            $.messager.alert('Wrong information', result.Messages.join(''));
+                        }
+                    }
+
+                });
+            }
+            selft.select_category2("");
+            selft.select_category3("");
+        }
+
+        selft.category2_change = function () {
+            selft.category_list3([]);
+            var categoryId = selft.select_category2();
+            if (categoryId) {
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    url: '/Category/GetCategoryByParentId',
+                    data: { id: categoryId },
+                    success: function (result) {
+                        if (result.IsValid) {
+                            selft.category_list3(result.Data);
+                        } else {
+                            $.messager.alert('Wrong information', result.Messages.join(''));
+                        }
+                    }
+                });
+            }
+            selft.select_category3("");
+        }
+    }
+
+    ko.applyBindings(new viewModel());
+
+    $(function () {
+
+        $('#btn_delete').click(function () {
+            $.messager.model = {
+                ok: { text: "Determine", classed: 'btn-success' },
+                cancel: { text: "Cancel", classed: 'btn-error' }
+            };
+            $.messager.confirm("Warning", "Sure to delete selected items?", function () {
+                var rows = $('#product_grid').bootstrapTable('getSelections');
+                if (rows === null || rows.length === 0) {
+                    return;
+                }
+                var ids = [];
+                $(rows).each(function () {
+                    ids.push(this.ProductId);
+                });
+
+                $.post("@Url.Action("Delete")", { ids: ids }, function (result) {
+                    if (result && result.IsValid) {
+                        $('#product_grid').bootstrapTable('refresh');
+                        $.messager.alert('Tips', 'Deleted');
+                    } else {
+                        $.messager.alert('Wrong information', result.Messages.join('\n'));
+                    }
+                });
+            });
+        });
+        $('#btn_Review').click(function () {
+            var rows = $('#product_grid').bootstrapTable('getSelections');
+            if (rows === null || rows.length === 0) {
+                return;
+            }
+            var ids = [];
+            $(rows).each(function () {
+                ids.push(this.ProductId);
+            });
+            var $dialog = $('<div/>').hkdialog({
+                title: 'Product review',
+                url: '@Url.Action("ProductsCheck")',
+                form: '#check_form',
+                type: 'post',
+                data: { pId: ids },
+                success: function (result) {
+                    if (result.IsValid) {
+                        $('#product_grid').bootstrapTable('refresh');
+                        $dialog.dialog("destroy");
+                    } else {
+                        $.messager.alert('Wrong information', result.Messages.join('<br/>'));
+                    }
+                }
+            });             
+
+               
+        });
+    
+        // grid  Begin
+        var columns = [
+            {
+                field: 'state',
+                checkbox: true,
+                align: 'center',
+                valign: 'middle',
+                width: 36,
+                //sortable: true,
+            },
+            {
+                field: '',
+                title: 'Operation',
+                align: 'center',
+                valign: 'middle',
+                //width: '200px',
+                //sortable: true,
+                formatter: function (value, row, index) {
+                    var carray = [];
+
+                    @if (_Authority.Add)
+                    {
+                        <text>
+                    carray.push('&nbsp;&nbsp;&nbsp;&nbsp;<a class="check ml10" href="#" title="Review">' +
+                   '<i class="glyphicon glyphicon-check"></i>Review</a>');
+                    carray.push('&nbsp;&nbsp;&nbsp;&nbsp;<a class="copy ml10" href="#" title="Copy">' +
+                   '<i class="glyphicon glyphicon-check"></i>Copy</a>');
+
+                    if (row.Status != '@((int) ProductStatus.HasUpShelves)') {
+                        carray.push(
+                            '&nbsp;&nbsp;&nbsp;&nbsp;<a class="edit ml10" href="@Url.Action("AddOrUpdate")/' + row.ProductId + '" title="Update">' +
+                            '<i class="glyphicon glyphicon-edit"></i>Update</a>'
+                        );
+                    } else {
+                        carray.push(
+                            '&nbsp;&nbsp;&nbsp;&nbsp;<a class="view ml10" href="@Url.Action("AddOrUpdate")/' + row.ProductId + '" title="Check">' +
+                            '<i class="glyphicon glyphicon-eye-open"></i>Check</a>'
+                        );
+                    }
+                    </text>
+                    }
+
+                    return '<div style="white-space:nowrap;">' + carray.join('') + '</div>';
+                },
+                events: {
+                    @if (_Authority.Add)
+            {
+                <text>
+                    'click .check': function (e, value, row, index) {                       
+                        var $dialog = $('<div/>').hkdialog({
+                            title: 'Product review',
+                            url: '@Url.Action("ProductCheck")',
+                            form: '#check_form',
+                            type: 'post',
+                            data: { id: row.ProductId },
+                            success: function (result) {
+                                if (result.IsValid) {
+                                    $('#product_grid').bootstrapTable('refresh');
+                                    $dialog.dialog("destroy");
+                                } else {
+                                    $.messager.alert('Wrong information', result.Messages.join('<br/>'));
+                                }
+                            }
+                        });
+                    },
+                    'click .copy': function (e, value, row, index) {
+                        $.messager.model = {
+                            ok: { text: "Determine", classed: 'btn-success' },
+                            cancel: { text: "Cancel", classed: 'btn-error' }
+                        };
+                        $.messager.confirm("Warning", "Sure to copy selected items?", function () {    
+                            $.post("@Url.Action("Copy")", { id: row.ProductId }, function (result) {
+                                if (result && result.IsValid) {
+                                    $('#product_grid').bootstrapTable('refresh');
+                                    $.messager.alert('Tips', 'Succes copy');
+                                } else {
+                                    $.messager.alert('Wrong information', result.Messages.join('\n'));
+                                }
+                            });
+                        });
+                    }
+                    </text>
+            }
+
+                }
+            },
+            {
+                field: 'ProductId',
+                title: 'Product SN',
+                align: 'center',
+                valign: 'middle',
+                sortable: true,
+                formatter: function (val) {
+                    if (val) {
+                        return '<a target="_blank" href="' + '@ConfigurationManager.AppSettings["WebDomainName"]' + 'home/shopping/true/' + val + '.html' + '">' + val + '</a>';
+                    }
+                }
+            },
+            { field: 'SupplierName', title: 'Supplier Name', align: 'center', valign: 'middle', sortable: true },
+            {
+                field: 'ProductName',
+                title: 'Product name',
+                align: 'center',
+                valign: 'middle',
+                sortable: true,
+                formatter: function (val) {
+                    if (!val) {
+                        return "";
+                    }
+                    var m = '<spen  title="' + val + '" > ' + val + '</spen>';
+                    if (val != "" && val.length > 50) {
+                        m = '<spen  title="' + val + '" > ' + val.substring(0, 49) + "<br />" + val.substring(50, val.length - 1) + '...</spen>';
+                        return m;
+                    }
+                    return m;
+                    //return val;
+
+                }
+            },
+            { field: 'CategoryName', title: 'Category', align: 'center', valign: 'middle', sortable: true },
+            { field: 'BrandName', title: 'Brand', align: 'center', valign: 'middle', sortable: true },
+            { field: 'ArtNo', title: 'Item No.', align: 'center', valign: 'middle', sortable: true },
+            //{ field: 'PostagePrice', title: '邮费', align: 'center', valign: 'middle', sortable: true },
+
+            //{
+            //    field: 'AllowCustomerReviews',
+            //    title: '是否允许用户评论',
+            //    align: 'center',
+            //    valign: 'middle',
+            //    sortable: true,
+            //    formatter: function(value) {
+            //        return value ? '是' : '否';
+            //    }
+            //},
+            //{
+            //    field: 'AllowBackInStockSubscriptions',
+            //    title: '是否允许退货',
+            //    align: 'center',
+            //    valign: 'middle',
+            //    sortable: true,
+            //    formatter: function(value) {
+            //        return value ? '是' : '否';
+            //    }
+            //},
+            //{
+            //    field: 'IsProvideInvoices',
+            //    title: '是否提供发票',
+            //    align: 'center',
+            //    valign: 'middle',
+            //    sortable: true,
+            //    formatter: function(value) {
+            //        return value ? '是' : '否';
+            //    }
+            //},
+            //{ field: 'Weight', title: '重量', align: 'center', valign: 'middle', sortable: true },
+            //{ field: 'ProductParameter', title: '商品规格参数', align: 'center', valign: 'middle', sortable: true },
+            //{ field: 'PackingList', title: '包装清单', align: 'center', valign: 'middle', sortable: true },
+            { field: 'PurchasePrice', title: 'Purchase price', align: 'center', valign: 'middle', sortable: true },
+            { field: 'MarketPrice', title: 'List price', align: 'center', valign: 'middle', sortable: true },
+            { field: 'HKPrice', title: 'Huika price', align: 'center', valign: 'middle', sortable: true },
+            //{ field: 'ActivityBottomPrice', title: '活动最低价', align: 'center', valign: 'middle', sortable: true },
+            { field: 'StockQuantity', title: 'Stocks', align: 'center', valign: 'middle', sortable: true },
+            { field: 'SaleCount', title: 'Sales', align: 'center', valign: 'middle', sortable: true },
+            //{ field: 'NotifyAdminForQuantityBelow', title: '低库存报警数量', align: 'center', valign: 'middle', sortable: true },
+            {
+                field: 'Status',
+                title: 'Status',
+                align: 'center',
+                valign: 'middle',
+                sortable: true,
+                formatter: function (value) {
+                    if (value == 2)
+                        return "Review Pending";
+                    else if (value == 3)
+                        return "Audit did not pass";
+                    else if (value == 4)
+                        return "have shelves";
+                    else if (value == 5)
+                        return "Off shelf";
+                }
+            },
+            //{
+            //    field: 'IsRecommend',
+            //    title: '是否推荐',
+            //    align: 'center',
+            //    valign: 'middle',
+            //    sortable: true,
+            //    formatter: function(value) {
+            //        switch (value) {
+            //        case 0:
+            //            return '是';
+            //        case 1:
+            //            return '否';
+            //        default:
+            //            return '';
+            //        }
+            //    }
+            //},
+            //{ field: 'RecommendSort', title: '推荐排序', align: 'center', valign: 'middle', sortable: true },
+            //{ field: 'IsDelete', title: '是否删除', align: 'center', valign: 'middle', sortable: true },
+            //{ field: 'ExtensionPropertiesText', title: '商品扩展属性描述文本', align: 'center', valign: 'middle', sortable: true },
+            //{ field: 'Volume', title: '体积', align: 'center', valign: 'middle', sortable: true },
+            { field: 'CreateBy', title: 'Creater', align: 'center', valign: 'middle', sortable: true },
+            {
+                field: 'CreateDT',
+                title: 'Create time',
+                align: 'center',
+                valign: 'middle',
+                sortable: true,
+                formatter: function (value) {
+                    return value === 'undefined' || !value ? '' : value.formatterString(false);
+                }
+            },
+            {
+                field: 'PutawayDT',
+                title: 'Shelves time',
+                align: 'center',
+                valign: 'middle',
+                sortable: true,
+                formatter: function (value) {
+                    return value == 'undefined' || !value ? '' : value.formatterString(false);
+                }
+            },
+            { field: 'UpdateBy', title: 'Update By', align: 'center', valign: 'middle', sortable: true },
+            {
+                field: 'UpdateDT',
+                title: 'Update time',
+                align: 'center',
+                valign: 'middle',
+                sortable: true,
+                formatter: function (value) {
+                    return value === 'undefined' || !value ? '' : value.formatterString(false);
+                }
+            },
+        ];
+
+        $('#product_grid').bootstrapTable({
+            url: '@Url.Action("Search")',
+            queryParams: function (params) {
+                return {
+                    SortOrder:this.sortOrder,
+                    SortName:this.sortName,
+                    PagedIndex: this.pageNumber - 1, //params.pageNumber - 1  params.offset
+                    PagedSize: this.pageSize //params.pageSize  params.limit
+                    ,
+                    ProductName: $('#p_name').val(),
+                    BrandId: $('#BrandId').val(),
+                    CategoryId1: $('#CategoryId1').val(),
+                    CategoryId2: $('#CategoryId2').val(),
+                    CategoryId3: $('#CategoryId3').val(),
+                    ProductId: $('#p_no').val(),
+                    Status: $('#ProductStatus').val()
+                };
+            },
+            sortOrder: 'desc',
+            sortName: 'CreateDT',
+            cache: false,
+            //height: '100%',
+            striped: true,
+            idField: 'ProductId',
+            pagination: true,
+            //pageSize: 50,
+            //pageList: [10, 25, 50, 100, 200],
+            //search: true,
+            showColumns: true,
+            showRefresh: true,
+            //singleSelect: true,
+            minimumCountColumns: 2,
+            clickToSelect: true,
+            sidePagination: 'server',
+            columns: columns
+        });
+
+        $('#search_btn').click(function () {
+            $('#product_grid').bootstrapTable('refresh');
+        });
+        /// grid end
+
+    });
+    </script>
+}

@@ -1,0 +1,187 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.New.BD_NewsInfoModel
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Add or modify news";
+    var typeIDList = ViewData["TypeID"] as List<SelectListItem>;
+}
+
+
+@section css{
+    <style type="text/css">
+        .form-inline {
+            margin-bottom: 10px;
+        }
+
+            .form-inline .form-group-sm {
+                border-bottom: 1px solid #d2d6de;
+                padding: 5px 0 5px 0;
+            }
+
+        td.table-td-title {
+            text-align: left;
+            vertical-align: middle;
+            width: 180px;
+        }
+
+        .table-td-content {
+            border-left: 1px dotted #d2d6de;
+        }
+
+        .table > tbody > tr > td {
+            vertical-align: middle;
+        }
+
+        #product.content {
+            border: 1px solid #d2d6de;
+        }
+
+        .title-row {
+            text-align: left;
+        }
+    </style>
+}
+
+
+<script charset="utf-8" src="~/Content/plugins/kindeditor/kindeditor.js"></script>
+<script src="~/Content/plugins/kindeditor/lang/zh_CN.js" type="text/javascript"></script>
+<form action="@Url.Action("Create")" id="product_form" method="POST" class="form-inline" role="form">
+    <div class="form-inline">
+        <div class="form-group">
+            <button autocomplete="off" class="btn btn-primary" data-loading-text="Loading..." id="bt_save" type="submit">
+                Save
+            </button>
+            <a class="btn btn-primary" href="@Url.Action("Index")">Return</a>
+        </div>
+
+    </div>
+
+    <div class="tab-pane active" id="product_info" role="tabpanel">
+        <div class="row">
+            <div class="col-md-1 title-row"><label class="red">*</label>Headlines :</div>
+            <div class="col-md-11">
+                @Html.HiddenFor(t => t.ID)
+                @Html.TextBoxFor(t => t.Title, new { @class = "form-control", style = "width:180px;", maxlength = "50" })
+                @Html.ValidationMessageFor(m => m.Title)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1 title-row"><label class="red">*</label>News type :</div>
+            <div class="col-md-11">
+                <select class="form-control text-center" id="TypeID" name="TypeID">
+                    @if (typeIDList != null)
+                    {
+                        foreach (var item in typeIDList)
+                        {
+                            <option value="@(item.Value)" selected="@(item.Selected)">@(item.Text)</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1 title-row"><label class="red"></label>Are Pictures :</div>
+            <div class="col-md-11">
+                <input type="hidden" id="IsPic" name="IsPic" value="@(Model.IsPic)">
+                <input type="hidden" id="IsHasNaviContent" name="IsHasNaviContent" value="@(Model.IsHasNaviContent)">
+                <input type="checkbox" id="IsPicImg" name="IsPicImg" checked="@(Model.IsPic == 1 ? true :false)" />Photo News
+                &nbsp;&nbsp; <input type="checkbox" id="IsHasNav" name="IsHasNav" checked="@(Model.IsHasNaviContent == 1 ? true :false)" />Add REVIEW
+            </div>
+        </div>
+        <br />
+        <div class="row" id="div_img" style="display:@(!string.IsNullOrEmpty(Model.PicPath)?"block":"none")">
+            <div class="col-md-1 title-row"><label class="red">*</label>Picture Address :</div>
+            <div class="col-md-11">
+                @Html.EditorFor(x => x.PicPath, "FileUploadT1", new { RootImage = @ViewBag.RootImage })
+            </div>
+        </div>
+        <br />
+        <div class="row" id="div_nai" style="display:@(!string.IsNullOrEmpty(Model.NaviContent)?"block":"none")">
+            <div class="col-md-1 title-row"><label class="red">*</label>REVIEW :</div>
+            <div class="col-md-11">
+                @Html.TextAreaFor(t => t.NaviContent, new { @class = "form-control", style = "width: 649px; height: 75px;", maxlength = "500" })
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1 title-row"><label class="red">*</label>News content :</div>
+            <div class="col-md-11">
+                @Html.TextBoxFor(t => t.NewsContent, new { @class = "form-control", style = "height:400px;" })
+                @Html.ValidationMessageFor(m => m.NewsContent)
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<script>
+    $(function () {
+
+        //有图片封面
+        $('#IsPicImg').click(function () {
+            if (this.checked == true) {
+                $("#IsPic").val(1);
+                $('#div_img').show();
+            } else {
+                $("#IsPic").val(0);
+                $('#div_img').hide();
+                $("#PicPath").val("");
+            }
+        });
+
+        //有导读
+        $('#IsHasNav').click(function () {
+            if (this.checked == true) {
+                $("#IsHasNaviContent").val(1);
+                $('#div_nai').show();
+            } else {
+                $("#IsHasNaviContent").val(0);
+                $("#NaviContent").val("");
+                $('#div_nai').hide();
+            }
+        });
+        //新闻类型
+        $("#TypeID").change(function () {
+            //1.惠卡动态,2惠粉公告,3惠粉消息
+            var item = $(this).val();
+            switch (item) {
+                case "1":
+                    break;
+                case "2":
+                case "3":
+                    $("#IsHasNav").attr("checked", true);
+                    $("#div_nai").css("display", "block");
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        $("#bt_save").click(function () {
+            if ($("#IsPic").val() == '1') {
+                if ($("#PicPath").val() == '') {
+                    Tool.Alert("Please upload picture!", 1500);
+                    return false;
+                }
+            }
+            if ($("#IsHasNaviContent").val() == '1') {
+                if ($("#NaviContent").val() == '') {
+                    Tool.Alert("Please enter guide!", 1500);
+                    return false;
+                }
+            }
+            return true;
+        });
+
+    });
+    KindEditor.ready(function (k) {
+        window.editor = k.create("#NewsContent", {
+            showRemote: false,
+            uploadJson: '../KindEditor/UploadImage'
+
+        });
+    })
+</script>

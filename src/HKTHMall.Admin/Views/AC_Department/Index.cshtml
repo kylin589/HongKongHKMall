@@ -1,0 +1,146 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@model HKTHMall.Domain.AdminModel.Models.AC.SearchAC_DepartmentModel
+@{
+    ViewBag.Title = "Department list page";
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(13);
+
+}
+
+
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>Dept Name: </span>&nbsp;
+            @Html.TextBoxFor(x => x.DeptName, new { @class = "form-control w70", @placeholder = "Please enter dept name" })
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-danger js_reset" onclick="Tool.ClearForm($('#user-toolbar'))">
+            <span class="glyphicon glyphicon-bullhorn"></span> Clear
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        @*&nbsp;
+            <button type="button" class="btn btn-primary " onclick="parent.addTab(1111145,'品牌关联','http://www.baidu.com')">
+                <span class="glyphicon glyphicon-plus"></span> 跳出TAB
+            </button>*@
+        &nbsp;
+        @if (_Authority.Add)
+        {
+
+            <button type="button" class="btn btn-primary js_create">
+                <span class="glyphicon glyphicon-plus"></span> Add
+            </button>
+        }
+
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/javascript">
+        var addCheck = eval("@(_Authority.Add.ToString().ToLower())");
+        $(function () {
+            var columns = [
+                { field: 'DeptName', title: 'Dept Name', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'IsActive',
+                    title: 'Activate or Not',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: false,
+                    formatter: function (val) {
+                        return val === 1 ? 'Enable' : 'Not Enabled';
+                    }
+
+                },
+                  { field: 'OrderNumber', title: 'Sort', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'ID',
+                    title: 'Operation',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (val) {
+                        if (addCheck)
+                    {
+                        return [
+                             '<a class="edit ml10" href="javascript:void(0)" title="Update">',
+                            '<i class="glyphicon glyphicon-edit"></i>',
+                            '</a>'
+
+                        ].join('');
+                        }
+                    },
+                    events: {
+                        'click .edit': function (e, value, row, index) {
+                            Tool.ShowModal('@Url.Action("Create")', { id: value }, 'Edit dept');
+                        }
+                    }
+                }
+            ];
+
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+                queryParams: function (params) {
+                    return {
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        DeptName: $('#DeptName').val()
+                    };
+                },
+                sortOrder: 'desc',
+                sortName: 'OrderNumber',
+                columns: columns
+            });
+
+
+            $('body').delegate('#chkIsActive', 'click', function () {
+                var value = $(this).is(':checked') ? 1 : 0;
+
+                $('#IsActive').val(value);
+                console.log($('#IsActive').val());
+            });
+
+           
+
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+
+            $('.js_create').click(function () {
+                var actionUrl = "@Url.Action("Create")";
+                var param = {};
+                Tool.ShowModal(actionUrl, param, "Add Dept");
+            });
+
+
+
+        });
+
+
+        @*$('.js-delete').click(function () {
+            var actionUrl = "@Url.Action("Delete")";
+            var param = { id: id }
+            Tool.DeleteRecord(actionUrl, param, '');
+        });*@
+
+        //保存
+        function Save() {
+            var ckbos = document.getElementsByName("chkbox");
+            for (var i = 0; i < ckbos.length; i++) {
+                if (ckbos[i].checked == "true" || ckbos[i].checked == true)
+                {
+                    $('#IsActive').val(1);
+                }
+            }
+            Tool.SaveModal($('#u_grid'));
+        }
+    </script>
+}

@@ -1,0 +1,33 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.Keywork.FloorKeywordModel
+@{
+    var langs = ViewData["langs"] as List<SelectListItem>;
+
+}
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>@*关键字名称*@Keyword :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.FloorKeywordId)
+        @Html.TextBoxFor(t => t.KeyWordName, new { @class = "form-control", @placeholder = "Please enter a keyword name", @maxlength = "50", @onKeyDown = "if(event.keyCode==13) return false;", @autocomplete = "off" })
+        @Html.ValidationMessageFor(m => m.KeyWordName)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>@*语言选择*@Language :
+    </label>
+    <div class="controls">
+        @if (!string.IsNullOrEmpty(ViewBag.LangName))
+        {
+            <input id="LanguageID" name="LanguageID" type="hidden" value="@(Model.LanguageID)" />
+            <label class="form-control">@(ViewBag.LangName)</label>
+        }
+        else
+        {
+            @Html.DropDownList("LanguageID", langs, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.LanguageID)
+        }
+
+    </div>
+</div>

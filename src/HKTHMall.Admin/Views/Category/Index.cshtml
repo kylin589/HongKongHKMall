@@ -1,0 +1,216 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section css{
+<style>
+    .table-bordered > tbody > tr > td { border: 1px solid #ddd; }
+    .table > tbody > tr > td { border-top: 1px solid #ddd; }
+    .table-bordered > thead > tr > th { border:1px solid #ddd; }
+    .table > thead > tr > th { border-bottom: 2px solid #ddd; }
+    .table > thead:first-child > tr:first-child > th { border-top: 1px solid #ddd; }
+    .modal-dialog{ width:800px;}
+</style>
+}
+
+<div class="form-inline">
+    <button type="button" data-bind="click:addItem" class="btn btn-primary js_create">
+        <span class="glyphicon glyphicon-plus"></span> Add top node
+    </button>
+</div>
+
+<table class="table table-bordered table-hover tree khrow">
+    <thead>
+        <tr>
+            <th>Category name</th>
+            @*<th>图标</th>
+            <th>背景颜色</th>*@
+            <th>Enable or Not</th>
+            <th>Sort</th>
+            <th>Level</th>
+            <th>Creater</th>
+            <th>Create time</th>
+            <th>Update By</th>
+            <th>Update time</th>
+            <th>Operation</th>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach:categoryList">
+        <tr data-bind="attr:{'class':$parent.trClass($data)}">    
+            <input type="hidden" data-bind="value:Grade" />        
+            <td data-bind="text:$parent.categoryName($data)"></td>
+            @*<td data-bind="text:IconCode"></td>
+            <td data-bind="text:BackColor"></td>*@
+            <td data-bind="text:AuditState?'Yes':'Not'"></td>
+            <td data-bind="text:Place"></td>
+            <td data-bind="text:Grade"></td>
+            <td data-bind="text:AddUser"></td>
+            <td data-bind="text:AddDate.formatterString(true)"></td>
+            <td data-bind="text:UpdateBy"></td>
+            <td data-bind="text:UpdateDT.formatterString(true)"></td>
+            <td>
+                <!-- ko if: Grade < 3 -->@*update by liujc*@
+                <a class="glyphicon glyphicon-plus" data-bind="click:$parent.addchli" href="#">Add sub category</a>
+                &nbsp;&nbsp;&nbsp;
+                <!-- /ko-->
+                <a href="#" data-bind="click:$parent.update" class="glyphicon glyphicon-pencil">Update</a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="#" data-bind="click:$parent.hide" class="glyphicon glyphicon-pencil">Enable or Not</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@section scripts{
+
+    <script type="text/javascript">
+        $(function() {
+
+            function SortCategoriesForTreeList(options) {
+                var list = [];
+                $(options.data).each(function() {
+                    if (this.parentId === options.parentId) {
+                        list.push(this);
+                        list = $.merge(list, SortCategoriesForTreeList({ data: options.data, parentId: this.CategoryId }));
+                    }
+                });
+                return list;
+            }
+
+            var viewModel = function() {
+                var self = this;
+                self.categoryList = ko.observableArray(0);
+
+                self.trClass = function(data) {
+                    return data.parentId === 0 ? 'treegrid-' + data.CategoryId : 'treegrid-' + data.CategoryId + ' treegrid-parent-' + data.parentId;
+                }
+                self.categoryName = function(data) {
+                    return data.CategoryLanguageModel ? data.CategoryLanguageModel.CategoryName : '';
+                }
+                self.update = function(data) {
+                    var $dialog = $('<div/>').hkdialog({
+                        title: 'Modify Category',
+                        url: '@Url.Action("AddOrUpdate")',
+                        form: '#category_from',
+                        data: { id: data.CategoryId },
+                        submit: function () {
+                            if ($('#Grade').val() == 3) {
+                                var stid = $('#SKU_ProductTypesModel_SkuTypeId').val();
+                                if (!stid) {
+                                    $.messager.alert('Message notification', 'Please select product category');
+                                    return false;
+                                }
+                            }
+                            $('.btn-success').attr('disabled', true);
+                            return true;
+                        },
+                        success: function(result) {
+                            if (result.IsValid) {
+                                $dialog.dialog("destroy");
+                                self.load();
+                            } else {
+                                $.messager.alert('Wrong information', result.Messages.join('<br/>'));
+                            }
+                            $('.btn-success').attr('disabled', false);
+                        }
+                    });
+                }
+                self.addchli = function ($data,e) {
+                    $(e.target).blur();
+                    var $dialog = $('<div/>').hkdialog({
+                        title: 'Add sub category',
+                        url: '@Url.Action("AddOrUpdate")',
+                        form: '#category_from',
+                        data: { parentId: $data.CategoryId, ParentGrade: $data.Grade },
+                        submit: function () {
+                            if ($('#ParentGrade').val() == 2) {
+                                var stid = $('#SKU_ProductTypesModel_SkuTypeId').val();
+                                if (!stid) {
+                                    $.messager.alert('Message notification', 'Please select product category');
+                                    return false;
+                                }
+                            }
+                            $('.btn-success').attr('disabled', true);
+                            return true;
+                        },
+                        success: function(result) {
+                            if (result.IsValid) {
+                                $dialog.dialog("destroy");
+                                self.load();
+                            } else {
+                                $.messager.alert('Wrong information', result.Messages.join('<br/>'));
+                            }
+                            $('.btn-success').attr('disabled', false);
+                        }
+                    });
+                }
+                self.hide = function ($data, e) {
+                    $(e.target).blur();                   
+                    $.messager.model = {
+                        ok: { text: "Determine", classed: 'btn-success' },
+                        cancel: { text: "Cancel", classed: 'btn-error' }
+                    };
+                    $.messager.confirm("Warning", "Sure to hide this items and children?", function () {                       
+                        $.post("@Url.Action("HideCategory")", { id: $data.CategoryId }, function (result) {
+                            if (result && result.IsValid) {                               
+                                $.messager.alert('Tips', 'Success');
+                                self.load();
+                            } else {
+                                $.messager.alert('Wrong information', result.Messages.join('\n'));
+                            }
+                        });
+                    });
+                }
+                self.addItem = function ($data, e) {
+                    $(e.target).blur();
+                    var $dialog = $('<div/>').hkdialog({
+                        title: 'Add top level category',
+                        form: '#category_from',
+                        url: '@Url.Action("AddOrUpdate")',
+                        submit: function () {
+                            $('.btn-success').attr('disabled', true);
+                            return true;
+                        },
+                        success: function(result) {
+                            if (result.IsValid) {
+                                $dialog.dialog("destroy");
+                                self.load();
+                            } else {
+                                $.messager.alert('Wrong information', result.Messages.join('<br/>'));
+                            }
+                            $('.btn-success').attr('disabled', false);
+                        }
+                    });
+                }
+                self.load = function() {
+                    $.get('@Url.Action("GetCategoryAll")', function(result) {
+                        if (result.IsValid) {
+
+                            self.categoryList(SortCategoriesForTreeList({
+                                data: result.Data,
+                                parentId: 0
+                            }));
+
+                            $('.tree').treegrid({
+                                initialState: 'collapsed',
+                                treeColumn: 0,
+                                saveState:'true'
+                            });
+                        } else {
+                            $.messager.alert('Wrong information', result.Messages.join('<br/>'));
+                        }
+                    });
+                }
+                self.load();
+            };
+
+            var model = new viewModel();
+
+            ko.applyBindings(model);
+
+        });
+    </script>
+
+}
+

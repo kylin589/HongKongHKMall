@@ -1,0 +1,6 @@
+F:\WorkSpace\Libraries\BrCms.Framework.Mvc.dll.config
+F:\WorkSpace\Libraries\BrCms.Framework.Mvc.dll
+F:\WorkSpace\Libraries\BrCms.Framework.Mvc.pdb
+F:\WorkSpace\src\Framework\BrCms.Framework.Mvc\obj\Debug\BrCms.Framework.Mvc.csprojResolveAssemblyReference.cache
+F:\WorkSpace\src\Framework\BrCms.Framework.Mvc\obj\Debug\BrCms.Framework.Mvc.dll
+F:\WorkSpace\src\Framework\BrCms.Framework.Mvc\obj\Debug\BrCms.Framework.Mvc.pdb

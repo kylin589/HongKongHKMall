@@ -1,0 +1,110 @@
+﻿<div>
+    <div class="control-group">
+        <label class="control-label-form">
+            <label></label>Order SN:
+        </label>
+        <div class="controls">
+            <label>@ViewData["orderId"]</label>
+            <input type="hidden" id="orderId" value="@ViewData["orderId"]" />
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label-form">
+            <label class="red">*</label>Express Number:
+        </label>
+        <div class="controls">
+            <input id="expressOrder" class="form-control" max="50" type="text" />
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:10px;">
+        <div class="col-xs-12">
+            <div class="box box-success">
+                <div class="box-header">
+                    <h3 class="box-title">Order Purchase List</h3>
+                    <div class="box-tools">
+                        <div class="pull-right">
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body table-responsive no-padding" style="height:200px;overflow-y:auto;display:block">
+                    <table class="table table-hover js-tb-items">
+                        <tbody>
+                            <tr data-option="{'DisplaySequence':-1,'Index':-1}">
+                                <th width="15%" class="text-center">PurchaseOrderId</th>
+                                <th width="15%" class="text-center">Status</th>
+                                <th width="15%" class="text-center">SupplierName</th>
+                                <th width="20%" class="text-center">Mobile</th>
+                                <th width="10%" class="text-center">PurchaseAmount</th>
+                                <th width="10%" class="text-center">RealPurchaseAmount</th>
+                                <th width="15%" class="text-center">CreateTime</th>
+                            </tr>
+                            @if (Model != null)
+                            {
+                                foreach (HKTHMall.Domain.AdminModel.Models.Orders.PurchaseOrderModel mo in Model)
+                                {
+                                    string statusName = "";
+                                    <tr class="js-tr-item">
+                                        <td>@(mo.PurchaseOrderId)</td>
+                                        <td>
+                                            @switch (mo.status)
+                                            {
+                                                case 1:
+                                                    statusName = "Unsettled (Ordered)";
+                                                    break;
+                                                case 3:
+                                                    statusName = "Received";
+                                                    break;
+                                                default:
+                                                    break;
+
+                                            }
+                                            @statusName
+                                        </td>
+                                        <td>@(mo.SupplierName)</td>
+                                        <td>@(mo.Mobile)</td>
+                                        <td>@(mo.PurchaseAmount)</td>
+                                        <td>@(mo.RealPurchaseAmount)</td>
+                                        <td>@(mo.CreateTime.ToString("yyyy-MM-dd HH:mm:ss"))</td>
+                                       
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function Save() {
+        var expressOrder = $("#expressOrder").val();
+        if (expressOrder == null || expressOrder == "") {
+            Tool.Alert("Express Number Can't be empty", 1500);
+            return;
+        }
+        bootbox.setLocale("en");
+        //bootbox.setLocale("zh_CN");
+        bootbox.confirm("Confirm the changes for the shipment status？", function (result) {
+            if (result) {
+                var url = "/Order/UpdateOrderStatus?orderId=" + $("#orderId").val() + "&status=4&expressOrder=" + expressOrder;
+                $.ajax({
+                    url: url,
+                    dataType: "text",
+                    success: function (data, status) {
+                        data = JSON.parse(data);
+                        if (data.IsValid) {
+                            Tool.CloseModal();
+                            Tool.ReloadDataTable($('#u_grid'));
+                        }
+                        Tool.Alert(data.Messages, 1500);
+                    },
+                    error: function (data, status, e) {
+                        Tool.Alert("Failed.", 1500);
+                    }
+                });
+            }
+        });
+    }
+</script>

@@ -1,0 +1,262 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="cb_title"></title>
+
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta charset="utf-8">
+
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="js/changbiao.js"></script>
+    <script type="text/javascript">
+        //js获取url传递参数
+        function GetRequest() {
+            var url = location.search; 
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+        var Request = new Object();
+        Request = GetRequest();
+        var cb_productId = Request['productId'];
+        var cb_lang = Request['lang'];
+
+        //语言判断
+        $(function () {
+            if (cb_lang == "1") {
+                $("#cb_title").html("商品详情");
+                $("#sh_sp").html("商品详情");
+                $("#sh_gg").html("规格参数");
+                $("#sh_loading").html("数据加载中...");
+                $("#sh_tj").html("惠卡推荐");
+            }
+            if (cb_lang == "2") {
+                $("#cb_title").html("Description");
+                $("#sh_sp").html("Description");
+                $("#sh_gg").html("Specifications");
+                $("#sh_loading").html("Loading data...");
+                $("#sh_tj").html("Huika Picks");
+            }
+            if (cb_lang == "3") {
+                $("#cb_title").html("รายละเอียดสินค้า");
+                $("#sh_sp").html("รายละเอียดสินค้า");
+                $("#sh_gg").html("ข้อมูลจำเพาะ");
+                $("#sh_loading").html("โหลดข้อมูลอยู่...");
+                $("#sh_tj").html("huikaแนะนำ");
+            }
+        });
+
+        
+
+        //点击选项卡
+        $(function () {
+            show();
+            $("#s_list1").click(function () {
+                $(this).addClass("hover");
+                show();
+                $("#s_list2").removeClass("hover");
+                $(".list2").removeClass("tabnow");
+                $(".list1").addClass("tabnow");
+            });
+            $("#s_list2").click(function () {
+                $(this).addClass("hover");
+                num();
+                $("#s_list1").removeClass("hover");
+                $(".list1").removeClass("tabnow");
+                $(".list2").addClass("tabnow");
+            });
+
+        })
+        //获取商品详情
+        function show() { 
+            $(function () {
+                    $("#loading").ajaxStart(function () {
+                        $(this).show();
+                    });
+                    $.ajax({
+                        type: "Post",//要用post方式
+                        url: "/Product/GetAttributeList",//商品详情方法所在页面和方法名
+                        dataType: "json",
+                        data: {//参数
+                            lang: cb_lang,
+                            productId: cb_productId
+                        },
+                        success: function (JsonData) {//返回成功
+                            var introduction = JsonData.rs.introduction;
+                            if (introduction == null) {
+                                var html = "<div class='product_zw'><img src='images/product.png'/></div>";
+                                if (cb_lang == "1") {
+                                    var html = "<div class='product_zw'><img src='images/product.png'/><div id='zanwu'>暂无详情</div></div>";
+                                }
+                                if (cb_lang == "2") {
+                                    var html = "<div class='product_zw'><img src='images/product.png'/><div id='zanwu'>No details</div></div>";
+                                }
+                                if (cb_lang == "3") {
+                                    var html = "<div class='product_zw'><img src='images/product.png'/><div id='zanwu'>ยังไม่มีรายละเอียด</div></div>";
+                                }
+
+                            } else { var html = introduction; };
+                            
+                            $("#product_show").html(html);
+                        },
+                        error: function (err) {//失败
+                            //alert(err);
+                        }
+
+                    });
+                    $("#loading").ajaxStop(function () {
+                        $(this).hide();
+                    });
+                });
+        };
+        //获取规格参数
+        function num() { 
+            $(function () {
+                    $("#loading").ajaxStart(function () {
+                        $(this).show();
+                    });
+                    $.ajax({
+                        type: "Post",//要用post方式
+                        url: "/Product/GetAttributeList",//规格参数方法所在页面和方法名
+                        dataType: "json",
+                        data: {//参数
+                            lang: cb_lang,
+                            productId: cb_productId
+                        },
+                        success: function (JsonData) {//返回成功
+                            if (JsonData.rs.attributeArray == "") {
+                                if (cb_lang == "1") {
+                                    $("#product_mun").html("<div class='product_zw3'><img src='images/product1.png'/><div id='zanwu'>暂无数据</div></div>");
+                                }
+                                if (cb_lang == "2") {
+                                    $("#product_mun").html("<div class='product_zw3'><img src='images/product1.png'/><div id='zanwu'>No data</div></div>");
+                                }
+                                if (cb_lang == "3") {
+                                    $("#product_mun").html("<div class='product_zw3'><img src='images/product1.png'/><div id='zanwu'>ยังไม่มีข้อมูล</div></div>");
+                                }
+
+                            } else {
+                                var html = "";
+                                var htmlx = "";
+                                for (var i = 0; i < JsonData.rs.attributeArray.length; i++) {
+                                    var attributeName = JsonData.rs.attributeArray[i].attributeName;
+                                    htmlx = "";
+                                    for (var x = 0; x < JsonData.rs.attributeArray[i].childAttributeArray.length; x++) {
+                                        htmlx += JsonData.rs.attributeArray[i].childAttributeArray[x].valuestr + "，";
+                                    }
+                                    htmlx = htmlx.substring(0, htmlx.length - 1);
+                                    html += "<div class='num_s'><span>" + attributeName + "</span><b>" + htmlx + "</b></div>";
+                                }
+                                // html += "<div class='num_s'><table border='0' width='100%' cellspacing='0' cellpadding='0'><tr><td valign='top'><span>" + attributeName + "</span></td><td align='left'><b>" + htmlx + "</b></td></tr></table></div>";
+
+                               
+                                $("#product_mun").html(html);
+                            };
+
+                        },
+                        error: function (err) {//失败
+                            //alert(err);
+                        }
+
+                    });
+                    $("#loading").ajaxStop(function () {
+                        $(this).hide();
+                    });
+                });
+        };
+        //获取惠卡推荐
+        $(function () {
+            $.ajax({
+                type: "Post",//要用post方式
+                url: "/Other/GetRecommendList",//惠卡推荐方法所在页面和方法名
+                dataType: "json",
+                data: {//参数
+                    lang: cb_lang,
+                    referrerSize:6
+                },
+                success: function (JsonData) {//返回成功
+                    //alert(JsonData.msg);
+                    var html = "";
+                    for (var i = 0; i < JsonData.rs.length; i++) {
+                        var productId = JsonData.rs[i].productId;
+                        var productName = JsonData.rs[i].productName;
+                        var picAddress = JsonData.rs[i].picAddress;
+                        var hKPrice = Math.round(JsonData.rs[i].hKPrice);
+                        var marketPrice = Math.round(JsonData.rs[i].marketPrice);
+                        var activityPrice = Math.round(JsonData.rs[i].activityPrice);
+                        var isActivity = JsonData.rs[i].isActivity;
+                        var FPrice;
+                        var SPrice;
+
+                        if (isActivity == true) {
+                            FPrice = activityPrice;
+                            SPrice = hKPrice;
+                        }
+                        else {
+                            FPrice = hKPrice;
+                            SPrice = marketPrice;
+                        }
+
+                        html += "<div class='show_list'><a href='?method=productDetail&id=" + productId + "'><b><img src='" + picAddress + "' width='244' height='175' alt='" + productName + "'/></b><span>" + productName + "</span><i>" + FPrice + "บาท <font class='s_tj'>" + SPrice + "บาท </font></i></a></div>";
+
+                    }
+                    $("#show_tj_nr").html(html+"<div class='clear'></div>");
+
+                },
+                error: function (err) {//失败
+                    //alert(err);
+                }
+
+            });
+        });
+				
+    </script>
+</head>
+
+<body>
+<div class="main_a" id="c_zoom">
+
+     <div class="show">
+          <div class="show_bt">
+              <ul class="tab" id="tab">
+                  <li id="s_list1" class="hover"><span id="sh_sp"></span></li>
+                  <li id="s_list2"><span id="sh_gg"></span></li>
+              </ul>
+          </div>
+         <div class="main_loading" id="loading"><span><img src="images/loading.gif" /></span><p id="sh_loading"></p></div>
+         <div class="lists">
+             <div class="list1 tabnow">
+                 <div class="clear" id="product_show"></div>
+                 <div class="clear" style="height:10px;"></div>
+                 <div class="show_tj">
+                     <div class="show_tj_bt">
+                         <span id="sh_tj"></span>
+                         <i></i>
+                     </div>
+                     <div class="show_tj_nr" id="show_tj_nr">
+                     </div>
+                 </div>
+
+             </div>
+             <div class="list2" id="product_mun"></div>
+         </div>
+                
+     </div>
+     
+     
+</div>
+
+</body>
+</html>

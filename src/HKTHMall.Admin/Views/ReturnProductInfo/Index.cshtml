@@ -1,0 +1,406 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@model HKTHMall.Domain.AdminModel.Models.Orders.SearchReturnProductInfoModel
+@{
+    ViewBag.Title = "Relevant records";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Edit = _Authority.CheckAction(91);
+    //_Authority.Delete = _Authority.CheckAction(94);
+    _Authority.IsGoodsReceipt = _Authority.CheckAction(92);
+    _Authority.IsRefund = _Authority.CheckAction(93);
+}
+
+<div id="user-toolbar">
+
+    <div class="form-inline" role="form">
+
+
+        <div class="form-group">
+            <span>Order SN: </span>&nbsp;&nbsp;
+            @Html.TextBoxFor(x => x.OrderID, new { @class = "form-control w70", @placeholder = "Please enter order number" })
+        </div>
+        &nbsp;&nbsp;
+        <div class="form-group">
+            <span>Email: </span>&nbsp;&nbsp;
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control w70", @placeholder = "Please enter Mobile number" })
+        </div>
+        &nbsp;&nbsp;
+        @*<div class="form-group">
+                <span>用户编号: </span>&nbsp;&nbsp;
+                @Html.TextBoxFor(x => x.UserID, new { @class = "form-control w70", @placeholder = "请输入用户编号" })
+            </div>*@
+        &nbsp;&nbsp;
+        <div class="form-group" style=" display:none">
+            <span>Return Types: </span>&nbsp;&nbsp;
+            <select class="form-control" id="selectReturnType">
+                <option value="0">--All--</option>
+                <option value="2">Return</option>
+                <option value="1">Exchanges</option>
+                <option value="3">Rework</option>
+            </select>
+        </div>
+        &nbsp;&nbsp;
+        <div class="form-group">
+            <span>Status: </span>&nbsp;&nbsp;
+            <select class="form-control" id="selectReturnStatus">
+                <option value="0">--All--</option>
+                <option value="1">Apply on progress</option>
+                <option value="2">Approved</option>
+                <option value="3">Reject</option>
+                <option value="4">Received confirm</option>
+                <option value="5">Refund complete</option>
+                <option value="6">Apply revoked</option>
+
+            </select>
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+
+    </div>
+
+
+</div>
+<div class="form-inline">
+    <table id="u_grid" data-toolbar="#product-toolbar"></table>
+</div>
+@section css{
+    <style type="text/css">
+        .form-horizontal .control-label { min-width: 50px; width: auto; }
+
+        .form-horizontal .modal-dialog { width: 800px; text-align: left; }
+    </style>
+}
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/javascript">
+        var EditCheck = eval("@(_Authority.Edit.ToString().ToLower())");
+
+        var IsGoodsReceipt = eval("@(_Authority.IsGoodsReceipt.ToString().ToLower())");
+        var IsRefund = eval("@(_Authority.IsRefund.ToString().ToLower())");
+
+
+
+
+
+
+        $(function () {
+
+            var columns = [
+
+                //列表行
+                //{ field: 'ReturnOrderID', title: '编号', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'ReturnOrderID',
+                    title: 'Operation',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (e, value, row, index) {
+                        //console.log(value.ReturnStatus);
+                        if (value.ReturnStatus == 1 && EditCheck) {
+                            return [
+                           '<a class="edit ml10" href="javascript:void(0)" title="Review">',
+                           'Review',
+                           '</a>&nbsp;&nbsp;&nbsp;&nbsp;',
+
+                            ].join('');
+                        }
+                        if (value.ReturnStatus == 2 && IsGoodsReceipt) {
+                            return [
+                           '<a class="edit1 ml10" href="javascript:void(0)" title="Received confirm">',
+                           'Received confirm',
+                           '</a>&nbsp;&nbsp;&nbsp;&nbsp;',
+
+                            ].join('');
+                        }
+                        if (value.ReturnStatus == 4 && IsRefund) {
+                            return [
+                           '<a class="edit2 ml10" href="javascript:void(0)" title="Confirm refund">',
+                           'Confirmation refund',
+                           '</a>&nbsp;&nbsp;&nbsp;&nbsp;',
+
+                            ].join('');
+                        }
+
+                    },
+                    events: {
+
+                        'click .edit': function (e, value, row, index) {
+                            //console.log(1);
+                            Tool.ShowModal('@Url.Action("Create")', { id: value }, 'Review');
+                        },
+                        'click .edit1': function (e, value, row, index) {
+                            //console.log(1);
+
+                            // UpdateReturnProductInfoSH(value);
+                            Tool.OperationRecord('@Url.Action("UpdateReturnProductInfoSH")', { ReturnOrderID: value, ReturnStatus: 4 }, "Received confirm", $('#u_grid'));
+                        },
+                        'click .edit2': function (e, value, row, index) {
+
+                            Tool.OperationRecord('@Url.Action("UpdateReturnProductInfoTK")', { ReturnOrderID: value, ReturnStatus: 5 }, "Confirm refund", $('#u_grid'));
+                        }
+                    }
+                },
+                { field: 'OrderID', title: 'Order SN', align: 'center', valign: 'middle', sortable: false },
+                { field: 'NickName', title: 'User NickName', align: 'center', valign: 'middle', sortable: false },
+                { field: 'Email', title: 'Email', align: 'center', valign: 'middle', sortable: false },
+
+                { field: 'ProductId', title: 'Product SN', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'ProductName', title: 'Product name', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        return val;
+                    }
+                },
+                { field: 'CostPrice', title: 'Cost price', align: 'center', valign: 'middle', sortable: false },
+                { field: 'SalesPrice', title: 'List price', align: 'center', valign: 'middle', sortable: false },
+                { field: 'ReturntNumber', title: 'Returnt Number', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'TradeAmount', title: 'Deal amount', align: 'center', valign: 'middle', sortable: false
+                },
+
+                { field: 'RefundAmount', title: 'Refund amount', align: 'center', valign: 'middle', sortable: false },
+
+                {
+                    field: 'ReasonType', title: 'Returned good reason', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var ms = "-";
+                        switch (val) {
+                            case -1:
+                                ms = "Poor quality";
+                                break;
+                            case 1:
+                                ms = "Damaged goods";
+                                break;
+                            case 2:
+                                ms = "Delayed delivery ";
+                                break;
+                            case 3:
+                                ms = "Not what I want ";
+                                break;
+                            case 4:
+                                ms = "Quality problems ";
+                                break;
+                            case 5:
+                                ms = "Others ";
+                                break;
+                            default:
+                                ms = "-"; break;
+                        }
+
+                        return ms;
+                    }
+                },
+                {
+                    field: 'Discription', title: 'State', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        return "<div style='width:300px'>" + val + "</div>";
+                    }
+                },
+                {
+                    field: 'ReturnStatus', title: 'Status', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var ms = "-";
+                        //1申请中,2审核通过,3申请已驳回,4确认收货,5退款完成,6申请已撤销
+                        switch (val) {
+                            case 1:
+                                ms = "Apply on progress";
+                                break;
+                            case 2:
+                                ms = "Approved";
+                                break;
+                            case 3:
+                                ms = "Reject";
+                                break;
+                            case 4:
+                                ms = "Received confirm";
+                                break;
+                            case 5:
+                                ms = "Refund complete";
+                                break;
+                            case 6:
+                                ms = "Apply revoked";
+                                break;
+                            default:
+                                ms = "-"; break;
+
+                        }
+
+                        return ms;
+                    }
+                },
+                {
+                    field: 'ReturnText', title: 'Customer receipt', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var m = '<spen  title="' + val + '" > ' + val + '</spen>';
+                        if (val != null && val != "" && val.length > 30) {
+                            m = '<spen  title="' + val + '" > ' + val.substring(0, 29) + '...</spen>';
+                            return m;
+                        }
+                        return m;
+                    }
+                },
+
+               {
+                   field: 'CreateTime', title: 'Apply time', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                       if (val != null && val != "") {
+                           return val.formatterString(true)/*true 日期格式2015-5-5*/
+                       }
+                       return "-";
+                   }
+               },
+               {
+                   field: 'UpdateTime', title: 'Review time', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                       if (val != null && val != "") {
+                           return val.formatterString(true)/*true 日期格式2015-5-5*/
+                       }
+                       return "-";
+                   }
+               },
+               {
+                   field: 'DeliveryDate', title: 'Received time', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                       if (val != null && val != "") {
+                           return val.formatterString(true)/*true 日期格式2015-5-5*/
+                       }
+                       return "-";
+                   }
+               },
+               {
+                   field: 'RefundDate', title: 'Refund time', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                       if (val != null && val != "") {
+                           return val.formatterString(true)/*true 日期格式2015-5-5*/
+                       }
+                       return "-";
+                   }
+               }
+
+            ];
+
+            //绑定列表
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+
+                queryParams: function (params) {
+                    return {
+                        OrderID: $('#OrderID').val(),
+                        //UserID: $('#UserID').val(),
+                        ReturnStatus: $('#selectReturnStatus').val(),
+                        ReturnType: $('#selectReturnType').val(),
+                        Time: new Date().getTime(),
+                        Email: $("#Email").val(),
+                        PagedIndex: this.pageNumber - 1,//params.pageNumber - 1  params.offset
+                        PagedSize: this.pageSize       //params.pageSize  params.limit
+                    };
+                },
+                sortOrder: 'desc',
+                pagination: true,
+                sortName: 'bannerId',
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns
+
+            });
+
+            //确认收货
+            function UpdateReturnProductInfoSH(ReturnOrderID) {
+                if (confirm("Are you sure Receipt")) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateReturnProductInfoSH")' + "?ReturnOrderID=" + ReturnOrderID + "&ReturnStatus=4",
+                        dataType: "json",
+                        success: function (data, status) {
+
+                            Tool.Alert(data.Messages[0], 1500);
+                            Tool.ReloadDataTable($('#u_grid'));
+                        },
+                        error: function (data, status, e) {
+                            Tool.Alert("Confirm received failed!", 1500);
+
+                            //alert(e);
+                        }
+
+                    });
+                }
+
+            }
+
+            //确认退款
+            function UpdateReturnProductInfoTK(ReturnOrderID) {
+                if (confirm("Are you sure Refund")) {
+                    $.ajax({
+                        url: '@Url.Action("UpdateReturnProductInfoTK")' + "?ReturnOrderID=" + ReturnOrderID + "&ReturnStatus=5",
+                        dataType: "json",
+                        success: function (data, status) {
+
+                            Tool.Alert(data.Messages[0], 1500);
+                            Tool.ReloadDataTable($('#u_grid'));
+                        },
+                        error: function (data, status, e) {
+                            Tool.Alert("Confirm refund failed!", 1500);
+
+                            //alert(e);
+                        }
+
+                    });
+                }
+            }
+
+
+
+            //刷新列表
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+
+
+
+        });
+        //保存
+        function Save() {
+            if ($("#ReturnStatus").val() != "2" && $("#ReturnStatus").val() != "3") {
+                $("#ReturnStatus").val("2");
+            }
+            var RefundAmount = parseFloat($("#RefundAmount").val());//退款金额
+            var TradeAmount = parseFloat($("#TradeAmount").val());//交易金额
+            if (RefundAmount == "NaN" || RefundAmount == NaN || RefundAmount < 0) {
+                Tool.Alert("Please enter correct amount"); return;
+            }
+            if (RefundAmount > TradeAmount) {
+                Tool.Alert("Refund amount cannot greater than trading amount"); return;
+            }
+
+            Tool.SaveModal($('#u_grid'));
+        }
+
+        //判断是不是Decimal类型(正则实现)
+        function isDecimal(item) {
+            var obj = $(item);
+            if (obj.length > 0) {
+                if ($(obj).val() != null && typeof ($(obj).val()) != "undefined") {
+                    var str = $(obj).val().toString();
+                    if (str != "") {
+                        var pattern = '^-?[1-9]\\d*$|^-?0\\.\\d*$|^-?[1-9]\\d*\\.\\d*$';
+                        var reg = new RegExp(pattern, 'g');
+                        if (reg.test(str)) {
+                            return true;
+                        } else {
+                            if (str.match(/[^0-9\.-]/g) != null) {
+                                if (str.match(/[^0-9\.-]/g).length > 0) {
+                                    str = str.replace(/[^0-9\.-]/g, '');
+                                    $(item).val(str);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+
+    </script>
+}
+
+

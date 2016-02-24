@@ -1,0 +1,281 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = null;
+}
+
+<div class="main_a">
+    <div class="z_personal">
+        <div class="PersonMain">
+
+            <!--右边的写在这里-->
+            <div class="PmainRight" id="PmainRight">
+                <div class="c_tuikuan">
+                    <div class="c_tuikuan_nr">
+                        <div class="c_tuikuan_nr_bt"><span>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_ACCOUNTSECURITY") > @CultureHelper.GetLangString("ACCOUNT_USERINFO_UPDATELOGINPASSWORD_UPDATELOGINPASSWORD")</span></div>
+                        <div class="c_tuikuan_nr_bt1">@CultureHelper.GetLangString("ACCOUNT_USERINFO_UPDATELOGINPASSWORD_UPDATELOGINPASSWORD")</div>
+                        <div class="cb_jypass">
+                            <div class="cb_jypass1">
+                                <b>@ViewBag.Phone</b>
+                                <span id="code" style="cursor:pointer">@CultureHelper.GetLangString("LOGIN_GETPASSWORD_VERIFICATIONCODE")</span>
+                            </div>
+                            <div class="cb_jypass2">
+                                <input type="text" class="cb_text1" id="phonecode" value="" name="shezhi" maxlength="6" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="@CultureHelper.GetLangString("LOGIN_GETPASSWORD_ENTERPHONEVERICODE")">
+                                <i class="fade-in-right" id="phonetip" style="display:none"><em></em><ins></ins></i>
+                            </div>
+                            <div class="cb_jypass2">
+                                <input type="password" class="cb_text1" id="opwd" maxlength="16" onkeyup="this.value=this.value.replace(/^ +| +$/g,'')" placeholder="@CultureHelper.GetLangString("ACCOUNT_USERINFO_UPDATELOGINPASSWORD_OLDLOGINPASSWORD")">
+                                <i class="fade-in-right" id="omtip" style="display:none"><em></em><ins></ins></i>
+                            </div>
+                            <div class="cb_jypass2">
+                                <input type="password" class="cb_text1" id="npwd" value="" name="shezhi" maxlength="16" onkeyup="this.value=this.value.replace(/^ +| +$/g,'')" placeholder="@CultureHelper.GetLangString("ACCOUNT_USERINFO_UPDATELOGINPASSWORD_LOGINPASSWORD")">
+                                <i class="fade-in-right" id="mmtip" style="display:none"><em></em><ins></ins></i>
+                            </div>
+                            <div class="cb_jypass2">
+                                <input type="password" class="cb_text1" id="rpwd" value="" name="shezhi" maxlength="16" onkeyup="this.value=this.value.replace(/^ +| +$/g,'')" placeholder="@CultureHelper.GetLangString("LOGIN_GETPASSWORD_ENTERCONFIRMPASSWORD")">
+                                <i class="fade-in-right" id="qmmtip" style="display:none"><em></em><ins></ins></i>
+                            </div>
+                            <div class="cb_jypass3">
+                                <button type="button" style="cursor:pointer" name="" class="cb_jypass3_button" onclick="javascript:void(xiugai());" id="submit">@CultureHelper.GetLangString("LOGIN_GETPASSWORD_CHANGE")</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="c_public_bottom"></div>
+    </div>
+</div>
+<script src="~/Content/js/format.js"></script>
+<script type="text/javascript">
+    $("div.PmainLeft .anquan").parent().addClass("Checked");
+    $("div.PmainLeft .anquan").removeClass("anquan").addClass("Ranquan");
+    $(function () {
+        $("#code").click(function () {
+            getCode();
+        });
+    });
+
+    //获取验证码
+    var a = 1;
+    function getCode() {
+        if (a == 1) {
+            document.getElementById("code").disabled = false;
+        }
+        a++;
+        if (false == document.getElementById("code").disabled) {
+            var seconds = new Date().getTime();
+            var obj = parseInt(seconds / 1000);
+            timtout(obj, 120);
+            $.post("/UserInfo/SendPhoneMsg", function (data) {
+                if (data.rs == 1) {
+                } else {
+                    mallbox.alert({ message: data.msg, modal: true });
+                }
+            });
+        }
+    }
+
+    function timtout(obj, time) {
+        var miao = time - (parseInt(new Date().getTime() / 1000) - obj);
+        if (miao <= 0) {
+            document.getElementById("code").disabled = false;
+            $("#code").html($commonLang.LOGIN_GETPASSWORD_SENDAGAIN);//重新发送
+            return;
+        }
+        document.getElementById("code").disabled = true;
+        $("#code").html(miao+"s");//秒后重新获取
+        setTimeout(function () { timtout(obj, time) }, 500);
+    }
+
+    $("#phonecode").blur(function () {
+        if ($.trim($(this).val()) == "") {
+            $("#phonetip").show();
+            $("#phonetip").find("ins:eq(0)").html($commonLang.INPUT_PHONECODE);
+            return false;
+        }
+        checkPhoneCode();
+    });
+    //验证短信验证码
+    function checkPhoneCode() {
+        var code =$.trim($("#phonecode").val());
+        if (code == "") {
+            $("#phonetip").show();
+            $("#phonetip").find("ins:eq(0)").html($commonLang.INPUT_PHONECODE);
+            return false;
+        }
+        if (!new RegExp(/^\d{6}$/).test(code)) {
+            $("#phonetip").show();
+            $("#phonetip").find("ins:eq(0)").html($commonLang.LOGIN_GETPASSWORD_CORRECTCODE);
+            return false;
+        }
+
+        $.ajax({
+            url: "/UserInfo/PhoneVerificationCode",
+            dataType: "json",
+            type: "post",
+            data: { "code": code },
+            async: false,
+            success: function (data) {
+                if (data.rs == 1) {
+                    $("#phonetip").hide();
+                }
+                else {
+                    $("#phonetip").show();
+                    $("#phonetip").find("ins:eq(0)").html(data.msg);
+                }
+            }
+        });
+    }
+
+
+    $("#opwd").blur(function () {
+        if ($.trim($(this).val()) == "") {
+            $("#omtip").show();
+            $("#omtip").find("ins:eq(0)").html($commonLang.INPUT_OLD_LOGINPWD);
+            return false;
+        }
+        checkOldPwd();
+    });
+
+    function checkOldPwd() {
+        var opwd =$.trim($("#opwd").val());
+        if (opwd == "") {
+            $("#omtip").show();
+            $("#omtip").find("ins:eq(0)").html($commonLang.INPUT_OLD_LOGINPWD);
+            return;
+        }
+        $.ajax({
+            url: "/UserInfo/LoginPassVerify",
+            dataType: "json",
+            type: "post",
+            data: { "pwd": opwd },
+            async: false,
+            success: function (data) {
+                if (data.rs == 1) {
+                    $("#omtip").hide();
+                }
+                else {
+                    $("#omtip").show();
+                    $("#omtip").find("ins:eq(0)").html(data.msg);
+                }
+            }
+
+        });
+    }
+
+
+    $("#npwd").blur(function () {
+        if ($.trim($(this).val()) == "") {
+            $("#mmtip").show();
+            $("#mmtip").find("ins:eq(0)").html($commonLang.INPUT_NEW_LOGINPWD);
+            return;
+        }
+        checkPwd();
+    });
+
+    var tegNum = /^\d{8,16}$/;
+    var tegLetter = /^[a-zA-Z]{8,16}$/;
+    var pattern = /^[!@@#$%^&*()_+|={}?><\-\]\\[\/]{8,16}$/;
+    function checkPwd() {
+        var password =$.trim($("#npwd").val());
+        if (password == "") {
+            $("#mmtip").show();
+            $("#mmtip").find("ins:eq(0)").html($commonLang.INPUT_NEW_LOGINPWD);
+            return false;
+        }
+        if (password.length < 8 || password.length >16 || new RegExp(/[^\x00-\xff]|\s/).test(password)) {
+            $("#mmtip").show();
+            $("#mmtip").find("ins:eq(0)").html($commonLang.LOGIN_GETPASSWORD_PWDFORMAT);
+            return false;
+        }
+        if (tegNum.test(password) || tegLetter.test(password) || pattern.test(password)) {
+            $("#mmtip").show();
+            $("#mmtip").find("ins:eq(0)").html($commonLang.LOGIN_GETPASSWORD_PWDATLEASTINCLUDE);
+            return false;
+        }
+        $.ajax({
+            url: "/UserInfo/LoginPassExist",
+            dataType: "json",
+            type: "post",
+            data: { "StrPlyPass": password },
+            async: false,
+            success: function (data) {
+                if (data.rs == 1) {
+                    $("#mmtip").hide();
+                }
+                else {
+                    $("#mmtip").show();
+                    $("#mmtip").find("ins:eq(0)").html(data.msg);
+                }
+            }
+
+        });
+    }
+    $("#rpwd").blur(function () {
+        checkPwdAgain();
+    });
+
+
+    function checkPwdAgain() {
+        var pwd = $("#npwd").val();
+        var rpwd = $("#rpwd").val();
+        if ($.trim(rpwd) == "") {
+            $("#qmmtip").show();
+            $("#qmmtip").find("ins:eq(0)").html($commonLang.LOGIN_GETPASSWORD_PWDCONFIRM);
+        } else {
+            if ($.trim(rpwd) != $.trim(pwd)) {
+                $("#qmmtip").show();
+                $("#qmmtip").find("ins:eq(0)").html($commonLang.LOGIN_GETPASSWORD_PWDDIFFERENT);
+                return false;
+            }
+            else {
+                $("#qmmtip").hide();
+            }
+        }
+    }
+
+    function xiugai() {
+        $("#submit").attr("disabled", "disabled"); //使按钮不能被点击
+
+        checkPhoneCode();
+        checkOldPwd();
+        checkPwd();
+        checkPwdAgain();
+
+        var yzm = $("#phonetip").is(":hidden");
+        var opwd = $("#omtip").is(":hidden");
+        var npwd = $("#mmtip").is(":hidden");
+        var cpwd = $("#qmmtip").is(":hidden");
+        if (yzm && opwd && npwd && cpwd) {
+            $.post("/UserInfo/UpdatePass",
+                   {
+                       Code:$.trim($("#phonecode").val()),
+                       PassWord: $.trim($("#opwd").val()),
+                       NewPassWord: $.trim($("#npwd").val()),
+                       okPassWord: $.trim($("#rpwd").val())
+                   },
+                   function (data) {
+                       if (data.rs == 1) {
+                           mallbox.alert({
+                               message: $commonLang.ACCOUNT_USERINFO_PWDSUCCESS,
+                               modal: true,
+                               callback: function () {
+                                   window.location.href = "/Login/Index";
+                               }
+                           });
+                       }
+                       else {
+                           mallbox.alert({ message: data.msg, modal: true });
+                           $("#submit").removeAttr("disabled");
+                       }
+                   });
+        }
+        else {
+            $("#submit").removeAttr("disabled");
+            return false;
+        }
+    }
+
+</script>
+
+

@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="Keywords" content="">
+		<title>香港商城</title>
+		<link rel="stylesheet" type="text/css" href="newcss/css/css.css" />
+		<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+	</head>
+
+<body>
+<div class="header">
+	<div class="clear" style="background: #ccc; height: 175px;"></div>
+</div><!--公共头部-->
+
+ 
+<div class="main_a">
+	<div class="main_about">
+    
+		<div class="m_news">
+            <div class="m_news_bt">
+            	<ul>
+            		<li class="active">活动</li>
+            		<li>公告</li>
+            	</ul>
+                <dl>发表时间</dl>
+            </div>
+                            
+            <div class="m_news_nr">
+            	
+            	<div class="ls_news_empty">
+            		<p><i></i>暂无公告</p>
+            	</div>
+            	
+            </div>
+			<div class="clear"></div>
+		</div>
+        
+        
+        
+        
+	</div>
+</div><!--主体部分-->
+
+
+<div class="footer"></div><!--公共底部-->
+
+
+
+<script type="text/javascript">
+    $('.m_news_bt li').bind('click',function(){
+        $(this).addClass('active').siblings().removeClass('active');
+        if($(this).index()==0){
+            $('.m_news_nr_1').show().each(function(){
+                $('.m_news_nr_1 ul li').addClass('flipInX');
+            });
+            $('.m_news_nr_2').hide().each(function(){
+                $('.m_news_nr_2 ul li').removeClass('flipInX');
+            });
+        }else if($(this).index()==1){
+            $('.m_news_nr_1').hide().each(function(){
+                $('.m_news_nr_1 ul li').removeClass('flipInX');
+            });
+            $('.m_news_nr_2').show().each(function(){
+                $('.m_news_nr_2 ul li').addClass('flipInX');
+            });
+        }
+    });
+</script>
+</body>
+
+</html>

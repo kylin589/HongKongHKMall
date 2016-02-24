@@ -1,0 +1,228 @@
+﻿@using Autofac;
+@using HKTHMall.Services.Orders;
+@using HKTHMall.Services.Users;
+@using HKTHMall.Services.Common.MultiLangKeys;
+@using HKTHMall.Admin.common;
+@using HKTHMall.Domain.Enum;
+@{
+    long orderId = Convert.ToInt64(ViewData["orderId"]);
+    IOrderService orderService = BrCms.Framework.Infrastructure.BrEngineContext.Current.Resolve<IOrderService>();
+    IUserAddressService userAddressService = BrCms.Framework.Infrastructure.BrEngineContext.Current.Resolve<IUserAddressService>();
+    var order = orderService.GetOrderDetails(orderId).Data[0];
+    var userAddress = userAddressService.GetTHAreaAreaName(order.THAreaID, HKTHMall.Admin.common.ACultureHelper.GetLanguageID).Data;
+   // string orderStatusStr = "";
+    string payTypeStr = "";
+    //if (order.OrderStatus == -1)
+    //{
+    //    orderStatusStr = "Invalid order";
+    //}
+    //if (order.OrderStatus == 2)
+    //{
+    //    orderStatusStr = "Await payment";
+    //}
+    //else if (order.OrderStatus == 3)
+    //{
+    //    orderStatusStr = "Await delivery";
+    //}
+    //else if (order.OrderStatus == 4)
+    //{
+    //    orderStatusStr = "Await sign-off";
+    //}
+    //else if (order.OrderStatus == 5)
+    //{
+    //    orderStatusStr = "Signed off";
+    //}
+    //else if (order.OrderStatus == 6)
+    //{
+    //    orderStatusStr = "Completed";
+    //}
+    //else if (order.OrderStatus == 7)
+    //{
+    //    orderStatusStr = "Canceled";
+    //}
+    //else if (order.OrderStatus == 8)
+    //{
+    //    orderStatusStr = "Trading closed";
+    //}
+    //else if (order.OrderStatus == 9)
+    //{
+    //    orderStatusStr = "Canceled";
+    //}
+    //else
+    //{
+    //    orderStatusStr = "Unknown";
+    //}
+
+    if (order.PayType == 1)
+    {
+        payTypeStr = "Balance";
+    }
+    else if (order.PayType == 2)
+    {
+        payTypeStr = "Pay by Paypal";
+    }
+    //else if (order.PayType == 3)
+    //{
+    //    payTypeStr = "Pay by Credit card";
+    //}
+    else if (order.PayType==4)
+    {
+        payTypeStr = "Omise";
+    }
+    else if (order.PayType == 5)
+    {
+        payTypeStr = "Cash on delivery";
+    }
+    else
+    {
+        payTypeStr = "Unknown";
+    }
+}
+@{
+    ViewBag.Title = "Detail information of order";
+}
+
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#lan_1" aria-controls="home" role="tab" data-toggle="tab">Orde info</a></li>
+    <li id="aPrint">
+        @*<a href="#lan_1"  class="btn btn-primary">Print</a>*@
+        <button type="button" class="btn btn-success js-print">
+            <span class="glyphicon glyphicon-print"></span> Print
+        </button>
+    </li>
+</ul>
+
+
+<table width="800">
+    <tr><td colspan="4">&nbsp;</td></tr>
+
+
+    <tr>
+        <td>
+            <div class="form-group">
+                <span>Order SN: </span><label class="control-label-form">@order.OrderID</label>
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                <span>Order time: </span><label class="control-label-form">@(Convert.ToDateTime(order.OrderDate).ToString("yyyy-MM-dd hh:mm:ss"))</label>
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                <span>Total amount: </span><label class="control-label-form">@order.TotalAmount</label>
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                <span>Express Money: </span><label class="control-label-form">@order.ExpressMoney</label>
+            </div>
+        </td>
+        <td>
+            <div class="form-group">@*@orderStatusStr*@
+                <span>Order status: </span><label class="control-label-form"> @ML_OrderStatus.GetLocalOrderStatusDescription(ACultureHelper.GetLanguageID, (OrderEnums.OrderStatus)order.OrderStatus)</label>
+            </div>
+
+        </td>
+    </tr>
+</table>
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#lan_1" aria-controls="home" role="tab" data-toggle="tab">Consignee info</a></li>
+</ul>
+<table width="800">
+    <tr><td colspan="3">&nbsp;</td></tr>
+    <tr>
+        <td>
+            <div class="form-group">
+                <span>Contact person: </span><label class="control-label-form">@order.Receiver</label>
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                <span>Address: </span><label class="control-label-form">@(userAddress + order.DetailsAddress)</label>
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                <span>Mobile phone: </span><label class="control-label-form">@order.Mobile</label>
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                <span>Email: </span><label class="control-label-form">@order.Email</label>
+            </div>
+        </td>
+    </tr>
+</table>
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#lan_1" aria-controls="home" role="tab" data-toggle="tab">Payment&Shipping method</a></li>
+</ul>
+<table width="800">
+    <tr><td colspan="3">&nbsp;</td></tr>
+    <tr>
+        <td>
+            <div class="form-group">
+                <span>Payment method: </span><label class="control-label-form">@payTypeStr</label>
+            </div>
+        </td>
+        <td>
+            @*<div class="form-group">
+                    <span>配送方式: </span><label class="control-label-form">没有数据列</label>
+                </div>*@
+        </td>
+        <td></td>
+    </tr>
+</table>
+<input id="orderId" value="@ViewData["orderId"]" type="hidden" />
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+
+            var columns = [
+                 {
+                     field: "PicUrl", title: "Product picture", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                         return '<img src="' + Tool.RootImage + val + '"  "width="60px" height="100px"/>';
+                     }
+                 },
+                { field: 'ProductId', title: 'Product SN', align: 'center', valign: 'middle', sortable: false },
+                { field: 'ProductName', title: 'Product name', align: 'center', valign: 'middle', sortable: false },
+                { field: 'SkuName', title: 'Product SKU ', align: 'center', valign: 'middle', sortable: false },
+                { field: 'SalesPrice', title: 'List price', align: 'center', valign: 'middle', sortable: false },
+                { field: 'Quantity', title: 'Purchase amount', align: 'center', valign: 'middle', sortable: false },
+                { field: 'DiscountInfo', title: 'Special offer', align: 'center', valign: 'middle', sortable: false },
+                { field: 'SubTotal', title: 'Total', align: 'center', valign: 'middle', sortable: false },
+                { field: 'RetateDays', title: 'Retate Days', align: 'center', valign: 'middle', sortable: false },
+                { field: 'ReateRedio', title: 'Reate Redio', align: 'center', valign: 'middle', sortable: false },
+                { field: 'StartTime', title: 'Start Time', align: 'center', valign: 'middle', sortable: false,formatter: function (val) {return val.formatterString(false)}},
+                { field: 'EndTime', title: 'End Time', align: 'center', valign: 'middle', sortable: false, formatter: function (val) { return val.formatterString(false) } }
+            ];
+
+            $('#u_grid').bootstrapTable({
+                url: "/Order/DetailsList?orderId=" + $("#orderId").val(),
+                columns: columns
+            });
+
+
+            $('body').delegate('#chkIsActive', 'click', function () {
+                var value = $(this).is(':checked') ? 1 : 0;
+
+                $('#IsActive').val(value);
+                console.log($('#IsActive').val());
+            });
+
+            //打印
+            $('.js-print').click(function () {
+                //Tool.ShowModal("@Url.Action("SelectDaYin")", { orderId: '@orderId', time: new Date().getTime() }, "Print");
+                //Tool.ShowPrint("@Url.Action("SelectDaYin")", { orderId: '@orderId', time: new Date().getTime() }, "Print");
+                window.location.href = "/Order/DaYins?orderId=" + '@orderId' + "";
+            });
+
+        });
+    </script>
+}
+<script type="text/javascript">
+    $(".main_a").append("<div class='c_public_bottom'></div>");//强制添加一行
+</script>

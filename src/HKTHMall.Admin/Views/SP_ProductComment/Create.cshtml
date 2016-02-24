@@ -1,0 +1,140 @@
+﻿@model HKTHMall.Domain.Models.Categoreis.SP_ProductCommentModel
+@{
+   
+}
+
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Product SN :
+    </label>
+        <div class="controls">
+            <div class="form-group">
+                @Html.HiddenFor(t => t.ProductCommentId)
+                <input type="text" class="form-control" placeholder="@Model.ProductId" disabled="" />
+            </div>
+        </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Order SN :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="@Model.OrderId" disabled="" />
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>User SN :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="@Model.UserID" disabled="" />
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Rate :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="@Model.CommentLevel" disabled="" />
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Comment content :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            <textarea class="form-control" style="width:206px !important" placeholder="@Model.CommentContent" disabled=""></textarea>
+            @*<input type="text"  class="form-control" placeholder="@Model.CommentContent" disabled="" />*@
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Anonymous Is or Not :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            @if (@Model.IsAnonymous==1)
+            {
+                <input type="text" class="form-control" placeholder="Yes" disabled="" />
+            }
+            else
+            {
+                  <input type="text" class="form-control" placeholder="No" disabled="" />  
+            }
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form" style="margin-bottom: 0px; box-sizing: initial; padding-top: 10px;margin-right:10px; ">
+        <label class="red"></label>Review status :
+    </label>
+    
+    <div class="controls">
+        <div class="form-group">
+            <div style="display:none">@Html.HiddenFor(t => t.CheckStatus)</div>
+            <select id="sCheckStatus" class="form-control" onchange="GetCheckStatus(this.value)">
+                @if (@Model.CheckStatus == 2)
+                {
+                    <option value="2" selected="selected">Approved</option>
+                    <option value="3">Reject</option>
+                }
+                else if (@Model.CheckStatus == 3)
+                {
+                       <option value="2" >Approved</option>
+                        <option value="3" selected="selected">Reject</option>
+                }
+                else
+                { 
+                    <option value="2" selected="selected">Approved</option>
+                    <option value="3">Reject</option>
+                }
+                
+            </select>
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Reply :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="@Model.ReplyBy" disabled="" />
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Reply time :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="@Model.ReplyDT" disabled="" />
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Reply content :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            @*<input type="text" class="form-control" placeholder="@Model.ReplyContent" disabled="" />*@
+            <textarea class="form-control" style="width:206px !important" placeholder="@Model.ReplyContent" disabled=""></textarea>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function GetCheckStatus(val) {
+        $("#CheckStatus").val(val);
+    }
+
+</script>

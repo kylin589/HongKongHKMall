@@ -1,0 +1,194 @@
+﻿@using System.Web.Optimization
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery.cookie.js"></script>
+<div class="main_a">
+    <div class="main_about">
+        <div class="specLayout">
+            <div class="specMain_2016">
+                <ul>
+                    <li><a href="/Home/Index">@CultureHelper.GetLangString("HOME_INDEX_HOMEPAGE")</a></li>
+                    <li class="spector"><i class="fa fa-angle-right"></i></li>
+                    <li><a href="javascript:void();">@CultureHelper.GetLangString("MONEY_SHOPPINGCART_SHOPPINGCART")</a></li>
+                    <span class="clear"></span>
+                </ul>
+            </div>
+
+            <div class="specCart">
+                <div class="cartStep">
+                    <div class="cartStepImg"></div>
+                    <ul>
+                        <li class="stepOnlink">@(CultureHelper.GetLangString("HOME_INDEX_MYSHOPPINGCART"))</li>
+                        <li>@(CultureHelper.GetLangString("MONEY_ORDER_ORDERINFO_FINISHANDCHECKORDERS"))</li>
+                        <li>@(CultureHelper.GetLangString("HOME_INDEX_ORDERSUBMITSUCCESS"))</li>
+                        <span class="clearfix"></span>
+                    </ul>
+                </div>
+
+                <h3>@(CultureHelper.GetLangString("MONEY_SHOPPINGCART_ALLTHEGOODS")) (<b member="AllGoodsCount"></b>)</h3>
+                <ul class="cartTitle">
+                    <li><label for=""><input type="checkbox" member='CheckAllGoods'><span>@CultureHelper.GetLangString("MONEY_SHOPPINGCART_FUTUREGENERATIONS")</span></label></li>
+                    <li>@CultureHelper.GetLangString("MONEY_SHOPPINGCART_GOODS")</li>
+                    <li>@CultureHelper.GetLangString("MONEY_SHOPPINGCART_SPECIFICATIONS")</li>
+                    <li>@CultureHelper.GetLangString("MONEY_SHOPPINGCART_THEUNITPRICE") ($)</li>
+                    <li>@CultureHelper.GetLangString("MONEY_SHOPPINGCART_NUMBER")</li>
+                    <li>@CultureHelper.GetLangString("MONEY_SHOPPINGCART_SUBTOTAL") ($)</li>
+                    <li>@CultureHelper.GetLangString("MONEY_SHOPPINGCART_OPERATION")</li>
+                    <span class="clearfix"></span>
+                </ul>
+                <div member="divCartList">
+
+                </div>
+                <div class="cartCount">
+                    <label for=""><input type="checkbox" checked="checked" member="CheckAllGoods"><span>@CultureHelper.GetLangString("MONEY_SHOPPINGCART_FUTUREGENERATIONS")</span></label>
+                    <a href="javascript:void(0)" member="DelCheckedItem">@CultureHelper.GetLangString("MONEY_SHOPPINGCART_DELETESELECTEDITEMS")</a>
+                    <ul>
+                        <li>@Html.Raw(string.Format(CultureHelper.GetLangString("MONEY_SHOPPINGCART_SELECTEDGOODS"), "<span member='AllGoodsCount'>0</span>"))</li>
+                        <li>@(CultureHelper.GetLangString("ACCOUNT_MY_ORDERPRODUCTLISTT1_COMMOPRICE")): <span>$<b member="AllGoodsPrice">0.00</b></span></li>
+                        <span class="clearfix"></span>
+                    </ul>
+
+                    <span class="clearfix"></span>
+                </div>
+
+                <div class="carterGoBuy">
+                    <a href="/" class="btnGoToBuy" id="">继续购买</a>
+                    <a href="javascript:void(0)" class="btnGoToOrder" id="btnGoToOrder">@CultureHelper.GetLangString("MONEY_SHOPPINGCART_TOSETTLE")</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--购物车为空-->
+    <div class="main_about">
+        <div class="m_pay_flase" style="display:none">
+            <div class="m_pay_emp_bt">
+                <div class="m_pay_emp_butt">
+                    <ul><i></i>@CultureHelper.GetLangString("WEBSITE_TIP_CHART_NOTSHOPINGONE")<ins>@CultureHelper.GetLangString("WEBSITE_TIP_CHART_NOTSHOPINGTWO")</ins></ul>
+                </div>
+            </div>
+            <div class="m_pay_flase_nr">
+                <a href="/Home/Index" title="" class="m_pay_button1">@CultureHelper.GetLangString("HOME_CHART_SHOPING")</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        @Html.Action("HuikaRecommend", "Home", new { area = "" })
+    </div>
+
+</div><!--主体部分-->
+<!--商品模板-->
+<div member="divCartItemTb_Template" style="display: none;">
+
+    <div member="divCartItemTb">
+        <div member="trCartItem">
+            <ul class="cartMain">
+                <li class="z_check">
+                    <input type="checkbox" id="checkbox" checked="checked" member="ChkItem">
+                    <input type="hidden" member="GoodsId">
+                    <input type="hidden" member="CartsId">
+                </li>
+                <li>
+                    <a href="javascript:void()" member="GoodsHref"><img src="" member="Pic" alt="" width="72" height="72"></a>
+                    <a href="javascript:void()" member="GoodsHref">
+                        <span member="GoodsName"></span>
+                    </a>
+                </li>
+                <li>
+                    <span member="SkuNumber" style="display:none;"></span>
+                    <dl member="Sku">
+                        <dd></dd>
+                    </dl>
+                </li>
+                <li>$<span member="GoodsUnits"></span></li>
+                <li>
+                    <a href="###" class="fa fa-minus" member='DecreaseItem'></a>
+                    <input type="text" value="1" member="GoodsCount">
+                    <a href="###" class="fa fa-plus" member="IncreaseItem"></a>
+                    <span class="Pay-commt" style="display:none;">@CultureHelper.GetLangString("MONEY_SHOPPINGCART_INVENTORY"):<span member="StockQuantity"></span></span>
+                </li>
+                <li>$<span member="GoodsTotalPrice"></span></li>
+                <li><a href="javascript:void(0)" member="DelCurGoods">@CultureHelper.GetLangString("MONEY_SHOPPINGCART_DELETE")</a></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+<!--商品模板-->
+<script src="~/Content/newcss/js/dsdialog.js"></script>
+<link href="~/Content/newcss/css/base.css" rel="stylesheet" />
+<div class="dialogCover">
+    <div class="dialogMain">
+        <p></p>
+    </div>
+</div>
+
+<style>
+    .Pay-commt {
+        margin-top: 0px !important;
+        color: #e72144;
+        font-size: 12px;
+        line-height: 20px;
+        float: left;
+    }
+
+    .Pay-commt, .car-table .Pay-commt {
+        width: 110px;
+        text-align: center;
+    }
+</style>
+
+
+@*@Html.Action("LikeGuess", "Home", new { area = "" })*@
+
+<!--商品推荐-->
+<script src="~/Scripts/Presenter/HKMall.Utility.js"></script>
+<script src="~/Scripts/Presenter/MyShoppingCartBll.js"></script>
+<script src="~/Scripts/Presenter/MyShoppingCartPresenter.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var myMyShoppingCart_Presenter = new MyShoppingCartPresenter($("body:first"));
+        myMyShoppingCart_Presenter.pageLoad();
+        myMyShoppingCart_Presenter.checkAll();
+        var j_divScrollBarWidth = $("#divScrollBar_Content").width();
+        var j_divScrollBar = $("#divScrollBar");
+        var j_divScrollBar_Content = $("#divScrollBar_Content");
+        //j_divScrollBar_Content.width(j_divScrollBar.width());
+        //j_divScrollBar_Content.css("width", j_divScrollBar.width());
+        // 设置“去结算”按钮始终在页面底部
+        function setScroollBar() {
+            //http://blog.sina.com.cn/s/blog_43e642f40101f6r3.html
+            var isNotVisual = myCommonHelper.isNotVisual(j_divScrollBar);
+            if (isNotVisual == true) {
+                j_divScrollBar_Content.css("width", j_divScrollBar.width());
+
+                j_divScrollBar_Content.css("position", "fixed");
+                j_divScrollBar_Content.css("left", j_divScrollBar.offset().left + "px");
+                j_divScrollBar_Content.css("bottom", "0px");
+            } else {
+                j_divScrollBar_Content.css("width", "100%");
+                j_divScrollBar_Content.css("position", "relative");
+                j_divScrollBar_Content.css("left", "0px");
+            }
+        }
+
+        //setScroollBar();
+        jQuery(window).scroll(function () {
+            //setScroollBar();
+        });
+
+        // $("[member=divCartList] .table-goods").css("width", "44%");
+        $(".shopping_main").parent().css({
+            'minHeight': '740px'
+        });
+
+        refreshCart();
+    });
+
+    ////刷新购车库存
+    //function refreshCart() {
+    //    var cartCount = new MyShoppingCartBll().getGoodsCount();
+    //    $(".z_count1").text(cartCount.iTotalCount);
+    //}
+</script>

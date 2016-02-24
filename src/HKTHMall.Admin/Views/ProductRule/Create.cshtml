@@ -1,0 +1,245 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.Products.ProductRuleModel
+@{
+    var SalesRuleIdList = ViewData["SalesRuleIdList"] as List<SelectListItem>;
+}
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Product SN :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.ProductRuleId)
+        @if (Model != null && Model.ProductId != 0)
+        {
+            @Html.TextBoxFor(t => t.ProductId, new { @class = "form-control", @placeholder = "Please enter product number", @maxlength = "50", @readonly = "true" })
+        }
+        else
+        {
+            @Html.TextBoxFor(t => t.ProductId, new { @class = "form-control", @placeholder = "Please enter product number", @maxlength = "50" })
+            @Html.ValidationMessageFor(m => m.ProductId)
+        }
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Product name :
+    </label>
+    <div class="controls">
+        @Html.TextBoxFor(t => t.ProductName, new { @class = "form-control", @disabled = "true" })
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>@*List price :*@Sale Price:
+    </label>
+    <div class="controls">
+        @Html.TextBoxFor(t => t.HKPrice, new { @class = "form-control", @disabled = "true" })
+    </div>
+</div>
+<div id="IsSaleRule" style="display: @(Model.SalesRuleId == 1 ? "none" : "block") ">
+
+    <div class="control-group">
+        <label class="control-label-form">
+            <label class="red">*</label>Discount :
+        </label>
+        <div class="controls">
+            @Html.TextBoxFor(t => t.Discount, new { @class = "form-control", @placeholder = "Please enter discount", @maxlength = "10" })
+            @Html.ValidationMessageFor(m => m.Discount)
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label-form">
+            <label class="red">*</label>Promotion price :
+        </label>
+        <div class="controls">
+            @Html.TextBoxFor(t => t.SalePrice, new { @class = "form-control", @disabled = "true" })
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label-form">
+            <label class="red">*</label>Start time :
+        </label>
+        <div class="controls">
+            @if (Model.ProductRuleId > 0)
+            {
+                @Html.TextBox("TempStarDate", Model.StarDate.ToString("yyyy-MM-dd HH:mm"), new { @class = "form_datetime form-control", @placeholder = "Please select start time" })
+            }
+            else
+            {
+                @Html.TextBox("TempStarDate","" , new { @class = "form_datetime form-control", @placeholder = "Please select start time" })
+            }
+          
+            @Html.ValidationMessageFor(m => m.TempStarDate)
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label-form">
+            <label class="red">*</label>End time :
+        </label>
+        <div class="controls">
+            @if (Model.ProductRuleId > 0)
+            {
+                @Html.TextBox("TempEndDate", Model.EndDate.ToString("yyyy-MM-dd HH:mm"), new { @class = "form_datetime form-control", @placeholder = "Please select end time" })
+            }
+            else
+            {
+                @Html.TextBox("TempEndDate","", new { @class = "form_datetime form-control", @placeholder = "Please select end time" })
+            }
+           
+            @Html.ValidationMessageFor(m => m.TempEndDate)
+        </div>
+    </div>
+
+    <div style="border:solid 1px #3CB371"></div>
+    <div><h4>Stock info:</h4></div>
+    <!--SKU_Product商品SKU列表信息-->
+    <div id="SKU_Product_div" style="max-height: 100px; overflow-y: auto;">
+        <table class="table table-border table-bordered table-bg">
+            <tbody id="sku_str">
+                <tr>
+                    <th>Sku name</th>
+                    <th>Item No.</th>
+                    <th>Stocks</th>
+                    @*<th>List price</th>
+                    <th>List price</th>update by liujc*@
+                    <th>Sale price</th>
+                    <th>List price</th>
+                    <th>Purchase price</th>
+                    <th>Enable or Not</th>
+                </tr>
+                @if (Model.SKU_ProductModels != null && Model.SKU_ProductModels.Count > 0)
+                {
+                    var index = 0;
+                    foreach (var item in Model.SKU_ProductModels)
+                    {
+                        index++;
+                        if (index == 1)
+                        {
+                            @Html.Raw("<tr>");
+                        }
+                    <td>@(item.SkuName)</td>
+                    <td>@(item.ProductCode)</td>
+                    <td>@(item.Stock)</td>
+                    <td>@(item.HKPrice)</td>
+                    <td>@(item.MarketPrice)</td>
+                    <td>@(item.PurchasePrice)</td>
+                    <td>@(item.IsUse == 1 ? "Enable" : "Disable")</td>
+                        if (index == 1)
+                        {
+                            @Html.Raw("</tr>");
+                        }
+                        index = 0;
+                    }
+                }
+
+                </tbody>
+            </table>
+        </div>
+        <script src="~/Content/plugins/datepicker/bootstrap-datepicker.js?@DateTime.Now" type="text/javascript"></script>
+        <script type="text/javascript">
+            var isExsit = true;
+            $(function () {//bind
+                //商品ID为0时,表示是新增商品促销,否则是修改商品促销
+                if (@Model.ProductId == 0) {
+                    $("#modal-form #ProductId").bind("blur", function () {
+                        if ($(this).val().trim() == '' || $(this).val().trim().length == 0 || $(this).val() == '0') {
+                            Tool.Alert("Please enter product number greater than 0!", 1000);
+                            return;
+                        }
+                        var mForm = $("#modal-form");
+                        $.post("/ProductRule/IsExsitProduct", { "id": $(this).val() }, function (data) {
+                            var discount = $(mForm).find("#Discount").val();
+                            if (data) {
+                                if (data == 'Uncommitted') {
+                                    Tool.Alert("Product submit pending, cannot be promotion product!", 1000);
+                                } else if (data == 'Submitting') {
+                                    Tool.Alert("Product review pending, cannot be promotion product!", 1000);
+                                } else if (data == 'ExaminationNotThrough') {
+                                    Tool.Alert("Product not approved, cannot be promotion product!", 1000);
+                                } else if (data == 'HasUnderShelves') {
+                                    Tool.Alert("Product out of stock, cannot be promotion product!", 1000);
+                                } else {
+                                    $(mForm).find("#ProductName").val(data.ProductName);
+                                    $(mForm).find("#HKPrice").val(data.HKPrice);
+                                    $(mForm).find("#SalePrice").val(parseFloat(data.HKPrice) * parseFloat(discount));
+                                    //添加商品库存属性信息
+                                    if (data.SKU_ProductModels != null && data.SKU_ProductModels.length > 0) {
+                                        var $index = 0;
+                                        var $html = "";
+                                        $("#sku_str").find("tr").eq(1).html('');
+                                        for (var i = 0; i < data.SKU_ProductModels.length; i++) {
+                                            $index++;
+                                            if ($index == 1) {
+                                                $html += "<tr>";
+                                            }
+                                            var isUseName = data.SKU_ProductModels[i].IsUse == 1 ? "Enable" : "Disable";
+                                            var skuName =data.SKU_ProductModels[i].SkuName == null ? "-" : data.SKU_ProductModels[i].SkuName;
+                                            var productCode = data.SKU_ProductModels[i].ProductCode == null ? "-" : data.SKU_ProductModels[i].ProductCode
+                                            $html += ' <td>' + skuName + '</td>';
+                                            $html += ' <td>' + productCode + '</td>';
+                                            $html += ' <td>' + data.SKU_ProductModels[i].Stock + '</td>';
+                                            $html += ' <td>' + data.SKU_ProductModels[i].HKPrice + '</td>';
+                                            $html += ' <td>' + data.SKU_ProductModels[i].MarketPrice + '</td>';
+                                            $html += ' <td>' + data.SKU_ProductModels[i].PurchasePrice + '</td>';
+                                            $html += ' <td>' + isUseName + '</td>';
+                                            if ($index == 1) {
+                                                $html += "</tr>";
+                                            }
+                                            $index = 0;
+                                        }
+                                        $("#sku_str").append($html);
+                                    }
+                                }
+                            } else {
+                                Tool.Alert("Product not exist, cannot be promotion product!", 1000);
+                            }
+                        });
+
+                    });
+                }
+
+                //触发折扣
+                $("#modal-form #Discount").bind("blur", function () {
+                    if ($(this).val().trim() != '' && $(this).val().isNumber()) {
+                        var hkprice = $("#modal-form #HKPrice").val();
+                        $("#modal-form").find("#SalePrice").val((parseFloat(hkprice) * parseFloat($(this).val().trim())).toFixed(2));
+                    }
+                });
+                //是否显示促销
+                $("#SalesRuleId").change(function () {
+                    if ($(this).val() == 1) {
+                        $("#IsSaleRule").css("display", "none");
+                    } else {
+                        $("#IsSaleRule").css("display", "block");
+                    }
+                })
+                //自动保留2位小数
+                $("#Discount", "#modal-form").change(function () {
+                    var number = $(this).val();
+                    var num = parseFloat(number).toFixed(2);
+                    $(this).val(num);
+                });
+                //日期控件 开始
+                $('#TempStarDate', "#modal-form").datetimepicker({
+                    format: 'yyyy-mm-dd hh:ii',
+                    language: "en",
+                    //  startDate: '-0d',
+                    autoclose: true,
+                    todayBtn: true,
+                    pickerPosition: "bottom-left"
+                }).on("changeDate", function (e) {
+                    $('#TempEndDate').datetimepicker('setStartDate', e.date);
+                });
+
+
+                //日期控件 结束
+                $('#TempEndDate', "#modal-form").datetimepicker({
+                    format: 'yyyy-mm-dd hh:ii',
+                    language: "en",
+                    autoclose: true,
+                    todayBtn: true,
+                    pickerPosition: "bottom-left"
+                }).on("changeDate", function (e) {
+                    $('#TempStarDate').datetimepicker('setEndDate', e.date);
+                });
+            })
+        </script>

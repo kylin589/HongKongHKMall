@@ -1,0 +1,27 @@
+﻿@using HKTHMall.Core.Extensions
+@using HKTHMall.Services.Common.MultiLangKeys
+@model List<HKTHMall.Domain.WebModel.Models.Product.ProductCommentModel>
+@{
+    Layout = null;
+}
+@if (Model != null && Model.Count > 0)
+{
+    foreach (var row in Model)
+    {
+        <div class="seneir">
+            <label>
+                <p>@(row.Phone)</p>
+                <em>@(DateTimeExtensions.DateTimeToString((System.DateTime)row.CommentDT))</em>
+            </label>
+            <p class="sepjp">@(row.CommentContent)</p>
+        </div>
+    }
+}
+else
+{
+    <div class="seneir">
+        <p class="sepjp">@CultureHelper.GetLangString("ACCOUNT_MY_REVIEW_NOEVALUATIONPRESENT")</p>
+    </div>
+}
+@Html.Raw(Html.ToPageHtml((int)ViewBag.Page, 10, (int)ViewBag.Count, 1, "pjia|Product/PrdAppraise"))
+<script>jQuery('.tunepage>li>a').Page({ type: 1 }, { key: $("#productId").val() })</script>

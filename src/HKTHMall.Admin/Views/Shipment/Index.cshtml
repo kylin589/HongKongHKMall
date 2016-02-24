@@ -1,0 +1,270 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using Autofac
+@using BrCms.Framework.Infrastructure
+@using HKTHMall.Admin.common
+@model HKTHMall.Domain.Models.Bra.SearchBrandModel
+@{
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(144);
+    _Authority.Delete = _Authority.CheckAction(141);
+    //_Authority.Edit = _Authority.CheckAction(142);
+}
+
+<div id="shipment-toolbar" class="form-inline">
+    @if (_Authority.Add)
+    {
+        <a class="btn btn-primary" href="@Url.Action("AddOrUpdate")">Add</a>
+    }
+    @if (_Authority.Delete)
+    {
+        <a id="btn_delete" class="btn btn-danger" href="#" data-bind="click:remove">Delete</a>
+    }
+    @*<button class="btn btn-success" id="setDefault" disabled="disabled">SetDefault</button>*@
+</div>
+
+<table id="shipment_grid" data-toolbar="#shipment-toolbar"></table>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            // grid  Begin
+            var columns = [
+                {
+                    //field: 'FareTempID',
+                    checkbox: true,
+                    align: 'center',
+                    valign: 'middle',
+                    width: 36,
+                },
+                {
+                    field: 'Name',
+                    title: 'Template Name',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                },
+                {
+                    field: 'DeliveryTime',
+                    title: 'Delivery Time(hour)',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                },
+                {
+                    field: 'IsFreeShip',
+                    title: 'Free Ship',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true,
+                    formatter: function (value) {
+                        if (value == 1)
+                            return "Custom freight";
+                        else if (value == 2)
+                            return "Seller bear freight";
+                    }
+                },
+                {
+                    field: 'Type',
+                    title: 'Type',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true,
+                    formatter: function (value) {
+                        if (value == 1)
+                            return "By number";
+                        else if (value == 2)
+                            return "By weight";
+                        else if (value == 3)
+                            return "By volume";
+                    }
+                },
+                {
+                    field: 'InitialAmount',
+                    title: 'Initial Amount',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        var t=row.Type;
+                        if (t == 1)
+                            return value + "(piece)";
+                        else if (t == 2)
+                            return value + "(kg)";
+                        else if (t == 3)
+                            return value + "(m³)";
+                    }
+                },
+                {
+                    field: 'InitialValue',
+                    title: 'Initial Value($)',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                },
+                {
+                    field: 'AdditiveAmount',
+                    title: 'Additive Amount',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        var t = row.Type;
+                        if (t == 1)
+                            return value + "(piece)";
+                        else if (t == 2)
+                            return value + "(kg)";
+                        else if (t == 3)
+                            return value + "(m³)";
+                    }
+                },
+                {
+                    field: 'AdditiveValue',
+                    title: 'Additive Value($)',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                },
+                {
+                    field: 'IsFree',
+                    title: 'IsFree',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                },
+                {
+                    field: 'IsFreeValue',
+                    title: 'IsFree Value($)',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                },
+                //{
+                //    field: 'Address',
+                //    title: 'Address',
+                //    align: 'center',
+                //    valign: 'middle',
+                //    sortable: true
+                //},
+                //{
+                //    field: 'state',
+                //    checkbox: true,
+                //    align: 'center',
+                //    valign: 'middle',
+                //    width: 36,
+                //},
+                {
+                    field: 'FareTempID',
+                    title: 'Operation',
+                    align: 'center',
+                    valign: 'middle',
+                    //width: '200px',
+                    //sortable: true,
+                    formatter: function (value, row, index) {
+                        return [
+                            @if (_Authority.Add)
+                            {
+                                <text>
+                                 '<a class="edit ml10" href="@Url.Action("AddOrUpdate")/' + row.FareTempID + '" title="Update">' +
+                            '<i class="glyphicon glyphicon-edit"></i>Update</a>'
+                             </text>
+                            }
+                        ].join('');
+                    }
+                },
+
+                //{
+                //    field: 'IsDefault',
+                //    title: 'Default',
+                //    align: 'center',
+                //    valign: 'middle',
+                //    sortable: true,
+                //    formatter: function (value, row, index) {
+                //        return value == 1 ? 'true' : 'false';
+                //    }
+                //},
+            ];
+
+            var $table = $('#shipment_grid').bootstrapTable({
+                url: '@Url.Action("Search")',
+                queryParams: function (params) {
+                    return {
+                        PagedIndex: this.pageNumber - 1, //params.pageNumber - 1  params.offset
+                        PagedSize: this.pageSize //params.pageSize  params.limit
+                    };
+                },
+                sortOrder: 'desc',
+                sortName: 'CreateBy',
+                cache: false,
+                //height: '100%',
+                striped: true,
+                idField: 'FareTempID',
+                pagination: true,
+                //pageSize: 50,
+                //pageList: [10, 25, 50, 100, 200],
+                //search: true,
+                showColumns: true,
+                showRefresh: true,
+                //singleSelect: true,
+                minimumCountColumns: 2,
+                clickToSelect: true,
+                sidePagination: 'server',
+                columns: columns
+            });
+
+            var $setDefault = $('#setDefault'),
+                selections = [];
+
+            function getIdSelections() {
+                return $.map($table.bootstrapTable('getSelections'), function (row) {
+                    return row.FareTemplateID;
+                });
+            }
+
+            $table.on('check.bs.table uncheck.bs.table ' +
+                'check-all.bs.table uncheck-all.bs.table', function () {
+                    $setDefault.prop('disabled', $table.bootstrapTable('getSelections').length != 1);
+                    // save your data, here just save the current page
+                    selections = getIdSelections();
+                    // push or splice the selections if you want to save all data selections
+                });
+
+            $setDefault.click(function () {
+                $.post('@Url.Action("SetDefault")', { id: selections[0] }, function (res) {
+                    if (res.IsValid) {
+                        $.messager.alert('Wrong information', 'Setting Success');
+                    } else {
+                        $.messager.alert('Wrong information', res.Messages.join('\n'));
+                    }
+                    $table.bootstrapTable('refresh');
+                })
+            });
+
+            var viewModel = function () {
+                var self = this;
+                self.remove = function () {
+                    $.messager.confirm("Warning", "Sure to delete selected items?", function () {
+                        var rows = $('#shipment_grid').bootstrapTable('getSelections');
+                        var ids = [];
+                        $(rows).each(function () {
+                            ids.push(this.FareTempID);
+                        });
+                        $.post("@Url.Action("Delete")", { ids: ids }, function (result) {
+                            if (result && result.IsValid) {
+                                $('#shipment_grid').bootstrapTable('refresh');
+                                $.messager.alert('Tips', 'Deleted');
+                            } else {
+                                $.messager.alert('Wrong information', result.Messages.join('\n'));
+                            }
+                        });
+                    });
+                }
+            }
+            var model = new viewModel();
+            ko.applyBindings(model);
+        });
+    </script>
+}

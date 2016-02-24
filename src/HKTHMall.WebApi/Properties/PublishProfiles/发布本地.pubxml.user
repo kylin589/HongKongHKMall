@@ -1,0 +1,520 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+您 Web 项目的发布/打包进程将使用此文件。您可以通过编辑此 MSBuild 文件
+来自定义该进程的行为。若要了解与此相关的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkID=208121。
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>E:\发布\惠卡国际</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="Areas/Content/css/base.css">
+      <publishTime>09/14/2015 10:14:08</publishTime>
+    </File>
+    <File Include="Areas/Content/css/style.css">
+      <publishTime>08/29/2015 13:49:26</publishTime>
+    </File>
+    <File Include="Areas/Content/css/style_suc.css">
+      <publishTime>08/29/2015 13:49:26</publishTime>
+    </File>
+    <File Include="Areas/Content/css/_notes/base.css.mno">
+      <publishTime>08/27/2015 11:24:58</publishTime>
+    </File>
+    <File Include="Areas/Content/images/DownLoad.jpg">
+      <publishTime>08/31/2015 20:25:21</publishTime>
+    </File>
+    <File Include="Areas/Content/images/login1_1.png">
+      <publishTime>08/29/2015 19:20:10</publishTime>
+    </File>
+    <File Include="Areas/Content/images/login1_2.png">
+      <publishTime>08/25/2015 18:04:20</publishTime>
+    </File>
+    <File Include="Areas/Content/images/login_er.png">
+      <publishTime>08/26/2015 09:07:10</publishTime>
+    </File>
+    <File Include="Areas/Content/images/login_pass.png">
+      <publishTime>08/25/2015 18:04:20</publishTime>
+    </File>
+    <File Include="Areas/Content/images/login_pass1.png">
+      <publishTime>08/25/2015 18:04:20</publishTime>
+    </File>
+    <File Include="Areas/Content/images/login_succ.png">
+      <publishTime>08/26/2015 09:07:11</publishTime>
+    </File>
+    <File Include="Areas/Content/js/jquery-1.9.1.min.js">
+      <publishTime>08/25/2015 18:04:21</publishTime>
+    </File>
+    <File Include="Areas/Content/js/lang/en-US.js">
+      <publishTime>08/25/2015 18:04:21</publishTime>
+    </File>
+    <File Include="Areas/Content/js/lang/th-TH.js">
+      <publishTime>08/25/2015 18:04:21</publishTime>
+    </File>
+    <File Include="Areas/Content/js/lang/zh-CN.js">
+      <publishTime>08/29/2015 13:49:26</publishTime>
+    </File>
+    <File Include="Areas/Huifen/Views/BD_NewsInfo/Details.cshtml">
+      <publishTime>08/27/2015 16:32:57</publishTime>
+    </File>
+    <File Include="Areas/Huifen/Views/BD_NewsInfo/Index.cshtml">
+      <publishTime>08/27/2015 11:24:58</publishTime>
+    </File>
+    <File Include="Areas/Huifen/Views/web.config">
+      <publishTime>08/27/2015 11:24:58</publishTime>
+    </File>
+    <File Include="Areas/Register/Views/Share/Index.cshtml">
+      <publishTime>08/29/2015 13:49:27</publishTime>
+    </File>
+    <File Include="Areas/Register/Views/User/Index.cshtml">
+      <publishTime>09/14/2015 16:33:01</publishTime>
+    </File>
+    <File Include="Areas/Register/Views/User/Success.cshtml">
+      <publishTime>08/31/2015 20:17:47</publishTime>
+    </File>
+    <File Include="Areas/Register/Views/web.config">
+      <publishTime>08/25/2015 18:04:20</publishTime>
+    </File>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>08/20/2015 18:51:09</publishTime>
+    </File>
+    <File Include="bin/Apache.NMS.ActiveMQ.dll">
+      <publishTime>08/20/2015 18:51:46</publishTime>
+    </File>
+    <File Include="bin/Apache.NMS.dll">
+      <publishTime>08/20/2015 18:51:46</publishTime>
+    </File>
+    <File Include="bin/Autofac.dll">
+      <publishTime>08/20/2015 18:51:24</publishTime>
+    </File>
+    <File Include="bin/Autofac.Extras.DynamicProxy2.dll">
+      <publishTime>08/20/2015 18:51:46</publishTime>
+    </File>
+    <File Include="bin/Autofac.Integration.Mvc.dll">
+      <publishTime>08/20/2015 18:51:46</publishTime>
+    </File>
+    <File Include="bin/Autofac.Integration.WebApi.dll">
+      <publishTime>08/20/2015 18:51:15</publishTime>
+    </File>
+    <File Include="bin/AutoMapper.dll">
+      <publishTime>08/20/2015 18:51:46</publishTime>
+    </File>
+    <File Include="bin/BrCms.Framework.dll">
+      <publishTime>08/29/2015 14:49:03</publishTime>
+    </File>
+    <File Include="bin/BrCms.Framework.Mvc.dll">
+      <publishTime>09/10/2015 10:53:13</publishTime>
+    </File>
+    <File Include="bin/BrCms.Framework.WebApi2.dll">
+      <publishTime>09/15/2015 15:08:36</publishTime>
+    </File>
+    <File Include="bin/Castle.Core.dll">
+      <publishTime>08/20/2015 18:51:46</publishTime>
+    </File>
+    <File Include="bin/Couchbase.dll">
+      <publishTime>08/20/2015 18:51:46</publishTime>
+    </File>
+    <File Include="bin/em_cs_interface.dll">
+      <publishTime>08/20/2015 18:51:46</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>08/20/2015 18:51:28</publishTime>
+    </File>
+    <File Include="bin/Enyim.Caching.dll">
+      <publishTime>08/20/2015 18:51:46</publishTime>
+    </File>
+    <File Include="bin/EPPlus.dll">
+      <publishTime>08/26/2015 09:07:12</publishTime>
+    </File>
+    <File Include="bin/FluentValidation.dll">
+      <publishTime>08/20/2015 18:51:46</publishTime>
+    </File>
+    <File Include="bin/HKSJ.Common.dll">
+      <publishTime>08/20/2015 18:51:46</publishTime>
+    </File>
+    <File Include="bin/HKSJ.MidMessage.dll">
+      <publishTime>09/09/2015 18:03:12</publishTime>
+    </File>
+    <File Include="bin/HKTHMall.Core.dll">
+      <publishTime>09/15/2015 15:08:38</publishTime>
+    </File>
+    <File Include="bin/HKTHMall.Domain.dll">
+      <publishTime>09/15/2015 15:08:38</publishTime>
+    </File>
+    <File Include="bin/HKTHMall.Services.dll">
+      <publishTime>09/15/2015 15:08:40</publishTime>
+    </File>
+    <File Include="bin/HKTHMall.WebApi.Common.dll">
+      <publishTime>08/11/2015 14:42:15</publishTime>
+    </File>
+    <File Include="bin/HKTHMall.WebApi.dll">
+      <publishTime>09/15/2015 15:08:41</publishTime>
+    </File>
+    <File Include="bin/IISRecycle.vbs">
+      <publishTime>08/20/2015 18:50:53</publishTime>
+    </File>
+    <File Include="bin/IISStart.vbs">
+      <publishTime>08/20/2015 18:50:56</publishTime>
+    </File>
+    <File Include="bin/IISStop.vbs">
+      <publishTime>08/20/2015 18:50:53</publishTime>
+    </File>
+    <File Include="bin/log4net.dll">
+      <publishTime>08/20/2015 18:51:46</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>08/20/2015 18:51:24</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>08/20/2015 18:51:46</publishTime>
+    </File>
+    <File Include="bin/NLog.dll">
+      <publishTime>08/25/2015 21:05:47</publishTime>
+    </File>
+    <File Include="bin/Omise.Net.dll">
+      <publishTime>08/20/2015 18:51:46</publishTime>
+    </File>
+    <File Include="bin/PayPal.dll">
+      <publishTime>08/20/2015 18:51:46</publishTime>
+    </File>
+    <File Include="bin/PayPalCoreSDK.dll">
+      <publishTime>07/30/2015 21:17:59</publishTime>
+    </File>
+    <File Include="bin/PayPalMerchantSDK.dll">
+      <publishTime>07/30/2015 21:17:59</publishTime>
+    </File>
+    <File Include="bin/Resources.dll">
+      <publishTime>09/15/2015 15:08:39</publishTime>
+    </File>
+    <File Include="bin/Resources/Resource.en-US.resx">
+      <publishTime>09/09/2015 15:50:56</publishTime>
+    </File>
+    <File Include="bin/Resources/Resource.th-TH.resx">
+      <publishTime>09/09/2015 15:50:56</publishTime>
+    </File>
+    <File Include="bin/Resources/Resource.zh-CN.resx">
+      <publishTime>09/09/2015 15:50:56</publishTime>
+    </File>
+    <File Include="bin/ServiceStack.Text.dll">
+      <publishTime>08/20/2015 18:51:46</publishTime>
+    </File>
+    <File Include="bin/Simple.Data.Ado.dll">
+      <publishTime>08/20/2015 19:11:58</publishTime>
+    </File>
+    <File Include="bin/Simple.Data.dll">
+      <publishTime>08/20/2015 19:11:58</publishTime>
+    </File>
+    <File Include="bin/Simple.Data.RawSql.dll">
+      <publishTime>08/20/2015 19:11:58</publishTime>
+    </File>
+    <File Include="bin/Simple.Data.SqlServer.dll">
+      <publishTime>08/20/2015 19:11:59</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>08/20/2015 18:51:10</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>08/20/2015 18:51:25</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>08/20/2015 18:51:36</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>08/20/2015 18:51:33</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>08/20/2015 18:51:36</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>08/20/2015 18:51:25</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>08/20/2015 18:51:25</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>08/20/2015 18:51:25</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>08/20/2015 18:51:25</publishTime>
+    </File>
+    <File Include="bin/ThoughtWorks.QRCode.dll">
+      <publishTime>08/20/2015 18:51:46</publishTime>
+    </File>
+    <File Include="bin/uncopy.txt">
+      <publishTime>08/20/2015 18:50:56</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>08/20/2015 18:51:09</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.Helpers.resources.dll">
+      <publishTime>08/20/2015 18:51:25</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.Mvc.resources.dll">
+      <publishTime>08/20/2015 18:51:36</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.Razor.resources.dll">
+      <publishTime>08/20/2015 18:51:25</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.WebPages.Deployment.resources.dll">
+      <publishTime>08/20/2015 18:51:25</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.WebPages.Razor.resources.dll">
+      <publishTime>08/20/2015 18:51:25</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.WebPages.resources.dll">
+      <publishTime>08/20/2015 18:51:25</publishTime>
+    </File>
+    <File Include="Config/log4net.config">
+      <publishTime>08/29/2015 13:49:28</publishTime>
+    </File>
+    <File Include="Config/site.config">
+      <publishTime>08/20/2015 18:50:56</publishTime>
+    </File>
+    <File Include="Content/Site.css">
+      <publishTime>08/27/2015 11:24:58</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>08/20/2015 18:50:56</publishTime>
+    </File>
+    <File Include="Html/about.html">
+      <publishTime>09/10/2015 15:15:18</publishTime>
+    </File>
+    <File Include="Html/about_en.html">
+      <publishTime>09/10/2015 15:15:18</publishTime>
+    </File>
+    <File Include="Html/about_t.html">
+      <publishTime>09/10/2015 15:15:18</publishTime>
+    </File>
+    <File Include="Html/css/style.css">
+      <publishTime>09/15/2015 14:38:47</publishTime>
+    </File>
+    <File Include="Html/fenxiang.html">
+      <publishTime>08/29/2015 19:20:10</publishTime>
+    </File>
+    <File Include="Html/help/help.html">
+      <publishTime>09/14/2015 20:54:05</publishTime>
+    </File>
+    <File Include="Html/help/help1.html">
+      <publishTime>09/11/2015 09:30:19</publishTime>
+    </File>
+    <File Include="Html/help/help2.html">
+      <publishTime>09/14/2015 20:54:05</publishTime>
+    </File>
+    <File Include="Html/help/help3.html">
+      <publishTime>09/15/2015 14:05:22</publishTime>
+    </File>
+    <File Include="Html/help/help4.html">
+      <publishTime>09/11/2015 09:30:19</publishTime>
+    </File>
+    <File Include="Html/help/help5.html">
+      <publishTime>09/11/2015 09:30:19</publishTime>
+    </File>
+    <File Include="Html/help/help6.html">
+      <publishTime>09/11/2015 09:30:19</publishTime>
+    </File>
+    <File Include="Html/help/help7.html">
+      <publishTime>09/11/2015 09:30:19</publishTime>
+    </File>
+    <File Include="Html/help_en/help.html">
+      <publishTime>09/14/2015 20:54:05</publishTime>
+    </File>
+    <File Include="Html/help_en/help1.html">
+      <publishTime>08/28/2015 18:06:58</publishTime>
+    </File>
+    <File Include="Html/help_en/help2.html">
+      <publishTime>09/11/2015 09:30:20</publishTime>
+    </File>
+    <File Include="Html/help_en/help3.html">
+      <publishTime>09/14/2015 20:54:05</publishTime>
+    </File>
+    <File Include="Html/help_en/help4.html">
+      <publishTime>08/28/2015 18:06:58</publishTime>
+    </File>
+    <File Include="Html/help_en/help5.html">
+      <publishTime>08/28/2015 18:06:58</publishTime>
+    </File>
+    <File Include="Html/help_en/help6.html">
+      <publishTime>08/29/2015 17:42:08</publishTime>
+    </File>
+    <File Include="Html/help_en/help7.html">
+      <publishTime>09/11/2015 09:30:20</publishTime>
+    </File>
+    <File Include="Html/help_t/help.html">
+      <publishTime>09/15/2015 14:05:22</publishTime>
+    </File>
+    <File Include="Html/help_t/help1.html">
+      <publishTime>09/15/2015 14:05:22</publishTime>
+    </File>
+    <File Include="Html/help_t/help2.html">
+      <publishTime>09/15/2015 14:05:22</publishTime>
+    </File>
+    <File Include="Html/help_t/help3.html">
+      <publishTime>09/14/2015 20:54:05</publishTime>
+    </File>
+    <File Include="Html/help_t/help4.html">
+      <publishTime>08/28/2015 18:06:58</publishTime>
+    </File>
+    <File Include="Html/help_t/help5.html">
+      <publishTime>09/15/2015 14:05:22</publishTime>
+    </File>
+    <File Include="Html/help_t/help6.html">
+      <publishTime>09/15/2015 14:05:22</publishTime>
+    </File>
+    <File Include="Html/help_t/help7.html">
+      <publishTime>09/15/2015 14:05:22</publishTime>
+    </File>
+    <File Include="Html/HKTHMallDownPage.html">
+      <publishTime>09/11/2015 17:33:11</publishTime>
+    </File>
+    <File Include="Html/HtmlPage.html">
+      <publishTime>08/17/2015 12:31:48</publishTime>
+    </File>
+    <File Include="Html/images/banner1.jpg">
+      <publishTime>08/25/2015 18:04:21</publishTime>
+    </File>
+    <File Include="Html/images/btn_adroid_dload.png">
+      <publishTime>09/11/2015 17:33:11</publishTime>
+    </File>
+    <File Include="Html/images/btn_adroid_dload_h.png">
+      <publishTime>09/11/2015 17:33:11</publishTime>
+    </File>
+    <File Include="Html/images/btn_app_dload.png">
+      <publishTime>09/11/2015 17:33:11</publishTime>
+    </File>
+    <File Include="Html/images/btn_app_dload_h.png">
+      <publishTime>09/11/2015 17:33:11</publishTime>
+    </File>
+    <File Include="Html/images/c2_pingjia.png">
+      <publishTime>09/11/2015 09:30:20</publishTime>
+    </File>
+    <File Include="Html/images/c2_pjbt1.png">
+      <publishTime>09/11/2015 09:30:20</publishTime>
+    </File>
+    <File Include="Html/images/c2_pjbt2.png">
+      <publishTime>09/11/2015 09:30:20</publishTime>
+    </File>
+    <File Include="Html/images/c2_pj_click.png">
+      <publishTime>09/11/2015 09:30:20</publishTime>
+    </File>
+    <File Include="Html/images/c2_pj_click1.png">
+      <publishTime>09/11/2015 09:30:20</publishTime>
+    </File>
+    <File Include="Html/images/guide_hf.png">
+      <publishTime>09/11/2015 17:33:11</publishTime>
+    </File>
+    <File Include="Html/images/help_bt.png">
+      <publishTime>09/14/2015 20:54:05</publishTime>
+    </File>
+    <File Include="Html/images/hkmall_logo.png">
+      <publishTime>08/25/2015 21:05:46</publishTime>
+    </File>
+    <File Include="Html/images/huika.png">
+      <publishTime>08/25/2015 18:04:21</publishTime>
+    </File>
+    <File Include="Html/images/huika6.png">
+      <publishTime>08/25/2015 18:04:21</publishTime>
+    </File>
+    <File Include="Html/images/huika6p.png">
+      <publishTime>08/25/2015 18:04:21</publishTime>
+    </File>
+    <File Include="Html/images/loading.gif">
+      <publishTime>08/25/2015 18:04:21</publishTime>
+    </File>
+    <File Include="Html/images/login1_1.png">
+      <publishTime>09/11/2015 09:30:20</publishTime>
+    </File>
+    <File Include="Html/images/login1_2.png">
+      <publishTime>08/25/2015 18:04:21</publishTime>
+    </File>
+    <File Include="Html/images/login_er.png">
+      <publishTime>08/25/2015 21:05:46</publishTime>
+    </File>
+    <File Include="Html/images/login_pass.png">
+      <publishTime>08/25/2015 18:04:21</publishTime>
+    </File>
+    <File Include="Html/images/login_pass1.png">
+      <publishTime>08/25/2015 18:04:21</publishTime>
+    </File>
+    <File Include="Html/images/logo_download.png">
+      <publishTime>09/11/2015 17:33:11</publishTime>
+    </File>
+    <File Include="Html/images/pic.png">
+      <publishTime>09/11/2015 17:33:11</publishTime>
+    </File>
+    <File Include="Html/images/product1.jpg">
+      <publishTime>08/25/2015 18:04:21</publishTime>
+    </File>
+    <File Include="Html/images/product2.jpg">
+      <publishTime>08/25/2015 18:04:21</publishTime>
+    </File>
+    <File Include="Html/images/sc.jpg">
+      <publishTime>08/25/2015 18:04:21</publishTime>
+    </File>
+    <File Include="Html/images/Thumbs.db">
+      <publishTime>08/25/2015 18:04:21</publishTime>
+    </File>
+    <File Include="Html/js/changbiao.js">
+      <publishTime>09/11/2015 17:33:11</publishTime>
+    </File>
+    <File Include="Html/js/config.js">
+      <publishTime>08/27/2015 17:17:27</publishTime>
+    </File>
+    <File Include="Html/js/jquery-1.8.2.min.js">
+      <publishTime>08/25/2015 18:04:22</publishTime>
+    </File>
+    <File Include="Html/js/jquery.mobile-1.3.2.min.js">
+      <publishTime>08/25/2015 18:04:22</publishTime>
+    </File>
+    <File Include="Html/login.html">
+      <publishTime>09/11/2015 09:30:20</publishTime>
+    </File>
+    <File Include="Html/login_sucess.html">
+      <publishTime>09/11/2015 09:30:20</publishTime>
+    </File>
+    <File Include="Html/pingjia.html">
+      <publishTime>09/15/2015 15:07:23</publishTime>
+    </File>
+    <File Include="Html/product.html">
+      <publishTime>09/15/2015 10:50:05</publishTime>
+    </File>
+    <File Include="Html/shoucang.html">
+      <publishTime>09/14/2015 20:12:21</publishTime>
+    </File>
+    <File Include="Html/shoucang1.html">
+      <publishTime>09/14/2015 13:39:04</publishTime>
+    </File>
+    <File Include="Html/time.html">
+      <publishTime>08/27/2015 17:17:27</publishTime>
+    </File>
+    <File Include="Html/time2.0.html">
+      <publishTime>09/15/2015 11:07:10</publishTime>
+    </File>
+    <File Include="IISRecycle.vbs">
+      <publishTime>08/20/2015 18:50:53</publishTime>
+    </File>
+    <File Include="IISStart.vbs">
+      <publishTime>08/20/2015 18:50:56</publishTime>
+    </File>
+    <File Include="IISStop.vbs">
+      <publishTime>08/20/2015 18:50:53</publishTime>
+    </File>
+    <File Include="NLog.config">
+      <publishTime>08/31/2015 19:19:57</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>08/25/2015 18:04:19</publishTime>
+    </File>
+    <File Include="uncopy.txt">
+      <publishTime>08/20/2015 18:50:56</publishTime>
+    </File>
+    <File Include="VisitingCard/default.png">
+      <publishTime>08/20/2015 18:50:53</publishTime>
+    </File>
+    <File Include="VisitingCard/moban.jpg">
+      <publishTime>09/14/2015 16:01:21</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>09/15/2015 15:08:42</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

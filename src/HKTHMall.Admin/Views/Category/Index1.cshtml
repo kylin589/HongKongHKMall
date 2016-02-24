@@ -1,0 +1,350 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model HKTHMall.Domain.AdminModel.Models.Categoreis.CategoryModel
+
+<div class="form-inline">
+    <!-- tree Category树 -->
+    <div class="tree" id="tree"></div>
+
+    <div class="right">
+        <div class="form-inline">
+            <button class="btn btn-primary" id="add_but" type="button">
+                添加
+            </button>
+            @*<button type="button" id="del_btn" class="btn btn-primary">
+                删除
+            </button>*@
+        </div>
+
+        <form action="@Url.Action("Add")" id="category_from" method="POST" class="form-inline content" role="form">
+            @Html.ValidationSummary(false)
+
+            @Html.HiddenFor(m => m.CategoryId, new {id = "categoryId"})
+            @Html.HiddenFor(m => m.parentId)
+            @Html.HiddenFor(m => m.Grade)
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active" role="presentation">
+                    <a aria-controls="home" data-toggle="tab" href="#lan_1" role="tab">Thai</a>
+                </li>
+                <li role="presentation">
+                    <a aria-controls="profile" data-toggle="tab" href="#lan_2" role="tab">Chinese</a>
+                </li>
+                <li role="presentation">
+                    <a aria-controls="messages" data-toggle="tab" href="#lan_3" role="tab">English</a>
+                </li>
+            </ul>
+
+            <!-- Tab panes 多语言 -->
+            <div class="tab-content language-content form-inline">
+                <div class="tab-pane active" id="lan_1" role="tabpanel">
+                    @Html.HiddenFor(m => m.Category_Lang[0].Id, new {lId = "3"})
+                    <input id="Category_Lang_0__LanguageID" name="Category_Lang[0].LanguageID" type="hidden" value="3">
+                    <div class="form-group">
+                        <label class="input-1">Category: </label>@Html.TextBoxFor(m => m.Category_Lang[0].CategoryName, new {@class = "form-control text-name", langId = "3"})
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Category_Lang[0].CategoryName)
+                </div>
+                <div class="tab-pane" id="lan_2" role="tabpanel">
+                    @Html.HiddenFor(m => m.Category_Lang[1].Id, new {lId = "1"})
+                    <input id="Category_Lang_1__LanguageID" name="Category_Lang[1].LanguageID" type="hidden" value="1">
+                    <div class="form-group">
+                        <label class="input-1">Category: </label>@Html.TextBoxFor(m => m.Category_Lang[1].CategoryName, new {@class = "form-control text-name", langId = "1"})
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Category_Lang[1].CategoryName)
+                </div>
+                <div class="tab-pane" id="lan_3" role="tabpanel">
+                    @Html.HiddenFor(m => m.Category_Lang[2].Id, new {lId = "2"})
+                    <input id="Category_Lang_2__LanguageID" name="Category_Lang[2].LanguageID" type="hidden" value="2">
+                    <div class="form-group">
+                        <label class="input-1">Category: </label>@Html.TextBoxFor(m => m.Category_Lang[2].CategoryName, new {@class = "form-control text-name", langId = "2"})
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Category_Lang[2].CategoryName)
+                </div>
+            </div>
+            <div class="row" id="cate_type_row" style="display: none;">
+                <div class="col-md-1 title-row">Product Types:</div>
+                <div class="col-md-1">
+                    <button class="btn btn-primary" id="select_category_type" type="button">Select Type</button>
+                </div>
+                <div class="col-md-10" id="sct_con"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-1 title-row">Icon(ICON):</div>
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.IconCode, new {@class = "form-control"})
+                </div>
+                <div class="col-md-1">@Html.ValidationMessageFor(m => m.IconCode)</div>
+            </div>
+            <div class="row">
+                <div class="col-md-1 title-row">Sort:</div>
+                <div class="col-md-10">
+                    <div class="input-group spinner number-input" data-trigger="spinner">
+                        @Html.TextBoxFor(m => m.Place, new Dictionary<string, object>
+                        {
+                            {"class", "form-control"},
+                            {"data-rule", "quantity"}
+                        })
+                        <div class="input-group-addon">
+                            <a class="spin-up" data-spin="up" href="javascript:;">
+                                <i class="icon-sort-up"></i>
+                            </a>
+                            <a class="spin-down" data-spin="down" href="javascript:;">
+                                <i class="icon-sort-down"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">@Html.ValidationMessageFor(m => m.Place)</div>
+            </div>
+            <div class="row">
+                <div class="col-md-1 title-row">Enable:</div>
+                <div class="col-md-10">
+                    @Html.CheckBoxFor(m => m.AuditState, new {id = "AuditState", tabindex = "1"})
+                </div>
+                <div class="col-md-1">@Html.ValidationMessageFor(m => m.IconCode)</div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-1">
+                    <button autocomplete="off" class="btn btn-primary" data-loading-text="Loading..." id="bt_save" type="button">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </form>
+        <!-- Nav tabs -->
+    </div>
+</div>
+
+<table id="category_type_grid"></table>
+
+@section css{
+    <link href="~/Content/css/category.css" rel="stylesheet"/>
+    <link href="~/Content/plugins/iCheck/all.css" rel="stylesheet"/>
+}
+
+@section scripts{
+
+    <script>
+
+        $(function() {
+
+            /// 商品类型选择
+            var ctyp_row;
+            var $ctg = $('#category_type_grid')
+                .dialog({
+                    title: "Product Types",
+                    autoOpen: false,
+                    buttons: [
+                        {
+                            text: "Sure",
+                            'class': "btn-success",
+                            click: function() {
+                                /*your login handler*/
+                                var rows = $ctg.bootstrapTable('getSelections');
+                                if (rows.length !== 0) {
+                                    ctyp_row = rows[0];
+                                    $('#sct_con').text(rows[0].Name);
+                                    $(this).dialog("close");
+                                }
+                            }
+                        },
+                        {
+                            text: "Close",
+                            'class': "btn-primary",
+                            click: function() {
+                                $(this).dialog("close");
+                            }
+                        }
+                    ]
+                })
+                .bootstrapTable({
+                    url: '/SKU_ProductTypes/List',
+                    queryParams: function(params) {
+                        return {
+                            PagedIndex: this.pageNumber - 1,
+                            PagedSize: this.pageSize,
+                            Name: $('#Name').val()
+                        };
+                    },
+                    sortOrder: 'desc',
+                    cache: false,
+                    height: '100%',
+                    striped: true,
+                    pagination: true,
+                    pageSize: 10,
+                    pageList: [10, 25, 50, 100, 200],
+                    //search: true,
+                    showColumns: true,
+                    showRefresh: true,
+                    singleSelect: true,
+                    minimumCountColumns: 2,
+                    clickToSelect: true,
+                    sidePagination: 'server',
+                    columns: [
+                        {
+                            field: 'state',
+                            checkbox: true,
+                            align: 'center',
+                            valign: 'middle',
+                            sortable: true,
+                        },
+                        { field: 'Name', title: 'Type Name', align: 'center', valign: 'middle', sortable: false },
+                        {
+                            field: 'UseExtend',
+                            title: 'Extended attributes',
+                            align: 'center',
+                            valign: 'middle',
+                            sortable: false,
+                            formatter: function(val) {
+                                return val === 1 ? 'Yes' : 'No';
+                            }
+
+                        },
+                        {
+                            field: 'UseParameter',
+                            title: 'Detailed parameter',
+                            align: 'center',
+                            valign: 'middle',
+                            sortable: false,
+                            formatter: function(val) {
+                                return val === 1 ? 'Yes' : 'No';
+                            }
+
+                        }
+                    ]
+                });
+
+            ///类型选择
+            $('#select_category_type').click(function() {
+                $ctg.bootstrapTable('refresh').dialog('open');
+            });
+
+            ///是否启用
+            $('#AuditState').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%'
+            });
+
+            ///添加
+            $('#add_but').click(function() {
+                $('#category_from input').val('');
+
+                var node = $('#tree').treeview('getSelected')[0];
+
+                //debugger;
+                if (node.Grade !== undefined) {
+                    $('#Grade').val(node.Grade + 1);
+                } else {
+                    $('#Grade').val(0);
+                }
+                $('#parentId').val(node.id);
+                $('#Place').val(1);
+                $('#Category_Lang_0__LanguageID').val(3);
+                $('#Category_Lang_1__LanguageID').val(1);
+                $('#Category_Lang_2__LanguageID').val(2);
+                if (node.Grade + 1 === 2) {
+
+                    $('#cate_type_row').show();
+                } else {
+                    $('#cate_type_row').hide();
+                }
+            });
+
+            ///保存
+            $('#bt_save').click(function() {
+
+                if (!$('#categoryId').val() || $('#categoryId').val() === 0) {
+                    $('#category_from').attr('action', '@Url.Action("Add")');
+                } else {
+                    $('#category_from').attr('action', '@Url.Action("Update")');
+                }
+
+                var c_from = $('#category_from');
+                debugger
+                if ($('#Grade').val() === '2') {
+                    var $ctype = $('<input name="CategoryTypeModel.SkuTypeId" type="hidden">').val(ctyp_row.SkuTypeId);
+                    c_from.append($ctype);
+                }
+
+                c_from.submit();
+            });
+
+
+            ///分类树
+            $.get("@Url.Action("GetCategoryTree")", function(result) {
+
+                var tree = [
+                    {
+                        "text": "Category",
+                        "Id": 0,
+                        "nodes": null
+                    }
+                ];
+
+                if (result.IsValid) {
+                    tree[0].nodes = result.Data;
+                }
+
+                $('#tree').treeview({
+                    data: tree,
+                    onhoverColor: "orange",
+                    expandIcon: "glyphicon glyphicon-plus-sign",
+                    collapseIcon: "glyphicon glyphicon-minus-sign",
+                    nodeIcon: "glyphicon glyphicon-file",
+                    onNodeSelected: function(event, node) {
+
+                        if (node.Grade === 2) {
+                            $('#cate_type_row').show();
+                        } else {
+                            $('#cate_type_row').hide();
+                        }
+
+                        $.post('@Url.Action("GetCategoryById")', { id: node.id }, function(result) {
+                            if (result.IsValid) {
+                                //CategoryTypeModels
+                                var data = result.Data[0];
+                                //debugger
+
+                                $('#IconCode').val(data.IconCode);
+                                //debugger;
+                                if (data.Place === 0) {
+                                    $('#Place').val(1);
+                                } else {
+                                    $('#Place').val(data.Place);
+                                }
+                                if (data.AuditState) {
+                                    $('#AuditState').iCheck('check');
+                                } else {
+                                    $('#AuditState').iCheck('uncheck');
+                                }
+                                //debugger;
+                                $('#Grade').val(data.Grade);
+
+                                $('input[langid]').val('');
+                                $('input[lId]').val('');
+                                $(data.Category_Lang).each(function() {
+                                    $('input[langId="' + this.LanguageID + '"]').val(this.CategoryName);
+                                    $('input[lId="' + this.LanguageID + '"]').val(this.Id);
+                                });
+                                $('#categoryId').val(data.CategoryId);
+                                $('#parentId').val(data.parentId);
+                                debugger;
+                                
+                                if (data.SKU_ProductTypesModel!=null) {
+                                    ctyp_row = data.SKU_ProductTypesModel;
+                                    $('#sct_con').text(ctyp_row.Name);
+                                    $('#select_category_type').attr('disabled', 'disabled');
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+        });
+
+    </script>
+}

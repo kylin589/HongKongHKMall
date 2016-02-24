@@ -1,0 +1,125 @@
+﻿@using HKTHMall.Core.Extensions
+@model List<HKTHMall.Domain.WebModel.Models.Product.OrderProductCommentView>
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    bool isExistComment = Model.Count(x => x.Iscomment == 0) > 0;
+}
+<script src="~/content/newcss/js/jquery.raty.js"></script>
+<div class="ls_pjxq_bt">@CultureHelper.GetLangString("HOME_HZ_TOPPINGJIAHZ")@*每个商品前十名评价会员账户会有1惠米赠送*@
+    <span><i>@(CultureHelper.GetLangString("HOME_SHOPING_HUISHANGQIANDOLLARS"))</i>
+        <div class="ls_hsqgz_bt">
+            @(CultureHelper.GetLangString("HOME_HSQ_RULES"))
+            <div class="ls_hsqgz ls_hsqgz2">
+                <div class="ls_hsqgz_up"></div>
+                <dl>
+                    <dt>送惠赏钱规则</dt>
+                    <dd> 评价送惠赏钱，商品金额需<span>大于20元商品</span>进行评价，且有字数限定<span>15字以上</span>。 </dd>
+                    <dd>系统抽取对单个商品<span>前10名</span>评价的用户，经过审核通过后发放<span>1惠赏钱</span>直接至账户余额，届时会有<span>邮件</span>通知到您。 </dd>
+                    <dd>前5位评论用户：139***, 137***, 135***, 189***, lily***</dd>
+                </dl>
+            </div>
+        </div>
+    </span></span>    
+</div>
+@for (var i = 0; i < Model.Count; i++)
+{
+    var comment = Model[i];
+    if (!string.IsNullOrEmpty(comment.CommentContent) && comment.ProductCommentId != 0)
+    {
+        <div class="ls_pjxq_list list2">
+            <div class="ls_pjxq_list_lf">
+                <a href="@Url.Action("shopping", "home", new {id = comment.ProductId, area = ""})" title="">
+                    <img src="@Html.GetImagesUrl(comment.PicUrl, 75, 75)" alt="" />
+                    <p>@comment.ProductName<br />@comment.SkuName</p>
+                </a>
+            </div>
+            <div class="ls_pjxq_list_rg">
+                <div class="ls_pjxq_start">
+                    <i class="z_star_1014"><span>@CultureHelper.GetLangString("ACCOUNT_PINGJIA_SCORE")</span></i>
+                    <script type="text/javascript">
+                        $(".z_star_1014").raty({ path: "",score:@comment.CommentLevel,readOnly: true });
+                    </script>
+                </div>
+                <div class="ls_pjxq_lab">
+                    <ul>
+                        @foreach (HKTHMall.Domain.WebModel.Models.Product.CommentLablesList x in comment.LablesList)
+                        {
+                            <a href="javascript:void(0);" class="ls_pjxq_i">@CultureHelper.GetLangString(x.LabelsName)</a>
+                        }
+                    </ul>
+                </div>
+                <div class="ls_pjxq_text">
+                    <p>@Html.Raw(comment.CommentContent)</p>
+                    <time>@comment.CommentDT.DateTimeToString("yyyy-MM-dd HH:mm:ss")</time>
+                </div>
+
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <div class="ls_pjxq_list">
+            <div class="ls_pjxq_list_lf">
+                <a href="@Url.Action("shopping", "home", new {id = comment.ProductId, area = ""})" title="">
+                    <img src="@Html.GetImagesUrl(comment.PicUrl, 75, 75)" alt="" />
+                    <p>@comment.ProductName<br />@comment.SkuName</p>
+                </a>
+            </div>
+            <div class="ls_pjxq_list_rg">
+                <div class="ls_pjxq_start">
+                    <i class="z_star_1013"><span>@CultureHelper.GetLangString("ACCOUNT_PINGJIA_SCORE")</span></i>
+                    <script type="text/javascript">
+                        $(".z_star_1013").raty({ path: "" });
+                    </script>
+
+                </div>
+                <div class="ls_pjxq_lab">
+                    <i>@CultureHelper.GetLangString("ACCOUNT_PINGJIA_DIANLIANGBIAOQIAN")</i><ul>
+                        @foreach (HKTHMall.Domain.WebModel.Models.Product.CommentLablesList x in HKTHMall.Domain.WebModel.Models.Product.CommentLablesList.ReturnListAll())
+                        {
+                            <a href="javascript:void(0);" onclick="changelables(this);" lablesdata="@x.Labels">@CultureHelper.GetLangString(x.LabelsName)</a>
+                        }
+                    </ul>
+                </div>
+                <div class="ls_pjxq_text">
+                    <textarea type="text" class="js-content" id="content@(comment.SKU_ProducId)" onkeyup="ContentLength('@(comment.SKU_ProducId)')" data-option="{'OrderId':@comment.OrderId,'ProductId':@comment.ProductId,'SKU_ProducId':@comment.SKU_ProducId}" placeholder="@CultureHelper.GetLangString("ACCOUNT_MY_COMMENTLIST_COMMENT")..." maxlength="500"></textarea>
+                    <span id="spanCount@(comment.SKU_ProducId)">500</span>
+                </div>
+
+            </div>
+
+        </div>
+    }
+
+}
+
+@if (isExistComment)
+{
+    <div class="ls_pjxq_btn">
+        <input type="checkbox" name="isAnonymous" id="isAnonymous" value="" />
+        <span>@CultureHelper.GetLangString("COMMENT_TRADECOMMENT_UNNAMECOMMENT")</span><a href="" id="isSave" name="isSave">@CultureHelper.GetLangString("HOME_SHOPPING_SURE")</a>
+    </div>
+}
+
+
+<script type="text/javascript">
+    function changelables(src) {
+        $(src).toggleClass("ls_pjxq_i");
+    }
+
+    function ContentLength(skuId)
+    {
+        var length=$("#content"+skuId).val().length;
+        var l=500-length;
+        $("#spanCount"+skuId).text(l);
+    };
+    /*惠赏钱规则*/
+    $(function(){
+        $(".ls_hsqgz_bt").hover(function(){
+            $(".ls_hsqgz").stop().fadeIn(400);
+        },function(){
+            $(".ls_hsqgz").stop().fadeOut(400);
+        });
+    });
+</script>

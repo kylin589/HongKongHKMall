@@ -1,0 +1,133 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@model HKTHMall.Domain.Models.Sys.SearchParaSetModel
+@{
+    ViewBag.Title = "System Settings list page";
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(19);
+    _Authority.Delete = _Authority.CheckAction(21);
+}
+<meta http-equiv="X-UA-Compatible" content="IE=11" />
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>Key name: </span>
+            @Html.TextBoxFor(x => x.KeysName, new { @class = "form-control w70", @placeholder = "Please enter a key name" })
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-danger js_reset" onclick="Tool.ClearForm($('#user-toolbar'))">
+            <span class="glyphicon glyphicon-bullhorn"></span> Clear
+        </button>
+        &nbsp;
+        @if (_Authority.Add)
+        {
+            <button type="button" class="btn btn-primary js_create">
+                <span class="glyphicon glyphicon-plus"></span> Add
+            </button>
+        }
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts{
+    <script type="text/javascript">
+        //权限
+        var $addCheck = eval("@(_Authority.Add.ToString().ToLower())");
+        var $deleteCheck = eval("@(_Authority.Delete.ToString().ToLower())");
+        //加载数据
+        $(function () {
+            var columns = [
+            { field: "ParamenterID", title: "Key ID", align: 'center', valign: 'middle', sortable: false },
+            { field: "keys", title: "Key name", align: 'center', valign: 'middle', sortable: false },
+            { field: "PValue", title: "Key value", align: 'center', valign: 'middle', sortable: false },
+            { field: "Remark", title: "State", align: 'center', valign: 'middle', sortable: false },
+            { field: "CreateBy", title: "Creater", align: 'center', valign: 'middle', sortable: false },
+            {
+                field: "CreateDT", title: "Create time", align: 'center', valign: 'middle', sortable: false, formatter:
+                  function (val) {
+                      return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                  }
+            },
+            { field: "UpdateBy", title: "Update By", align: 'center', valign: 'middle', sortable: false },
+            {
+                field: "ParamenterIDs", title: "Operation", align: 'center', valign: 'middle',
+                formatter: function (val) {
+                    var operation = '-';
+                    //if ($addCheck && $deleteCheck) {
+                    //    operation = '<a class="edit ml10" href="javascript:void(0)" title="修改"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a class="remove ml10" href="javascript:void(0)" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>';
+                    //} else if($addCheck){
+                    //    operation = '<a class="edit ml10" href="javascript:void(0)" title="修改"><i class="glyphicon glyphicon-edit"></i></a>';
+                    //}
+                    //else if ($deleteCheck) {
+                    //    operation = '<a class="remove ml10" href="javascript:void(0)" title="删除"><i class="glyphicon glyphicon-remove"></i></a>';
+                    //}
+
+                    if ($addCheck && $deleteCheck) {
+                        operation = '<a class="edit ml10" href="javascript:void(0)" title="Update"><i class="glyphicon glyphicon-edit"></i></a>';
+                    }
+                    if (operation == '') {
+                        operation = '-';
+                    }
+                    return [
+                          operation
+                    ].join('');
+                },
+                events: {
+                    //编辑
+                    'click .edit': function (e, value, row, index) {
+                        Tool.ShowModal('@Url.Action("Create")', { id: row.ParamenterID, time: new Date().getTime() }, 'Edit system parameter setup');
+                    },
+                    //删除
+                    'click .remove': function (e, value, row, index) {
+                        Tool.DeleteRecord('@Url.Action("Delete")', { ParamenterID: row.ParamenterID }, $('#u_grid'));
+                    }
+                }
+            }];
+            //加载列表数据
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+                queryParams: function (params) {
+                    return {
+                        KeysName: $('#KeysName').val().trim(),
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        Time: new Date().getTime()
+                    };
+                },
+                sortOrder: 'desc',
+                sortName: 'CreateDT',
+                pagination: true,
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns
+            });
+            //搜索事件
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+            //按Enter键回车搜索
+            $('#KeysName').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            //添加系统参数设置
+            $('.js_create').click(function () {
+                Tool.ShowModal("@Url.Action("Create")", {}, "Add system parameter setup");
+            });
+        })
+        //保存
+        function Save() {
+            Tool.SaveModal($('#u_grid'));
+        }
+    </script>
+}

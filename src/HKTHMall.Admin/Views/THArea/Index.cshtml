@@ -1,0 +1,161 @@
+﻿<div class="form-inline">
+    <div class="form-inline">
+        <button type="button" id="btnAdd" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">
+            Add
+        </button>&nbsp;&nbsp;
+        <button type="button" id="btnEdit" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">
+            Update
+        </button>&nbsp;&nbsp;
+        <button type="button" id="btnDel" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">
+            Delete
+        </button>
+    </div>
+    <!-- tree Category树 -->
+    <div id="tree"></div>
+</div>
+<input id="idText" value="0" type="hidden" />
+<input id="idUrl" value="" type="hidden" />
+@Html.Partial("_FormModal")
+@section css{
+    <link href="~/Content/css/category.css" rel="stylesheet" />
+    <link href="~/Content/plugins/iCheck/all.css" rel="stylesheet" />
+}
+
+@section scripts{
+    <script src="~/Content/plugins/iCheck/icheck.min.js"></script>
+    <script>
+
+        $(function () {
+
+            $('#input-1').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%'
+            });
+
+            $("#btnAdd").click(function () {
+                $("#idUrl").val("/THArea/AddTHArea");
+                Tool.ShowModal('@Url.Action("Create")', { time: new Date().getTime() }, 'Add region');
+            })
+
+            $("#btnEdit").click(function () {
+                var areaId = $("#idText").val();
+                $("#idUrl").val("/THArea/EditTHArea");
+                if (areaId > 0) {
+                    Tool.ShowModal('@Url.Action("Create")', { time: new Date().getTime() }, 'Change region');
+                    $.post('@Url.Action("GetTHArea_langByTHAreaID")', { id: areaId, time: new Date().getTime() }, function (result) {
+                        if (result.IsValid) {
+                            setTimeout(function () {
+                                $.each(result.Data, function (i, item) {
+                                    if (item["LanguageID"] == "1") {
+                                        $("#cAreaName").val(item["AreaName"]);
+                                    }
+                                    else if (item["LanguageID"] == "2") {
+                                        $("#eAreaName").val(item["AreaName"]);
+                                    } else if (item["LanguageID"] == "3") {
+                                        $("#tAreaName").val(item["AreaName"]);
+                                    } else if (item["LanguageID"] == "4") {//add by liujc
+                                        $("#hAreaName").val(item["AreaName"]);
+                                    }
+                                    $("#shortName").val(item["ShortName"]);
+                                    $("#areaType").val(item["AreaType"]);
+                                });
+                            }, 500);
+                        }
+                    });
+                } else {
+                    Tool.Alert("Please select area.", 1500);
+                }
+            })
+
+            $("#btnDel").click(function () {
+                bootbox.setLocale("en");
+                //bootbox.setLocale("zh_CN");
+                bootbox.confirm("Delete this region？", function (result) {
+                    if (result) {
+                        var thAreaId = $("#idText").val();
+                        if (thAreaId > 0) {
+                            $.ajax({
+                                url: "/THArea/DelTHArea",
+                                data: {
+                                    thAreaId: thAreaId
+                                },
+                                dataType: "text",
+                                success: function (data, status) {
+                                    data = JSON.parse(data);
+                                    Tool.Alert(data.Messages, 1500);
+                                    LoadTree();
+                                },
+                                error: function (data, status, e) {
+                                    Tool.Alert("Delete failed.", 1500);
+                                }
+                            });
+                        } else {
+                            Tool.Alert("Please select the area you want to delete.", 1500);
+                        }
+                    }
+                });
+            })
+            LoadTree();
+        });
+
+        function LoadTree() {
+            $.get("@Url.Action("GetTHAreaTree")", { "time": new Date().getTime() }, function (data) {
+
+                $('#tree').treeview({
+                    data: data,
+                    onhoverColor: "orange",
+                    expandIcon: "glyphicon glyphicon-plus-sign",
+                    collapseIcon: "glyphicon glyphicon-minus-sign",
+                    nodeIcon: "glyphicon glyphicon-file",
+                    onNodeSelected: function (event, node) {
+                        $("#idText").val(node.id);
+                    }
+                });
+            });
+        }
+
+        function Save() {
+            var cAreaName = $("#cAreaName").val();
+            var eAreaName = $("#eAreaName").val();
+            var tAreaName = $("#tAreaName").val();
+            var hAreaName = $("#hAreaName").val();//add by liujc
+            var shortName = $("#shortName").val();
+            if (shortName == "" || shortName == null) {
+                Tool.Alert("Please enter short title of region.", 1500);
+            } else if (cAreaName == "" || cAreaName == null) {
+                Tool.Alert("Please enter title of region in Chinese.", 1500);
+            } else if (eAreaName == "" || eAreaName == null) {
+                Tool.Alert("Please enter title of region in English.", 1500);
+            //} else if (tAreaName == "" || tAreaName == null) {
+            //    Tool.Alert("Please enter title of region in Thai.", 1500);
+            } else if (hAreaName == "" || hAreaName == null) {
+                Tool.Alert("Please enter title of region in Chinese(HK).", 1500);//add by liujc
+            }
+            else {
+                $.ajax({
+                    url: $("#idUrl").val(),
+                    data: {
+                        areaId: $("#idText").val(),
+                        cAreaName: cAreaName,
+                        eAreaName: eAreaName,
+                        tAreaName: tAreaName,
+                        hAreaName: hAreaName,//add by liujc
+                        shortName: shortName,
+                        areaType: $("#areaType").val()
+                    },
+                    dataType: "text",
+                    success: function (data, status) {
+                        data = JSON.parse(data);
+                        Tool.Alert(data.Messages, 1500);
+                        LoadTree();
+                        Tool.CloseModal();
+                    },
+                    error: function (data, status, e) {
+                        Tool.Alert("Failed.", 1500);
+                    }
+                });
+            }
+        }
+    </script>
+}

@@ -1,0 +1,283 @@
+﻿@{
+    ViewBag.Title = "User top-up order sheet";
+}
+@model HKTHMall.Domain.AdminModel.Models.User.SearchZJ_RechargeOrderModel
+<div id="user-toolbar1">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>Order SN: </span>
+            @Html.TextBoxFor(x => x.OrderNO, new { @class = "form-control w70" })
+        </div>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <div class="form-group">
+            <span>Email: </span>
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control w70" })
+        </div>
+
+        &nbsp; &nbsp;
+        @*<div class="form-group">
+            <span>Real Name: </span>
+            @Html.TextBoxFor(x => x.RealName, new { @class = "form-control w70" })
+
+        </div>
+        &nbsp;*@
+        <div class="form-group">
+            <span>Recharge channel: </span>
+            @*@Html.TextBoxFor(x => x.IsAddOrCut, new { @class = "form-control w70" })*@
+            <select id="RechargeChannel" class="form-control">
+                <option value="0" selected="selected">--All--</option>
+                <option value="2">Pay by Paypal</option>
+                <option value="3">Pay by Credit card</option>
+            </select>
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Recharge result: </span>
+            @*@Html.TextBoxFor(x => x.AddOrCutType, new { @class = "form-control w70" })*@
+            <select id="RechargeResult" class="form-control">
+                <option value="10" selected="selected">--All--</option>
+
+                <option value="0">Failed</option>
+                <option value="1">Success</option>
+
+            </select>
+        </div>
+        &nbsp;
+        @*<button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> 搜索
+        </button>*@
+
+    </div>
+</div>
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>Order build time: </span>
+            @Html.TextBoxFor(x => x.BeginCreateDT, new { @class = "form-control w70" })
+            &nbsp;--&nbsp;
+            @Html.TextBoxFor(x => x.EedCreateDT, new { @class = "form-control w70" })
+        </div>
+        &nbsp; &nbsp; &nbsp;
+
+
+        <div class="form-group">
+            <span>Recharge time: </span>
+            @Html.TextBoxFor(x => x.BeginRechargeDT, new { @class = "form-control w70" })
+            &nbsp;--&nbsp;
+            @Html.TextBoxFor(x => x.EndRechargeDT, new { @class = "form-control w70" })
+        </div>
+        &nbsp; &nbsp; &nbsp;
+
+
+        <div class="form-group">
+            <span>Order source: </span>
+            <select id="OrderSource" class="form-control">
+                <option value="10" selected="selected">--All--</option>
+
+                <option value="0">Website</option>
+                <option value="1">Mobile device</option>
+
+            </select>
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;
+        &nbsp;&nbsp;&nbsp;
+        <button type="button" class="btn btn-danger js_reset">
+            <span class="glyphicon glyphicon-bullhorn"></span> Clear
+        </button>
+    </div>
+
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+
+            var columns = [
+                { field: 'OrderNO', title: 'Order SN', align: 'center', valign: 'middle', sortable: false },
+                { field: 'NickName', title: 'User NickName', align: 'center', valign: 'middle', sortable: false },
+                { field: 'Email', title: 'Email', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'RechargeChannel', title: 'Recharge channel', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var m = "-";
+                        switch (val) {
+                            case 1:
+                                m = "-"; break;
+                            case 2:
+                                m = "Pay by Paypal"; break;
+                            case 3:
+                                m = "Pay by Credit card"; break;
+                            case 4:
+                                m = "-"; break;
+                            case 5:
+                                m = "-"; break;
+                            case 6:
+                                m = "-"; break;
+                            default:
+
+                        }
+                        return m;
+                    }
+                },
+                { field: 'RechargeAmount', title: 'Recharge Amount', align: 'center', valign: 'middle', sortable: false },
+                { field: 'CreateDT', title: 'Order build time', align: 'center', valign: 'middle', sortable: false, formatter: function (val) { return val.formatterString(true)/*true 日期格式2015-5-5*/ } },
+
+                { field: 'RechargeDT', title: 'Recharge time', align: 'center', valign: 'middle', sortable: false, formatter: function (val) { return val.formatterString(true)/*true 日期格式2015-5-5*/ } },
+                {
+                    field: 'RechargeResult', title: 'Recharge result', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var m = "-";
+                        if (val == 0) {
+                            m = "Failed";
+
+                        }
+                        if (val == 1) {
+                            m = "Success";
+                        }
+                        return m;
+                    }
+                },
+
+                {
+                    field: 'OrderSource', title: 'Order source', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var m = "-";
+                        if (val == 0) {
+                            m = "Website";
+
+                        }
+                        if (val == 1) {
+                            m = "Mobile device";
+                        }
+                        return m;
+                    }
+                },
+                //{ field: 'IsDisplay', title: '是否显示', align: 'center', valign: 'middle', sortable: false }
+
+
+                @*{
+                    field: 'ID',
+                    title: '操作',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (val) {
+                        return [
+                            '<a class="edit ml10" href="javascript:void(0)" title="余额充值">',
+                            '余额充值',
+                            '</a>',
+
+                        ].join('');
+                    },
+                    events: {
+                        'click .edit': function (e, value, row, index) {
+                            console.log(1);
+                            Tool.ShowModal('@Url.Action("Create")', { id: value }, '余额充值');
+                        },
+
+                    }
+                }*@
+            ];
+            //初始列表内容
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+
+                queryParams: function (params) {
+                    return {
+                        OrderSource: $('#OrderSource').val(),
+                        RechargeChannel: $('#RechargeChannel').val(),
+                        RechargeResult: $('#RechargeResult').val(),
+                        BeginCreateDT: $('#BeginCreateDT').val(),
+                        EedCreateDT: $('#EedCreateDT').val(),
+                        OrderNO: $('#OrderNO').val(),
+                        BeginRechargeDT: $('#BeginRechargeDT').val(),
+                        EndRechargeDT: $('#EndRechargeDT').val(),
+
+                        Email: $('#Email').val(),
+                        
+
+                        PagedIndex: this.pageNumber - 1,//params.pageNumber - 1  params.offset
+                        PagedSize: this.pageSize       //params.pageSize  params.limit
+                    };
+                },
+                sortOrder: 'desc',
+                pagination: true,
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns
+
+            });
+            //查询 刷新
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+
+            //清除
+            $('.js_reset').click(function () {
+                $('#OrderSource').val("10");
+                $('#RechargeChannel').val("0");
+                $('#RechargeResult').val("10");
+                $('#BeginCreateDT').val("");
+                $('#EedCreateDT').val("");
+                $('#OrderNO').val("");
+                $('#BeginRechargeDT').val("");
+                $('#EndRechargeDT').val("");
+                $('#Account').val("");
+                $('#RealName').val("");
+                $('#Email').val("");
+
+
+            });
+
+
+            
+
+            //日期控件 开始
+            $('#BeginRechargeDT').datepicker({
+                format: 'yyyy-mm-dd',
+                language: "en",
+                autoclose: true
+            }).on("changeDate", function (e) {
+
+                $('#EndRechargeDT').datepicker('setStartDate', e.date);
+            });
+
+            //日期控件 结束
+            $('#EndRechargeDT').datepicker({
+                format: 'yyyy-mm-dd',
+                language: "en",
+                autoclose: true
+            }).on("changeDate", function (e) {
+                $('#BeginRechargeDT').datepicker('setEndDate', e.date);
+            });
+
+
+            
+
+            //日期控件 开始
+            $('#BeginCreateDT').datepicker({
+                format: 'yyyy-mm-dd',
+                language: "en",
+                autoclose: true
+            }).on("changeDate", function (e) {
+
+                $('#EedCreateDT').datepicker('setStartDate', e.date);
+            });
+
+            //日期控件 结束
+            $('#EedCreateDT').datepicker({
+                format: 'yyyy-mm-dd',
+                language: "en",
+                autoclose: true
+            }).on("changeDate", function (e) {
+                $('#BeginCreateDT').datepicker('setEndDate', e.date);
+            });
+
+        });
+    </script>
+}

@@ -1,0 +1,257 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var langId=CultureHelper.GetLanguageID();
+}
+
+@using HKTHMall.Services.Common.MultiLangKeys;
+<link href="~/Content/newcss/css/base.css" rel="stylesheet" />
+@*<link href="~/Content/newcss/css/css.css" rel="stylesheet" />
+    <script type="text/javascript" src="~/Content/newcss/js/jquery-1.8.2.min.js"></script>*@
+<script src="~/Content/newcss/js/dsdialog.js"></script>
+@*<div class="header">
+        <div class="clear" style="background: #ccc; height: 175px;"></div>
+    </div>*@<!--公共头部-->
+
+
+
+<div class="main_about">
+    <div class="m_register">
+        <div class="m_register_bt">
+            <ul>SIGN UP</ul>
+            <dl><a href="@Url.Action("Index","Login")" title=""><b></b>@CultureHelper.GetLangString("LOGIN_NOW")</a></dl>
+        </div>
+        <div class="m_register_nr">
+            <!--标签strong是错误提示位置，当报错时，strong显示，i标签隐藏，当输入正确时，返回到i标签显示，strong标签隐藏，用来选取不同的标签的ID名，开发自己写-->
+            <ul>
+                <li>
+                    <b>@CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_EMAIL")</b><span><input type="text" onfocus="PlayDiv('emStr', 'emStrErr')" name="" id="email" class="m_login_text" placeholder="@CultureHelper.GetLangString("HK_DZYX")" onblur="    CheckEmail()"></span>
+                    <i id="emStr" style="display:block;">@CultureHelper.GetLangString("HK_EMAIL")</i><strong id="emStrErr" style="display:none;">@CultureHelper.GetLangString("HK_CXSF")</strong>
+                </li>
+                <li>
+                    <b>@CultureHelper.GetLangString("HK_LOGPWD")</b><span><input type="password" name="" onfocus="PlayDiv('pwdStr', 'pwdStrErr')" maxlength="16" id="pwd" class="m_login_text" placeholder="@CultureHelper.GetLangString("HK_LOGINPWD")" onblur="    CheckPwd()"></span>
+                    <i id="pwdStr" style="display:block;">@CultureHelper.GetLangString("HK_INPUTPWDSTR")</i><strong id="pwdStrErr" style="display:none;">@CultureHelper.GetLangString("HK_CXSF")</strong>
+                </li>
+                <li>
+                    <b>@CultureHelper.GetLangString("LOGIN_GETPASSWORD_CONFIRMPASSWORD")</b><span><input onfocus="PlayDiv('sureStr', 'sureStrErr')" type="password" name="" maxlength="16" id="surePwd" class="m_login_text" onblur="    SurePwd()" placeholder="@CultureHelper.GetLangString("LOGIN_PWD_NOTNULL")"></span>
+                    <i id="sureStr" style="display:block;">@CultureHelper.GetLangString("HK_SUREPWD")</i><strong id="sureStrErr" style="display:none;">@CultureHelper.GetLangString("LOGIN_PWD_CONFIRM_TWO")</strong>
+                </li>
+                <li class="m_reg_yzm">
+                    <b>@CultureHelper.GetLangString("LOGIN_GETPASSWORD_VERIFICATIONCODE_1")</b><span><input type="text" onfocus="PlayDiv('yzmStr', 'yzmStrErr')" name="" id="yzm" class="m_login_text_yzm" maxlength="4" onkeyup='    this.value = this.value.replace(/[^0-9]\D*$/, "")' ondragenter="    return false" onpause="    return !clipboardData.getData('text').match(/\D/)" onblur="    CheckYZM()" placeholder="@CultureHelper.GetLangString("HK_INPUYZM")"></span>
+                    @*@Html.Action("GetValidateCode", "Register");*@
+                    <div class="m_reg_yzm_img"><div class="m_reg_yzm_img1"><a href="javascript:GetValidateCode();" title=""><img id="yzmPic" src="@Url.Action("GetValidateCode")"></a></div><div class="m_reg_yzm_text">@CultureHelper.GetLangString("HK_INVISIBILITY") <a href="javascript:;GetValidateCode()" title="">@CultureHelper.GetLangString("CHANGE_ANOTHER_ONE")</a></div></div>
+                    <i id="yzmStr" style="display:block;">@CultureHelper.GetLangString("LOGIN_GETPASSWORD_VERIFICODE")</i><strong id="yzmStrErr" style="display:none;">@CultureHelper.GetLangString("API_VERIFICATIONERROR")</strong>
+                </li>
+            </ul>
+            <dl>
+                <span>
+                    <label for="m_reg_rad" class="m_reg_check"><input type="checkbox" id="m_reg_rad" checked="checked"><i>@CultureHelper.GetLangString("HK_AMSURE")</i></label>&nbsp;
+                    @if (langId == 1)
+                    {
+                        <a href="@Url.Action("Agreement", "Help")" target="_blank" title="">@CultureHelper.GetLangString("HK_USERXIYI")</a>
+                    }
+                    else if (langId == 2)
+                    {
+                        <a href="@Url.Action("Agreement_EN", "Help")" target="_blank" title="">@CultureHelper.GetLangString("HK_USERXIYI")</a>
+                    }
+                    else if (langId == 4)
+                    {
+                        <a href="@Url.Action("Agreement_HK", "Help")" target="_blank" title="">@CultureHelper.GetLangString("HK_USERXIYI")</a>
+                    }
+                   
+                </span>
+                <b><input type="button" name="" id="register" class="m_reg_submit" value="@CultureHelper.GetLangString("HOME_CEBIANLAN_ZHUCE")"></b>
+            </dl>
+            <input type="hidden" id="istrue" />
+
+        </div>
+        <div class="clear"></div>
+        <div class="dialogCover"><div class="dialogMain"></div></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    //验证邮箱
+    function CheckEmail() {
+        var email = $("#email").val();
+        if (email == '') {
+            $("#emStrErr").html("@CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_EMAILCANNOTEMPTY")")
+            $("#emStrErr").css("display", "block");
+            $("#emStr").css("display", "none");
+            $("#email1").focus();
+            return false;
+        } else if (/^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/.test(email) == false) {
+            $("#emStrErr").html("@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_EMAILERROR")");
+            $("#emStrErr").css("display", "block");
+            $("#emStr").css("display", "none");
+            $("#email1").focus();
+            return false;
+        } else {
+            $.ajax({
+                url: "@Url.Action("CheckMailValid")",
+                type: "Post",
+                data: {
+                    email: email
+                },
+                dataType: "json",
+                success: function (data) {
+                    debugger;
+                    if (data.IsTrue) {
+                        $("#emStrErr").css("display", "none");
+                        $("#emStr").css("display", "block");
+                        return true;
+                    } else {
+                        $("#emStrErr").html(data.Msg);
+                        $("#emStrErr").css("display", "block");
+                        $("#emStr").css("display", "none");
+                        $(this).focus();
+                        GetValidateCode();
+                        return false;
+                    }
+                }
+            });
+            return true;
+        }
+    }
+    function PlayDiv(a, b) {
+        $("#" + a).css("display", "block");
+        $("#" + b).css("display", "none");
+    }
+    //验证密码
+    function CheckPwd() {
+        /*验证登录密码*/
+        var tegNum = /^\d{8,16}$/;
+        var tegLetter = /^[a-zA-Z]{8,16}$/;
+        var pattern = /^[!@@#$%^&*()_+|={}?><\-\]\\[\/]{8,16}$/;
+
+        var pwds = $("#pwd").val();
+        if ("" == pwds) {
+            $("#pwdStrErr").html("@CultureHelper.GetLangString("LOGIN_GETPASSWORD_PWDNOTEMPTY")");
+            $("#pwdStrErr").css("display", "block");
+            $("#pwdStr").css("display", "none");
+            return false;
+        }
+        else if (pwds.length < 8 || pwds.length > 16 || new RegExp(/[^\x00-\xff]|\s/).test(pwds)) {
+            $("#pwdStrErr").html("@CultureHelper.GetLangString("VERIFYCODE_PWD_LENGTH_BETWEEN_8_AND_16")");
+            $("#pwdStrErr").css("display", "block");
+            $("#pwdStr").css("display", "none");
+            return false;
+        }
+        else if (tegNum.test(pwds) || tegLetter.test(pwds) || pattern.test(pwds)) {
+            $("#pwdStrErr").html("@CultureHelper.GetLangString("LOGIN_PWD_FORMAT")")
+            $("#pwdStrErr").css("display", "block");
+            $("#pwdStr").css("display", "none");
+            return false;
+        } else {
+            $("#pwdStrErr").css("display", "none");
+            $("#pwdStr").css("display", "block");
+            return true;
+        }
+    }
+    //确认密码
+    function SurePwd() {
+        var surePwd = $("#surePwd").val();
+        var pwd = $("#pwd").val();
+
+        if (surePwd == "" || pwd != surePwd) {
+            $("#sureStrErr").html("@CultureHelper.GetLangString("LOGIN_PWD_CONFIRM_TWO")");
+            $("#sureStrErr").css("display", "block");
+            $("#sureStr").css("display", "none");
+            $(this).focus();
+            return false;
+        } else {
+            $("#sureStrErr").css("display", "none");
+            $("#sureStr").css("display", "block");
+            return true;
+        }
+    }
+    //验证码
+    function CheckYZM() {
+        var yzm = $("#yzm").val();
+        if (yzm.length == 0) {
+            $("#yzmStrErr").html('@CultureHelper.GetLangString("CODE_CANNOT_NULL")');
+            $("#yzmStrErr").css("display", "block");
+            $("#yzmStr").css("display", "none");
+            $("#istrue").val("false");
+            $(this).focus();
+            //GetValidateCode();
+            return false;
+        } else {
+            $.ajax({
+                url: "@Url.Action("CheckVaildCode")",
+                type: "Post",
+                data: {
+                    id: yzm
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data == "true") {
+                        $("#yzmStrErr").css("display", "none");
+                        $("#yzmStr").css("display", "block");
+                        $("#istrue").val("true");
+                        return true;
+                    } else {
+                        $("#yzmStrErr").html('@CultureHelper.GetLangString("API_VERIFICATIONERROR")');
+                        $("#yzmStrErr").css("display", "block");
+                        $("#yzmStr").css("display", "none");
+                        $("#istrue").val("false");
+                        $(this).focus();
+                        GetValidateCode();
+                        return false;
+                    }
+                }
+            });
+        }
+        return false;
+    }
+
+    //切换验证码
+    function GetValidateCode() {
+        $("#yzmPic").attr("src", "@Url.Action("GetValidateCode", "Register")?t=" + (new Date()).getTime());
+    }
+    var flag = false;//防止误点击
+    //注册
+    $("#register").click(function () {
+        debugger;
+        if (flag) {
+            return;
+        }
+        flag = true;
+        if (CheckEmail() && CheckPwd() && SurePwd() && $("#istrue").val() == "true") {
+            if ($("#m_reg_rad").is(":checked")) {
+                $.ajax({
+                    url: "@Url.Action("RegisterUser")",
+                    type: "post",
+                    data: {
+                        pwd: $("#pwd").val(),
+                        email: $("#email").val()
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        debugger;
+                        if (data.status == 1) {
+                            window.location.href = "/Register/ValidationEmail?loginEmail=" + $("#email").val() + "&isLogin=true";
+                            $("#register").attr("disabled", "disabled"); //使按钮不能被点击
+                        } else {
+                            $(".dialogMain").html(data.message);
+                            var msg = $(".dialogCover").html();
+                            ds.dialog({ content: msg, yesText: "@CultureHelper.GetLangString("ORDER_LIST_SURE")", onyes: function () { this.close(); }, });
+                            //alert(data.message);
+                        }
+                    }
+                })
+            } else {
+                ds.dialog({ content: '@CultureHelper.GetLangString("HOME_LOGIN_PLEASECHECK")“' + '@CultureHelper.GetLangString("HK_AMSURE")' + '@CultureHelper.GetLangString("HK_USERXIYI")”', yesText: "@CultureHelper.GetLangString("ORDER_LIST_SURE")", onyes: function () { this.close(); }, });
+            }
+        }
+        flag = false;
+    })
+    document.onkeydown = function (e) {
+        var theEvent = window.event || e;
+        var code = theEvent.keyCode || theEvent.which;
+        if (code == 13) {
+            debugger;
+            $("#register").click();
+        }
+    }
+</script>

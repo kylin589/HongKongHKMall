@@ -1,0 +1,109 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.SKU.SKU_ProductTypesModel
+@{
+    //扩展属性
+}
+<div class="row" style="margin-top:10px;">
+    <div class="col-xs-12">
+        <div class="box box-success">
+            <div class="box-header">
+                <h3 class="box-title">Detailed parameter list</h3>
+                <div class="box-tools">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-sm btn-success js-add-item" onclick="addProductTypeAttr(2)"><i class="fa fa-plus"></i>&nbsp;Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body table-responsive no-padding" style="height:200px;overflow-y:auto;display:block">
+                <table class="table table-hover js-tb-UseParam">
+                    <tbody>
+                        <tr data-option="{'Index':-1,'DisplaySequence':-1}">
+                            <th width="20%" class="text-center">Parameter set</th>
+                            <th width="20%" class="text-center">Parameter name</th>
+                            <th width="30%" class="text-center">Parameter value</th>
+                            <th width="10%" class="text-center">Display type</th>
+                            <th width="10%" class="text-center">Sort</th>
+                            <th width="20%" class="text-center">Operation</th>
+                        </tr>
+                        @for (int i = 0; i < Model.UseParamAttributeModels.Count; i++)
+                        {
+                            var prefix = string.Format("UseParamAttributeModels[{0}].", i);
+
+                            //商品类型组
+                            var tempProductTypeAttr = Model.UseParamAttributeModels[i];
+                            <tr data-option="{'Index':@i,'DisplaySequence':@tempProductTypeAttr.DisplaySequence}" class="js-tr-item">
+                                <td class="text-center">
+                                    <div class="form-group" style="margin-left:0;">
+                                        <input type="text" name="@(prefix + "AttributeGroup")" class="form-control js-AttributeGroup" style="width:105px !important;" value="@tempProductTypeAttr.AttributeGroup" />
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <input type="hidden" name="@(prefix + "RowStatus")" value="0" class="js-p-RowStatus" />
+                                    <input type="hidden" class="js-SKU_ProductTypeAttributeId" name="@(prefix + "SKU_ProductTypeAttributeId")" value="@tempProductTypeAttr.SKU_ProductTypeAttributeId" />
+                                    <div class="form-group" style="margin-left:0;">
+                                        <input type="hidden" name="@(prefix + "SKU_AttributesModel.AttributeId")" value="@tempProductTypeAttr.SKU_AttributesModel.AttributeId" />
+                                        <input type="text" name="@(prefix + "SKU_AttributesModel.AttributeName")" class="form-control js-p-AttributeName" style="width:105px !important;" value="@tempProductTypeAttr.SKU_AttributesModel.AttributeName" />
+                                    </div>
+                                </td>
+                                <td class="js-td-attrValues text-center">
+                                    @*商品扩展属性值*@
+                                    @if (tempProductTypeAttr.SKU_AttributesModel != null && tempProductTypeAttr.SKU_AttributesModel.SKU_AttributeValuesModels != null)
+                                    {
+
+                                        for (int j = 0; j < tempProductTypeAttr.SKU_AttributesModel.SKU_AttributeValuesModels.Count; j++)
+                                        {
+                                            <div class="js-attrValues" id="js-useExtend-attrValues@(j)">
+                                                @{
+                                            var attrValuePrefix = string.Format("{0}SKU_AttributesModel.SKU_AttributeValuesModels[{1}].", prefix, j);
+                                            var tempAttrValue = tempProductTypeAttr.SKU_AttributesModel.SKU_AttributeValuesModels[j];
+                                            @Html.Hidden(attrValuePrefix + "ValueId", tempAttrValue.ValueId, new { @class = "js-ValueId" })
+                                                    @Html.Hidden(attrValuePrefix + "AttributeId", tempAttrValue.AttributeId, new { @class = "js-AttributeId" })
+                                                    @Html.Hidden(attrValuePrefix + "ValueStr", tempAttrValue.ValueStr, new { @class = "js-ValueStr" })
+                                                    @Html.Hidden(attrValuePrefix + "DisplaySequence", tempAttrValue.DisplaySequence, new { @class = "js-DisplaySequence" })
+                                                    @Html.Hidden(attrValuePrefix + "RowStatus", tempAttrValue.RowStatus, new { @class = "js-RowStatus" })
+                                                }
+                                            </div>
+                                        }
+                                    }
+                                    @if (tempProductTypeAttr.SKU_AttributesModel.UsageMode != 3)
+                                    {
+                                        <button class="btn btn-sm btn-default" onclick="showAttrValue(this,2,@i)" type="button"><i class="glyphicon glyphicon-plus"></i>&nbsp;Add value</button><text>&nbsp;</text>
+                                        <input type="hidden" class="js-ValueString" value="@tempProductTypeAttr.SKU_AttributesModel.ValuesString" />
+                                        <i class="fa fa-fw fa-question-circle js-ValueString-Tips" data-toggle="tooltip" data-placement="right" title="@tempProductTypeAttr.SKU_AttributesModel.ValuesString"></i>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    @ShowUsageMode(tempProductTypeAttr.SKU_AttributesModel.UsageMode, prefix + "SKU_AttributesModel.UsageMode")
+                                </td>
+                                <td class="text-center">
+                                    <div class="form-group" style="margin-left:0;">
+                                        <input type="text" name="@(prefix + "DisplaySequence")" class="form-control js-p-DisplaySequence" style="width:55px !important;text-align:center;" value="@tempProductTypeAttr.DisplaySequence" />
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-default js-remove-item" onclick="removeProductTypeAttr(this)" type="button"><i class="glyphicon glyphicon-remove"></i></button>&nbsp;
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@helper ShowUsageMode(int value, string name)
+{
+    //选择框模式,0:复选框,1:单选框,2:下拉框,3:输入框
+    <select class="form-control" style="width:105px !important;" disabled="disabled">
+        @Html.Raw("<option value='0' " + (value == 0 ? "selected" : "") + ">Check box</option>")
+        @Html.Raw("<option value='2' " + (value == 2 ? "selected" : "") + ">Dropdown box</option>")
+        @Html.Raw("<option value='3' " + (value == 3 ? "selected" : "") + ">Text box</option>")
+    </select>
+    @Html.Hidden(name, value, new { @class = "js-UsageMode" })
+}
+

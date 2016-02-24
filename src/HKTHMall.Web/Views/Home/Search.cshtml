@@ -1,0 +1,191 @@
+﻿@using HKTHMall.Domain.WebModel.Models.Search;
+@using HKTHMall.Domain.AdminModel.Models.Categoreis
+@using HKTHMall.Domain.Enum
+@using HKTHMall.Core.Extensions
+@using HKTHMall.Services.Common.MultiLangKeys
+@model Dictionary<string, object>
+@{
+    HKTHMall.Domain.WebModel.Models.Search.KeyWordsSearch searchModel = ViewData["searchModel"] as HKTHMall.Domain.WebModel.Models.Search.KeyWordsSearch;
+    List<SearchModel> prodocutList = ViewBag.products;
+}
+
+<div class="main_a">
+@if (prodocutList!=null && prodocutList.Count> 0)
+{
+    <div class="liebiaomain">
+        <div class="liebiaospec"></div>
+        <div class="Pagination2 clearfix">
+            <p class="lb_page">
+                <a href="@Url.Action("index","home")" class="lb_pagea">@CultureHelper.GetLangString("HOME_INDEX_HOMEPAGE")></a><a href="javascript:void(0)" class="lb_pagea">@searchModel.k</a>
+            </p>
+            <div class="Pagination_paging2 clearfix">
+                <label class="paixu_902" id="ordersort">
+                    @{
+                        if (searchModel.sf == SearchField.ZongHe)
+                        {
+                            <a href="javascript:;" class="paixu_902a" data-sort-type="zonghe">@CultureHelper.GetLangString("HOME_INDEXFIRST_COMPRSORT")</a>
+                        }
+                        else
+                        {
+                            <a href="javascript:;" class="paixu_902a1" data-sort-type="zonghe">@CultureHelper.GetLangString("HOME_INDEXFIRST_COMPRSORT")</a>
+                        }
+                        if (searchModel.sf == SearchField.Sales)
+                        {
+                            <a href="javascript:;" class="paixu_902a z_pricepx" data-sort-type="sales">
+                                @CultureHelper.GetLangString("HOME_INDEXFIRST_SALES")
+                                <span class="@(searchModel.AscOrDesc == AscOrDescType.ASC ? "z_up" : "z_down")"></span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="javascript:;" class="paixu_902a1 z_pricepx" data-sort-type="sales">@CultureHelper.GetLangString("HOME_INDEXFIRST_SALES")</a>
+                        }
+                        if (searchModel.sf == SearchField.Price)
+                        {
+                            <a href="javascript:;" class="paixu_902a z_pricepx" data-sort-type="price">
+                                @CultureHelper.GetLangString("HOME_SHOPPING_PRICE")
+                                <span class="@(searchModel.AscOrDesc == AscOrDescType.ASC ? "z_up" : "z_down")"></span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="javascript:;" class="paixu_902a1 z_pricepx" data-sort-type="price">@CultureHelper.GetLangString("HOME_SHOPPING_PRICE")</a>
+                        }
+                    }
+                </label>
+                <label class="paixu_9022">
+                    <p class="count_902">@Html.Raw(string.Format(CultureHelper.GetLangString("HOME_INDEXFIRST_ATOTALACOM"), "<span class='count_902col'>" + @searchModel.AllCount + "</span>"))</p>
+                    @Html.ToPager("Page", 20, searchModel.AllCount)
+                </label>
+            </div>
+        </div>
+        <div class="classify_main2 clearfix">
+            <div class="c_9_23"></div>
+            <div class="classify_092">
+                @if (prodocutList != null && prodocutList.Count>0)
+                {
+                    foreach (var product in prodocutList)
+                    {
+                        <div class="classify_cp2 l">
+                            <a class="z_classify trans" href="@Url.Action("shopping", "home" , new { area="" , id=product.ProductId })">
+                                <img src="@Html.GetImagesUrl(product.PicUrl, 208, 206)" width="208" height="206">
+                                <p class="z_cname">@product.ProductName</p>
+                                <label class="z_price">
+                                    <span class="z_price2">@product.HKPrice.ToString("F2") บาท</span>
+                                    <span class="z_price3"></span>
+                                    <span class="z_price1">@CultureHelper.GetLangString("HOME_INDEX_ORIGINALPRICE")：@product.MarketPrice.ToString("F2") บาท</span>
+                                </label>
+                            </a>
+                            <a href="javascript:void(0)" class="@(product.UserID == 0 ? "z_collect" : "z_collected")  zm_collected"
+                               id="@product.ProductId">@(product.UserID == 0 ? CultureHelper.GetLangString("PRODUCT_LIST_COLLECT") : CultureHelper.GetLangString("HOME_SHOPPING_ALCOLLECTED"))</a>
+
+                        </div>
+                    }
+                }
+            </div>
+            <div class="huanye" style="float:left">
+                @if (searchModel.AllCount / 20 > 0)
+                {
+                    @Html.Raw(Html.ToPageHtml(searchModel.Page, 20, searchModel.AllCount))
+                }               
+            </div>
+        </div>
+        <div class="c_public_bottom"></div>
+    </div>
+}
+@if (searchModel.AllCount == 0)
+{
+    <div class="l_main_a_s">
+        <div class="l_shopping_main_s">
+            <a href="@Url.Action("index","home")" style="color: #999;">@CultureHelper.GetLangString("HOME_INDEX_HOMEPAGE")</a> > <a href="javascript:;" style="color: #999;">@searchModel.k</a><br>
+        </div>
+        <div class="l_ineffectiveness">
+            <p>@Html.Raw(string.Format(CultureHelper.GetLangString("HOME_SEARCH_SEARCHMESSAGE"),searchModel.k, "<em>" + searchModel.AllCount + "</em>"))</p>
+            <span>@Html.Raw(string.Format(CultureHelper.GetLangString("HOME_SEARCH_NOTFINDGOODS"), @searchModel.k))</span><br />
+            <span>@CultureHelper.GetLangString("HOME_SEARCH_RECOMMENDED")</span><br />
+            <span>1.@CultureHelper.GetLangString("HOME_SEARCH_TEXTWRONG")</span><br />
+            <span>2.@CultureHelper.GetLangString("HOME_SEARCH_REMOVEWORDS")</span><br />
+            <span>3.@CultureHelper.GetLangString("HOME_SEARCH_ADJUSTKEYWORDS")</span>
+        </div>
+    </div>
+
+   @*@Html.Action("LikeGuess", "Home", new { top = 5 })*@
+    <div style="width:100%;height:12px;clear:both;"></div>
+    @Html.Action("HuikaRecommend", "Home", new { area = "" })
+   <div class="c_public_bottom"></div>
+
+}
+</div>
+
+<style type="text/css">
+.z_down{background:url(@Url.Content("~/Content/css/images/downprice.png")) no-repeat;width: 9px;height: 13px;display: inline-block;margin-left: 5px;vertical-align: -6px;}
+.z_up{background:url(@Url.Content("~/Content/css/images/upprice.png")) no-repeat;width: 9px;height: 13px;display: inline-block;margin-left: 5px;vertical-align: -4px;}
+</style>
+
+<script src="~/Content/js/jquery-1.9.1.min.js"></script>
+<script src="~/Content/js/Plug-in-unit.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.tunepage li a').Page({ type: "0" });
+    });
+
+    $(".zm_collected").click(function () {
+        var productId = $(this).attr("id");
+        if ($(this).hasClass("z_collect")) {
+            $.post("/Product/AddToCollection", { key: productId }, function (data) {
+                if (data.Data == undefined) {
+                    mallbox.alert({
+                        message: $commonLang.LOGIN_FIRST,
+                        modal: true,
+                        callback: function () {
+                            window.location = '/Login/Index?ReturnUrl=' + encodeURIComponent(window.location.href);
+                        }
+                    });
+                } else if (data.Data) {
+                    $("#" + productId).removeClass('z_collect').addClass('z_collected');
+                    $("#" + productId).html($commonLang.HOME_SHOPPING_COLLECT);
+                    var collectCount = parseInt($(".z_count2").text());
+                    collectCount += 1;
+                    $(".z_count2").empty().text(collectCount);
+                }
+            });
+        }
+    });
+
+    var z_num = $(".classify_cp2").length;
+    for (var j = 0; j < z_num; j++) {
+        if (j > 0 && (j + 1) % 5 == 0) {
+            $(".classify_cp2").eq(j).css({
+                'marginRight': '0'
+            });
+        } else if (j >= 0 && (j + 1) % 5 != 0) {
+            $(".classify_cp2").eq(j).css({
+               // 'marginRight': '28px'
+            });
+        }
+    }
+    var base_parameter = "";
+    var sort_searchUrl = "/home/search.html?k=" + '@searchModel.k';
+    var curr_AscOrDesc = '@(searchModel.AscOrDesc.ToString().ToLower())';
+    $("#ordersort a").click(function () {
+        var curr_st = $(this).attr('data-sort-type');
+        switch (curr_st) {
+            case 'price':
+                base_parameter += '&sf=price';
+                base_parameter += '&AscOrDesc=' + (curr_AscOrDesc == 'asc' ? 'desc' : 'asc');
+                break;
+            case 'sales':
+                base_parameter += '&sf=sales';
+                base_parameter += '&AscOrDesc=' + (curr_AscOrDesc == 'asc' ? 'desc' : 'asc');
+                break;
+            case 'zonghe':
+                base_parameter += '&sf=zonghe';
+                break;
+            default:
+                break;
+        }
+        var urrl = sort_searchUrl + base_parameter;
+        $(this).attr('href', urrl);
+        return true;
+    });
+</script>

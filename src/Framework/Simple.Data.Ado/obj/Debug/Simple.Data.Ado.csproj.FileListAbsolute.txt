@@ -1,0 +1,8 @@
+F:\WorkSpace\src\Framework\Simple.Data.Ado\bin\Debug\Simple.Data.Ado.dll.config
+F:\WorkSpace\src\Framework\Simple.Data.Ado\bin\Debug\Simple.Data.Ado.dll
+F:\WorkSpace\src\Framework\Simple.Data.Ado\bin\Debug\Simple.Data.Ado.pdb
+F:\WorkSpace\src\Framework\Simple.Data.Ado\bin\Debug\Simple.Data.dll
+F:\WorkSpace\src\Framework\Simple.Data.Ado\bin\Debug\Simple.Data.pdb
+F:\WorkSpace\src\Framework\Simple.Data.Ado\obj\Debug\Simple.Data.Ado.csprojResolveAssemblyReference.cache
+F:\WorkSpace\src\Framework\Simple.Data.Ado\obj\Debug\Simple.Data.Ado.dll
+F:\WorkSpace\src\Framework\Simple.Data.Ado\obj\Debug\Simple.Data.Ado.pdb

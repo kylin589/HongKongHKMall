@@ -1,0 +1,77 @@
+﻿@model Dictionary<string, object>
+@using HKTHMall.Core.Extensions
+@using HKTHMall.Domain.WebModel.Models.Product
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<ProductCommentModel> prodocutCommentList = ViewData["comments"] as List<ProductCommentModel>;
+}
+    <div class="main_a">
+
+        <div class="main_about">
+            <div class="ls_member">
+
+
+                <!--left-->
+                @Html.Partial("_userLeft")
+
+                <!--right-->
+                <div class="ls_member_rg">
+
+                    <!--右侧会员信息展示-->
+                    @if( prodocutCommentList!=null && prodocutCommentList.Count > 0)
+                    {
+                    <div class="m_user_pubtitle">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_MYEVALUATION")@*我的评价*@</div>
+                    <div class="ls_pingjia">
+                        <div class="ls_pingjia_bt">
+                            <ul>
+                                <li>@CultureHelper.GetLangString("MONEY_SHOPPINGCART_GOODS")@*商品*@</li>
+                                <li>@CultureHelper.GetLangString("ACCOUNT_MY_REVIEW_COMMENTONCONTENT")@*评论内容*@</li>
+                                <li>@CultureHelper.GetLangString("HOME_TIME")@*时间*@</li>
+
+                            </ul>
+                        </div>
+                        <div class="ls_pingjia_list">
+                            @foreach(var comment in prodocutCommentList)
+                            { 
+                            <ul>
+                                <li><img src="@Html.GetImagesUrl(comment.PicUrl, 75, 75)" alt="" />
+                                    <a href="@Url.Action("shopping", "home", new { area = "", id = comment.ProductId })">@comment.ProductName</a></li>
+                                @if (string.IsNullOrEmpty(@comment.CommentContent))
+                                {
+                                    <li>&nbsp;</li>
+                                }
+                                else
+                                {
+                                    <li>@comment.CommentContent</li>
+                                }
+                                <li>@comment.CommentDT.Value.ToString("yyyy-MM-dd HH:mm")</li>
+                                <div class="clear"></div>
+                            </ul>
+                            }
+                        </div>
+                        @Html.Raw(Html.ToPageHtmlNew((int)ViewBag.Page, 10, (int)ViewBag.Count))
+                    </div>
+
+                    }
+                    else
+                    { 
+			            <div class="m_user_pubtitle">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_MYEVALUATION")@*我的评价*@</div>
+			            <div class="ls_pingjia">
+				            <div class="ls_pingjia_empty">
+					            <i></i>@CultureHelper.GetLangString("ACCOUNT_MY_REVIEW_NOEVALUATIONPRESENT")!@*暂无评价！*@
+					            <div class="clear"></div>
+				            </div>
+			            </div>
+                    }
+                    <!--会员中心惠卡推荐，和前台的惠卡推荐不一样-->
+                    @Html.Action("MyHuikaRecommend", "Home", new { area = "" }) 
+
+                </div>
+                <div class="clear"></div>
+
+            </div>
+        </div>
+
+    </div><!--主体部分-->
+

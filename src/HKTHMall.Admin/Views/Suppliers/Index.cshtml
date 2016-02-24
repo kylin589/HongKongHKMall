@@ -1,0 +1,223 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@model HKTHMall.Domain.AdminModel.Models.Products.SalesSuppliersModel
+@{
+
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(135);
+    _Authority.Delete = _Authority.CheckAction(136);
+    _Authority.Move = _Authority.CheckAction(134);
+    var Resetpassword = _Authority.CheckAction(172);
+}
+<div id="user-toolbar">
+
+    <div class="form-inline" role="form">
+
+        <div class="form-group">
+            <span>Supplier Name: </span>&nbsp;&nbsp;
+            @Html.TextBoxFor(x => x.SupplierName, new { @class = "form-control w70" })
+        </div>
+        <div class="form-group">
+            <span>Link Man: </span>&nbsp;&nbsp;
+            @Html.TextBoxFor(x => x.LinkMan, new { @class = "form-control w70" })
+        </div>
+        <div class="form-group">
+            <span>Telephone: </span>&nbsp;&nbsp;
+            @*@Html.TextBoxFor(x => x.Telephone, new { @class = "form-control w70" })*@
+            <input id="Telephone1" name="Telephone" type="text" value="" class="form-control w70" />
+        </div>
+        <div class="form-group">
+            <span>Mobile: </span>&nbsp;&nbsp;
+            @*@Html.TextBoxFor(x => x.Mobile, new { @class = "form-control w70" })*@
+            <input id="Mobile1" name="Address" type="text" value="" class="form-control w70" />
+        </div>
+
+
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+                <span class="glyphicon glyphicon-search"></span> Search
+            </button>
+        @if (_Authority.Add)
+        {
+            <button type="button" class="btn btn-primary js_create">
+                <span class="glyphicon glyphicon-plus"></span> Add
+            </button>
+        }
+    </div>
+
+
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/javascript">
+        var EditCheck = eval("@(_Authority.Add.ToString().ToLower())");
+        var Resetpassword = eval("@(Resetpassword.ToString().ToLower())"); 
+        
+
+        $(function () {
+
+            var columns = [
+                {
+                    field: 'Mobile', title: 'Mobile', align: 'center', valign: 'middle', sortable: false
+                },
+                { field: 'SupplierName', title: 'Supplier Name', align: 'center', valign: 'middle', sortable: false },
+                { field: 'AreaName', title: 'Area Name', align: 'center', valign: 'middle', sortable: false },
+                { field: 'Address', title: 'Address', align: 'center', valign: 'middle', sortable: false },
+                { field: 'LinkMan', title: 'Link Man', align: 'center', valign: 'middle', sortable: false },
+
+                {
+                    field: 'Telephone', title: 'Telephone', align: 'center', valign: 'middle', sortable: false
+                },
+                
+                { field: 'Remark', title: 'Remark', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'SupplierId',
+                    title: 'Operation',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (val) {
+                        var Operation = "";
+
+                        if (EditCheck) {
+
+                            Operation += '<a class="edit ml10" href="javascript:void(0)" title="Update ">';
+                            Operation += 'Update ';
+                            Operation += '</a>';
+                        }
+                        if (Resetpassword) {
+                            Operation += '<a class="and ml10" href="javascript:void(0)" onclick="ResetPassWord(' + val + ')" title="Update ">';
+                            Operation += 'Reset password ';
+                            Operation += '</a>';
+                        }
+                        if (Operation == "") {
+                            Operation = "-";
+                        }
+                        
+                            return [
+                               Operation
+
+                            ].join('');
+                        
+                    },
+                    events: {
+                        'click .edit': function (e, value, row, index) {
+                            console.log(1);
+                            Tool.ShowModal('@Url.Action("Create")', { id: value, time: new Date().getTime() }, 'Update Suppliers');
+                        },
+
+                    }
+                }
+            ];
+            //初始列表内容
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+
+                queryParams: function (params) {
+                    return {
+
+                        SupplierName: $('#SupplierName').val(),
+                        LinkMan: $('#LinkMan').val(),
+                        Telephone: $("#Telephone1").val(),
+                        Mobile: $("#Mobile1").val(),
+                        PagedIndex: this.pageNumber - 1,//params.pageNumber - 1  params.offset
+                        PagedSize: this.pageSize       //params.pageSize  params.limit
+                    };
+                },
+                sortOrder: 'desc',
+                pagination: true,
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns
+
+            });
+            //查询 刷新
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+
+            //添加
+            $('.js_create').click(function () {
+                Tool.ShowModal("@Url.Action("Create")", { time: new Date().getTime() }, "Add Suppliers");
+            });
+
+        });
+
+        //保存
+        function Save() {
+            @*var Mobile= $("#Mobile").val()
+            var url = "@Url.Action("IsMobile")?Mobile=" + Mobile;
+            $.ajax({
+                url: url,
+                dataType: "text",
+                success: function (data, status) {
+                    data = JSON.parse(data);
+                    if (data.IsValid) {
+                        Tool.ReloadDataTable($('#u_grid'));
+                    }
+                    Tool.Alert(data.Messages, 1500);
+                },
+                error: function (data, status, e) {
+                    Tool.Alert("Failed.", 1500);
+                }
+            });*@
+            
+            var Telephone12 = $("#Telephone").val();
+            //alert(Telephone12);
+            if (Telephone12!="") {
+                if (!new RegExp(/^\d{9}$/).test(Telephone12)) {
+                    Tool.Alert("Please enter the correct Telephone number!", 1500); return false;
+                }
+            }
+
+            /*验证登录密码*/
+            //var tegNum = /^\d{8,16}$/;
+            //var tegLetter = /^[a-zA-Z]{8,16}$/;
+            //var pattern = /^[!@@#$%^&*()_+|={}?><\-\]\\[\/]{8,16}$/;
+            //var pwds = $.trim($("#PassWord").val());
+            //if ("" == pwds || pwds.length < 8 || pwds.length > 16 || new RegExp(/[^\x00-\xff]|\s/).test(pwds)) {
+            //    $("#ipwd").show().html($commonLang.LOGIN_GETPASSWORD_PWDFORMAT);
+            //    return false;
+            //}
+            
+            
+            Tool.SaveModal($('#u_grid'));
+        }
+
+        
+        //重置密码
+        function ResetPassWord(ID) {
+            var message = "Reset password 111111!q ?";
+            
+            bootbox.setLocale("en");
+            bootbox.confirm(message, function (result) {
+                if (result) {
+                    var url = '@Url.Action("ResetPassword")' + "?ID=" + ID;
+                    $.ajax({
+                        url: url,
+                        dataType: "json",
+                        success: function (data, status) {
+
+                            if (data.IsValid) {
+                                Tool.ReloadDataTable($('#u_grid'));
+                            }
+                            Tool.Alert(data.Messages[0], 1500);
+                        },
+                        error: function (data, status, e) {
+                            Tool.Alert(" failed.", 1500);
+                        }
+                    });
+                }
+            });
+        };
+        
+        
+    </script>
+}

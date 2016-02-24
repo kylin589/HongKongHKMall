@@ -1,0 +1,183 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@model HKTHMall.Domain.Models.AC.SearchAC_ModuleModel
+@{
+    ViewBag.Title = "System function list page";
+
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(59);
+    _Authority.Delete = _Authority.CheckAction(61);
+    _Authority.Move = _Authority.CheckAction(60);
+}
+<div class="form-inline">
+    @Html.HiddenFor(x => x.ParentID, new { @class = "form-control w70", @value = "0" })
+    <div id="tree" class="tree"></div>
+    <div class="right">
+        <div id="user-toolbar">
+            <div class="form-inline" role="form">
+                @if (_Authority.Add)
+                {
+                    <button type="button" class="btn btn-primary js_create">
+                        <span class="glyphicon glyphicon-plus"></span> Add
+                    </button>
+                }
+
+            </div>
+        </div>
+        <table id="u_grid" data-toolbar="#user-toolbar"></table>
+    </div>
+</div>
+@section css{
+    <link href="~/Content/css/category.css" rel="stylesheet" />
+    <link href="~/Content/plugins/iCheck/all.css" rel="stylesheet" />
+}
+@Html.Partial("_FormModal")
+@section scripts{
+    <script type="text/javascript">
+        //权限
+        var $addCheck = eval("@(_Authority.Add.ToString().ToLower())");
+        var $deleteCheck = eval("@(_Authority.Delete.ToString().ToLower())");
+        var $moveCheck = eval("@(_Authority.Move.ToString().ToLower())");
+        //加载数据
+        $(function () {
+            var columns = [
+              { field: "ModuleName", title: "Module name", align: 'center', valign: 'middle', sortable: false },
+                { field: "ParentID", title: "ParentID", align: 'center', valign: 'middle', sortable: false },
+                 { field: "Controller", title: "Control name", align: 'center', valign: 'middle', sortable: false },
+                       { field: "Action", title: "Contril method", align: 'center', valign: 'middle', sortable: false },
+                         { field: "Icon", title: "icon", align: 'center', valign: 'middle', sortable: false },
+            {
+                field: "ModuleID", title: "Operation", align: 'center', valign: 'middle',
+                formatter: function (val) {
+                    var operation = '';
+                    if ($moveCheck) {
+                        operation += '<a class="ssorts ml10" href="javascript:void(0)" title="move up"><i class="glyphicon glyphicon-arrow-up"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;' +
+                        '<a class="xsorts ml10" href="javascript:void(0)" title="Down">' +
+                        '<i class="glyphicon glyphicon-arrow-down"></i>' +
+                        '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                    }
+                    if ($addCheck) {
+                        operation += '<a class="edit ml10" href="javascript:void(0)" title="Update"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                    }
+                    if ($deleteCheck) {
+                        operation += '<a class="remove ml10" href="javascript:void(0)" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>';
+                    }
+                    if ($addCheck == false && $deleteCheck == false && $moveCheck == false) {
+                        operation = '-';
+                    }
+                    return [
+                         operation
+                    ].join('');
+                },
+                events: {
+                    'click .ssorts': function (e, value, row, index) {
+                        UpdateSorts(index, value, row.ParentID, 1);
+                    },
+                    'click .xsorts': function (e, value, row, index) {
+                        UpdateSorts(index, value, row.ParentID, 2);
+                    },
+                    //编辑
+                    'click .edit': function (e, value, row, index) {
+                        Tool.ShowModal('@Url.Action("Create")', { id: value, Time: new Date().getTime() }, 'Edit the System Menu settings');
+                    },
+                    //删除
+                    'click .remove': function (e, value, row, index) {
+                        DelParameterSet(value);
+                        LoadTree();
+                    }
+                }
+            }
+            ];
+            LoadTree();
+
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+                queryParams: function (params) {
+                    return {
+                        KeysName: $('#ModuleName').val(),
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: 1000,
+                        ParentID: $("#ParentID").val(),
+                        Time: new Date().getTime()
+                    };
+                },
+                pagination: false,
+                showRefresh: true,
+                columns: columns
+            });
+
+            //添加系统功能设置
+            $('.js_create').click(function () {
+                Tool.ShowModal("@Url.Action("Create")", { time: new Date().getTime() }, "Add the System Menu settings");
+            });
+
+            //删除系统功能信息
+            function DelParameterSet(moduleID) {
+                bootbox.setLocale("en");
+                //bootbox.setLocale("zh_CN");
+                bootbox.confirm("Delete this menu？", function (result) {
+                    if (result) {
+                        var url = "/AC_Module/Delete?moduleID=" + moduleID;
+                        $.ajax({
+                            url: url,
+                            dataType: "text",
+                            success: function (data, status) {
+                                data = JSON.parse(data);
+                                Tool.Alert(data.Messages, 1500);
+                                Tool.ReloadDataTable($('#u_grid'));
+                                LoadTree();
+                            },
+                            error: function (data, status, e) {
+                                Tool.Alert("Delete failed！", 1500);
+                            }
+                        });
+                    }
+                });
+            };
+        })
+        //保存
+        function Save() {
+            Tool.SaveModal($('#u_grid'));
+            Tool.ReloadDataTable($('#u_grid'));
+            LoadTree();
+        }
+
+        function LoadTree() {
+            $.get("@Url.Action("GetAC_ModuleTree")", { time: new Date().getTime() }, function (data) {
+                var tree = [{ "text": "Menu List", "id": 0, "nodes": data }];
+                $('#tree').treeview({
+                    data: tree,
+                    onhoverColor: "orange",
+                    expandIcon: "glyphicon glyphicon-plus-sign",
+                    collapseIcon: "glyphicon glyphicon-minus-sign",
+                    nodeIcon: "glyphicon glyphicon-file",
+                    onNodeSelected: function (event, node) {
+                        $("#ParentID").val(node.id);
+                        Tool.ReloadDataTable($('#u_grid'));
+                    }
+                });
+            });
+        }
+
+        function UpdateSorts(rowId, moduleId, parentID, sortType) {
+            $.ajax({
+                url: '@Url.Action("UpdatePlace")' + "?rowId=" + rowId + "&moduleId=" + moduleId + "&parentID=" + parentID + "&sortType=" + sortType + "&time=" + new Date().getTime(),
+                dataType: "text",
+                success: function (data, status) {
+                    data = JSON.parse(data);
+                    if (data.IsValid) {
+                        Tool.ReloadDataTable($('#u_grid'));
+                        LoadTree();
+                    }
+                    Tool.Alert(data.Messages, 1500);
+                },
+                error: function (data, status, e) {
+                    Tool.Alert("Failed!", 1500);
+                }
+
+            });
+        }
+    </script>
+}

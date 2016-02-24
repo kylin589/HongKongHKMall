@@ -1,0 +1,44 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main_a">
+    <div class="ls_member">
+    <div class="z_personal">
+        <div class="PersonMain">
+            @Html.Partial("_userLeft")
+
+            <div class="ls_member_rg">
+                <div class="m_user_pubtitle">
+                    @*账户安全*@
+                    @CultureHelper.GetLangString("ACCOUNT_MY_INDEX_ACCOUNTSECURITY")
+                </div>
+                <div class="m_user_pas">
+                    <div class="m_user_succ_sb">
+                        <div class="m_user_succ_er">
+                            <ul>
+                                <i></i>
+                                <ins>
+                                    @*恭喜您，交易密码修改成功*@
+                                    @CultureHelper.GetLangString("ACCOUNT_USERINFO_UPDATEPAYPASSWORD_MODIFYSUCCESS")
+                                </ins>
+                            </ul>
+                            <dl>
+                                <b>
+                                    @*您的账户安全等级提升了*@
+                                    @CultureHelper.GetLangString("ACCOUNT_USERINFO_UPDATEPAYPASSWORD_ACCOUNTLEVEL")
+                                </b>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="c_public_bottom"></div>
+    </div>
+    </div>
+</div>

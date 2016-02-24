@@ -1,0 +1,249 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@{
+    ViewBag.Title = "News information table";
+
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Edit = _Authority.CheckAction(112);
+    _Authority.Add = _Authority.CheckAction(110);
+    _Authority.Delete = _Authority.CheckAction(111);
+}
+@model HKTHMall.Domain.AdminModel.Models.New.NewInfoModel
+
+
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>New Title: </span>
+            @Html.TextBoxFor(x => x.NewTitle, new { @class = "form-control w70" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Recommend or not: </span>
+            <select id="selIsRecommend" class="form-control text-center">
+                <option value="10">All</option>
+                <option value="0">Not</option>
+                <option value="1">Yes</option>
+            </select>
+
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;&nbsp;&nbsp;
+        @if (_Authority.Add)
+        {
+        <button type="button" class="btn btn-primary js_create">
+            <span class="glyphicon glyphicon-plus"></span> Add
+        </button>
+        }
+
+    </div>
+
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/javascript">
+    var AddCheck = eval("@(_Authority.Add.ToString().ToLower())");
+    var EditCheck = eval("@(_Authority.Edit.ToString().ToLower())");
+    var deleterCheck = eval("@(_Authority.Delete.ToString().ToLower())");
+
+    var imgeurl = "@ViewBag.ImagePath";
+
+
+
+    $(function () {
+
+        var columns = [
+
+            { field: 'NewTitle', title: 'New Title', align: 'center', valign: 'middle', sortable: false },
+            //{
+            //    field: 'NewType', title: '新闻类型', align: 'center', valign: 'middle', sortable: false
+            //},
+            {
+                field: 'NewImage', title: 'News photo', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                    var img = "<img src='" + imgeurl + val + "' style='height:60px;width:60px;' />";
+                    var m = '<a href="' + imgeurl + val + '" target="_blank" title="' + imgeurl + val + ' " rel=" ' + imgeurl + val + '"> ' + img + '</a>';
+                    if (val == null) {
+                        img = "<img src='/Content/css/images/default-item.jpg' style='height:60px;width:60px;' />";
+                        m = '<a href="/Content/css/images/default-item.jpg" target="_blank" title="/Content/css/images/default-item.jpg " rel=" /Content/css/images/default-item.jpg"> ' + img + '</a>';
+                    }
+                    
+                   
+                    return m;
+
+                }
+            },
+            //{
+            //    field: 'NewContent', title: '新闻内容', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+            //        var m = '<spen  title="' + val + '" > ' + val + '</spen>';
+            //        if (val != null && val != "" && val.length > 30) {
+            //            m = '<spen  title="' + val + '" > ' + val.substring(0, 29) + '...</spen>';
+
+            //        }
+            //        return m;
+            //    }
+            //},
+            {
+                field: 'IsRecommend', title: 'Recommend or not', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                    var ms = "-";
+                    switch (val) {
+                        case 0:
+                            ms = "Not";
+                            break;
+                        case 1:
+                            ms = "Yes";
+                            break;
+
+                        default:
+
+                    }
+                    return ms;
+                }
+            },
+              {
+                  field: 'NewType', title: 'NewType', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                      var ms = "-";
+                      switch (val) {
+                          case 0:
+                              ms = "Announcement";
+                              break;
+                          case 1:
+                              ms = "Special Deals";
+                              break;
+
+                          default:
+
+                      }
+                      return ms;
+                  }
+              },
+            { field: 'CreateBy', title: 'Creater', align: 'center', valign: 'middle', sortable: false },
+            {
+                field: 'CreateDT', title: 'Create time', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                    if (val != null && val != "") {
+                        return val.formatterString(true)/*true 日期格式2015-5-5*/
+                    }
+                    return "-";
+                }
+            },
+            { field: 'UpdateBy', title: 'Update By', align: 'center', valign: 'middle', sortable: false },
+            {
+                field: 'UpdateDT', title: 'Update time', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                    if (val != null && val != "") {
+                        return val.formatterString(true)/*true 日期格式2015-5-5*/
+                    }
+                    return "-";
+                }
+            },
+
+
+            {
+                field: 'NewInfoId',
+                title: 'Operation',
+                align: 'center',
+                valign: 'middle',
+                formatter: function (e, value, row, index) {
+                    var ms = "";
+                    
+                    if (value.NewImage != null && value.NewImage != "" && value.NewImage != "/Content/css/images/default-item.jpg" && EditCheck && value.IsRecommend != "1") {
+                        ms += '<a class="edit ml10" href="javascript:void(0)" title="Recommend">';
+                        ms += 'Recommend';
+                        ms +='</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                    }
+                    if (EditCheck && value.IsRecommend == "1") {
+                        ms += '<a class="edit1 ml10" href="javascript:void(0)" title="NotRecommend">';
+                        ms += 'NotRecommend';
+                        ms += '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                    }
+                    if (AddCheck ) {
+
+                        ms += '<a class="edit1 ml10" href="@Url.Action("Create")/' + value.NewInfoId + '" title="Update">';
+                        ms += 'Update';
+                        ms += '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                    }
+                    if (deleterCheck)
+                    {
+                        ms += '<a class="remove ml10" href="javascript:void(0)" title="Delete">';
+                        ms += 'Delete';
+                        ms += '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                    }
+                    if (ms=="") {
+                        ms = "--";
+                    }
+                    return [
+                        ms
+                    ].join('');
+                },
+                events: {
+                    'click .edit': function (e, value, row, index) {
+
+                        
+                        Tool.OperationRecord('@Url.Action("UpdateIsRecommend")', { NewInfoId: value,IsRecommend:1 }, "Confirmation recommendation", $('#u_grid'));
+                    },
+                    'click .edit1': function (e, value, row, index) {
+
+
+                        Tool.OperationRecord('@Url.Action("UpdateIsRecommend")', { NewInfoId: value, IsRecommend: 0 }, "Confirmation recommendation", $('#u_grid'));
+                    },
+
+                    'click .remove': function (e, value, row, index) {
+
+                        Tool.DeleteRecord('@Url.Action("DeleteBanner")', { NewInfoId: value }, $('#u_grid'));
+                    },
+                }
+            }
+        ];
+        //初始列表内容
+        $('#u_grid').bootstrapTable({
+            url: '@Url.Action("List")',
+
+            queryParams: function (params) {
+                return {
+
+                    NewTitle: $('#NewTitle').val(),
+                    IsRecommend: $('#selIsRecommend').val(),
+
+                    PagedIndex: this.pageNumber - 1,//params.pageNumber - 1  params.offset
+                    PagedSize: this.pageSize       //params.pageSize  params.limit
+                };
+            },
+            sortOrder: 'desc',
+            pagination: true,
+            showRefresh: true,
+            showColumns: true,
+            striped: true,
+            sidePagination: 'server',
+            columns: columns
+
+        });
+        //查询 刷新
+        $('.js-search').click(function () {
+            Tool.ReloadDataTable($('#u_grid'));
+        });
+
+        //添加
+        $('.js_create').click(function () {
+            var actionUrl = "@Url.Action("Create")" ;
+            @*var param = {};
+                Tool.ShowModal(actionUrl, param, "添加" );*@
+            window.location.href= actionUrl;
+        });
+
+    });
+
+    //保存
+    function Save() {
+
+
+        Tool.SaveModal($('#u_grid'));
+    }
+    </script>
+}

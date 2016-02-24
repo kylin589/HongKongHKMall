@@ -1,0 +1,163 @@
+﻿@using HKTHMall.Domain.Enum
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="main_a">
+
+        <div class="main_about">
+            <div class="ls_member">
+
+                <!--left-->
+                @Html.Partial("_userLeft")
+
+
+                <!--right-->
+                <div class="ls_member_rg">
+
+                    <!--右侧会员信息展示-->
+                    <div class="ls_member_info">
+                        @*我的惠卡*@
+                        <h3>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_MODIFYTHEPICTURE")</h3>
+                        <div class="ls_member_touxiang">
+                            <img src="@Html.GetAvatarImagesUrl((string)ViewBag.ImageUrl, 80, 80, 0,false)" />
+                            <ul>
+                                <li><b>@ViewBag.NickName</b>@*<span>(@ViewBag.Phone)</span>*@<a href="/Account/UserInfo/Index" title="">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_THEEDITOR")@*编辑*@</a></li>
+                                <li><i>$@ViewBag.ConsumeBalance</i>/@CultureHelper.GetLangString("ACCOUNT_REBEAT_TODAY"):<i>$@ViewBag.Rebeat</i><a href="@Url.Action("Question", "Help", new { area=""})">@CultureHelper.GetLangString("ACCOUNT_ABOUT_100PER_REBEAT")</a></li>
+                                @*<li>@CultureHelper.GetLangString("HOME_MONEY_YUER")@*余额:$@ViewBag.ConsumeBalance <a href="/" title="">@CultureHelper.GetLangString("HOME_SHOPING_GOUWUFANXIAN")@*去购物拿返现</a></li>*@
+                                <li><span>@*上次登录时间*@@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_LASTLOGINTIME"):@ViewBag.LastLoginTime</span>
+                                <span>@*上次登录IP*@@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_LASTLOGINIP"):@ViewBag.LastloginIP</span></li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                        <ul class="ls_member_safe">
+                            <li>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_ACCOUNTSECURITY")@*账户安全*@：</li>
+                            <li><span style="width:@ViewBag.percent;background:#ee343c;"></span></li>
+                            <li>@ViewBag.Rank@*低*@</li>
+                            <li><a href="/Account/UserInfo/Safe" title="">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_ASCENSION")@*提升*@</a></li>
+                        </ul>
+                        <div class="ls_order_info">
+                            <ul>
+                                <li><i></i><a href="~/order/list.html?s=@((int)OrderEnums.OrderStatus.Obligation)" title="">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_FORPAYMENT")@*待付款*@ <span>&nbsp;@ViewBag.UnPay</span></a></li>
+                                <li><i></i><a href="~/order/list.html?s=@((int)OrderEnums.OrderStatus.WaitReceiving)" title="">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_FORTHEGOODS")@*待收货*@ <span>&nbsp;@ViewBag.UnReceived</span></a></li>
+                                <li><i></i><a href="~/order/list.html?s=@((int)OrderEnums.OrderStatus.All)" title="">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_TOEVALUATE")@*待评价*@ <span>&nbsp;@ViewBag.UnComment</span></a></li>
+                                <div class="clear"></div>
+                            </ul>
+
+                        </div>
+                    </div>
+
+                    <!--会员中心惠卡推荐，和前台的惠卡推荐不一样-->
+                    @Html.Action("MyHuikaRecommend", "Home", new { area = "" })                    
+
+                </div>
+                <div class="clear"></div>
+
+            </div>
+        </div>
+
+
+@*<div class="main_a">
+    <div class="z_personal">
+        <div class="PersonMain">
+            @Html.Partial("_userLeft")
+            <!--右边的写在这里-->
+            <div class="PmainRight" id="PmainRight">
+                <div class="z_grimformation">
+                    <table class="z_gemain">
+                        <tbody>
+                            <tr>
+                                <td rowspan="3" class="z_touxiang" valign="top" align="center" width="141">
+                                    <a class="z_imglink" href="/Account/UserInfo/Index" title="@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_MODIFYTHEPICTURE")">
+                                        <img src="@Html.GetAvatarImagesUrl((string)ViewBag.ImageUrl, 100, 100, 0,true)" class="z_txupload" height="100" width="100" />
+                                    </a>
+                                </td>
+                                <td class="z_text" width="869">
+                                    <label>
+                                        <dd class="z_gename">@ViewBag.NickName</dd>
+                                        <dd class="z_grphone">@ViewBag.Phone</dd>
+                                        <a href="/Account/UserInfo/Index" class="z_gredit">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_THEEDITOR")</a>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="z_zhanquan">
+                                        <p class="z_anquan">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_ACCOUNTSECURITY") :&nbsp;</p>
+                                        <div class="z_level" id="sercuritylevel"><div class="z_levelpct" style="width:@ViewBag.percent;"></div></div>
+                                        <p class="z_grade" style="color:#e12228;" id="rank">@ViewBag.Rank</p>
+                                        @if (ViewBag.Rank != CultureHelper.GetLangString("ACCOUNT_MY_INDEX_SENIOR"))
+                                        {
+                                            <a href="/Account/UserInfo/Safe" class="z_upgrade">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_ASCENSION")</a>
+                                        }
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="z_dltime">
+                                        <p class="z_lasttime">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_LASTLOGINTIME"):@ViewBag.LastLoginTime</p>
+                                        <p class="z_lastip">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_LASTLOGINIP"):@ViewBag.LastloginIP</p>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <label class="z_wait">
+                                        <div class="z_waitfk">
+                                            <a href="~/order/list.html?s=@((int)OrderEnums.OrderStatus.Obligation)">
+                                                @CultureHelper.GetLangString("ACCOUNT_MY_INDEX_FORPAYMENT")
+                                            </a>
+                                            <em>@ViewBag.UnPay </em>
+                                        </div>
+                                        <span class="z_fenge">|</span>
+                                        <div class="z_waitsh">
+                                            <a href="~/order/list.html?s=@((int)OrderEnums.OrderStatus.WaitReceiving)">
+                                                @CultureHelper.GetLangString("ACCOUNT_MY_INDEX_FORTHEGOODS")
+                                            </a>
+                                            <em>@ViewBag.UnReceived </em>
+                                        </div>
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="z_fengeyicuo"></div>
+                @Html.Action("RecommendProducts")
+            </div>
+            <!---->
+        </div>
+    </div>
+    <div class="c_public_bottom"></div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("div.PmainLeft .niutou").parent().addClass("Checked");
+        $("div.PmainLeft .niutou").removeClass("niutou").addClass("Rniutou");
+        var level = $("#sercuritylevel").width();
+        var oldlevel = $("#sercuritylevel > div").width();
+        if (oldlevel < 40) {
+            $("#sercuritylevel > div").css({
+                'backgroundColor': '#ed1c24'
+            });
+            $("#rank").css({
+                'color': '#ed1c24'
+            });
+        } else if (oldlevel >= 40 && oldlevel < 80) {
+            $("#sercuritylevel > div").css({
+                'backgroundColor': '#fb9932'
+            });
+            $("#rank").css({
+                'color': '#fb9932'
+            });
+        } else if (oldlevel == 85) {
+            $("#sercuritylevel > div").css({
+                'backgroundColor': '#7abd54'
+            });
+            $("#rank").css({
+                'color': '#7abd54'
+            });
+        }
+    });
+</script>*@

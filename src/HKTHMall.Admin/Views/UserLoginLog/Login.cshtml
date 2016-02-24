@@ -1,0 +1,90 @@
+﻿
+@{
+    Layout = null;
+}
+
+@*<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Login</title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <!-- Bootstrap 3.3.4 -->
+        <link href="~/Content/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <!-- Font Awesome Icons -->
+        <link href="~/Content/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+        <!-- Theme style -->
+        <link href="~/Content/css/admin.min.css" rel="stylesheet" type="text/css" />
+
+    </head>
+    <body class="login-page">
+        <div class="login-box">
+
+            <div class="login-box-body">
+                <p class="login-box-msg">Thailand Mall Backgroud</p>
+
+                    <div class="form-group has-feedback">
+                        <input type="text" id="txtUserName" class="form-control" placeholder="UserName" value="admin" />
+                        <span class="glyphicon glyphicon glyphicon-user form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input type="password" id="txtpassword" class="form-control" value="111111" placeholder="Password" />
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-xs-4">
+                            <button type="submit" id="submit"  class="btn btn-primary btn-block btn-flat">Sign In</button>
+                        </div><!-- /.col -->
+                    </div>
+
+            </div><!-- /.login-box-body -->
+        </div><!-- /.login-box -->
+        <!--jquery-1.11.3 -->
+        <script src="~/Content/js/jquery-1.11.3.min.js"></script>
+        <!-- Bootstrap 3.3.2 JS -->
+        <script src="~/Content/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <!-- iCheck -->
+
+        <script>
+        $(function () {
+            $("#submit").on("click", function () {
+                var username = $("#txtUserName").val();
+                var password = $("#txtpassword").val();
+                if (username.trim() == "" || password.trim() == "") {
+                    alert("请填写帐号和密码");
+                    return;
+                }
+                $.ajax({
+                    url: '@Url.Action("IsLogin")',//'/AC_OperateLog/DeleteAC_OperateLog?OperateID=' + OperateID,
+
+                    data: {
+                        UserName: username,
+                        PassWord: password,
+
+                    },
+                    type: 'post',
+
+                    dataType: "Json",
+                    success: function (data, status) {
+                        //alert(data.logintype)
+                        if (data.logintype == "3") {
+                           window.location.href = '/Home/index';
+                        }
+                        else {
+                            alert(data.Messages);
+
+                        }
+                    },
+                    error: function (data, status, e) {
+                        //alert(data);
+                        //alert(status);
+                        alert("Login failed");
+                        //alert(e);
+                    }
+
+                });
+            })
+        });
+        </script>
+    </body>
+    </html>*@

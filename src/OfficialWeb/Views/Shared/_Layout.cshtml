@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta charset="utf-8" />
+        <title>香港商城官方网站</title>
+        <link href="~/Content/bootstrap.css" rel='stylesheet' type='text/css' />
+        <link href="~/Content/theme-style.css" rel='stylesheet' type='text/css' />
+        <link rel="stylesheet" href="~/Content/font-awesome.min.css">
+        <link href='http://fonts.googleapis.com/css?family=Raleway:400,100,300,500,600,200,700,800,900' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="~/Content/testmonial.css">
+
+        <script src="~/Scripts/jquery.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/move-top.js"></script>
+        <script type="text/javascript" src="~/Scripts/easing.js"></script>
+        <script type="text/javascript" src="~/Scripts/responsiveslides.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/jquery.mixitup.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/jquery.flexisel.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    </head>
+    <body>
+        <header>
+            <div id="home" class="header scroll">
+                <div class="container">
+                    <!---- start-logo---->
+                    <div class="logo">
+                        <a href="#"><img src="images/logo.png" title="Blue agency" /></a>
+                    </div>
+                    <!---- //End-logo---->
+                    <!----start-top-nav---->
+                    <nav class="top-nav">
+                        <ul class="top-nav">
+                            <li class="active"><a href="#home" class="scroll">Hello!</a></li>
+                            <li class="page-scroll"><a href="#about" class="scroll">About</a></li>
+                            <li class="page-scroll"><a href="#services" class="scroll">Services</a></li>
+                            <li class="page-scroll"><a href="#port" class="scroll">Protfolio</a></li>
+                            <li class="page-scroll"><a href="#blog" class="scroll">Blog</a></li>
+                            <li class="page-scroll"><a href="#team" class="scroll">Team</a></li>
+                            <li class="page-scroll"><a href="#contact" class="scroll">Contact</a></li>
+                        </ul>
+                        <a href="#" id="pull"><img src="images/nav-icon.png" title="menu" /></a>
+                    </nav>
+                    <div class="clearfix"> </div>
+                    <!----//End-top-nav---->
+                </div>
+            </div>
+        </header>
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        <footer>
+        </footer>
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

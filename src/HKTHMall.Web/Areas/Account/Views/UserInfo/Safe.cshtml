@@ -1,0 +1,102 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div class="main_about">
+    <div class="ls_member">
+
+
+        <!--left-->
+        <div class="ls_member_lf">
+            @Html.Partial("_userLeft")
+        </div>
+
+
+        <!--right-->
+        <div class="ls_member_rg">
+            <div class="m_user_pubtitle">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_ACCOUNTSECURITY")</div>
+            <div class="m_zhaq">
+                <div class="m_zhaq_bt m_zhaq_safe_@(ViewBag.RankCount+1)">
+                    <!--如果安全级别为低，样式为m_zhaq_safe_1，安全级别为中，样式为m_zhaq_safe_2,安全级别为高，样式为m_zhaq_safe_3-->
+                    <i></i>
+                    <span>@CultureHelper.GetLangString("ACCOUNT_USERINFO_SAFE_SECURITYLEVEL")：</span>
+                    <div class="m_zhaq_ee">
+                        <dl>@ViewBag.Rank</dl>
+                        <ul><li class="m_zhaq_ee_seaf"></li><li class="@(ViewBag.RankCount>=0?"m_zhaq_ee_seaf":"")"></li><li class="@(ViewBag.RankCount>=1?"m_zhaq_ee_seaf":"")"></li><li class="@(ViewBag.RankCount>=2?"m_zhaq_ee_seaf":"")"></li></ul><!--如果要增加色条，要增加样式-->
+                    </div>
+                    <b>@(ViewBag.RankCount == 2 ? "" : CultureHelper.GetLangString("ACCOUNT_USERINFO_SAFE_RECOMMENDEDACCOUNT"))</b>
+                </div>
+                <div class="m_zhaq_nr">
+                    <ul>
+                       
+                        <li>
+                            <span><ins class="m_zhaq_s2"></ins>@CultureHelper.GetLangString("ACCOUNT_USERINFO_SAFE_PASSWORD")</span>
+                            <i>@CultureHelper.GetLangString("ACCOUNT_USERINFO_SAFE_SECURITYACCOUNT")</i>
+                            <b><a href="/Account/UserInfo/UpdatePass" title="">@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_MODIFY")</a></b>
+                        </li>
+                        <li>
+                            <span><ins class="m_zhaq_s3"></ins>@CultureHelper.GetLangString("ACCOUNT_USERINFO_SAFE_TRADEPASSWORD")</span>
+                            <i>@CultureHelper.GetLangString("ACCOUNT_USERINFO_SAFE_PAYMENTWITHDRAWAL")</i>
+                            @if (ViewBag.PayShow == 0)
+                            {
+                                <b>
+                                    <a href="/Account/UserInfo/SetPayPassword" title="">
+                                        @*设置*@
+                                        @CultureHelper.GetLangString("ACCOUNT_USERINFO_SAFE_SETUP")
+                                    </a>
+                                </b>
+                            }
+                            else
+                            {
+                                <b>
+                                    <a href="/Account/UserInfo/UpdatePayPassword" title="">
+                                        @*修改*@
+                                        @CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_MODIFY")
+                                    </a>
+                                </b>
+                            }
+                            <!--<b><a href="#" title="">设置</a><a href="#" title="">修改</a></b>如果用户已经设置了，那么只显示"修改"按钮，如果用户没有设置过交易密码，那么只显示"设置"按钮-->
+                        </li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+        </div>
+        <div class="clear"></div>
+
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+    $(function () {
+        //聚焦“安全”菜单
+        focusCurrentMenu('anquan');
+    });
+
+    function sendEmail() {
+        $("#fyj").removeAttr("href").html($commonLang.ACCOUNT_USERINFO_INDEX_SENDIN);
+        var email = '@ViewBag.Email';
+        $.post("/Userinfo/SendEmail",
+         {
+             emailAddress: email
+         },
+         function (data) {
+             if (data.rs == 1) {
+                 $("#fyj").html($commonLang.ACCOUNT_USERINFO_INDEX_SENDSUCCESS);
+             }
+             else {
+                 // alert(data.msg);
+                 $("#fyj").attr("href", "javascript:void(sendEmail())").html(data.msg);
+             }
+         }, "json");
+    }
+</script>

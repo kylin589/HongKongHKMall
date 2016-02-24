@@ -1,0 +1,163 @@
+﻿@model HKTHMall.Domain.Models.LoginLog.SearchAC_OperateLogModel
+@{
+    ViewBag.Title = "Background operation diary";
+ }
+
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>Operator: </span>
+            @Html.TextBoxFor(x => x.OperateName, new { @class = "form-control w70" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Operation time: </span>
+            @Html.TextBoxFor(x => x.BeginOperateTime, new { @class = "form-control w70" })
+            &nbsp;--&nbsp;
+            @Html.TextBoxFor(x => x.EndOperateTime, new { @class = "form-control w70" })
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+
+        
+           
+        
+       
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+
+            var columns = [
+
+                { field: 'OperateName', title: 'Operator', align: 'center', valign: 'middle', sortable: false },
+                { field: 'UserID', title: 'Operator ID', align: 'center', valign: 'middle', sortable: false },
+                
+                {
+                    field: 'OperateContent', title: 'Operation Content', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var m = '<spen  title="' + val + '" > ' + val + '</spen>';
+                        if (val != "" && val.length > 50) {
+                            m = '<spen  title="' + val + '" > ' + val.substring(0, 49) + '...</spen>';
+                            return m;
+                        }
+                        return m;
+                    }
+                },
+                { field: 'Remark', title: 'Instructions', align: 'center', valign: 'middle', sortable: false },
+                { field: 'IP', title: 'IP', align: 'center', valign: 'middle', sortable: false },
+                { field: 'OperateTime', title: 'Operation time', align: 'center', valign: 'middle', sortable: false, formatter: function (val) { return val.formatterString(false)/*true 日期格式2015-5-5*/ } },
+                
+            ];
+                
+            //初始化表哥
+                $('#u_grid').bootstrapTable({
+                    url: '@Url.Action("List")',
+
+                    queryParams: function (params) {
+                        return {
+                            BeginOperateTime: $('#BeginOperateTime').val(),
+                            EndOperateTime: $('#EndOperateTime').val(),
+                            OperateName: $('#OperateName').val(),
+                            PagedIndex: this.pageNumber - 1,//params.pageNumber - 1  params.offset
+                            PagedSize: this.pageSize       //params.pageSize  params.limit
+                        };
+                    },
+                    sortOrder: 'desc',
+                    pagination: true,
+                    showRefresh: true,
+                    showColumns: true,
+                    striped: true,
+                    sidePagination: 'server',
+                    columns: columns
+
+                });
+            
+            //刷新
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+
+            $('.js-searchDaYin').click(function () {
+                $.ajax({
+                    url: '@Url.Action("DaYinAC_OperateLog")',
+                    queryParams: function (params) {
+                        return {
+                            BeginOperateTime: $('#BeginOperateTime').val(),
+                            EndOperateTime: $('#EndOperateTime').val(),
+                            OperateName: $('#OperateName').val(),
+                            PagedIndex: this.pageNumber - 1,//params.pageNumber - 1  params.offset
+                            PagedSize: this.pageSize       //params.pageSize  params.limit
+                        };
+                    },
+                    dataType: "json",
+                    success: function (data, status) {
+                        //alert(1);
+                        
+                        Tool.Alert(data.Messages[0], 1500);
+                        
+                    },
+                    error: function (data, status, e) {
+                        Tool.Alert("Delete failed!", 1500);
+
+                        //alert(e);
+                    }
+
+                });
+            });
+            
+            //删除
+            function DeleteOperateLog(OperateID)
+            {
+                $.ajax({
+                    url:'@Url.Action("DeleteAC_OperateLog")'+"?OperateID=" + OperateID ,//'/AC_OperateLog/DeleteAC_OperateLog?OperateID=' + OperateID,
+                    dataType: "text",
+                    success: function (data, status) {
+
+                        Tool.Alert(data, 1500);
+                        
+                    },
+                    error: function (data, status, e) {
+                        Tool.Alert("Delete failed!", 1500);
+                        
+                        //alert(e);
+                    }
+
+                });
+            }
+
+           
+
+            //日期控件 开始
+            $('#BeginOperateTime').datepicker({
+                format: 'yyyy-mm-dd',
+                language: "en",
+                autoclose: true
+            }).on("changeDate", function (e) {
+
+                $('#EndOperateTime').datepicker('setStartDate', e.date);
+            });
+
+            //日期控件 结束
+            $('#EndOperateTime').datepicker({
+                format: 'yyyy-mm-dd',
+                language: "en",
+                autoclose: true
+            }).on("changeDate", function (e) {
+                $('#BeginOperateTime').datepicker('setEndDate', e.date);
+            });
+
+
+        });
+    </script>
+}
+
+
+
+

@@ -1,0 +1,48 @@
+﻿@model HKTHMall.Domain.Models.User.AC_UserModel
+@{
+    var divErrorName = ViewBag.ErrorMegess;
+}
+
+<div class="control-group">
+
+    <div class="controls">
+        <label class="red" style=" color:red">*</label>Old password :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        @Html.HiddenFor(t => t.UserID)
+
+        @Html.TextBoxFor(t => t.PasswordOld, new { @class = "form-control", maxlength = "20", type = "password" })
+        @Html.ValidationMessageFor(m => m.PasswordOld)
+        <div style=" display:none" id="divoldpw" class="red"></div>
+
+    </div>
+</div>
+<br />
+<div class="control-group">
+
+    <div class="controls">
+        <label class="red" style=" color:red">*</label>New password :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        @Html.TextBoxFor(t => t.Password, new { @class = "form-control", maxlength = "20", type = "password" })
+        @Html.ValidationMessageFor(m => m.Password)
+
+    </div>
+</div>
+<br />
+<div class="control-group">
+
+    <div class="controls">
+        <label class="red" style=" color:red">*</label>Confirm new password :
+        @Html.TextBoxFor(t => t.PasswordTwo, new { @class = "form-control", maxlength = "20", type = "password" })
+        @Html.ValidationMessageFor(m => m.PasswordTwo)
+       
+
+    </div>
+    <div class="controls">
+        @if (divErrorName != "")
+        {
+            <div id="divErrorName" class="red" style=" color:red"><div style="margin-left:90px;">@divErrorName</div></div>
+        }
+        else
+        {
+            <div style=" display: none;color:red" id="divErrorName" class="red"></div>
+        }
+    </div>
+</div>

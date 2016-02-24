@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="Keywords" content="">
+		<title>香港商城</title>
+		<link rel="stylesheet" type="text/css" href="newcss/css/css.css" />
+		<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+	</head>
+
+<body>
+<div class="header">
+	<div class="clear" style="background: #ccc; height: 175px;"></div>
+</div><!--公共头部-->
+
+
+<div class="main_a">
+	
+	<div class="main_about">
+		<div class="ls_member">
+			
+				
+			<!--left-->
+			<div class="ls_member_lf">
+				<div class="ls_member_lf_top"><h1>会员中心</h1></div>
+				<div class="ls_member_lf_nav">
+					<dl>
+						<dt class="ls_user_on"><i></i>我的账户</dt>
+						<dd class="ls_user_on"><a href="#" title="">我的惠卡</a></dd><!--当打开当前页的时候，二级栏目里增加ls_user_on，并且当前的一级栏目也要增加ls_user_on-->
+						<dd><a href="#" title="">我的订单</a></dd>
+						<dd><a href="#" title="">我的收藏</a></dd>
+						<dd><a href="#" title="">我的评价</a></dd>
+					</dl>
+					<dl>	
+						<dt><i></i>账户设置</dt>
+						<dd><a href="#" title="">个人信息</a></dd>
+						<dd><a href="#" title="">收货地址</a></dd>
+						<dd><a href="#" title="">账户安全</a></dd>
+					</dl>
+					<dl>
+						<dt><i></i>退款维权</dt>
+						<dd><a href="#" title="">退款管理</a></dd>
+						<dd><a href="#" title="">我的投诉</a></dd>
+					</dl>
+					
+				</div>
+			</div>
+			
+			
+			<!--right-->
+			<div class="ls_member_rg">
+				<!--右侧会员信息展示-->
+				<div class="ls_member_info">
+					<div class="editOwnerInfo">
+						<h3>个人信息</h3>
+					</div>
+					<div class="ownerInfoUpload">
+						<span><img src="newcss/css/images/default.png" alt="" width="80" height="80"></span>
+						<ul>
+							<li><a href="###">上传图象</a></li>
+							<li>2M以内的jpg.png.gif.jpeg格式的图片推荐尺寸300*300像素</li>
+						</ul>
+					</div>
+					<div class="ownerInfoEdit">
+						<dl>
+							<dt>账号</dt>
+							<dd>23333333</dd>
+							<span class="clearfix"></span>
+						</dl>
+						<dl>
+							<dt>昵称</dt>
+							<dd><span class="infoinputCover"><input type="text"></span><div class="clearfix"></div></dd>
+						</dl>
+						<dl>
+							<dt>Email</dt>
+							<dd><span class="infoinputCover"><input type="text"></span><button class="infoGoyz">立即验证</button><div class="clearfix"></div></dd>
+						</dl>
+						<dl>
+							<dt>nimabi</dt>
+							<dd>
+								<label><input type="radio" checked="checked" name="xingbie">Male</label>
+								<label><input type="radio" name="xingbie">Female</label>
+							</dd>
+						</dl>
+						<dl>
+							<dt>address</dt>
+							<dd>
+								<div class="addressInfo">
+									<textarea name="" id=""></textarea>
+									<select name="" id="">
+										<option value="">区/县</option>
+										<option value="">区/县1</option>
+										<option value="">区/县2</option>
+										<option value="">区/县3</option>
+										<option value="">区/县4</option>
+										<option value="">区/县5</option>
+									</select>
+									<select name="" id="">
+										<option value="">区/县</option>
+										<option value="">区/县1</option>
+										<option value="">区/县2</option>
+										<option value="">区/县3</option>
+										<option value="">区/县4</option>
+										<option value="">区/县5</option>
+									</select>
+								</div>
+							</dd>
+						</dl>
+						<dl>
+							<dt>birthday</dt>
+							<dd>
+								<div class="birthdaySel">
+									<select name="" id="">
+										<option value="">年</option>
+										<option value="">年1</option>
+										<option value="">年2</option>
+										<option value="">年3</option>
+										<option value="">年4</option>
+										<option value="">年5</option>
+									</select>
+									<span>—</span>
+									<select name="" id="">
+										<option value="">年</option>
+										<option value="">年1</option>
+										<option value="">年2</option>
+										<option value="">年3</option>
+										<option value="">年4</option>
+										<option value="">年5</option>
+									</select>
+									<span>—</span>
+									<select name="" id="">
+										<option value="">年</option>
+										<option value="">年1</option>
+										<option value="">年2</option>
+										<option value="">年3</option>
+										<option value="">年4</option>
+										<option value="">年5</option>
+									</select>
+								</div>
+							</dd>
+						</dl>
+						<dl>
+							<dt></dt>
+							<dd>
+								<span class="sureColl">
+									<a href="###">确认保存</a>
+								</span>
+							</dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		
+		</div>
+	</div>
+
+</div><!--主体部分-->
+
+
+
+<div class="footer"></div><!--公共底部-->
+
+
+
+</body>
+
+</html>

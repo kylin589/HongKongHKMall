@@ -1,0 +1,63 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.Localization.LanguageModel
+
+<form action="@Url.Action(Model.ID == null ? "Add" : "Update")" id="lang_form" class="form-inline">
+    <input type="hidden" name="ID" value="@Model.ID" />
+    <div class="row" style="margin-bottom: 10px;">
+        <div class="col-md-3">Language Key:</div>
+        <div class="col-md-9">
+            @if (Model.ID.HasValue)
+            {
+                <input class="form-control" type="text" style="width: 100%;" name="LangKey1" disabled="disabled" value="@Model.LangKey" />
+                @Html.HiddenFor(x=>x.LangKey)
+            }
+            else
+            {
+                <input class="form-control" type="text" style="width: 100%;" name="LangKey" value="@Model.LangKey" />
+            }
+            
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px;">
+        <div class="col-md-3">Type:</div>
+        <div class="col-md-9">
+            @if (Model.ID.HasValue)
+            {
+                @Html.DropDownList("DataType1", (SelectList)ViewBag.DataTypes, new { disabled = "disabled", @class = "form-control" })
+                @Html.HiddenFor(x => x.DataType)
+                @Html.ValidationMessageFor(x => x.DataType)
+            }
+            else
+            {
+                @Html.DropDownListFor(x => x.DataType, (SelectList)ViewBag.DataTypes, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.DataType)
+                
+            }
+
+
+        </div>
+    </div>
+    @*update by liujc*@
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active" role="presentation">
+            <a aria-controls="home" data-toggle="tab" href="#lan_1" role="tab">Chinese</a>
+        </li>
+        <li role="presentation">
+            <a aria-controls="profile" data-toggle="tab" href="#lan_2" role="tab">English</a>
+        </li>
+        <li role="presentation">
+            <a aria-controls="messages" data-toggle="tab" href="#lan_3" role="tab">Chinese(HK)</a>
+        </li>
+    </ul>
+    <div class="tab-content language-content form-inline">
+        <div class="tab-pane active" id="lan_1" role="tabpanel">
+            <textarea class="form-control" rows="10" cols="20" name="NameTH" style="display:none;">@Model.NameTH</textarea>
+            <textarea class="form-control" style="width: 100%;" rows="10" cols="20" name="NameChs">@Model.NameChs</textarea>
+        </div>
+        <div class="tab-pane" id="lan_2" role="tabpanel">
+            <textarea class="form-control" style="width: 100%;" rows="10" cols="20" name="NameEng">@Model.NameEng</textarea>
+        </div>
+        <div class="tab-pane" id="lan_3" role="tabpanel">
+            <textarea class="form-control" style="width: 100%;" rows="10" cols="20" name="NameHK">@Model.NameHK</textarea>
+        </div>
+    </div>
+</form>

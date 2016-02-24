@@ -1,0 +1,821 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using HKTHMall.Domain.AdminModel.Models.Products
+@using HKTHMall.Domain.Enum
+@using Newtonsoft.Json
+@using Autofac
+@using BrCms.Framework.Infrastructure
+@using HKTHMall.Admin.common
+
+@model ProductModel
+
+@{
+    var pics = JsonConvert.SerializeObject(ViewBag.pics);
+    var skuItmes = JsonConvert.SerializeObject(ViewBag.items);
+    var skuAttrs = JsonConvert.SerializeObject(ViewBag.attrs);
+    var skuProducts = JsonConvert.SerializeObject(ViewBag.skus);
+    var parameters = JsonConvert.SerializeObject(ViewBag.parameters);
+    var fare = JsonConvert.SerializeObject(ViewBag.fare);
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.ModifyPrice = _Authority.CheckAction(176);
+}
+
+<style type="text/css">
+    .modal-dialog {
+        width: 1000px;
+    }
+</style>
+
+<input type="hidden" value="@Model.Status" id="Status" />
+
+<div class="form-inline">
+    <div class="form-group">
+        @if (Model.Status != (int)ProductStatus.HasUpShelves)
+        {
+            <button class="btn btn-primary" id="p_f_submit" type="button">Save</button>
+        }
+        <a class="btn btn-primary" href="@Url.Action("Index")">Return</a>
+    </div>
+</div>
+
+<form action="@Url.Action(!Model.ProductId.HasValue ? "Add" : "Update")" id="product_form" method="POST" class="form-inline" role="form">
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(m => m.ProductId)
+    <div class="row">
+        <div class="col-md-1 title-row">Item No.:</div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.ArtNo, new Dictionary<string, object>
+        {
+            {"class", "form-control"}, {"style", "width:300px;"}
+        })
+            @Html.ValidationMessageFor(m => m.ArtNo)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 title-row">Business:</div>
+        <div class="col-md-10">
+            <input type="hidden" name="SupplierId" data-bind="value:supplierId" />
+            <button class="btn btn-primary" data-bind="click:selectSupplier" type="button">Select Business</button>
+            &nbsp;&nbsp;&nbsp;<span data-bind="text:supplierName"></span>
+        </div>
+    </div>
+    @*采购价*@
+    <div class="row">
+        <div class="col-md-1 title-row">Purchase price:</div>
+        <div class="col-md-2">
+            <div class="input-group spinner number-input" data-trigger="spinner">
+                <div class="input-group-addon">$</div>
+
+                @Html.TextBoxFor(m => m.PurchasePrice, _Authority.ModifyPrice? new Dictionary<string, object>
+            {
+                {"class", "form-control number-input"},
+                {"data-rule", "currency"},
+                {"data-min", "0"},
+                {"data-max", "99999999.99"}
+
+            }:new Dictionary<string, object>
+            {
+                {"readonly", "true"},
+                {"class", "form-control number-input"},
+                {"data-rule", "currency"},
+                {"data-min", "0"},
+                {"data-max", "99999999.99"}
+
+            })
+                <div class="input-group-addon">
+                    <a class="spin-up" data-spin="up" href="javascript:;">
+                        <i class="icon-sort-up"></i>
+                    </a>
+                    <a class="spin-down" data-spin="down" href="javascript:;">
+                        <i class="icon-sort-down"></i>
+                    </a>
+                </div>
+            </div>
+            @Html.ValidationMessageFor(m => m.PurchasePrice)
+        </div>
+    </div>
+    @*市场价*@
+    <div class="row">
+        <div class="col-md-1 title-row">List price:</div>
+        <div class="col-md-2">
+            <div class="input-group spinner number-input" data-trigger="spinner">
+                <div class="input-group-addon">$</div>
+                @Html.TextBoxFor(m => m.MarketPrice, _Authority.ModifyPrice ? new Dictionary<string, object>
+            {
+                {"class", "form-control number-input"},
+                {"data-rule", "currency"},
+                {"data-min", "0"},
+                {"data-max", "99999999.99"}
+
+            } : new Dictionary<string, object>
+            {
+                {"readonly", "true"},
+                {"class", "form-control number-input"},
+                {"data-rule", "currency"},
+                {"data-min", "0"},
+                {"data-max", "99999999.99"}
+
+            })
+                <div class="input-group-addon">
+                    <a class="spin-up" data-spin="up" href="javascript:;">
+                        <i class="icon-sort-up"></i>
+                    </a>
+                    <a class="spin-down" data-spin="down" href="javascript:;">
+                        <i class="icon-sort-down"></i>
+                    </a>
+                </div>
+            </div>
+            @Html.ValidationMessageFor(m => m.MarketPrice)
+        </div>
+    </div>
+    @*折扣*@
+    <div class="row">
+        <div class="col-md-1 title-row">Use discount:</div>
+        <div class="col-md-2">
+            <div class="input-group spinner number-input" data-trigger="spinner">
+                <div class="input-group-addon">
+                    <input id="_check_dis" type="checkbox" value="0" class="icheckbox_square-blue" />
+                </div>
+                <div class="input-group-addon">
+                    <select id="_dis_sel" class="form-control ui-selectable-helper" style="display:none">
+                        <option value="1">---Select---</option>
+                        <option value="0.95">95%</option>
+                        <option value="0.90">90%</option>
+                        <option value="0.85">85%</option>
+                        <option value="0.80">80%</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*惠卡价*@
+    <div class="row">
+        <div class="col-md-1 title-row">Huika price:</div>
+        <div class="col-md-2">
+            <div class="input-group spinner number-input" data-trigger="spinner">
+                <div class="input-group-addon">$</div>
+                @Html.TextBoxFor(m => m.HKPrice, _Authority.ModifyPrice ? new Dictionary<string, object>
+            {
+                {"class", "form-control number-input"},
+                {"data-rule", "currency"},
+                {"data-min", "0"},
+                {"data-max", "99999999.99"}
+
+            } : new Dictionary<string, object>
+            {
+                {"readonly", "true"},
+                {"class", "form-control number-input"},
+                {"data-rule", "currency"},
+                {"data-min", "0"},
+                {"data-max", "99999999.99"}
+
+            })
+                <div class="input-group-addon">
+                    <a class="spin-up" data-spin="up" href="javascript:;">
+                        <i class="icon-sort-up"></i>
+                    </a>
+                    <a class="spin-down" data-spin="down" href="javascript:;">
+                        <i class="icon-sort-down"></i>
+                    </a>
+                </div>
+            </div>
+            @Html.ValidationMessageFor(m => m.HKPrice)
+        </div>
+    </div>
+    @*返利天数*@
+    <div class="row">
+        <div class="col-md-1 title-row">Rebate days:</div>
+        <div class="col-md-2">
+            <div class="input-group spinner number-input" data-trigger="spinner">
+                @Html.TextBoxFor(m => m.RebateDays, new Dictionary<string, object>
+            {
+                {"class", "form-control number-input"},
+                {"data-rule", "quantity"},
+                {"data-min", "0"},
+                {"data-max", "99999999.99"}
+            })
+                <div class="input-group-addon">
+                    <a class="spin-up" data-spin="up" href="javascript:;">
+                        <i class="icon-sort-up"></i>
+                    </a>
+                    <a class="spin-down" data-spin="down" href="javascript:;">
+                        <i class="icon-sort-down"></i>
+                    </a>
+                </div>
+            </div>
+            @Html.ValidationMessageFor(m => m.RebateDays)
+        </div>
+    </div>
+    @*返利比率*@
+    <div class="row">
+        <div class="col-md-1 title-row">Rebate rate:</div>
+        <div class="col-md-2">
+            <div class="input-group spinner number-input" data-trigger="spinner">
+                @*<div class="input-group-addon">$</div>*@
+                @Html.TextBoxFor(m => m.RebateRatio, new Dictionary<string, object>
+            {
+                {"class", "form-control number-input"},
+                {"data-rule", "currency"},
+                {"data-min", "0"},
+                {"data-max", "1"}
+            })
+                <div class="input-group-addon">
+                    <a class="spin-up" data-spin="up" href="javascript:;">
+                        <i class="icon-sort-up"></i>
+                    </a>
+                    <a class="spin-down" data-spin="down" href="javascript:;">
+                        <i class="icon-sort-down"></i>
+                    </a>
+                </div>
+            </div>
+            @Html.ValidationMessageFor(m => m.RebateRatio)
+        </div>
+    </div>
+    @*库存数量*@
+    <div class="row">
+        <div class="col-md-1 title-row">Stocks:</div>
+        <div class="col-md-2">
+            <div class="input-group spinner number-input" data-trigger="spinner">
+                @Html.TextBoxFor(m => m.StockQuantity, new Dictionary<string, object>
+            {
+                {"class", "form-control number-input"},
+                {"data-rule", "quantity"},
+                {"data-min", "0"},
+                {"data-max", "2147483647"},
+                {"data-bind", "enable:sku_products().length==0"}
+            })
+                <div class="input-group-addon">
+                    <a class="spin-up" data-spin="up" href="javascript:;">
+                        <i class="icon-sort-up"></i>
+                    </a>
+                    <a class="spin-down" data-spin="down" href="javascript:;">
+                        <i class="icon-sort-down"></i>
+                    </a>
+                </div>
+            </div>
+            @Html.ValidationMessageFor(m => m.StockQuantity)
+        </div>
+    </div>
+    @*重量*@
+    <div class="row">
+        <div class="col-md-1 title-row">Weight:</div>
+        <div class="col-md-2">
+            <div class="input-group spinner number-input" data-trigger="spinner">
+                @Html.TextBoxFor(m => m.Weight, new Dictionary<string, object>
+            {
+                {"class", "form-control number-input"},
+                {"data-rule", "currency"},
+                {"data-min", "0"},
+                {"data-max", "99999999.99"}
+            })
+                <div class="input-group-addon">
+                    <a class="spin-up" data-spin="up" href="javascript:;">
+                        <i class="icon-sort-up"></i>
+                    </a>
+                    <a class="spin-down" data-spin="down" href="javascript:;">
+                        <i class="icon-sort-down"></i>
+                    </a>
+                </div>
+                <div class="input-group-addon">KG</div>
+            </div>
+            @Html.ValidationMessageFor(m => m.Weight)
+        </div>
+    </div>
+    @*体积*@
+    <div class="row">
+        <div class="col-md-1 title-row">Volume:</div>
+        <div class="col-md-2">
+            <div class="input-group spinner number-input" data-trigger="spinner">
+                @Html.TextBoxFor(m => m.Volume, new Dictionary<string, object>
+            {
+                {"class", "form-control number-input"},
+                {"data-rule", "currency"},
+                {"data-min", "0"},
+                {"data-max", "99999999.99"}
+            })
+                <div class="input-group-addon">
+                    <a class="spin-up" data-spin="up" href="javascript:;">
+                        <i class="icon-sort-up"></i>
+                    </a>
+                    <a class="spin-down" data-spin="down" href="javascript:;">
+                        <i class="icon-sort-down"></i>
+                    </a>
+                </div>
+                <div class="input-group-addon">m3</div>
+            </div>
+            @Html.ValidationMessageFor(m => m.Volume)
+        </div>
+    </div>
+    @*免邮*@
+    <div class="row">
+        <div class="col-md-1 title-row">FreeShipping</div>
+        <div class="col-md-2">
+            @Html.CheckBoxFor(m => m.FreeShipping, new { tabindex = "1" })
+        </div>
+    </div>
+
+   
+
+
+
+    <div class="row">
+        <div class="col-md-1 title-row">Category:</div>
+        <div class="col-md-10 category">
+            <select data-bind="foreach:categories1,value:selectd_category1,event:{change:categories1_change}" class="form-control">
+                <option data-bind="text:CategoryLanguageModel?CategoryLanguageModel.CategoryName:'',value:CategoryId"></option>
+            </select>
+            <select data-bind="foreach:categories2,value:selectd_category2,event:{change:categories2_change}" class="form-control">
+                <option data-bind="text:CategoryLanguageModel?CategoryLanguageModel.CategoryName:'',value:CategoryId"></option>
+            </select>
+            <select name="CategoryId" data-bind="foreach:categories3,value:selectd_category3,event:{change:categories3_change}" class="form-control">
+                <option data-bind="text:CategoryLanguageModel?CategoryLanguageModel.CategoryName:'',value:CategoryId"></option>
+            </select>
+            @Html.ValidationMessageFor(m => m.CategoryId)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-1 title-row">Set Free</div>
+        <div class="col-md-2 category">
+            <select class="form-control" name="FareTemplateID" data-bind="foreach:selfss,value:faseId">
+                <option data-bind="text:Name,value:FareTempID"></option>
+            </select>
+        </div>
+    </div>
+    <!-- ko if: selectd_category3()!=0 -->
+    <div class="row">
+        <div class="col-md-1 title-row">Brand:</div>
+        <div class="col-md-2 category">
+            <select name="BrandID" data-bind="foreach:brands,value:selectd_brand" class="form-control">
+                <option data-bind="text:Brand_LangModel?Brand_LangModel.BrandName:'',value:BrandID"></option>
+            </select>
+            @Html.ValidationMessageFor(m => m.BrandID)
+        </div>
+    </div>
+    @*SKU选择*@
+
+    <!-- ko foreach:sku_attrs-->
+    <!-- ko if: $(SKU_ProductTypeAttributeModel).getArray('AttributeType',2).length > 0 -->
+    <div class="row items">
+        <div class="col-md-1 title-row">Product parameter:</div>
+        <div class="col-md-10" data-bind="foreach:$(SKU_ProductTypeAttributeModel).getArray('AttributeType',2)">
+            <!-- ko if: SKU_AttributesModel.UsageMode==0 -->
+            <div class="row">
+                <div class="col-md-1" data-bind="text:SKU_AttributesModel.AttributeName"></div>
+                <div class="col-md-10">
+                    <div class="row" data-bind="foreach:SKU_AttributesModel.SKU_AttributeValuesModels">
+                        <div class="col-md-3">
+                            <input type="checkbox" data-bind='checked:IsCheckd,attr:{id:"baz1[" + $parentContext.$index() + "-"+ $index() + "]","data-options":"{\"ValueStr\":\""+ValueStr+"\",\"ValueId\":"+ValueId+",\"AttributeId\":"+AttributeId+",\"ValuesGroup\":\""+ValuesGroup+"\"}"}' value="true" />
+                            <label data-bind="text:ValueStr,attr:{'for':'baz1[' + $parentContext.$index() + '-'+ $index() + ']'}"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: SKU_AttributesModel.UsageMode==2 -->
+            <div class="row">
+                <div class="col-md-1" data-bind="text:SKU_AttributesModel.AttributeName"></div>
+                <div class="col-md-10">
+                    <select data-bind="foreach:SKU_AttributesModel.SKU_AttributeValuesModels,value:SKU_AttributesModel.Selectd,optionsCaption:'Choose'" class="form-control">
+                        <!-- ko if: $index() == 0 -->
+                        <option>Choose</option>
+                        <!-- /ko -->
+                        <option data-bind='value:ValueId,text:ValueStr,attr:{"data-options":"{\"ValueStr\":\""+ValueStr+"\",\"ValueId\":"+ValueId+",\"AttributeId\":"+AttributeId+",\"ValuesGroup\":\""+ValuesGroup+"\"}"}'></option>
+                    </select>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: SKU_AttributesModel.UsageMode==3 -->
+            <div class="row usageMode3">
+                <div class="col-md-1" data-bind="text:SKU_AttributesModel.AttributeName"></div>
+                <div class="col-md-10">
+                    <div class="row" data-bind="foreach:SKU_AttributesModel.SKU_AttributeValuesModels">
+                        <div class="col-md-3">
+                            <label data-bind='text:ValueStr,attr:{"data-options":"{\"ValueStr\":\""+ValueStr+"\",\"ValueId\":"+ValueId+",\"AttributeId\":"+AttributeId+",\"ValuesGroup\":\""+ValuesGroup+"\"}"},click:$root.updateAttr'></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: $(SKU_ProductTypeAttributeModel).getArray('AttributeType',1).length > 0 -->
+    <div class="row items">
+        <div class="col-md-1 title-row">product attribute:</div>
+        <div class="col-md-10" data-bind="foreach:$(SKU_ProductTypeAttributeModel).getArray('AttributeType',1)">
+            <!-- ko if: SKU_AttributesModel.UsageMode==0 -->
+            <div class="row">
+                <div class="col-md-1" data-bind="text:SKU_AttributesModel.AttributeName"></div>
+                <div class="col-md-10">
+                    <div class="row" data-bind="foreach:SKU_AttributesModel.SKU_AttributeValuesModels">
+                        <div class="col-md-3">
+                            <input type="checkbox" data-bind='checked:IsCheckd,attr:{id:"baz2[" + $parentContext.$index() + "-"+$index() + "]","data-options":"{\"ValueStr\":\""+ValueStr+"\",\"ValueId\":"+ValueId+",\"AttributeId\":"+AttributeId+",\"ValuesGroup\":\""+ValuesGroup+"\"}"}' value="true" />
+                            <label data-bind="text:ValueStr,attr:{'for':'baz2[' + $parentContext.$index() + '-'+ $index() + ']'}"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: SKU_AttributesModel.UsageMode==2 -->
+            <div class="row">
+                <div class="col-md-1" data-bind="text:SKU_AttributesModel.AttributeName"></div>
+                <div class="col-md-10">
+                    <select data-bind="foreach:SKU_AttributesModel.SKU_AttributeValuesModels,value:SKU_AttributesModel.Selectd,optionsCaption:'Choose'" class="form-control">
+                        <!-- ko if: $index() == 0 -->
+                        <option>Choose</option>
+                        <!-- /ko -->
+                        <option data-bind='value:ValueId,text:ValueStr,attr:{"data-options":"{\"ValueStr\":\""+ValueStr+"\",\"ValueId\":"+ValueId+",\"AttributeId\":"+AttributeId+",\"ValuesGroup\":\""+ValuesGroup+"\"}"}'></option>
+                    </select>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: SKU_AttributesModel.UsageMode==3 -->
+            <div class="row usageMode3">
+                <div class="col-md-1" data-bind="text:SKU_AttributesModel.AttributeName"></div>
+                <div class="col-md-10">
+                    <div class="row" data-bind="foreach:SKU_AttributesModel.SKU_AttributeValuesModels">
+                        <div class="col-md-3">
+                            <label data-bind='text:ValueStr,attr:{"data-options":"{\"ValueStr\":\""+ValueStr+"\",\"ValueId\":"+ValueId+",\"AttributeId\":"+AttributeId+",\"ValuesGroup\":\""+ValuesGroup+"\"}"},click:$parent.updateAttr'></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: $(SKU_ProductTypeAttributeModel).getArray('AttributeType',0).length > 0 -->
+    <div class="row">
+        <div class="col-md-1 title-row">product specification:</div>
+        <div class="col-md-10" data-bind="foreach:$(SKU_ProductTypeAttributeModel).getArray('AttributeType',0)">
+            <div class="row spec">
+                <div class="col-md-1" data-bind="text:SKU_AttributesModel.AttributeName"></div>
+                <div class="col-md-10">
+                    <div class="row" data-bind="foreach:SKU_AttributesModel.SKU_AttributeValuesModels">
+                        <div class="col-md-3">
+                            <input type="checkbox" value="true" data-bind='checked:IsCheckd,attr:{"data-options":"{\"ValueStr\":\""+ValueStr+"\",\"ValueId\":"+ValueId+",\"AttributeId\":"+AttributeId+",\"ValuesGroup\":\""+ValuesGroup+"\",\"AttributeType\":"+$parent.SKU_AttributesModel.AttributeType+"}",id:"baz[" + $parentContext.$index() + "-"+$index()+"]"}' />
+                            <label data-bind="text:ValueStr,attr:{for:'baz[' + $parentContext.$index() + '-'+$index()+']'}"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+    <!-- /ko -->
+    @*SKU规格*@
+    <!-- ko if: sku_products().length > 0 -->
+    <div class="row sku_product">
+        <div class="col-md-1 title-row">product SKU:</div>
+        <div class="col-md-10" data-bind="foreach:sku_products">
+            <div class="row" data-bind="if:$index()==0">
+                <div class="col-md-3">Sku name</div>
+                <div class="col-md-1">Item No.</div>
+                <div class="col-md-1">Purchase price</div>
+                <div class="col-md-1">List price</div>
+                <div class="col-md-1">Huika price</div>
+                <div class="col-md-1">Stocks</div>
+                <div class="col-md-1">Enable or Not</div>
+            </div>
+            <div class="row sku_pric">
+                <input type="hidden" data-bind="value:SKU_ProducId,attr:{name:'SKU_ProductModels['+$index()+'].SKU_ProducId'}" />
+                <input type="hidden" data-bind="value:SKUStr,attr:{name:'SKU_ProductModels['+$index()+'].SKUStr'}" />
+                <input type="hidden" data-bind="value:SkuName,attr:{name:'SKU_ProductModels['+$index()+'].SkuName'}" />
+                <div class="col-md-3 sku_name" data-bind="text:SkuName">
+                </div>
+                <div class="col-md-1">
+                    <input type="text" style="width: 100%;" class="form-control" data-bind="value:ProductCode,attr:{name:'SKU_ProductModels['+$index()+'].ProductCode'}" />
+                </div>
+                <div class="col-md-1">
+                    <input type="text" maxlength="12" style="width: 100%;" class="form-control double sku_PurchasePrice" data-bind="value:PurchasePrice,attr:{name:'SKU_ProductModels['+$index()+'].PurchasePrice'}" />
+                </div>
+                <div class="col-md-1">
+                    <input type="text" maxlength="12" style="width: 100%;" class="form-control double sku_marketPrice" data-bind="value:MarketPrice,attr:{name:'SKU_ProductModels['+$index()+'].MarketPrice'}" />
+                </div>
+                <div class="col-md-1">
+                    <input type="text" maxlength="12" style="width: 100%;" class="form-control double sku_HKPrice" data-bind="value:HKPrice,attr:{name:'SKU_ProductModels['+$index()+'].HKPrice'}" />
+                </div>
+                <div class="col-md-1">
+                    <input type="text" maxlength="4" style="width: 100%;" class="form-control number" data-bind="value:Stock,attr:{name:'SKU_ProductModels['+$index()+'].Stock'}" />
+                </div>
+                <div class="col-md-1">
+                    <input type="checkbox" value="true" data-bind="checked:IsUseBool,attr:{name:'SKU_ProductModels['+$index()+'].IsUseBool'}" />
+                </div>
+            </div>
+        </div>
+    </div>
+    @*SKU图片*@
+    <!-- /ko -->
+    <!-- ko foreach:sku_pics -->
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-3" style="text-align: center" data-bind="visible:AttributeType==1,text:ValueStr"></div>
+        <div class="col-md-3">
+            <input type="hidden" data-bind="value:SKU_ProductAttributesId,attr:{name:'SKU_ProductAttributesModels['+$index()+'].SKU_ProductAttributesId'}" />
+            <input type="hidden" data-bind="value:AttributeId,attr:{name:'SKU_ProductAttributesModels['+$index()+'].AttributeId'}" />
+            <input type="hidden" data-bind="value:ValueId,attr:{name:'SKU_ProductAttributesModels['+$index()+'].ValueId'}" />
+            <input type="hidden" data-bind="value:AttributeType,attr:{name:'SKU_ProductAttributesModels['+$index()+'].AttributeType'}" />
+            <input type="hidden" data-bind="value:ValueStr,attr:{name:'SKU_ProductAttributesModels['+$index()+'].ValueStr'}" />
+            <!-- ko if: AttributeType == 1 -->
+            <input type="hidden" data-bind="value:ImageUrl,attr:{name:'SKU_ProductAttributesModels['+$index()+'].ImageUrl'}" class="image-url" />
+            <input type="file" name="files[]" class="js-item-file hide" data-bind="attr:{id:'imageItem_'+$index()}" />
+            <img class="js-item-image" style="height: 30px; width: 30px;" data-bind="attr:{src:ImageUrl?Tool.RootImage+ImageUrl:'/Content/css/images/default-item.jpg'}" />
+            <button class="btn btn-sm btn-default js-choice-item" type="button"><i class="glyphicon glyphicon-search"></i>&nbsp;Select picture</button>
+            <!-- /ko -->
+        </div>
+    </div>
+    <!-- /ko -->
+    <!-- /ko -->
+
+    <div class="row">
+        <div class="col-md-1 title-row">Product picture:</div>
+        <div class="col-md-6">
+            @Html.Partial("_ImagesUpload")
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-1">parameters</div>
+        <div class="col-md-6">
+            @Html.Partial("_Parameter")
+        </div>
+    </div>
+
+    <ul class="nav nav-tabs" role="tablist">
+        @*update by liujc*@
+        @*<li class="active" role="presentation">
+                <a aria-controls="home" data-toggle="tab" href="#lan_1" role="tab">Thai</a>
+            </li>*@
+        <li class="active" role="presentation">
+            <a aria-controls="profile" data-toggle="tab" href="#lan_1" role="tab">Chinese</a>
+        </li>
+        <li role="presentation">
+            <a aria-controls="messages" data-toggle="tab" href="#lan_2" role="tab">English</a>
+        </li>
+        <li role="presentation">
+            <a aria-controls="messages" data-toggle="tab" href="#lan_3" role="tab">Hongkong</a>
+        </li>
+
+    </ul>
+    <div class="tab-content language-content form-inline" style="padding-top: 10px;">
+        @*<div class="tab-pane active" id="lan_1" role="tabpanel">
+                @language_template(Model.Product_LangModels.Count > 0 ? Model.Product_LangModels[0] : new ProductModel.Product_LangModel(), 0, 3)
+            </div>*@
+        <div class="tab-pane active" id="lan_1" role="tabpanel">
+            @language_template(Model.GetProduct_LangModel(1), 0, 1)
+        </div>
+        <div class="tab-pane" id="lan_2" role="tabpanel">
+            @language_template(Model.GetProduct_LangModel(2), 1, 2)
+        </div>
+        <div class="tab-pane" id="lan_3" role="tabpanel">
+            @language_template(Model.GetProduct_LangModel(4), 2, 4)
+        </div>
+    </div>
+
+</form>
+
+@helper language_template(ProductModel.Product_LangModel model, int count, int lang)
+{
+    @Html.Hidden("Product_LangModels[" + count + "].Id", model.Id)
+    @Html.Hidden("Product_LangModels[" + count + "].LanguageId", lang)
+    <div class="row">
+        <div class="col-md-1 title-row">
+            <label class="red">*</label>Title:
+        </div>
+        <div class="col-md-6">
+            @Html.TextBox("Product_LangModels[" + count + "].ProductName", model.ProductName,
+                new Dictionary<string, object>
+                {
+                    {"class", "form-control text-name"},
+                    {"style", "width:100%"},
+                    {"placeholder", "Title"}
+                    //{"maxlength","100"}
+                })
+        </div>
+        <div class="col-md-2">@Html.ValidationMessage("Product_LangModels[" + count + "].ProductName")</div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 title-row">Sub title:</div>
+        <div class="col-md-6">@Html.TextBox("Product_LangModels[" + count + "].Subheading", model.Subheading, new { @class = "form-control text-name", @style = "width:100%", @placeholder = "Sub title" })</div>
+        <div class="col-md-2">@Html.ValidationMessage("Product_LangModels[" + count + "].Subheading")</div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 title-row">Detail Info:</div>
+        <div class="col-md-9 ke">@Html.TextArea("Product_LangModels[" + count + "].Introduction", model.Introduction, new { @class = "form-control text-name", @style = "width:100%" })</div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 title-row">After sale service:</div>
+        <div class="col-md-9 ke">@Html.TextArea("Product_LangModels[" + count + "].SalesService", model.SalesService, new { @class = "form-control text-name", @style = "width:100%" })</div>
+    </div>
+}
+
+@section scripts{
+
+    <script src="/Content/js/newProduct.js"></script>
+
+    <script type="text/javascript">
+    (function($) {  
+            $.fn.watch = function(callback) {  
+                return this.each(function() {  
+                    //缓存以前的值  
+                    $.data(this, 'originVal', $(this).val());  
+      
+                    //event  
+                    $(this).on('keyup paste change', function() {  
+                        var originVal = $(this, 'originVal');  
+                        var currentVal = $(this).val();  
+      
+                        if (originVal !== currentVal) {  
+                            $.data(this, 'originVal', $(this).val());  
+                            callback(currentVal);  
+                        }  
+                    });  
+                });  
+            }  
+    })(jQuery);  
+    $(function() {
+
+        ///是否启用
+        $('#FreeShipping').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%'
+        });
+        $('#_check_dis').on('ifChanged', function(event){ //ifCreated 事件应该在插件初始化之前绑定
+            if($(this).is(':checked')){
+                $("#_dis_sel").show();
+                $("#HKPrice").attr("disabled",true); 
+                $("#HKPrice").next("div a").hide(); 
+                updateHKPrice();
+            }
+            else
+            {
+                $("#_dis_sel").hide();
+                $("#HKPrice").attr("disabled",false); 
+                $("#HKPrice").next("div a").show();
+            }
+        });
+        $("div.input-group-addon a").click(function(){updateHKPrice()});
+        $("#MarketPrice").watch(function(){
+            updateHKPrice();
+        });
+        $("#_dis_sel").change(function(){
+            updateHKPrice();
+        });
+        $("#_dis_sel").change(function(){
+            updateHKPrice();
+        });
+        function updateHKPrice()
+        {
+            if($('#_check_dis').is(':checked'))
+            {
+                $("#HKPrice").val(($("#_dis_sel").val()*$("#MarketPrice").val()).toFixed(2));
+            }
+        }
+        ///是否启用
+        $('#_check_dis').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%'
+        });
+        //$("#_check_dis").change(function(){
+        //    if($(this).is(':checked'))
+        //    {
+                
+        //    }
+        //    else
+        //    {
+                
+        //    }
+        //});
+        var model = new viewModel({
+            pics: @Html.Raw(pics),
+            skuItmes: @Html.Raw(skuItmes),
+            skuAttrs: @Html.Raw(skuAttrs),
+            skuProducts: @Html.Raw(skuProducts),
+            categoryId: @Model.CategoryId,
+            brandId: @Model.BrandID,
+            supplerId: '@Model.SupplierId',
+            templateId: @Model.FareTemplateID.GetValueOrDefault(0),
+            supplerName: '@Model.SupplierName',
+            parameters: @Html.Raw(parameters),
+            fares:@Html.Raw(fare)
+    });
+
+    ko.components.register('grid', {
+        template: ' ',
+        viewModel: function(params) {
+            $('#parameter_grid' + params.index).bootstrapTable('destroy');
+            $('#parameter_grid' + params.index).bootstrapTable({
+                sortOrder: 'asc',
+                sortName: 'DisplayOrder',
+                height: 'auto',
+                idField: 'DisplayOrder',
+                showRefresh:false,
+                showColumns:false,
+                sidePagination: 'client',
+                data: params.data(),
+                columns: [
+                    { field: 'DisplayOrder', title: 'DisplayOrder', align: 'center', valign: 'middle', sortable: true },
+                    { field: 'GroupName', title: 'GroupName', align: 'center', valign: 'middle', sortable: true },
+                    { field: 'Key', title: 'Key', align: 'center', valign: 'middle', sortable: true },
+                    { field: 'Val', title: 'Value', align: 'center', valign: 'middle', sortable: true },
+                    {
+                        field: '',
+                        title: 'Operation',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                        formatter: function(value, row, index) {
+                            if ($('#Status').val() != 4) {
+                                return [
+                                    '<a class="ssorts" href="javascript:void(0)" title="move up">',
+                                    '<i class="glyphicon glyphicon-arrow-up"></i>',
+                                    '</a>&nbsp;&nbsp;&nbsp;&nbsp;',
+                                    '<a class="xsorts" href="javascript:void(0)" title="Down">',
+                                    '<i class="glyphicon glyphicon-arrow-down"></i>',
+                                    '</a>&nbsp;&nbsp;&nbsp;&nbsp;',
+                                    '<a class="remove" href="javascript:void(0)" title="Remove">',
+                                    '<i class="glyphicon glyphicon-remove"></i>',
+                                    '</a>'
+                                ].join('');
+                            } else {
+                                return '';
+                            }
+
+                        },
+                        events: {
+                            'click .ssorts': function(e, value, row, index) {
+                                try {
+                                    if (index == 0) {
+                                        return;
+                                    }
+                                    var rows = $('#parameter_grid' + params.index).bootstrapTable('getData');
+                                    var uporder = rows[index - 1].DisplayOrder;
+                                    rows[index - 1].DisplayOrder = row.DisplayOrder;
+                                    row.DisplayOrder = uporder;
+                                    $('#parameter_grid' + params.index).bootstrapTable('updateRow', index, row);
+                                    $('#parameter_grid' + params.index).bootstrapTable('updateRow', index - 1, rows[index - 1]);
+                                    rows = $('#parameter_grid' + params.index).bootstrapTable('getData');
+                                    $('#parameter_grid' + params.index).bootstrapTable('load', rows);
+                                } catch (ex) {
+                                    //$.messager.alert(ex.message);
+                                }
+                            },
+                            'click .xsorts': function(e, value, row, index) {
+                                try {
+                                    var rows = $('#parameter_grid' + params.index).bootstrapTable('getData');
+                                    if (index == rows.length) {
+                                        return;
+                                    }
+                                    var uporder = rows[index + 1].DisplayOrder;
+                                    rows[index + 1].DisplayOrder = row.DisplayOrder;
+                                    row.DisplayOrder = uporder;
+                                    $('#parameter_grid' + params.index).bootstrapTable('updateRow', index, row);
+                                    $('#parameter_grid' + params.index).bootstrapTable('updateRow', index + 1, rows[index + 1]);
+                                    rows = $('#parameter_grid' + params.index).bootstrapTable('getData');
+                                    $('#parameter_grid' + params.index).bootstrapTable('load', rows);
+                                } catch (ex) {
+                                    //$.messager.alert(ex.message);
+                                }
+                            },
+                            'click .remove': function(e, value, row, index) {
+                                $('#parameter_grid' + params.index).bootstrapTable('remove', {
+                                    field: 'DisplayOrder',
+                                    values: [row.DisplayOrder]
+                                });
+                                //params.data.remove(row);
+                                var rows = $('#parameter_grid' + params.index).bootstrapTable('getData');
+                                $(rows).each(function(i) {
+                                    this.DisplayOrder = i + 1;
+                                });
+                                $('#parameter_grid' + params.index).bootstrapTable('load',rows);
+
+                            }
+                        }
+                    }
+                ]
+            });
+            $('.bootstrap-table .fixed-table-container').css('padding-bottom', 40);
+        }
+    });
+
+    ko.applyBindings(model);
+
+
+    @if (Model.Status == (int) ProductStatus.HasUpShelves)
+            {
+                <text>
+
+    setTimeout(function(){
+        $('input,select,button').attr('disabled',true);
+    },1500);
+
+    </text>
+            }
+
+    });
+    </script>
+}

@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="Keywords" content="">
+		<title>香港商城</title>
+		<link rel="stylesheet" type="text/css" href="newcss/css/css.css" />
+        <link rel="stylesheet" type="text/css" href="newcss/css/base.css" />
+		<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="newcss/js/dsdialog.js"></script>
+        <style>
+            .loginButton{
+                width: 300px;
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+                margin: 0 auto;
+                background: #4e4e4e;
+                color: #fff;
+                font-size: 16px;
+                cursor: pointer;
+            }
+            .loginButton:active{
+                background: #ed1c24;
+            }
+        </style>
+	</head>
+
+<body>
+<div class="header">
+	<div class="clear" style="background: #ccc; height: 175px;"></div>
+</div><!--公共头部-->
+
+<div class="dialogCover">
+    <div class="dialogMain">
+        <div class="addShouhuo">
+            <form action="">
+                <label for=""><span><b>*</b>收货人</span><span><input type="text"></span></label>
+                <label for=""><span><b>*</b>所有地区</span>
+                        <select name="" id="">
+                            <option value="">请选择</option>
+                            <option value="">11111</option>
+                            <option value="">22222</option>
+                            <option value="">33333</option>
+                        </select>
+                        <select name="" id="">
+                            <option value="">请选择</option>
+                            <option value="">11111</option>
+                            <option value="">22222</option>
+                            <option value="">33333</option>
+                        </select>
+                        <select name="" id="">
+                            <option value="">请选择</option>
+                            <option value="">11111</option>
+                            <option value="">22222</option>
+                            <option value="">33333</option>
+                        </select>
+                        <select name="" id="">
+                            <option value="">请选择</option>
+                            <option value="">11111</option>
+                            <option value="">22222</option>
+                            <option value="">33333</option>
+                        </select>
+                </label>
+                <label for=""><span><b>*</b>详细地址</span><span><input type="text"></span></label>
+                <label for=""><span><b>*</b>手机号码</span><span><input type="text"></span></label>
+                <label for=""><span><b>*</b>固定电话</span><span><input type="text"></span></label>
+                <label for=""><span><b>*</b>邮政编码</span><span><input type="text"></span></label>
+                <label for=""><span><b>*</b>邮箱</span><span><input type="text"></span></label>
+                <p>用来接收订单提醒邮件，便于您及时了解订单状态</p>
+                <label for=""><span><input type="submit" value="保存收货人信息" class="dialogSubmit"></span></label>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="loginButton">这就是添加收货人弹窗！</div>
+
+<div class="footer"></div><!--公共底部-->
+
+
+<script>
+    $(function () {
+        var _html = $('.dialogMain');
+    $(".loginButton").click(function(){
+        ds.dialog({
+            title:'添加收货人',
+            content: _html,
+            tijiao:function(){
+                console.log();/*ajax事件在这里*/
+            }
+        });
+    });
+});
+</script>
+</body>
+
+</html>

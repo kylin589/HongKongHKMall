@@ -1,0 +1,155 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.AC.SearchExceptionLogModel
+@{
+    ViewBag.Title = "System service log";
+}
+
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>ServiceName: </span>
+            @Html.TextBoxFor(x => x.ServiceName, new { @class = "form-control w70" })
+        </div>
+        &nbsp;&nbsp;&nbsp;
+        <div class="form-group">
+            <span>Handle ID: </span>
+            @Html.TextBoxFor(x => x.HandleId, new { @class = "form-control w70" })
+        </div>
+        &nbsp;&nbsp;&nbsp;
+        <div class="form-group">
+            <span>Status: </span>
+            <select id="Status" class="form-control text-center" name="Status">
+                <option value="1">Untreated</option>
+                <option value="2">Has been processed</option>
+                <option value="0">All</option>
+            </select>
+        </div>
+        &nbsp;&nbsp;&nbsp;
+        <div class="form-group">
+            <span>ResultType: </span>
+            <select id="ResultType" class="form-control text-center" name="ResultType">
+                <option value="1">Error</option>
+                <option value="2">Normal</option>
+                <option value="0">All</option>
+            </select>
+        </div>
+        &nbsp;&nbsp;&nbsp;
+        <div class="form-group">
+            <span>Create Time: </span>
+            @Html.TextBoxFor(x => x.BeginOperateTime, new { @class = "form-control w70" })
+            &nbsp;--&nbsp;
+            @Html.TextBoxFor(x => x.EndOperateTime, new { @class = "form-control w70" })
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            var columns = [
+                { field: 'ServiceName', title: 'ServiceName', align: 'center', valign: 'middle', sortable: false },
+                { field: 'HandleId', title: 'Handle ID', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'Message', title: 'Message', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var m = '<spen  title="' + val + '" > ' + val + '</spen>';
+                        if (val != "" && val.length > 50) {
+                            m = '<spen  title="' + val + '" > ' + val.substring(0, 49) + '...</spen>';
+                            return m;
+                        }
+                        return m;
+                    }
+                },
+                { field: 'CreateDT', title: 'Create Time', align: 'center', valign: 'middle', sortable: false, formatter: function (val) { return val.formatterString(false)/*true 日期格式2015-5-5*/ } },
+                {
+                    field: "UpdateDT", title: "Update Time", align: 'center', valign: 'middle', sortable: false, formatter:
+                       function (val) {
+                           return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                       }
+                },
+                       {
+                           field: 'ElId',
+                           title: 'Operation',
+                           align: 'center',
+                           valign: 'middle',
+                           formatter: function (val, row) {
+                               var operation = '-';
+                               if (row.ResultType == 1) {
+                                   operation = '<a class="edit ml10" href="javascript:void(0)" title="Update"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                               }
+                               return [operation].join('');
+                           },
+                           events: {
+                               'click .edit': function (e, value, row, index) {
+                                   Tool.ShowModal('@Url.Action("Create")', {
+                                       id: value, time: new Date().getTime()
+                                   }, 'System service error handling');
+                               }
+                           }
+                       }
+
+            ];
+
+            //初始化表哥
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+
+                queryParams: function (params) {
+                    return {
+                        Time: new Date().getTime(),
+                        ServiceName: $('#ServiceName').val(),
+                        HandleId: $('#HandleId').val(),
+                        Status: $('#Status').val(),
+                        ResultType: $('#ResultType').val(),
+                        BeginOperateTime: $('#BeginOperateTime').val(),
+                        EndOperateTime: $('#EndOperateTime').val(),
+                        PagedIndex: this.pageNumber - 1,//params.pageNumber - 1  params.offset
+                        PagedSize: this.pageSize       //params.pageSize  params.limit
+                    };
+                },
+                sortOrder: 'desc',
+                pagination: true,
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns
+
+            });
+
+            //刷新
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+
+            //日期控件 开始
+            $('#BeginOperateTime').datepicker({
+                format: 'yyyy-mm-dd',
+                language: "en",
+                autoclose: true
+            }).on("changeDate", function (e) {
+                $('#EndOperateTime').datepicker('setStartDate', e.date);
+            });
+
+            //日期控件 结束
+            $('#EndOperateTime').datepicker({
+                format: 'yyyy-mm-dd',
+                language: "en",
+                autoclose: true
+            }).on("changeDate", function (e) {
+                $('#BeginOperateTime').datepicker('setEndDate', e.date);
+            });
+        });
+
+        //保存
+        function Save() {
+            Tool.SaveModal($('#u_grid'));
+        }
+    </script>
+}

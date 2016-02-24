@@ -1,0 +1,586 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="Keywords" content="">
+		<title>香港商城</title>
+		<link rel="stylesheet" type="text/css" href="newcss/css/css.css" />
+		<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+		<script src="newcss/js/jquery.fly.min.js"></script>
+		<!--[if IE 9]>
+		<script src="newcss/js/requestAnimationFrame.js"></script>
+		<![endif]-->
+		<!--产品放大镜-->
+		<script src="newcss/js/base.js" type=text/javascript></script>
+		<script type=text/javascript>
+	$(function(){			
+	   $(".jqzoom").jqueryzoom({
+			xzoom:400,
+			yzoom:400,
+			offset:10,
+			position:"right",
+			preload:1,
+			lens:1
+		});
+		$("#spec-list").jdMarquee({
+			deriction:"left",
+			width:350,
+			height:56,
+			step:2,
+			speed:4,
+			delay:10,
+			control:true,
+			_front:"#spec-right",
+			_back:"#spec-left"
+		});
+		$("#spec-list img").bind("mouseover",function(){
+			var src=$(this).attr("src");
+			$("#spec-n1 img").eq(0).attr({
+				src:src.replace("\/n5\/","\/n1\/"),
+				jqimg:src.replace("\/n5\/","\/n0\/")
+			});
+			$(this).css({
+				"border":"2px solid #333",
+				"padding":"1px"
+			});
+		}).bind("mouseout",function(){
+			$(this).css({
+				"border":"1px solid #ccc",
+				"padding":"2px"
+			});
+		});				
+	})
+	</script>
+		<script src="newcss/js/lib.js" type=text/javascript></script>
+		<script src="newcss/js/zzsc.js" type=text/javascript></script>
+		<!--右侧图片切换-->
+		<link rel="stylesheet" type="text/css" href="newcss/css/swiper-3.2.7.min.css"/>
+		<script src="newcss/js/swiper-3.2.7.jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			$(function() {
+				var carterNum = $('.settleCounts').text();
+				console.log(carterNum);
+				var offset = $("#end").offset();
+				$(".ls_products_buycar").click(function(event){
+					var addcar = $(this);
+					var img = $('.jqzoom').find('img').attr('src');
+					var flyer = $('<img class="u-flyer" src="'+img+'">');
+					flyer.fly({
+						start: {
+							left: event.pageX, //开始位置（必填）#fly元素会被设置成position: fixed
+							top: event.pageY //开始位置（必填）
+						},
+						end: {
+							left: offset.left+10, //结束位置（必填）
+							top: offset.top+10, //结束位置（必填）
+							width: 0, //结束时宽度
+							height: 0 //结束时高度
+						},
+						onEnd: function(){ //结束回调
+							carterNum++;
+							$('.settleCounts').text(carterNum);
+						}
+					});
+				});
+			});
+		</script>
+	</head>
+
+<body>
+<div class="header">
+	<div class="layoutHeader">
+		<div class="headMain">
+			<ul class="floatLeft fl">
+				<li class="dropDown">
+					<div class="dropShow">
+						<span>欢迎来惠卡</span>
+								<span>
+									<i></i>
+									<span>02-635-5484</span>
+								</span>
+					</div>
+				</li>
+			</ul>
+			<ul class="floatRight fr">
+				<li class="force1">
+					<a href="javascript:void">请登录</a>
+					<a href="javascript:void">免费注册</a>
+					<!--<a href="javascript:void">用户名</a>
+                      <a href="javascript:void">退出</a>-->
+				</li>
+				<li class="force2 forceSldier_2016">
+					<div class="dropShow">
+						<i class="dropIcon fa-angle-down"></i>
+						<a href="javascript:void">我的惠卡</a>
+					</div>
+					<div class="dropHide">
+						<ul>
+							<li><a href="javascript:void()">地址1</a></li>
+							<li><a href="javascript:void()">地址1</a></li>
+							<li><a href="javascript:void()">地址1</a></li>
+						</ul>
+					</div>
+				</li>
+				<li class="force3 forceSldier_2016">
+					<div class="dropShow">
+						<i class="dropIcon fa-angle-down"></i>
+						<a href="javascript:void">帮助中心</a>
+					</div>
+					<div class="dropHide">
+						<ul>
+							<li><a href="javascript:void()">地址1</a></li>
+							<li><a href="javascript:void()">地址1</a></li>
+							<li><a href="javascript:void()">地址1</a></li>
+							<li><a href="javascript:void()">地址1</a></li>
+							<li><a href="javascript:void()">地址1</a></li>
+							<li><a href="javascript:void()">地址1</a></li>
+							<li><a href="javascript:void()">地址1</a></li>
+						</ul>
+					</div>
+				</li>
+				<li class="force4 forceSldier_2016">
+					<div class="dropShow">
+						<i class="flagSelctor chinaFlag"></i>
+						<i class="dropIcon fa-angle-down"></i>
+						<a href="javascript:void">中文简体</a>
+					</div>
+					<div class="dropHide">
+						<ul>
+							<li><a href="javascript:void()"><i class="flagSelctor HongKongflag"></i>中文繁体</a></li>
+							<li><a href="javascript:void()"><i class="flagSelctor Englandflag"></i>English</a></li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="floatCover" id="floatSearch">
+		<div class="layoutSearch">
+			<div class="logo-2016">
+				<a href="index_layout.html"></a>
+			</div>
+			<div class="searchForm">
+				<div class="forceForm">
+					<form action="" method="post">
+						<i class="fa fa-search"></i>
+						<input type="text" value="" placeholder="请输入关键字" class="forceInput">
+						<button class="forceButton">Search</button>
+					</form>
+				</div>
+				<!-- <ul class="hotWords">
+                    <li><a href="javascript:void();">111</a></li>
+                    <li><a href="javascript:void();">111</a></li>
+                    <li><a href="javascript:void();">111</a></li>
+                    <li><a href="javascript:void();">111</a></li>
+                    <li><a href="javascript:void();">111</a></li>
+                    <li><a href="javascript:void();">111</a></li>
+                    <li><a href="javascript:void();">111</a></li>
+                </ul> -->
+			</div>
+			<div class="settleUp">
+				<a href="javascript:void();">
+					<span class="settleCar" id="end"></span>
+					<i class="settleCounts">12</i>
+					<span>$<b class="priceLimited">999999999,233,333</b></span>
+				</a>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="layoutNav">
+		<div class="navMain">
+			<div class="navCategorys">
+				<div class="cateName"><a href="javascript:void()" class="cateAllLink">全部分类</a></div>
+				<div class="cateCover">
+					<ul class="cateInner">
+						<li><a href="#">บ้านและสวน</a>
+							<div class="cateInnerHide">
+								<dl>
+									<dt><a href="">标题一</a></dt>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="">标题一</a></dt>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="">标题一</a></dt>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+								</dl>
+								<span class="clearfix"></span>
+							</div>
+						</li>
+						<li><a href="#">บ้านและสวน</a>
+							<div class="cateInnerHide">
+								<dl>
+									<dt><a href="">标题一</a></dt>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="">标题一</a></dt>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="">标题一</a></dt>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+								</dl>
+								<span class="clearfix"></span>
+							</div>
+						</li>
+						<li><a href="#">บ้านและสวน</a>
+							<div class="cateInnerHide">
+								<dl>
+									<dt><a href="">标题一</a></dt>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="">标题一</a></dt>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+								</dl>
+								<dl>
+									<dt><a href="">标题一</a></dt>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+									<dd><a href="">副标题1</a></dd>
+								</dl>
+								<span class="clearfix"></span>
+							</div>
+						</li>
+						<li><a href="#">บ้านและสวน</a></li>
+						<li><a href="#">บ้านและสวน</a></li>
+						<li><a href="#">บ้านและสวน</a></li>
+						<li><a href="#">บ้านและสวน</a></li>
+						<li><a href="#">บ้านและสวน</a></li>
+						<li><a href="#">บ้านและสวน</a></li>
+						<li><a href="#">บ้านและสวน</a></li>
+						<li><a href="#">บ้านและสวน</a></li>
+						<li><a href="#">บ้านและสวน</a></li>
+					</ul>
+					<div class="cateLayer"></div>
+				</div>
+			</div>
+			<div class="navItems">
+				<ul class="navGroup">
+					<li><a href="javascript:void();">สุขภาพและความงาม</a></li>
+					<li><a href="javascript:void();">แม่และเด็ก</a></li>
+					<li><a href="javascript:void();">คอมพิวเตอร์และมือถือ</a></li>
+					<li><a href="javascript:void();">อาหารและเครื่องดื่ม</a></li>
+					<li><a href="javascript:void();">บ้านและสวน</a></li>
+					<li><a href="javascript:void();">สินค้าอื่นๆ</a></li>
+				</ul>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+
+
+</div><!--公共头部-->
+
+<div class="main_a">
+	
+	<div class="main_about">
+		<div class="specLayout">
+			<div class="specMain_2016">
+				<ul>
+					<li><a href="javascript:void();">首页</a></li>
+					<li class="spector"><i class="fa fa-angle-right"></i></li>
+					<li><a href="javascript:void();">首页</a></li>
+					<li class="spector"><i class="fa fa-angle-right"></i></li>
+					<li><a href="javascript:void();">首页</a></li>
+					<span class="clear"></span>
+				</ul>
+			</div>
+		</div>
+		
+			
+		<!--ls_products_show begin-->
+		<div class="ls_products_show">
+			
+				
+			<!--ls_products_info-->
+			<div class="ls_products_info">
+				
+				<!--ls_products_info_1-->
+				<div class="ls_products_info_1">
+					<div class="ls_products_info_1_time">
+						剩余<time> 123:40:20</time>
+					</div>
+					<div id=preview>
+						<div class=jqzoom id=spec-n1 >
+                        	<IMG height=398 src="newcss/css/images/sb_products_img.jpg" jqimg="newcss/css/images/sb_products_img.jpg" width=398>
+						</div>
+						<div id=spec-n5>
+						<div class=control id=spec-left></div>
+                        <div id=spec-list>
+                            <ul class=list-h>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                            </ul>
+                        </div>
+					<div class=control id=spec-right></div>
+		
+    				</div>
+				</div>
+ 				<div class="ls_shoucang">
+ 					<dl>收藏商品</dl>
+ 					<ul>
+ 						<span>分享到</span>
+ 					<a href="#" title="facebook"></a>
+ 					<a href="#" title="Twitter"></a>
+ 					<a href="#" title="google"></a>
+ 					<a href="#" title="weibo"></a>
+ 					</ul>
+ 				</div>
+				</div>
+				
+				
+				<!--ls_products_info_2-->
+				<div class="ls_products_info_2">
+					<div class="ls_proinfo_1">
+						<div class="ls_products_name">永久自行车 700C铝合金 14速轴承中轴公路车9.2</div>
+						<div class="ls_products_jj">永久官方正品保修，下单送骑行装备好礼</div>
+					</div>
+					<div class="ls_proinfo_2">
+						<div class="ls_proinfo_2_lf">
+							<dl class="ls_yj"><dt>原  价</dt><dd class="m_0119">$467</dd></dl>
+							<dl class="ls_hkj"><dt>惠卡价</dt><span>$288</span><dd>70% OFF</dd></dl>
+							<div class="ls_pengjia">
+								<div class="starts">
+									<div class="c_xx_ss">
+												<div class="c_xx_aa"><div class="c_stars">3</div></div><!--这里的评分是会员评价的，只有1，2，3，4，5-->
+											</div>
+								</div>
+								<span>5分</span><span>共有22人评价</span>
+							</div>
+						</div>
+						
+						
+					</div>
+					<div class="ls_proinfo_3">
+						<dl class="ls_cb_tt">
+							<dt>专属服务</dt>
+							<dd>购买商品返利100%到余额<a href="#" title="">关于全返</a></dd>
+						</dl>
+						<dl class="ls_service">
+							<dt>服务</dt>
+							<dd>本商品由<a href="javascript:void(0)" title="">惠卡自营</a>负责发货，并提供售后服务</dd>
+							<div class="ls_fw">
+								<span>免运费</span><span>正品保障</span><span>7天无理由退换货</span>
+							</div>
+						</dl>
+						<dl class="ls_color"><dt>颜色</dt><dd>
+							<ul>
+								<li><a href="javascript:void(0)" title="黑色">黑色</a></li>
+								<li class="ls_on"><a href="javascript:void(0)" title="蓝色">蓝色</a></li>
+								<li><a href="javascript:void(0)" title="黄色">黄色</a></li>
+								<li><a href="javascript:void(0)" title="红色">红色</a></li>
+							</ul>
+						</dd></dl>
+						<dl class="ls_size"><dt>尺码</dt><dd>
+							<ul>
+								<li><a href="javascript:void(0)" title="XL">XLXLXL</a></li>
+								<li class="ls_on"><a href="javascript:void(0)" title="L">L</a></li>
+								<li><a href="javascript:void(0)" title="M">M</a></li>
+								<li><a href="javascript:void(0)" title="S">S</a></li>
+							</ul>
+						</dd></dl>
+						<dl class="ls_number">
+							<dt>数量</dt>
+							<dd>
+								<a href="javascript:void(0)">-</a>
+								<input type="text"  value="2" />
+								<a href="javascript:void(0)">+</a>
+							</dd>
+						</dl>
+					</div>
+					<div class="ls_proinfo_4">
+						<dl class="ls_select">
+							<dt>已选</dt>
+							<dd><span>“红色”</span><span>“L”</span></dd>
+						</dl>
+						<div class="ls_products_buy">
+							<a href="javascript:void(0)" class="ls_products_buyNow">立即购买</a>
+							<a href="javascript:void(0)" class="ls_products_buycar">加入购物车</a>
+						</div>
+					</div>
+				</div>
+				
+				
+				<!--ls_products_info_3-->
+				<div class="ls_products_info_3">
+					<div class="ls_products_info_3_top">
+						<i></i>
+						<span>看了又看</span>
+					</div>
+					<div class="ls_products_info_3_img swiper-container">
+						<ul class="swiper-wrapper ">
+							<li class="swiper-slide"><a href="javascript:void(0)" title=""><img src="newcss/css/images/sb_products_s.jpg" alt=""/><p>$2964</p></a></li>
+							<li class="swiper-slide"><a href="javascript:void(0)" title=""><img src="newcss/css/images/sb_products_s.jpg" alt=""/><p>$2964</p></a></li>
+							<li class="swiper-slide"><a href="javascript:void(0)" title=""><img src="newcss/css/images/sb_products_s.jpg" alt=""/><p>$2964</p></a></li>
+							<li class="swiper-slide"><a href="javascript:void(0)" title=""><img src="newcss/css/images/sb_products_s.jpg" alt=""/><p>$2964</p></a></li>
+							<li class="swiper-slide"><a href="javascript:void(0)" title=""><img src="newcss/css/images/sb_products_s.jpg" alt=""/><p>$2964</p></a></li>
+							<li class="swiper-slide"><a href="javascript:void(0)" title=""><img src="newcss/css/images/sb_products_s.jpg" alt=""/><p>$2964</p></a></li>
+						</ul>
+						
+
+					</div>
+											
+	<div class="ls_products_info_3_foot">					
+    <!-- 如果需要导航按钮 -->
+    <div class="swiper-button-prev ls_prev_btn"></div>
+    <div class="swiper-button-next ls_next_btn"></div>
+   </div>
+				</div>
+				
+				
+			</div>
+			<!--ls_products_info-->
+
+		</div>
+		<!--ls_products_show end-->
+		
+	</div>
+
+</div><!--主体部分-->
+
+
+
+<div class="footer"></div><!--公共底部-->
+
+
+<script type="text/javascript">
+	$(function(){
+		//颜色尺码选择
+		$(".ls_color li, .ls_size li").click(function(){
+			$(this).addClass("ls_on").siblings().removeClass("ls_on");
+		});
+		
+		//全部咨询选项卡
+		$(".details_4_tit ul li").click(function(){
+			$(this).addClass("ls_on").siblings().removeClass("ls_on");
+			var ls_num=$(".details_4_tit ul li").index(this);
+			$(".details_4_nr > div").eq(ls_num).fadeIn(400).siblings().fadeOut(400);
+		});
+		
+		//好评中评差评选项卡
+		$(".details_3_tit ul li").click(function(){
+			$(this).addClass("ls_on").siblings().removeClass("ls_on");
+			var ls_num=$(this).index();
+			$(".details_3_nr>div").eq(ls_num).fadeIn(400).siblings().fadeOut(400);
+		});
+		
+		//商品详情选项卡
+		$(".ls_products_tab_tit ul li").click(function(){
+			$(this).addClass("ls_on").siblings().removeClass("ls_on");
+			
+		});
+		$(".ls_bzcs").click(function(){
+			$(".details_1_1").fadeOut(400);
+			$(".details_1_2").fadeIn(400);
+		});
+		$(".ls_products_tab_tit ul li:first").click(function(){
+			$(".details_1_2").fadeOut(400);
+			$(".details_1_1").fadeIn(400);
+		});
+		$(".ls_pj").click(function(){
+			$(".details_1_1").fadeOut(400);
+			$(".details_1_2").fadeOut(400);
+			$(".details_1_3").fadeOut(400);
+			$(".ls_products_details_2").fadeIn(400);
+			$(".ls_products_details_3").fadeIn(400);
+			$(".ls_products_details_4").fadeIn(400);
+		});
+		$(".ls_zx").click(function(){
+			$(".details_1_1").fadeOut(400);
+			$(".details_1_2").fadeOut(400);
+			$(".details_1_3").fadeOut(400);
+			$(".ls_products_details_2").fadeOut(400);
+			$(".ls_products_details_3").fadeOut(400);
+			$(".ls_products_details_4").fadeIn(400);
+		
+			
+		});
+		$(".ls_shouhou").click(function(){
+			$(".details_1_1").fadeOut(400);
+			$(".details_1_2").fadeOut(400);
+			$(".details_1_3").fadeIn(400);
+			$(".ls_products_details_2").fadeOut(400);
+			$(".ls_products_details_3").fadeOut(400);
+			$(".ls_products_details_4").fadeOut(400);
+		});
+		
+		/*星星宽度*/
+		var c_starnum = $(".c_stars").length;
+		for(var i = 0;i<c_starnum;i++){
+			var cb_starnr = $(".c_stars").eq(i).text();
+        	var cb_star_width =  cb_starnr/5*75;
+        	$(".c_xx_aa").eq(i).css("width",cb_star_width);
+		};
+		
+	})
+</script>
+<script>        
+  var mySwiper = new Swiper ('.swiper-container', {
+    direction: 'vertical',
+    loop: true,
+    slidesPerView: 3,
+    
+   
+    
+    // 如果需要前进后退按钮
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
+    
+    
+  })        
+  </script>
+</body>
+
+</html>

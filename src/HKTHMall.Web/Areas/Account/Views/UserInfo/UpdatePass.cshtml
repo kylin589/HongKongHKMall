@@ -1,0 +1,361 @@
+﻿@using HKTHMall.Domain.Enum
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main_a">
+    <div class="main_about">
+        <div class="ls_member">
+            @Html.Partial("_userLeft")
+
+            <div class="ls_member_rg">
+                <div class="m_user_pubtitle">
+                    @*修改登录密码*@
+                    @CultureHelper.GetLangString("ACCOUNT_USERINFO_UPDATELOGINPASSWORD_UPDATELOGINPASSWORD")
+                </div>
+                <div class="m_user_pas">
+                    <div class="m_user_pas_nr">
+                        <ul>
+                            <li>
+                                <b>
+                                    @*登录密码*@
+                                    @CultureHelper.GetLangString("HK_LOGPWD")
+                                </b>
+                                <span>
+                                    @*请输入原始登录密码*@
+                                    <input type="password" name="opwd" id="opwd" class="m_user_pas_text" maxlength="16" placeholder="@CultureHelper.GetLangString("ACCOUNT_USERINFO_UPDATELOGINPASSWORD_OLDLOGINPASSWORD")">
+                                </span>
+
+                                <i id="opwdStr" style="display:block">
+                                    @*8-16位字符，可使用字母、数字、特殊字符、区分大小写,至少两种组合。*@
+                                    @CultureHelper.GetLangString("LOGIN_PASSWORD_INPUTTIPS")
+                                </i>
+                                <strong id="opwdStrErr" style="display:none;">
+                                    @*填写有误，请重新输入*@
+                                    @CultureHelper.GetLangString("HK_CXSF")
+                                </strong>
+                            </li>
+                            <li>
+                                <b>
+                                    @*新密码*@
+                                    @CultureHelper.GetLangString("HK_NEWPASSWORD")
+                                </b>
+                                <span>
+                                    @*请输入新密码*@
+                                    <input type="password" name="npwd" id="npwd" maxlength="16" class="m_user_pas_text" placeholder="@CultureHelper.GetLangString("LOGIN_GETPASSWORD_ENTERNEWPASSWORDFIRST")">
+                                </span>
+
+                                <i id="npwdStr" style="display:block">
+                                    @*8-16位字符，可使用字母、数字、特殊字符、区分大小写,至少两种组合。*@
+                                    @CultureHelper.GetLangString("LOGIN_PASSWORD_INPUTTIPS")
+                                </i>
+                                <strong id="npwdStrErr" style="display:none;">
+                                    @*填写有误，请重新输入*@
+                                    @CultureHelper.GetLangString("HK_CXSF")
+                                </strong>
+                            </li>
+                            <li>
+                                <b>
+                                    @*确认密码*@
+                                    @CultureHelper.GetLangString("LOGIN_GETPASSWORD_CONFIRMPASSWORD")
+                                </b><span>
+                                    @*请再次输入密码*@
+                                    <input type="password" name="rpwd" id="rpwd" maxlength="16" class="m_user_pas_text" placeholder="@CultureHelper.GetLangString("LOGIN_GETPASSWORD_PWDAGAIN")">
+                                </span>
+                                <i id="rpwdStr" style="display:block">
+                                    @*重复输入上面的密码*@
+                                    @CultureHelper.GetLangString("HK_SUREPWD")
+                                </i>
+                                <strong id="rpwdStrErr" style="display:none;">
+                                    @*填写有误，请重新输入*@
+                                    @CultureHelper.GetLangString("HK_CXSF")
+                                </strong>
+                            </li>
+                            <li class="m_user_pas_yzm">
+                                <b>
+                                    @*验证码*@
+                                    @CultureHelper.GetLangString("LOGIN_GETPASSWORD_VERIFICATIONCODE_1")
+                                </b>
+                                <span>
+                                    @*请输入验证码*@
+                                    <input type="text" name="yzm" id="yzm" class="m_user_pas_text_yzm" placeholder="@CultureHelper.GetLangString("HK_INPUYZM")">
+                                    <input type="hidden" id="istrue" value="false" />
+                                </span>
+                                <div class="m_user_pas_yzm_img">
+                                    <div class="m_user_pas_yzm_img1">
+                                        <a href="javascript:;" title="" class="js-getCode">
+                                            <img src="@Url.Action("VerifyCode", new { codeType = (int)EImageVerifyCodeType.ModifyLoginPwd })" class="js-code">
+                                        </a>
+                                    </div><div class="m_user_pas_yzm_text">
+                                        @*看不清？ *@
+                                        @CultureHelper.GetLangString("HK_INVISIBILITY")
+                                        <a href="javascript:;" title="" class="js-getCode">
+                                            @*换一张*@
+                                            @CultureHelper.GetLangString("CHANGE_ANOTHER_ONE")
+                                        </a>
+                                    </div>
+                                </div>
+                                <i id="yzmStr">
+                                    @*请输入图片上的验证码*@
+                                    @CultureHelper.GetLangString("LOGIN_PASSWORD_INPUTVALIDCODE")
+                                </i>
+                                <strong id="yzmStrErr" style="display:none;">
+                                    @*填写有误，请重新输入*@
+                                    @CultureHelper.GetLangString("HK_CXSF")
+                                </strong>
+                            </li>
+                        </ul>
+                        <dl>
+                            <b>
+                                @*保存设置*@
+                                <input type="submit" name="" id="save" class="m_user_pas_submit" value="@CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_SAVE")">
+                            </b>
+                        </dl>
+
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+            <div class="clear clearfix"></div>
+        </div>
+        <div class="c_public_bottom"></div>
+    </div>
+</div>
+<script src="~/Content/js/format.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+       
+
+        //刷新图片验证码
+        $("#code").click(function () {
+            getValidateCode();
+        });
+        //刷新图片验证码
+        $('.js-getCode').click(function () {
+            getValidateCode();
+        });
+
+
+        //原始密码失去焦点事件
+        $("#opwd").blur(function () {
+            if ($.trim($(this).val()) == "") {
+                toggleValidMsg('opwd', true);
+                $("#opwdStrErr").html($commonLang.INPUT_OLD_LOGINPWD);
+                return false;
+            }
+            checkOldPwd();
+        });
+
+        //新密码失去焦点事件
+        $("#npwd").blur(function () {
+            if ($.trim($(this).val()) == "") {
+                toggleValidMsg('npwd', true);
+                $("#npwdStrErr").html($commonLang.INPUT_NEW_LOGINPWD);
+                return;
+            }
+            checkPwd();
+        });
+
+        //确认密码失去焦点事件
+        $("#rpwd").blur(function () {
+            checkPwdAgain();
+        });
+
+        //验证码失去焦点事件
+        $('#yzm').blur(function () {
+            checkYZM();
+        });
+
+        //修改密码
+        $("#save").click(function () {
+            $("#save").attr("disabled", "disabled"); //使按钮不能被点击
+
+
+            checkOldPwd();
+            checkPwd();
+            checkPwdAgain();
+            checkYZM();
+
+            var yzm = $("#opwdStrErr").is(":hidden");
+            var opwd = $("#npwdStrErr").is(":hidden");
+            var npwd = $("#rpwdStrErr").is(":hidden");
+            var cpwd = $("#yzmStrErr").is(":hidden");
+            if (yzm && opwd && npwd && cpwd) {
+                $.post("/UserInfo/UpdatePass",
+                    {
+                        verifyCode: $.trim($("#yzm").val()),
+                        oldPassWord: $.trim($("#opwd").val()),
+                        newPassWord: $.trim($("#npwd").val())
+                    },
+                    function (data) {
+                        if (data.rs == 1) {
+                            ds.dialog({
+                                content: "@CultureHelper.GetLangString("LOGIN_GETPASSWORD_PASSWORDSUCCESS")",
+                                yesText: "@CultureHelper.GetLangString("ORDER_LIST_SURE")",
+                                onyes: function () {
+                                    window.location.href = "@Url.Action("Index","Login",new{area=string.Empty})";
+                                    this.close();
+                                },
+                            });
+                        } else {
+                            var msg = $(".dialogCover").html();
+                            ds.dialog({
+                                content: msg,
+                                yesText: "@CultureHelper.GetLangString("ORDER_LIST_SURE")",
+                                onyes: function () {
+                                    this.close();
+                                }
+                            });
+                            $("#submit").removeAttr("disabled");
+                        }
+                    });
+            } else {
+                $("#save").removeAttr("disabled");
+                return false;
+            }
+        });
+
+    });
+
+
+
+    //检查原始密码
+    function checkOldPwd() {
+        var opwd = $.trim($("#opwd").val());
+        if (opwd == "") {
+            toggleValidMsg('opwd', true);
+            return;
+        }
+        $.ajax({
+            url: "/UserInfo/LoginPassVerify",
+            dataType: "json",
+            type: "post",
+            data: { "pwd": opwd },
+            async: false,
+            success: function (data) {
+                if (data.rs == 1) {
+                    toggleValidMsg('opwd', false);
+                }
+                else {
+                    toggleValidMsg('opwd', true);
+                    $("#opwdStrErr").html(data.msg);
+                }
+            }
+
+        });
+    }
+
+
+
+
+
+    var tegNum = /^\d{8,20}$/;
+    var tegLetter = /^[a-zA-Z]{8,20}$/;
+    var pattern = /^[!@@#$%^&*()_+|={}?><\-\]\\[\/]{8,16}$/;
+
+    //检查密码
+    function checkPwd() {
+        var password = $.trim($("#npwd").val());
+        if (password == "") {
+            toggleValidMsg('npwd', true);
+            $("#npwdStrErr").html($commonLang.INPUT_NEW_LOGINPWD);
+            return false;
+        }
+        if (password.length < 8 || password.length > 20 || new RegExp(/[^\x00-\xff]|\s/).test(password)) {
+            toggleValidMsg('npwd', true);
+            $("#npwdStrErr").html($commonLang.LOGIN_GETPASSWORD_PWDFORMAT);
+            return false;
+        }
+        if (tegNum.test(password) || tegLetter.test(password) || pattern.test(password)) {
+            toggleValidMsg('npwd', true);
+            $("#npwdStrErr").html($commonLang.LOGIN_GETPASSWORD_PWDATLEASTINCLUDE);
+            return false;
+        }
+        $.ajax({
+            url: "/UserInfo/LoginPassExist",
+            dataType: "json",
+            type: "post",
+            data: { "StrPlyPass": password },
+            async: false,
+            success: function (data) {
+                if (data.rs == 1) {
+                    toggleValidMsg('npwd', false);
+                }
+                else {
+                    toggleValidMsg('npwd', true);
+                    $("#npwdStrErr").html(data.msg);
+                }
+            }
+
+        });
+    }
+
+    //检查确认密码
+    function checkPwdAgain() {
+        var pwd = $("#npwd").val();
+        var rpwd = $("#rpwd").val();
+        if ($.trim(rpwd) == "") {
+            $("#rpwdStrErr").html($commonLang.LOGIN_GETPASSWORD_PWDCONFIRM);
+            toggleValidMsg('rpwd', true);
+        } else {
+            if ($.trim(rpwd) != $.trim(pwd)) {
+                toggleValidMsg('rpwd', true);
+                $("#rpwdStrErr").html($commonLang.LOGIN_GETPASSWORD_PWDDIFFERENT);
+                return false;
+            }
+            else {
+                toggleValidMsg('rpwd', false);
+            }
+        }
+    }
+
+    //检查验证码
+    function checkYZM() {
+        var yzm = $("#yzm").val();
+        if (yzm == '') {
+            toggleValidMsg('yzm', true);
+            return false;
+        }
+        $.ajax({
+            url: "@Url.Action("ValidCode", new {codeType = (int) EImageVerifyCodeType.ModifyLoginPwd})",
+            type: "Post",
+            data: {
+                verifyCode: yzm
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data == "true") {
+                    toggleValidMsg('yzm', false);
+                    $("#istrue").val("true");
+                    return true;
+                } else {
+                    toggleValidMsg('yzm', true);
+                    $("#istrue").val("false");
+                    getValidateCode();
+                    return false;
+                }
+            }
+        });
+        return false;
+    }
+
+    //切换验证码
+    function getValidateCode() {
+        $(".js-code").attr("src", "@Url.Action("VerifyCode", new { codeType = (int)EImageVerifyCodeType.ModifyLoginPwd })&t=" + (new Date()).getTime());
+    }
+
+    //切换验证消息
+    function toggleValidMsg(prefix, invalid) {
+        if (invalid == true) {
+            $('#' + prefix + 'StrErr').show();
+            $('#' + prefix + 'Str').hide();
+        } else {
+            $('#' + prefix + 'StrErr').hide();
+            $('#' + prefix + 'Str').show();
+        }
+    }
+
+</script>

@@ -1,0 +1,13 @@
+%WINDIR%\System32\cscript E:\wwwRoot\HKTHMall_Portal_Trunk\IISStop.vbs
+
+%WINDIR%\System32\xcopy E:\wroot\HKTHMall_Portal_Trunk\111Config_notDelete\Web.config   E:\wroot\HKTHMall_Portal_Trunk\Portal\ /y
+%WINDIR%\System32\xcopy E:\wroot\HKTHMall_Portal_Trunk\111Config_notDelete\Web_bin\*.*   E:\wroot\HKTHMall_Portal_Trunk\Portal\bin\ /s/e/y
+
+%WINDIR%\System32\xcopy E:\wroot\HKTHMall_Portal_Trunk\Portal\*.*    E:\wroot\HKTHMall_Portal_Test\Portal\ /exclude:E:\wroot\HKTHMall_Portal_Test\Portal\uncopy.txt /s/e/y 
+
+%WINDIR%\System32\cscript E:\wwwRoot\HKTHMall_Portal_Trunk\IISStart.vbs
+
+%WINDIR%\System32\cscript E:\wwwRoot\HKTHMall_Portal_Trunk\IISStop.vbs
+
+%WINDIR%\System32\cscript E:\wwwRoot\HKTHMall_Portal_Trunk\IISStart.vbs
+

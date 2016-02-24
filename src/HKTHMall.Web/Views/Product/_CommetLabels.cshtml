@@ -1,0 +1,7 @@
+﻿@model List<HKTHMall.Domain.WebModel.Models.Product.CommentLablesList>
+<div class="djyx">
+    @foreach (HKTHMall.Domain.WebModel.Models.Product.CommentLablesList x in Model)
+    {
+        <a href="javascript:void(0)">@HKTHMall.Services.Common.MultiLangKeys.CultureHelper.GetLangString(x.LabelsName)<span>(@x.totalcnt)</span></a>
+    }
+</div>

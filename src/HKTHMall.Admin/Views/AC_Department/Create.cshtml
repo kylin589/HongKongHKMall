@@ -1,0 +1,43 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.AC.AC_DepartmentModel
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Dept Name :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.ID)
+        @Html.TextBoxFor(t => t.DeptName, new { @class = "form-control", @placeholder = "Please enter name" })
+        @Html.ValidationMessageFor(m => m.DeptName)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Sort :
+    </label>
+    <div class="controls">
+        @Html.TextBoxFor(t => t.OrderNumber, new { @class = "form-control", @placeholder = "Please enter rank method" })
+        @Html.ValidationMessageFor(m => m.OrderNumber)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Status :
+    </label>
+    <div class="controls">
+        <div class="checkbox">
+            <label>
+                @if (Model.IsActive == 1)
+                {
+                    <input type="checkbox" id="chkIsActive" checked="checked" name="chkbox" />
+
+                }
+                else
+                {
+                    <input type="checkbox" id="chkActive" name="chkbox" />
+                }
+                <text>Enable or Not</text>
+                @Html.HiddenFor(x => x.IsActive)
+                @Html.ValidationMessageFor(m => m.IsActive)
+            </label>
+        </div>
+    </div>
+</div>

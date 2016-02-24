@@ -1,0 +1,63 @@
+﻿@using HKTHMall.Core.Extensions
+@using HKTHMall.Domain.WebModel.Models.Product
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = null;
+    IEnumerable<ProductInfo> productList = ViewBag.ProductData;
+}
+<div class="TuiJian">@CultureHelper.GetLangString("ALL_LOVE")</div>
+<div class="RecommendGoods">
+    @foreach (var product in productList)
+    {
+        if (ViewBag.ViewString == "shopping")
+        {
+            <div class="rel z_rec_coll">
+                <a target="_blank" href="@Url.Action("shopping", "home", new { area = "", id = product.ProductId })" class="RecommendLink dib mr5 trans" title="@product.ProductName">
+                    <img src="@Html.GetImagesUrl(product.PicUrl,180,180)" style="width:180px;height:180px;">
+                    <span class="RecommendName f14 b l">@product.ProductName</span>
+                    <span class="RecommendPrice1 l f22">@product.HKPrice.ToString("F2") บาท</span>
+                    <span class="RecommendPrice2 l f14">@CultureHelper.GetLangString("HOME_INDEX_ORIGINALPRICE")@product.MarketPrice.ToString("F2") บาท</span>
+                </a>
+                @*<a class="z_reccoll1 z_reccolled">收藏</a>*@
+                <a href="javascript:;" class="@(product.UserID == 0 ? "z_reccoll1" : "z_reccoll2") z_reccolled" name="@product.ProductId">@(product.UserID == 0 ? CultureHelper.GetLangString("PRODUCT_LIST_COLLECT") : CultureHelper.GetLangString("HOME_SHOPPING_ALCOLLECTED"))</a>
+            </div>
+        }
+        else
+        {
+            <div class="rel z_rec_coll">
+                <a target="_blank" href="@Url.Action("shopping", "home", new { area = "", id = product.ProductId })" class="RecommendLink dib mr5 trans" title="@product.ProductName">
+                    <img src="@Html.GetImagesUrl(product.PicUrl,218,234)">
+                    <span class="RecommendName f14 b l">@product.ProductName</span>
+                    <span class="RecommendPrice1 l f22">@product.HKPrice.ToString("F2") บาท</span>
+                    <span class="RecommendPrice2 l f14">@CultureHelper.GetLangString("HOME_INDEX_ORIGINALPRICE")@product.MarketPrice.ToString("F2") บาท</span>
+                </a>
+                @*<a href="javascript:void();" class="z_reccoll1 z_reccolled">收藏</a>*@
+                <a href="javascript:;" class="@(product.UserID == 0 ? "z_reccoll1" : "z_reccoll2") z_reccolled" name="@product.ProductId">@(product.UserID == 0 ? CultureHelper.GetLangString("PRODUCT_LIST_COLLECT") : CultureHelper.GetLangString("HOME_SHOPPING_ALCOLLECTED"))</a>
+            </div>
+        }
+
+
+    }
+</div>
+<script type="text/javascript">
+    $(function () {
+        $(".z_reccolled").click(function () {
+            if ($(this).hasClass("z_reccoll1")) {
+                addXQTJCollection($(this).attr("name"));
+            }
+        });
+    });
+    function addXQTJCollection(productId) {
+        jQuery.post("/Product/AddToCollection", { key: productId }, function (data) {
+            if (data.Data == undefined) {
+                window.location = '/Login/Index?ReturnUrl=' + encodeURIComponent(window.location.href);
+            } else if (data.Data) {
+                $("a.z_reccolled[name=" + productId + "]").removeClass('z_reccoll1').addClass('z_reccoll2');
+                $("a.z_reccolled[name=" + productId + "]").html($commonLang.HOME_SHOPPING_COLLECT);
+                var collectCount = parseInt($(".z_count2").text());
+                collectCount += 1;
+                $(".z_count2").empty().text(collectCount);
+            }
+        });
+    }
+</script>

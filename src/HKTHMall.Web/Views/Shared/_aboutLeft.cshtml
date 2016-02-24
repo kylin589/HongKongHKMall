@@ -1,0 +1,39 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+
+@{
+    string Action=ViewContext.RouteData.Values["action"].ToString();
+}
+<h1>@CultureHelper.GetLangString("HOME_INDEX_HELPCENTER")</h1>
+<div class="ls_help_lf_nav">
+    <dl>
+        <dt ><i></i>@CultureHelper.GetLangString("HOME_FOOTER_NEWHAND_GUIDE")</dt>
+        <dd @(Action == "Shopping" ? "class=ls_on" : "") ><a href="@(Url.Action("Shopping", "Help"))" title="">@CultureHelper.GetLangString("HOME_FOOTER_SHOPPING")</a></dd><!--当打开当前页的时候，二级栏目里增加ls_on，并且当前的一级栏目也要增加ls_on-->
+        <dd @(Action == "Pay" ? "class=ls_on" : "")><a href="@(Url.Action("Pay", "Help"))" title="">@CultureHelper.GetLangString("HOME_FOOTER_PAY")</a></dd>
+    </dl>
+    <dl>
+        <dt><i></i>@CultureHelper.GetLangString("HOME_FOOTER_CONSOLIDATION_SERVICES")</dt>
+        <dd @(Action == "Distribution" ? "class=ls_on" : "")><a href="@(Url.Action("Distribution", "Help"))" title="">@CultureHelper.GetLangString("HOME_FOOTER_DISTRIBUTION")</a></dd>
+        <dd @(Action == "Receive" ? "class=ls_on" :"")><a href="@(Url.Action("Receive", "Help"))" title="">@CultureHelper.GetLangString("HOME_FOOTER_RECEIVE")</a></dd>
+        <dd @(Action == "Return" ? "class=ls_on" : "")><a href="@(Url.Action("Return", "Help"))" title="">@CultureHelper.GetLangString("HOME_FOOTER_RETURN_POLICY")</a></dd>
+        <dd @(Action == "Return2" ? "class=ls_on" : "")><a href="@(Url.Action("Return2", "Help"))" title="">@CultureHelper.GetLangString("HOME_FOOTER_RETURN_PROCESS")</a></dd>
+    </dl>
+    <dl>
+        <dt><i></i>@CultureHelper.GetLangString("HOME_FOOTER_CLIENT_SERVICES")</dt>
+        <dd @(Action == "Agreement" ? "class=ls_on" : "")><a href="@(Url.Action("Agreement", "Help"))" title="">@CultureHelper.GetLangString("HOME_FOOTER_AGREEMENT")</a></dd>
+        <dd @(Action == "SafePay" ? "class=ls_on" : "")><a href="@(Url.Action("SafePay", "Help"))" title="">@CultureHelper.GetLangString("HOME_FOOTER_SAFEPAY")</a></dd>
+        <dd @(Action == "Question" ? "class=ls_on" : "")><a href="@(Url.Action("Question", "Help"))" title="">@CultureHelper.GetLangString("HOME_FOOTER_QUESTION")</a></dd>
+    </dl>
+    <dl>
+        <dt><i></i>@CultureHelper.GetLangString("FOOTER_ABOUT")</dt>
+        <dd @(Action == "HuikaPromise" ? "class=ls_on" : "")><a href="@(Url.Action("HuikaPromise", "Help"))" title="">@CultureHelper.GetLangString("HUIKA_PROMISE")</a></dd>
+        <dd @(Action == "ContactUs" ? "class=ls_on" : "")><a href="@(Url.Action("ContactUs", "Help"))" title="">@CultureHelper.GetLangString("FOOTER_CONTACT_US")</a></dd>
+    </dl>
+</div>
+<script>
+    $(function ()
+    {
+        //alert($("div.ls_help_lf_nav dl dd.ls_on").prevAll("dt").html());
+        $("div.ls_help_lf_nav dl dd.ls_on").prevAll("dt").addClass("ls_on");
+    });
+</script>
+

@@ -1,0 +1,69 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys;
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <title>@CultureHelper.GetLangString("HOME_INDEX_TITEL")</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <link href="~/Content/plugins/mallbox/css/mallbox.default.css" rel="stylesheet" />
+    @System.Web.Optimization.Styles.Render("~/Content/css/" + (CultureHelper.GetCurrentCulture() + ".css"))
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Content/plugins/jquery.jplaceholder.js"></script>
+    <script src="~/Content/js/Plug-in-unit.js"></script>
+    <script src='~/Scripts/lang/@(CultureHelper.GetCurrentCulture()+".js")'></script>
+    <script src="~/Content/plugins/mallbox/js/mallbox.js"></script>
+
+
+    <script type="text/javascript">
+        var languagevalue=@CultureHelper.GetLanguageID();
+        //爆款名字长度限定
+        $.fn.extend({
+            displayPart: function () {
+                var displayLength = 0;
+
+                if (languagevalue == 1) {
+                    displayLength = 45;  //中文
+                }
+                else if (languagevalue == 2) {
+                    displayLength = 60;  //英文
+                }
+                else if (languagevalue == 3) {
+                    displayLength = 70;  //泰文
+                } else {
+                    displayLength = 45;  //默认
+                }
+
+                displayLength = this.attr("displayLength") || displayLength;
+                var text = this.text();
+                if (!text) return "";
+                //alert(text);
+                var result = "";
+                var count = 0;
+                for (var i = 0; i < displayLength; i++) {
+                    var _char = text.charAt(i);
+                    if (count >= displayLength) break;
+                    if (/[^x00-xff]/.test(_char)) count++;  //双字节字符，//[u4e00-u9fa5]中文
+                    result += _char;
+                    count++;
+                }
+                if (result.length < text.length) {
+                    result += "...";
+                }
+                this.text(result);
+            }
+        });
+        $(function () {
+            if (mallbox) {
+                mallbox.setLocale('@CultureHelper.GetCurrentCulture().Replace('-','_')');
+            }
+        });
+    </script>
+</head>
+<body>
+    @Html.Partial("_Head")
+    @{Html.RenderAction("_PartialMenu", "Shared", new { languageid = CultureHelper.GetLanguageID(), area = "" });}
+    @RenderBody()
+</body>
+</html>

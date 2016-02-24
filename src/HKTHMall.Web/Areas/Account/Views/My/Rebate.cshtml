@@ -1,0 +1,60 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var pages = ViewBag.PageCount;
+    var count = ViewBag.Count;
+}
+<div class="main_about">
+    <div class="ls_member">
+
+
+        <!--left-->
+        @Html.Partial("_userLeft")
+        <!--right-->
+        <div class="ls_member_rg">
+            <div class="m_user_pubtitle">@CultureHelper.GetLangString("ACCOUNT_MY_REBATE_TITLE")</div>
+            @if (count>0)
+            {
+                <div class="ls_hsq_info1">
+                    <ul>
+                        <li>@CultureHelper.GetLangString("ACCOUNT_MY_REBATE_REBATEDAMOUNT"):<i>$@ViewBag.PaidAmount</i></li>
+                        <li>@CultureHelper.GetLangString("ACCOUNT_REBEAT_TODAY"):<i>$@Math.Round(ViewBag.RebateToday,2)</i><span></span>@CultureHelper.GetLangString("ACCOUNT_MY_REBATE_REBATEFUTURE"):<i>$@ViewBag.SurplusAmount</i><a href="@Url.Action("Question", "Help", new { area=""})">@CultureHelper.GetLangString("ACCOUNT_ABOUT_100PER_REBEAT")</a></li>
+                    </ul>
+                </div>
+                <div class="ls_huizeng_list">
+                    <table border="0" cellspacing="0" cellpadding="0" id="tb_rebeatlog"></table>
+                </div>
+
+                <div class="sectionPaging" id="pager1">
+                </div>
+                <script src="~/Content/js/pager.js"></script>
+                <script>
+                    $(function () {
+                        LoadLogs(1);
+                    })
+                    var _pagesize = 10;
+                    function LoadLogs(pageIndex) {
+                        $("#tb_rebeatlog").load("@Url.Action("_RebateList", "My")", { index: pageIndex, pageSize: _pagesize }, function () {
+                            UpdatePager(pageIndex, @pages+"", $("#pager1"), "LoadLogs", null);
+                            $("div.ls_huizeng_list table td a").hover(function () {
+                                $(this).next(".ls_hsq_hidden").stop().fadeIn(400);
+                            }, function () {
+                                $(this).next(".ls_hsq_hidden").stop().fadeOut(400);
+                            }
+                    );
+                        })
+                    }
+                </script>
+            }
+            else
+            {
+                <div class="ls_huizeng_empty">
+                    <p><i></i>@CultureHelper.GetLangString("ACCOUNT_MY_REBATE_WITHOUTREBATE")</p>
+                </div>
+            }
+
+        </div>
+        <div class="clear"></div>
+
+    </div>
+</div>

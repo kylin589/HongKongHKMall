@@ -1,0 +1,57 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.User.ZJ_WithdrawOrderModel
+@{
+    var withdrawResult = ViewData["WithdrawResult"] as List<SelectListItem>;
+}
+
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Operation name :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.OrderNO)
+        @Html.DropDownList("WithdrawResult", withdrawResult, new { @class = "form-control", @Enlened = "false" })
+    </div>
+</div>
+@if (Model != null)
+{
+    int wr = (int)Model.WithdrawResult;
+    switch (wr)
+    {
+        case 1:
+            <div class="control-group">
+                <label class="control-label-form">
+                    <label class="red">*</label>Withdraw amount :
+                </label>
+                <div class="controls">
+                    @Html.TextBoxFor(t => t.WithdrawAmount, new { @class = "form-control", @disabled = "true" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label-form">
+                    <label class="red"></label>Withdraw charge :
+                </label>
+                <div class="controls">
+                    @Html.TextBoxFor(t => t.WithdrawCommission, new { @class = "form-control" })
+                </div>
+            </div>
+            break;
+        default:
+            break;
+    }
+}
+else
+{
+        @Html.HiddenFor(t => t.WithdrawCommission)
+}
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Remark :
+    </label>
+    <div class="controls">
+        @Html.TextAreaFor(t => t.Remark, new { @class = "form-control", @placeholder = "Please fill Remarks", @style = "width: 207px; height: 73px;" })
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,34 @@
+﻿@model HKTHMall.Domain.Models.Orders.ComplaintsModel
+@{
+  //  var flagList = ViewData["flagList"] as List<SelectListItem>;
+}
+ 
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Status :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.ComplaintsID)
+        <label id="Flag" class="form-control">Untreated</label>
+        @*<input type="text" id="Flag" name="Flag" value="未处理" disabled="true">*@
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Process content :
+    </label>
+    <div class="controls">
+        @Html.TextAreaFor(t => t.Comments, new { @class = "form-control", @placeholder = "Please enter process context", @style = "width: 306px; height: 170px;", @maxlength = "500" })
+        @Html.ValidationMessageFor(m => m.Comments)
+    </div>
+</div>
+<script type="text/javascript">
+    //修改按钮的文字
+    $(function () {
+        var $btnText = $(".btn-primary", "#modal-form");
+        $btnText.text("Handle");
+    });
+</script>
+
+
+

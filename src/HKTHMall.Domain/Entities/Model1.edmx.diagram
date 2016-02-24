@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f1cd9232764b4cd8b7bf81771cca1815" Name="Diagram1" ZoomLevel="81">
+        <EntityTypeShape EntityType="HKTHMallModel.AC_Department" Width="1.5" PointX="18.75" PointY="19.125" />
+        <EntityTypeShape EntityType="HKTHMallModel.AC_Function" Width="1.5" PointX="26" PointY="22.625" />
+        <EntityTypeShape EntityType="HKTHMallModel.AC_Module" Width="1.5" PointX="23.75" PointY="22.375" />
+        <EntityTypeShape EntityType="HKTHMallModel.AC_OperateLog" Width="1.5" PointX="10.75" PointY="3.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.AC_Role" Width="1.5" PointX="18.75" PointY="15.125" />
+        <EntityTypeShape EntityType="HKTHMallModel.AC_User" Width="1.5" PointX="21" PointY="18.5" />
+        <EntityTypeShape EntityType="HKTHMallModel.APP_VersionInfo" Width="1.5" PointX="10.75" PointY="7.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.banner" Width="1.5" PointX="12.75" PointY="3.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.bannerProduct" Width="1.5" PointX="12.75" PointY="8.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.BD_Bank" Width="1.5" PointX="10.75" PointY="19.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.BD_NewsInfo" Width="1.5" PointX="12.75" PointY="22.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.BD_NewsType" Width="1.5" PointX="23.75" PointY="26.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.BD_NewsTypelang" Width="1.5" PointX="23.75" PointY="9.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.Blobs" Width="1.5" PointX="0.75" PointY="27.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.Brand" Width="1.5" PointX="23.75" PointY="18.375" />
+        <EntityTypeShape EntityType="HKTHMallModel.Brand_Category" Width="1.5" PointX="2.75" PointY="27.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.Brand_Lang" Width="1.5" PointX="26" PointY="18.875" />
+        <EntityTypeShape EntityType="HKTHMallModel.Category" Width="1.5" PointX="4.75" PointY="27.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.Category_Lang" Width="1.5" PointX="20.75" PointY="27.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.CategoryType" Width="1.5" PointX="21" PointY="5.625" />
+        <EntityTypeShape EntityType="HKTHMallModel.Complaints" Width="1.5" PointX="16" PointY="8.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.CompoundKeyDetail" Width="1.5" PointX="26" PointY="15.375" />
+        <EntityTypeShape EntityType="HKTHMallModel.CompoundKeyMaster" Width="1.5" PointX="23.75" PointY="15.5" />
+        <EntityTypeShape EntityType="HKTHMallModel.Customers" Width="1.5" PointX="18.75" PointY="10.875" />
+        <EntityTypeShape EntityType="HKTHMallModel.DateTimeOffsetTest" Width="1.5" PointX="25.75" PointY="9.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.DeleteTest" Width="1.5" PointX="10.75" PointY="12.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.Employee" Width="1.5" PointX="25.75" PointY="12.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.EnumTest" Width="1.5" PointX="10.75" PointY="28.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.ExceptionLog" Width="1.5" PointX="12.75" PointY="28.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.Favorites" Width="1.5" PointX="3" PointY="9.75" />
+        <EntityTypeShape EntityType="HKTHMallModel.Feedback" Width="1.5" PointX="25.75" PointY="26.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.FeedbackType" Width="1.5" PointX="26.75" PointY="3.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.FeedbackType_lang" Width="1.5" PointX="26.75" PointY="6.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.FloorCategory" Width="1.5" PointX="25.75" PointY="29.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.FloorConfig" Width="1.5" PointX="0.75" PointY="30.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.FloorKeyword" Width="1.5" PointX="27.75" PointY="9.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.GeographyTest" Width="1.5" PointX="6.75" PointY="30.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.GeometryTest" Width="1.5" PointX="20.75" PointY="30.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.GroupTestDetail" Width="1.5" PointX="21" PointY="24.375" />
+        <EntityTypeShape EntityType="HKTHMallModel.GroupTestMaster" Width="1.5" PointX="18.75" PointY="24.625" />
+        <EntityTypeShape EntityType="HKTHMallModel.HierarchyIdTest" Width="1.5" PointX="22.75" PointY="30.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.Images" Width="1.5" PointX="27.75" PointY="13.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.Items" Width="1.5" PointX="21" PointY="15.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.Message" Width="1.5" PointX="27.75" PointY="26.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.MultiLanguage" Width="1.5" PointX="27.75" PointY="29.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.NewInfo" Width="1.5" PointX="28.75" PointY="3.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.Notes" Width="1.5" PointX="21" PointY="9.625" />
+        <EntityTypeShape EntityType="HKTHMallModel.OptionalColumnTest" Width="1.5" PointX="2.75" PointY="31.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.Order" Width="1.5" PointX="13.75" PointY="14.125" />
+        <EntityTypeShape EntityType="HKTHMallModel.OrderAddress" Width="1.5" PointX="16" PointY="4.625" />
+        <EntityTypeShape EntityType="HKTHMallModel.OrderDetails" Width="1.5" PointX="16" PointY="26.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.OrderDetails_lang" Width="1.5" PointX="18.25" PointY="27.375" />
+        <EntityTypeShape EntityType="HKTHMallModel.OrderItems" Width="1.5" PointX="23.25" PointY="12" />
+        <EntityTypeShape EntityType="HKTHMallModel.Orders" Width="1.5" PointX="21" PointY="12.125" />
+        <EntityTypeShape EntityType="HKTHMallModel.OrderTrackingLog" Width="1.5" PointX="16" PointY="19.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.PagingTest" Width="1.5" PointX="8.75" PointY="31.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.ParameterSet" Width="1.5" PointX="28.75" PointY="16.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.PaymentOrder" Width="1.5" PointX="28.75" PointY="20.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.PaymentOrder_Orders" Width="1.5" PointX="29.75" PointY="7.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.Product" Width="1.5" PointX="5.75" PointY="11.625" />
+        <EntityTypeShape EntityType="HKTHMallModel.Product_Lang" Width="1.5" PointX="8" PointY="15.375" />
+        <EntityTypeShape EntityType="HKTHMallModel.ProductConsult" Width="1.5" PointX="29.75" PointY="10.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.ProductImage" Width="1.5" PointX="10.75" PointY="32.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.ProductPic" Width="1.5" PointX="8" PointY="18.625" />
+        <EntityTypeShape EntityType="HKTHMallModel.ProductRule" Width="1.5" PointX="11" PointY="14.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.PurchaseOrder" Width="1.5" PointX="12.75" PointY="32.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.PurchaseOrderDetails" Width="1.5" PointX="14.75" PointY="32.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.RecommendBonusRecord" Width="1.5" PointX="16" PointY="22.375" />
+        <EntityTypeShape EntityType="HKTHMallModel.Report" Width="1.5" PointX="16.75" PointY="32.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.ReportType" Width="1.5" PointX="29.75" PointY="24.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.ReportType_lang" Width="1.5" PointX="29.75" PointY="27.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.ReturnProductInfo" Width="1.5" PointX="16" PointY="12.375" />
+        <EntityTypeShape EntityType="HKTHMallModel.SalesProduct" Width="1.5" PointX="24.75" PointY="32.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.SalesRule" Width="1.5" PointX="8.75" PointY="12" />
+        <EntityTypeShape EntityType="HKTHMallModel.ShipmentTemplate" Width="1.5" PointX="29.75" PointY="30.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.ShoppingCart" Width="1.5" PointX="3" PointY="12.5" />
+        <EntityTypeShape EntityType="HKTHMallModel.SKU_Attributes" Width="1.5" PointX="21.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HKTHMallModel.SKU_AttributeValues" Width="1.5" PointX="24" PointY="1.625" />
+        <EntityTypeShape EntityType="HKTHMallModel.SKU_Product" Width="1.5" PointX="8" PointY="25.375" />
+        <EntityTypeShape EntityType="HKTHMallModel.SKU_ProductAttributes" Width="1.5" PointX="4.75" PointY="33.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.SKU_ProductTypeAttribute" Width="1.5" PointX="24" PointY="4.875" />
+        <EntityTypeShape EntityType="HKTHMallModel.SKU_ProductTypes" Width="1.5" PointX="18.75" PointY="4.75" />
+        <EntityTypeShape EntityType="HKTHMallModel.SKU_SKUItems" Width="1.5" PointX="8" PointY="21.5" />
+        <EntityTypeShape EntityType="HKTHMallModel.SP_ProductComment" Width="1.5" PointX="8" PointY="6.5" />
+        <EntityTypeShape EntityType="HKTHMallModel.Suppliers" Width="1.5" PointX="30.75" PointY="15.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.THArea" Width="1.5" PointX="5.75" PointY="3.375" />
+        <EntityTypeShape EntityType="HKTHMallModel.THArea_lang" Width="1.5" PointX="8" PointY="3.375" />
+        <EntityTypeShape EntityType="HKTHMallModel.TimestampTest" Width="1.5" PointX="30.75" PointY="3.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.UserAddress" Width="1.5" PointX="3" PointY="19.875" />
+        <EntityTypeShape EntityType="HKTHMallModel.UserLoginLog" Width="1.5" PointX="30.75" PointY="20.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.Users" Width="1.5" PointX="18.75" PointY="33.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.UsersWithChar" Width="1.5" PointX="20.75" PointY="33.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.YF_FareTemplate" Width="1.5" PointX="26.75" PointY="33.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.YF_FareTemplateAreaGroup" Width="1.5" PointX="0.75" PointY="34.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.YH_Agent" Width="1.5" PointX="3" PointY="23.75" />
+        <EntityTypeShape EntityType="HKTHMallModel.YH_GroupMark" Width="1.5" PointX="31.75" PointY="6.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.YH_MerchantInfo" Width="1.5" PointX="6.75" PointY="34.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.YH_PasswordError" Width="1.5" PointX="31.75" PointY="9.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.YH_User" Width="1.5" PointX="0.75" PointY="11.5" />
+        <EntityTypeShape EntityType="HKTHMallModel.YH_UserBankAccount" Width="1.5" PointX="3" PointY="15.75" />
+        <EntityTypeShape EntityType="HKTHMallModel.YH_UserFeedBack" Width="1.5" PointX="31.75" PointY="24.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.YH_UserLoginLog" Width="1.5" PointX="31.75" PointY="12.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.YH_UserUpdateInfo" Width="1.5" PointX="31.75" PointY="29.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.YH_UserVerify" Width="1.5" PointX="28.75" PointY="34.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.YH_UserVisitingCard" Width="1.5" PointX="31.75" PointY="32.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.YH_ValidEmail" Width="1.5" PointX="32.75" PointY="15.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.ZJ_AmountChangeType" Width="1.5" PointX="32.75" PointY="3.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.ZJ_AmountChangeType_lang" Width="1.5" PointX="32.75" PointY="19.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.ZJ_RechargeOrder" Width="1.5" PointX="33.75" PointY="6.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.ZJ_UserBalance" Width="1.5" PointX="33.75" PointY="10.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.ZJ_UserBalanceChangeLog" Width="1.5" PointX="8.75" PointY="36.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.ZJ_WithdrawOrder" Width="1.5" PointX="3" PointY="4.375" />
+        <EntityTypeShape EntityType="HKTHMallModel.DecimalTest" Width="1.5" PointX="10.75" PointY="36.25" />
+        <EntityTypeShape EntityType="HKTHMallModel.SchemaTable" Width="1.5" PointX="16.75" PointY="36.25" />
+        <AssociationConnector Association="HKTHMallModel.FK_AC_USER_REFERENCE_AC_DEPAR" />
+        <AssociationConnector Association="HKTHMallModel.FK_AC_FUNCT_REFERENCE_AC_MODUL" />
+        <AssociationConnector Association="HKTHMallModel.FK_AC_USER_REFERENCE_AC_ROLE" />
+        <AssociationConnector Association="HKTHMallModel.FK_BRAND_LA_REFERENCE_BRAND" />
+        <AssociationConnector Association="HKTHMallModel.FK_CATEGORY_REFERENCE_SKU_PROD" />
+        <AssociationConnector Association="HKTHMallModel.FK_COMPLAIN_REFERENCE_ORDER" />
+        <AssociationConnector Association="HKTHMallModel.FK_CompoundKeyDetail_CompoundKeyMaster" />
+        <AssociationConnector Association="HKTHMallModel.FK_Notes_Customers" />
+        <AssociationConnector Association="HKTHMallModel.FK_Orders_Customers" />
+        <AssociationConnector Association="HKTHMallModel.FK_FAVORITE_REFERENCE_YH_USER" />
+        <AssociationConnector Association="HKTHMallModel.FK_GroupTestDetail_GroupTestMaster" />
+        <AssociationConnector Association="HKTHMallModel.FK_OrderItems_Items" />
+        <AssociationConnector Association="HKTHMallModel.FK_ORDERADD_REFERENCE_ORDER" />
+        <AssociationConnector Association="HKTHMallModel.FK_ORDERDET_REFERENCE_ORDER" />
+        <AssociationConnector Association="HKTHMallModel.FK_ORDERTRA_REFERENCE_ORDER" />
+        <AssociationConnector Association="HKTHMallModel.FK_RECOMMEN_REFERENCE_ORDER" />
+        <AssociationConnector Association="HKTHMallModel.FK_RETURNPR_REFERENCE_ORDER" />
+        <AssociationConnector Association="HKTHMallModel.FK_ORDERDET_REFERENCE_ORDERDET" />
+        <AssociationConnector Association="HKTHMallModel.FK_OrderItems_Orders" />
+        <AssociationConnector Association="HKTHMallModel.FK_PRODUCT__REFERENCE_PRODUCT" />
+        <AssociationConnector Association="HKTHMallModel.FK_PRODUCTP_REFERENCE_PRODUCT" />
+        <AssociationConnector Association="HKTHMallModel.FK_PRODUCTR_REFERENCE_PRODUCT" />
+        <AssociationConnector Association="HKTHMallModel.FK_SKU_PROD_REFERENCE_PRODUCT" />
+        <AssociationConnector Association="HKTHMallModel.FK_SKU_SKUI_REFERENCE_PRODUCT" />
+        <AssociationConnector Association="HKTHMallModel.FK_SP_PRODU_REFERENCE_PRODUCT" />
+        <AssociationConnector Association="HKTHMallModel.FK_PRODUCTR_REFERENCE_SALESRUL" />
+        <AssociationConnector Association="HKTHMallModel.FK_SHOPPING_REFERENCE_YH_USER" />
+        <AssociationConnector Association="HKTHMallModel.FK_SKU_ATTR_REFERENCE_SKU_ATTR" />
+        <AssociationConnector Association="HKTHMallModel.FK_SKU_PROD_REFERENCE_SKU_ATTR" />
+        <AssociationConnector Association="HKTHMallModel.FK_SKU_PROD_REFERENCE_SKU_PROD" />
+        <AssociationConnector Association="HKTHMallModel.FK_THAREA_L_REFERENCE_THAREA" />
+        <AssociationConnector Association="HKTHMallModel.FK_USERADDR_REFERENCE_YH_USER" />
+        <AssociationConnector Association="HKTHMallModel.FK_YH_AGENT_REFERENCE_YH_USER" />
+        <AssociationConnector Association="HKTHMallModel.FK_YH_USERB_REFERENCE_YH_USER" />
+        <AssociationConnector Association="HKTHMallModel.FK_ZJ_WITHD_REFERENCE_YH_USER" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

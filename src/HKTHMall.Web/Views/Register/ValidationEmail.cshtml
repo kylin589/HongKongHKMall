@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "ValidationEmail";
+}
+@using HKTHMall.Services.Common.MultiLangKeys;
+<script src="~/Content/newcss/js/dsdialog.js"></script>
+<link href="~/Content/newcss/css/base.css" rel="stylesheet" />
+<div class="main_about">
+
+    <div class="m_reg_succ">
+        <div class="m_reg_succ_bt">
+            <div class="m_reg_succ_butt">
+                <ul><i></i>@Html.Raw(string.Format(CultureHelper.GetLangString("LOGIN_REGISTER_YIFASONGYANZHENGMA"), "<ins>" + ViewBag.loginEmail + "</ins>"))</ul>
+                <dl><b>—— @(ViewBag.isLogin == true ? CultureHelper.GetLangString("LOGIN_REGISTER_YOUXIANGYANZHENG") : CultureHelper.GetLangString("HK_FALDPWD"))  ——</b></dl>
+                <span><a href="@ViewBag.emailUrl" title=""> @CultureHelper.GetLangString("LOGIN_REGISTER_QUYOUXIANGYANZHENG")</a></span>
+            </div>
+        </div>
+        <div class="m_reg_succ_nr">
+            @CultureHelper.GetLangString("LOGIN_REGISTER_SHOUBUDAOYOUJIAN")<br>
+            @CultureHelper.GetLangString("LOGIN_REGISTER_CHECKTRASHEMAIL")<a href="javascript:SendEmail('@ViewBag.email')" style="cursor:pointer"   class="reSendMess">@CultureHelper.GetLangString("HOME_SHOPING_EMAILAGAIN")</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="dialogCover"><div class="dialogMain"></div></div>
+</div>
+<script type="text/javascript">
+    function SendEmail(a)
+    {
+        $.ajax({
+            url: "@Url.Action("SendValideEmail")",
+            type:"Post",
+            data: {
+                email:a
+            },
+            dataType: "json",
+            success: function (date)
+            {
+               
+                ds.dialog({ content: date.message, yesText: "@CultureHelper.GetLangString("ORDER_LIST_SURE")", onyes: function () { this.close(); }, });
+             
+            }
+                
+        })
+    }
+</script>

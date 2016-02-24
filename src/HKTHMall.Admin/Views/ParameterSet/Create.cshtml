@@ -1,0 +1,30 @@
+﻿@model HKTHMall.Domain.Models.Sys.ParameterSetModel
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Key name :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.ParamenterID)
+        @Html.TextBoxFor(t => t.keys, new { @class = "form-control", @placeholder = "Please enter key name", @maxlength = "50" })
+        @Html.ValidationMessageFor(m => m.keys)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Key value :
+    </label>
+    <div class="controls">
+        @Html.TextBoxFor(t => t.PValue, new { @class = "form-control", @placeholder = "Please enter key value", @maxlength = "50" })
+        @Html.ValidationMessageFor(m => m.PValue)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Remark :
+    </label>
+    <div class="controls">
+        @Html.TextAreaFor(t => t.Remark, new { @class = "form-control", @placeholder = "Please enter remark", @style = "width: 206px; height: 70px;", @maxlength = "100" })
+        @Html.ValidationMessageFor(m => m.Remark)
+    </div>
+</div>
+

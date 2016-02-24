@@ -1,0 +1,135 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.User.SearchFeedbackModel
+@{
+    ViewBag.Title = "Feedback information page list";
+}
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>User Name: </span>
+            @Html.TextBoxFor(x => x.Account, new { @class = "form-control w70", @placeholder = "Please enter user's name" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Feedback type name: </span>
+            @Html.TextBoxFor(x => x.FeedbackName, new { @class = "form-control w70", @placeholder = "Please provide a feedback type name" })
+        </div>
+        &nbsp;
+        @*update by liujc*@
+        <span>Language: </span>
+        <select class="form-control text-center" id="LanguageID" name="LanguageID">
+            @foreach (KeyValuePair<int, string> _pair in HKTHMall.Admin.common.ACultureHelper.GetLanguageList())
+            {
+                <option value="@_pair.Key" @(HKTHMall.Admin.common.ACultureHelper.GetLanguageID == _pair.Key ? "selected" : "")>@_pair.Value</option>
+            }
+        </select>
+        &nbsp;
+        <span>Source: </span>
+        <select class="form-control text-center" id="Source" name="Source">
+            <option value="">--All--</option>
+            <option value="1">Website</option>
+            <option value="2">Android</option>
+            <option value="3">IOS</option>
+        </select>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-danger js_reset" onclick="ClearSearch($('#user-toolbar'))">
+            <span class="glyphicon glyphicon-bullhorn"></span> Clear
+        </button>
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts{
+    <script type="text/javascript">
+        //加载数据
+        $(function () {
+            var columns = [
+            { field: "FeedbackId", title: "ID", align: 'center', valign: 'middle', sortable: false },
+            { field: 'Account', title: 'User Name', align: 'center', valign: 'middle', sortable: false },
+            { field: 'FeedbackName', title: 'Feedback type name', align: 'center', valign: 'middle', sortable: false },
+            { field: "MsgContent", title: "Content", align: 'center', valign: 'middle', sortable: false },
+            {
+                field: "Source", title: "Source", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                    if (arguments && arguments[1]) {
+                        //来源（1: 网站；2:安卓; 3:IOS）
+                        var SourceName = "";
+                        switch (arguments[1].Source) {
+                            case 1:
+                                SourceName = "Website";
+                                break;
+                            case 2:
+                                SourceName = "Android";
+                                break;
+                            case 3:
+                                SourceName = "IOS";
+                                break;
+                            default:
+                                SourceName = "-"
+                                break;
+
+                        }
+                        return SourceName;
+                    }
+                }
+            },
+            {
+                field: "FeedbackDate", title: "Feedback time", align: 'center', valign: 'middle', sortable: false, formatter:
+                  function (val)
+                  {
+                      return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                  }
+            }
+            ];
+
+            //加载列表数据
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+                queryParams: function (params) {
+                    return {
+                        FeedbackName: $('#FeedbackName').val().trim(),
+                        Account: $('#Account').val().trim(),
+                        LanguageID: $('#LanguageID').val().trim(),
+                        Source: $('#Source').val().trim(),
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        Time: new Date().getTime()
+                    };
+                },
+                pagination: true,
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns
+            });
+            //搜索事件
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+            //按Enter键回车搜索
+            $('#FeedbackName').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#Account').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+        });
+
+        function ClearSearch(modal) {
+            modal.find(':input').not(':button, :submit, :reset,select').val('').removeAttr('checked');
+            try {
+                modal.find('#Source').val("");
+            } catch (e) {
+
+            }
+        }
+    </script>
+}

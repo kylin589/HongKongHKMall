@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="Keywords" content="">
+		<title>香港商城</title>
+		<link rel="stylesheet" type="text/css" href="newcss/css/css.css" />
+		<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+	</head>
+
+<body>
+<div class="header">
+	<div class="clear" style="background: #ccc; height: 175px;"></div>
+</div><!--公共头部-->
+
+
+<div class="main_a">
+	
+	<div class="main_about">
+    	<div class="specLayout">
+			<div class="specMain_2016">
+				<ul>
+					<li><a href="javascript:void();">首页</a></li>
+					<li class="spector"><i class="fa fa-angle-right"></i></li>
+					<li><a href="javascript:void();">购物车</a></li>
+					<span class="clear"></span>
+				</ul>
+			</div>
+            
+            <div class="ls_payment">
+            	<div class="cartStep">
+                	<div class="cartStepImg"></div>
+                	<ul>
+                		<li class="stepOnlink">我的购物车</li>
+                		<li>填写核对订单信息</li>
+                		<li>成功提交订单</li>
+                		<span class="clearfix"></span>
+                	</ul>
+                </div>
+            	<div class="ls_dingdan_info">
+            		<dl>
+            			<dd class="info1">订单提交成功，请您尽快付款！订单号：10080150654 <span>应付总额：<i>$</i><b>1006.00</b></span></dd>
+            			<dd class="info2">请您在提交订单后48小时内完成支付，否则订单会自动取消。 <a href="javascript:" title="">订单详情<i></i></a></dd>
+            		</dl>
+            		<ul>
+            			<li>收货地址：上海市虹口区上海    收货人：黄兴亚    151****4610</li>
+            			<li>商品名称：美菱（MeiLing） BCD-518WEC 518升 风冷/对开门/电脑冰箱（月光银）</li>
+            			<li>商品名称：美菱（MeiLing） BCD-518WEC 518升 风冷/对开门/电脑冰箱（月光银）</li>
+            		</ul>
+            	</div>
+            	
+            	<div class="ls_pay_tit">
+            		<dl>
+            			<dt>支付方式</dt>
+            			<dd>你在安全的环境中，请放心使用！</dd>
+            		</dl>
+            	</div>
+            	<div class="ls_pay_method">
+            		<div class="pay_method1">
+            			<input type="radio" id="pay_method1" name="pay_method"></input><label for="pay_method1"><img src="newcss/css/images/ls_pay_visa.jpg"/></label><span>支付：<i>$</i><b>1006.00</b></span><em><img src="newcss/css/images/ls_pay_omise.jpg"/></em>
+            		</div>
+            		<div class="pay_method2">
+            			<input type="radio" id="pay_method2" name="pay_method"></input><label for="pay_method2"><img src="newcss/css/images/paypal.jpg"/></label><span>支付：<i>$</i><b>1006.00</b></span>
+            		</div>
+            		<div class="pay_method3">
+            			<input type="radio" id="pay_method3" name="pay_method"></input><label for="pay_method3">余额支付</label><i>账户余额</i><i>USD</i><i>****</i><i></i> <span>余额不足,请选择以上一种方式再支付：<i>$</i><b>1006.00</b></span>
+            		</div>
+            		
+            		<div class="ls_set_pay">
+            			<!--如果用户设置过交易密码，只显示ls_set_pay1，如果没有设置交易密码，则只显示ls_set_pay2-->
+            			<div class="ls_set_pay1">
+            			交易密码 <input type="password" name="" id="" value="" /><a href="#" title="">忘记交易密码?</a>
+            			</div>
+            			<div class="ls_set_pay2">
+            			还未设置交易密码<a href="#" title="">立即设置</a>
+            			</div>
+            			
+            		</div>
+            		
+            		
+            	</div>
+            	<div class="ls_pay_now">
+            		<p>支付：<i>$</i><b>1006.00</b></p>
+            		<a href="" title="">立即支付</a>
+            	</div>
+            </div>
+            
+    	</div>
+	</div>
+
+</div><!--主体部分-->
+
+
+
+<div class="footer"></div><!--公共底部-->
+
+
+<script type="text/javascript">
+	$(function(){
+		//订单详情
+		$(".info2 a").click(function(){
+			$(".ls_dingdan_info>ul").slideToggle(400);
+			$(this).children("i").toggleClass("i2");
+			
+		});
+		
+		
+		
+		
+		
+		
+		//支付方式账户余额显示隐藏切换
+		$(".pay_method3 i").eq(3).click(function(){       
+			var my_text=$(".pay_method3 i").eq(2).text();
+			if(isNaN(my_text)){
+				$(".pay_method3 i").eq(2).text("1234")
+			}else{
+				$(".pay_method3 i").eq(2).text("****")
+			};
+			
+		})
+	})
+</script>
+<script type="text/javascript">
+	//支付方式选择
+		$(".ls_pay_method span").hide();
+		$(".ls_pay_method input").click(function(){
+			if($(this).attr("checked","true")) {
+			 	 $(this).nextAll("span").fadeIn(400);
+			 	 $(this).parent().siblings().find("span").fadeOut(400);
+			 }else{
+			 	 $(this).nextAll("span").fadeOut(400);
+			 };
+			 
+
+			 if($("#pay_method3").is(":checked")){
+			 	$(".ls_set_pay").slideDown(400);
+			 }else{
+			 	$(".ls_set_pay").slideUp(400);
+			 }
+		});
+</script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

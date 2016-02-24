@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "GetValidateCode";
+    Layout = null;
+}
+
+<p>
+    
+    <img id="valiCode" style="cursor: pointer;" src="GetValidateCode" alt="验证码"  />
+</p>
+
+<script>
+
+    $(function () {
+        $("#valiCode").bind("click", function () {
+            this.src = "GetValidateCode";
+        });
+    });
+</script>  

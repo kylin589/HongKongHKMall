@@ -1,0 +1,241 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@model HKTHMall.Domain.AdminModel.Models.Products.SearchSalesProductModel
+@{
+    ViewBag.Title = "Advertising sales promotion commodity list page";
+    var placeCodeList = ViewData["PlaceCodeList"] as List<SelectListItem>;
+
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(30);
+    _Authority.Delete = _Authority.CheckAction(31);
+    _Authority.Move = _Authority.CheckAction(32);
+}
+<input type="hidden" id="hidPageIndex" value="0" />
+<input type="hidden" id="hidPageSize" value="10" />
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>Product name: </span>
+            @Html.TextBoxFor(x => x.ProductName, new { @class = "form-control w70", @placeholder = "Please enter a product name" })
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-danger js_reset" onclick="Tool.ClearForm($('#user-toolbar'))">
+            <span class="glyphicon glyphicon-bullhorn"></span> Clear
+        </button>
+        &nbsp;
+        @if (_Authority.Add)
+        {
+            <button type="button" class="btn btn-primary js_create">
+                <span class="glyphicon glyphicon-plus"></span> Add
+            </button>
+        }
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts{
+    <script type="text/javascript">
+        //权限
+        var $addCheck = eval("@(_Authority.Add.ToString().ToLower())");
+        var $deleteCheck = eval("@(_Authority.Delete.ToString().ToLower())");
+        var $moveCheck = eval("@(_Authority.Move.ToString().ToLower())");
+        //加载数据
+        $(function () {
+            var columns = [
+                   { field: "productId", title: "Product SN", align: 'center', valign: 'middle', sortable: false },
+                   { field: "ProductName", title: "Product name", align: 'center',width:'100px', valign: 'middle', sortable: false },
+                   { field: "HKPrice", title: "Sale price", align: 'center', valign: 'middle', sortable: false },
+                   { field: "SalePrice", title: "Promotion price", align: 'center', valign: 'middle', sortable: false },
+                   {
+                       field: "SalesRuleId", title: "Promotion type", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                           if (arguments && arguments[1]) {
+                               //无促销=1,限时打折=2
+                               var SalesRuleIdName = "-";
+                               switch (arguments[1].SalesRuleId) {
+                                   case 1:
+                                       SalesRuleIdName = "No Promotions";
+                                       break;
+                                   case 2:
+                                       SalesRuleIdName = "Trader";
+                                       break;
+                                   default:
+                                       break;
+
+                               }
+                               return SalesRuleIdName;
+                           }
+                       }
+                   },
+                   {
+                       field: "Status", title: "Status", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                           if (arguments && arguments[1]) {
+                               //未提交=1,待审核=2,审核不通过=3,已上架=4,已下架=5
+                               var statusName = "-";
+                               switch (arguments[1].Status) {
+                                   case 1:
+                                       statusName = "Uncommitted";
+                                       break;
+                                   case 2:
+                                       statusName = "Review Pending";
+                                       break;
+                                   case 3:
+                                       statusName = "Audit not passed";
+                                       break;
+                                   case 4:
+                                       statusName = "Have shelves";
+                                       break;
+                                   case 5:
+                                       statusName = "Off shelves";
+                                       break;
+                                   default:
+                                       break;
+
+                               }
+                               return statusName;
+                           }
+                       }
+                   },
+                   {
+                       field: "PicAddress", title: "Picture URL", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                           if (arguments && arguments[1]) {
+                               var img = '<a class="screenshot"  href="' + Tool.RootImage + arguments[1].PicAddress + '" target="_blank" title="' + Tool.RootImage + arguments[1].PicAddress + '" rel="' + Tool.RootImage + arguments[1].PicAddress + '"> ';
+                               img += '<img src="' + Tool.RootImage + arguments[1].PicAddress + '"  "width="60px" height="60px"/>';
+                               img += '</a>';
+                               return img;
+                           }
+                       }
+                   },
+                   {
+                       field: "StarDate", title: "Start time", align: 'center', valign: 'middle', sortable: false,
+                         formatter: function (val) {
+                             return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                         }
+                   },
+                   {
+                       field: "EndDate", title: "End time", align: 'center', valign: 'middle', sortable: false,
+                        formatter: function (val) {
+                            return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                        }
+                   },
+                   {
+                       field: "CreateDT", title: "Create time", align: 'center', valign: 'middle', sortable: false,
+                       formatter: function (val) {
+                           return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                       }
+                   },
+                   {
+                       field: "SalesProductId", title: "Operation", align: 'center', valign: 'middle', 
+                       formatter: function (val) {
+                           var operation = '';
+                           if ($moveCheck) {
+                               operation += '<a class="ssorts ml10" href="javascript:void(0)" title="move up"><i class="glyphicon glyphicon-arrow-up"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;' +
+                               '<a class="xsorts ml10" href="javascript:void(0)" title="Down">' +
+                               '<i class="glyphicon glyphicon-arrow-down"></i>' +
+                               '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                           }
+                           if ($addCheck) {
+                               operation += '<a class="edit ml10" href="javascript:void(0)" title="Update"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                           }
+                           if ($deleteCheck) {
+                               operation += '<a class="remove ml10" href="javascript:void(0)" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>';
+                           }
+                           if (operation == '') {
+                               operation = '-';
+                           }
+                           return [
+                                  operation
+                           ].join('');
+                       },
+                       events: {
+                           //上移
+                           'click .ssorts': function (e, value, row, index) {
+                               UpdateSorts(index, value, 1, $('#ProductName').val().trim(), $("#hidPageIndex").val(), $("#hidPageSize").val());
+                           },
+                           //下移
+                           'click .xsorts': function (e, value, row, index) {
+                               UpdateSorts(index, value, 2, $('#ProductName').val().trim(), $("#hidPageIndex").val(), $("#hidPageSize").val());
+                           },
+                           //编辑
+                           'click .edit': function (e, value, row, index) {
+                               Tool.ShowModal('@Url.Action("Create")', { id: value, time: new Date().getTime() }, 'Edit the advertising goods');
+                           },
+                           //删除
+                           'click .remove': function (e, value, row, index) {
+                               Tool.DeleteRecord('@Url.Action("Delete")', { salesProductId: value }, $('#u_grid'));
+                           }
+                       }
+                   }];
+            //加载列表数据
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+                queryParams: function (params) {
+                    $("#hidPageIndex").val(this.pageNumber - 1);
+                    $("#hidPageSize").val(this.pageSize);
+                    return {
+                        ProductName: $('#ProductName').val().trim(),
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: 1000,
+                        time: new Date().getTime()
+                    };
+                },
+                pagination: false,
+                showRefresh: true,
+                columns: columns,
+                onLoadSuccess: function () {
+                    screenshotPreview();
+                }
+            });
+
+            //搜索事件
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+                XYHover.images("#u_grid", 'img');
+            });
+            //按Enter键回车搜索
+            $('#ProductName').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            //添加广告促销商品
+            $('.js_create').click(function () {
+                Tool.ShowModal("@Url.Action("Create")", { time: new Date().getTime() }, "Add the advertising goods");
+            });
+        })
+        //保存
+        function Save() {
+            if ($('#PicAddress', "#modal-form").val() == '') {
+                $("#divError").empty();
+                $("#divError").append("Please select picture");
+                $("#divError").attr("style", "display");
+                setInterval(function () { $("#divError").attr("style", "display:none"); }, 2000);
+                return;
+            }
+            Tool.SaveModal($('#u_grid'));
+        }
+        //更新排序位置
+        function UpdateSorts(rowId, SalesProductId, sortType, ProductName, PagedIndex, PagedSize) {
+            $.ajax({
+                url: '@Url.Action("UpdatePlace")' + "?rowId=" + rowId + "&SalesProductId=" + SalesProductId + "&sortType=" + sortType + "&ProductName=" + ProductName + "&PagedIndex=" + PagedIndex + "&PagedSize=" + PagedSize,
+                dataType: "text",
+                success: function (data, status) {
+                    data = JSON.parse(data);
+                    if (data.IsValid) {
+                        Tool.ReloadDataTable($('#u_grid'));
+                    }
+                    Tool.Alert(data.Messages, 1500);
+                },
+                error: function (data, status, e) {
+                    Tool.Alert("Failed!", 1500);
+                }
+            });
+        }
+    </script>
+}

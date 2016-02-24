@@ -1,0 +1,205 @@
+﻿@using HKTHMall.Domain.Enum
+@model HKTHMall.Domain.WebModel.Models.Orders.PaymentActionPageView
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool isSetPayPassword = !string.IsNullOrEmpty(Model.UserInfoViewForPayment.PayPassWord);        //是否设置交易密码
+    int paypal = (int)OrderEnums.PayChannel.PayPal;        //paypal
+    int balance = (int)OrderEnums.PayChannel.Balance;      //余额支付
+    //int omise = (int)OrderEnums.PayChannel.Omise;          //omise
+    //是否足够余额进行订单支付
+    bool isEnoughBalance = Model.PaymentOrderView.ProductAmount <= Model.UserInfoViewForPayment.ConsumeBalance;
+}
+
+
+<div class="main_a">
+
+    <div class="main_about">
+        <div class="specLayout">
+            <div class="specMain_2016">
+                <ul>
+                    <li><a href="javascript:void();">@CultureHelper.GetLangString("HOME_INDEX_HOMEPAGE")@*首页*@</a></li>
+                    <li class="spector"><i class="fa fa-angle-right"></i></li>
+                    <li><a href="javascript:void();">@CultureHelper.GetLangString("MONEY_SHOPPINGCART_SHOPPINGCART")@*购物车*@</a></li>
+                    <span class="clear"></span>
+                </ul>
+            </div>
+
+            <div class="ls_payment">
+                <div class="cartStep">
+                    <div class="cartStepImg2"></div>
+                    <ul>
+                        <li class="stepOnlink">@CultureHelper.GetLangString("HOME_INDEX_MYSHOPPINGCART")@*我的购物车*@</li>
+                        <li class="stepOnlink">@CultureHelper.GetLangString("HOME_CHART_HEDUIDINGDAN")@*填写核对订单信息*@</li>
+                        <li>@CultureHelper.GetLangString("HOME_INDEX_ORDERSUBMITSUCCESS")@*成功提交订单*@</li>
+                        <span class="clearfix"></span>
+                    </ul>
+                </div>
+                <div class="ls_dingdan_info">
+                    <dl>
+                        @*订单提交成功，请您尽快付款！*@
+                        <dd class="info1">@CultureHelper.GetLangString("PAYMENTACTION_SUCCESS_PAYMENT_ORDER_NO")@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_ORDERNUMBER")@*订单号*@：@Model.OrderAddressView.OrderID <span>@CultureHelper.GetLangString("ORDER_SUMPAYABLE")@*应付总额*@：<i>$</i><b>@(Model.PaymentOrderView.ProductAmount.ToString("0.00"))</b></span></dd>
+                        @*请您在提交订单后48小时内完成支付，否则订单会自动取消。*@
+                        <dd class="info2">@CultureHelper.GetLangString("PAYMENTACTION_MESSAGE_CANCEL_PAY") <a href="javascript:" title="">@CultureHelper.GetLangString("ACCOUNT_MY_ORDERPRODUCTLISTT2_ORDERDETAILS")@*订单详情*@<i></i></a></dd>
+                    </dl>
+                    <ul>
+                        <li>
+                            @******收货地址******@
+                            @CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_ADDRESS")：@(Model.OrderAddressView.DetailsAddress)
+                            @******收货人******@
+                            @CultureHelper.GetLangString("ORDER_RECEIVER")：@(Model.OrderAddressView.Receiver)    @(Model.UserInfoViewForPayment.Phone)
+                        </li>
+                        @if (Model.OrderDetailsForPayResultView != null && Model.OrderDetailsForPayResultView.Count > 0)
+                        {
+                            foreach (var detail in Model.OrderDetailsForPayResultView)
+                            {
+                                <li>@CultureHelper.GetLangString("PORDUCT_NAME")@*商品名称*@：@detail.ProductName</li>
+                            }
+                        }
+                    </ul>
+                </div>
+
+                <div class="ls_pay_tit">
+                    <dl>
+                        <dt>@CultureHelper.GetLangString("ORDER_PAY")@*支付方式*@</dt>
+                        <dd>@CultureHelper.GetLangString("PAYMENTACTION_SAFE_MESSAGE")@*你在安全的环境中，请放心使用！*@</dd>
+                    </dl>
+                </div>
+                <div class="ls_pay_method">
+                    <div class="pay_method2">
+                        <input type="radio" id="pay_method2" class="js-pay-paypal" name="pay_method" value="@paypal" @*@IsChecked(Model.PaymentOrderView.PayChannel, paypal)*@ />
+                        <label for="pay_method2">
+                            <img src="~/Content/newcss/css/images/paypal.jpg" />
+                        </label>
+                        <span class="hide">@CultureHelper.GetLangString("PAY")@*支付*@：<i>$</i><b class="js-differenceAmount">@(Model.PaymentOrderView.ProductAmount.ToString("0.00"))</b></span>
+                    </div>
+                    <div class="pay_method3">
+                        <input id="pay_method3" class="js-pay-balance" value="@balance"
+                               type="@(isEnoughBalance ? "radio" : "checkbox")"
+                               name="@(isEnoughBalance ? "pay_method" : "pay_method2")"
+                               data-issetpaypwd="@(isSetPayPassword?1:0)"
+                               data-totalamount="@(Model.PaymentOrderView.ProductAmount.ToString("0.00"))"
+                               data-balance="@(Model.UserInfoViewForPayment.ConsumeBalance.ToString("0.00"))" />
+                        <label for="pay_method3">@CultureHelper.GetLangString("MONEY_ORDER_PAYMENT_BALANCE")@*余额支付*@</label>
+                        <i>@CultureHelper.GetLangString("MONEY_ORDER_ACCOUNT_BALANCE")@*账户余额*@</i>
+                        <i>USD</i><i>****</i><i></i>
+                        <span class="js-pay-mixture-msg hide">
+                            @*余额不足,请选择以上一种方式再支付*@
+                            @if (!isEnoughBalance)
+                            {
+
+                                @(CultureHelper.GetLangString("PAYMENTACTION_PLEASE_SELECT"))<text>:</text>
+                            }
+
+                            <i>$</i><b class="js-differenceAmount">@(Model.PaymentOrderView.ProductAmount.ToString("0.00"))</b>
+                        </span>
+                    </div>
+
+                    <div class="ls_set_pay">
+                        <!--如果用户设置过交易密码，只显示ls_set_pay1，如果没有设置交易密码，则只显示ls_set_pay2-->
+                        <div class="ls_set_pay1">
+                            @CultureHelper.GetLangString("ACCOUNT_USERINFO_SAFE_TRADEPASSWORD")@*交易密码*@ <input type="password" name="PayPwd" id="PayPwd" value="" /><a href="@Url.Action("UpdatePayPassword", "UserInfo", new { area = "Account" })" target="_blank" title="">@CultureHelper.GetLangString("ACCOUNT_USERINFO_SAFE_FORGETPASSWORD")@*忘记交易密码?*@</a>
+                        </div>
+                        <div class="ls_set_pay2">
+                            @CultureHelper.GetLangString("MONEY_ORDER_NONSETPASSWORD")@*还未设置交易密码*@
+                            <a href="javascript:void(0);" id="aSetPwd" title="">@CultureHelper.GetLangString("SETPAYPSSWORD_NOW")@*立即设置*@</a>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="ls_pay_now">
+                    <p>@CultureHelper.GetLangString("PAY")@*支付*@：<i>$</i><b>@(Model.PaymentOrderView.ProductAmount.ToString("0.00"))</b></p>
+                    <a href="javascript:;" id="aPayNow" title="">@CultureHelper.GetLangString("PAYMENTACTION_PAY_NOW")@*立即支付*@</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div><!--主体部分-->
+<div style="display:none">
+    @using (Html.BeginForm("PaymentPostAction", "Payment", FormMethod.Post, new { id = "formPay" }))
+    {
+        <input type="hidden" id="PaymentOrderId" name="PaymentOrderId" value="@Model.PaymentOrderView.PaymentOrderID" />
+        @*<input type="hidden" id="PayChannel" name="PayChannel" value="" />*@
+        <input type="hidden" id="PayChannel" name="PayChannel" value="" />
+        <input type="hidden" id="PayChannel2" name="PayChannel2" value="" />
+        <input type="hidden" id="PayPassword" name="PayPassword" value="" />
+    }
+</div>
+
+<div class="dialogCover">
+    <div id="dSetPwdWin" class="dialogMain">
+        <div class="settingPasswd">
+            <form id="formSetPwd" method="post" action="/">
+                <ul>
+                    <li><input type="password" id="setpwd" name="setpwd" placeholder="@CultureHelper.GetLangString("ACCOUNT_USERINFO_UPDATELOGINPASSWORD_SETPASSWORD")"></li>
+                    <li><input type="password" id="setpwd2" name="setpwd2" placeholder="@CultureHelper.GetLangString("LOGIN_GETPASSWORD_CONFIRMPASSWORD")"></li>
+                    @*<li><input type="submit" placeholder="确认" value="确认" class="dialogSubmit"></li>*@
+
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@******是否选中******@
+@helper IsChecked(int currentPayChannel, int payChannel)
+{
+    @Html.Raw(currentPayChannel != payChannel ? "" : "checked='checked'")
+}
+@section scripts{
+
+    <script src="~/Scripts/Validform.min.js"></script>
+    <script src="~/Content/plugins/layer/layer.js"></script>
+    <script src="~/Scripts/Presenter/payment.js"></script>
+
+    <script>
+        isSetPwd = @(isSetPayPassword.ToString().ToLower());
+        var balance = @(Model.UserInfoViewForPayment.ConsumeBalance.ToString("0.00")),
+            amount = @Model.PaymentOrderView.ProductAmount.ToString("0.00");
+        var  HOME_PAYMENT_SETPAYPWD = '@CultureHelper.GetLangString("HOME_PAYMENT_SETPAYPWD")',
+            HOME_SHOPPING_SURE = '@CultureHelper.GetLangString("HOME_SHOPPING_SURE")',
+            HOME_SHOPING_SELECTPAYWAY = '@CultureHelper.GetLangString("HOME_SHOPING_SELECTPAYWAY")',
+            HOME_SHOPING_NOTSETPAYWAY = '@CultureHelper.GetLangString("HOME_SHOPING_NOTSETPAYWAY")',
+            HOME_SHOPING_INPUTTRANSPWD = '@CultureHelper.GetLangString("HOME_SHOPING_INPUTTRANSPWD")',
+            HOME_SHOPING_AMOUNTNOTENOUGH = '@CultureHelper.GetLangString("HOME_SHOPING_AMOUNTNOTENOUGH")',
+            HOME_SHOPING_PLEASESETPAYPWD = '@CultureHelper.GetLangString("HOME_SHOPING_PLEASESETPAYPWD")',
+            VERIFYCODE_TWO_PWD_NOT_SAME = '@CultureHelper.GetLangString("VERIFYCODE_TWO_PWD_NOT_SAME")';
+    </script>
+    <script type="text/javascript">
+
+        $(function () {
+            //订单详情
+            $(".info2 a").click(function () {
+                $(".ls_dingdan_info>ul").slideToggle(400);
+                if ((this).children("i").attr("class", "i2")) {
+                    $(this).children("i").removeClass("i2");
+                } else {
+                    $(this).children("i").addClass("i2");
+                }
+
+            });
+
+
+
+            //支付方式账户余额显示隐藏切换
+            $(".pay_method3 i").eq(3).click(function () {
+                var my_text = $(".pay_method3 i").eq(2).text();
+                if (isNaN(my_text)) {
+                    $(".pay_method3 i").eq(2).text(balance)
+                } else {
+                    $(".pay_method3 i").eq(2).text("****")
+                };
+            })
+        })
+    </script>
+    
+
+}
+
+
+

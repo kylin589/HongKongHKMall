@@ -1,0 +1,237 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.Products.SalesProductModel
+@{
+    //var PlaceCodeList = ViewData["PlaceCodeList"] as List<SelectListItem>;
+    //var identityStatusList = ViewData["IdentityStatusList"] as List<SelectListItem>;
+}
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Product SN :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.SalesProductId)
+        @Html.HiddenFor(t => t.Discount)
+        @if (Model != null && Model.productId != 0)
+        {
+            @Html.TextBoxFor(t => t.productId, new { @class = "form-control", @placeholder = "Please enter product number", @maxlength = "50", @readonly = "true" })
+        }
+        else
+        {
+            @Html.TextBoxFor(t => t.productId, new { @class = "form-control", @placeholder = "Please enter product number", @maxlength = "50" })
+            @Html.ValidationMessageFor(m => m.productId)
+        }
+
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Product name :
+    </label>
+    <div class="controls">
+        @Html.TextBoxFor(t => t.ProductName, new { @class = "form-control", @disabled = "true", @maxlength = "50" })
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Sale price :
+    </label>
+    <div class="controls">
+        @Html.TextBoxFor(t => t.HKPrice, new { @class = "form-control", @disabled = "true", @maxlength = "50" })
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Promotion price :
+    </label>
+    <div class="controls">
+        @Html.TextBoxFor(t => t.SalePrice, new { @class = "form-control", @disabled = "true", @maxlength = "50" })
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Picture URL :
+    </label>
+    <div class="controls">
+        <input id="upLoad" type="file" name="upLoad" class="js-item-file hide" />
+        <span>
+            @if (ViewBag.ImgUrl != null)
+            {
+                <input type="hidden" id="PicAddress" name="PicAddress" value="@(ViewBag.ImgUrl)" />
+                <img src="@(ViewBag.ShowImg)" id="UpImg" class="js-item-image" style="width:100px;height:100px;">
+            }
+            else
+            {
+                <input type="hidden" id="PicAddress" name="PicAddress" value="" />
+                <img src="/Content/css/images/default-item.jpg" id="UpImg" class="js-item-image" style="width:100px;height:100px;">
+            }
+        </span>
+        @* <label class="red">*Promotion picture size 260*170</label>*@
+        <label class="red">*Promotion picture size 280*280</label>
+        <br />
+        <div style="padding-top:5px;">
+            <span><button class="btn btn-sm btn-default js-choice-item" type="button"><i class="glyphicon glyphicon-search"></i>&nbsp;Select picture</button></span>
+            <span> <input type="button" value="Upload picture" id="btnUpLoad" class="btn btn-sm btn-default js-upload-item" onclick="getBrandUrl()" /></span>
+            @Html.ValidationMessageFor(m => m.PicAddress)
+            <div style=" display:none" id="divError" class="red"></div>
+        </div>
+    </div>
+</div>
+
+<div style="border:solid 1px #3CB371"></div>
+<div><h4>Stock Info:</h4></div>
+<!--SKU_Product商品SKU列表信息-->
+<div id="SKU_Product_div" style="max-height: 100px; overflow-y: auto;">
+    <table class="table table-border table-bordered table-bg">
+        <tbody id="sku_str">
+            <tr>
+                <th>Sku name</th>
+                <th>Item No</th>
+                <th> Stocks</th>
+                <th>Sale price</th>
+                <th>List Price</th>
+                <th>Purchase Price</th>
+                <th>Enable or Disable</th>
+            </tr>
+            @if (Model.SKU_ProductModels != null && Model.SKU_ProductModels.Count > 0)
+            {
+                var index = 0;
+                foreach (var item in Model.SKU_ProductModels)
+                {
+                    index++;
+                    if (index == 1)
+                    {
+                        @Html.Raw("<tr>");
+                    }
+                <td>@(item.SkuName)</td>
+                <td>@(item.ProductCode)</td>
+                <td>@(item.Stock)</td>
+                <td>@(item.HKPrice)</td>
+                <td>@(item.MarketPrice)</td>
+                <td>@(item.PurchasePrice)</td>
+                <td>@(item.IsUse == 1 ? "Enable" : "Disable")</td>
+                    if (index == 1)
+                    {
+                        @Html.Raw("</tr>");
+                    }
+                    index = 0;
+                }
+            }
+
+            </tbody>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+            //选择图片
+            $('#modal-form .js-choice-item').on('click', function () {
+                var $parentTr = $(this).parents('.controls');
+                $('.js-item-file', $parentTr).click();
+            });
+            if (@Model.productId == 0) {
+                $("#modal-form #productId").bind("blur", function () {
+                    if ($(this).val().trim() == '' || $(this).val().trim().length == 0 || $(this).val() == '0') {
+                        return;
+                    }
+                    var mForm = $("#modal-form");
+                    $.post("/SalesProduct/IsExsitProduct", { "id": $(this).val() }, function (data) {
+                        var discount = $(mForm).find("#Discount").val();
+                        if (data) {
+                            if (data == 'Uncommitted') {
+                                Tool.Alert("Product submit pending, cannot be promotion product!", 1000);
+                            } else if (data == 'Submitting') {
+                                Tool.Alert("Product review pending, cannot be promotion product!", 1000);
+                            } else if (data == 'ExaminationNotThrough') {
+                                Tool.Alert("Product not approved, cannot be promotion product!", 1000);
+                            } else if (data == 'HasUnderShelves') {
+                                Tool.Alert("Product out of stock, cannot be promotion product!", 1000);
+                            } else {
+                                $(mForm).find("#ProductName").val(data.ProductName);
+                                $(mForm).find("#HKPrice").val(data.HKPrice);
+                                $(mForm).find("#SalePrice").val(data.SalePrice);
+
+                                //Add商品库存属性信息
+                                if (data.SKU_ProductModels != null && data.SKU_ProductModels.length > 0) {
+                                    var $index = 0;
+                                    var $html = "";
+                                    $("#sku_str").find("tr").eq(1).html('');
+                                    for (var i = 0; i < data.SKU_ProductModels.length; i++) {
+                                        $index++;
+                                        if ($index == 1) {
+                                            $html += "<tr>";
+                                        }
+                                        var isUseName = data.SKU_ProductModels[i].IsUse == 1 ? "Enable" : "Disable";
+                                        var skuName =data.SKU_ProductModels[i].SkuName == null ? "-" : data.SKU_ProductModels[i].SkuName;
+                                        var productCode = data.SKU_ProductModels[i].ProductCode == null ? "-" : data.SKU_ProductModels[i].ProductCode 
+                                        $html += ' <td>' + skuName + '</td>';
+                                        $html += ' <td>' + productCode + '</td>';
+                                        $html += ' <td>' + data.SKU_ProductModels[i].Stock + '</td>';
+                                        $html += ' <td>' + data.SKU_ProductModels[i].HKPrice + '</td>';
+                                        $html += ' <td>' + data.SKU_ProductModels[i].MarketPrice + '</td>';
+                                        $html += ' <td>' + data.SKU_ProductModels[i].PurchasePrice + '</td>';
+                                        $html += ' <td>' + isUseName + '</td>';
+                                        if ($index == 1) {
+                                            $html += "</tr>";
+                                        }
+                                        $index = 0;
+                                    }
+                                    $("#sku_str").append($html);
+                                }
+                            }
+                        } else {
+                            Tool.Alert("Product not exist, cannot be promotion product!", 1000);
+                        }
+                    });
+
+                });
+            }
+     
+            //触发折扣
+            $("#modal-form #Discount").bind("blur", function () {
+
+                if ($(this).val().trim() != '') {
+                    var hkprice = $("#modal-form #Discount").val();
+                    $("#modal-form").find("#SalePrice").val((parseFloat(hkprice) * parseFloat($(this).val().trim())).toFixed(2));
+                }
+            });
+        })
+
+        //上传商品品牌图片
+        function getBrandUrl() {
+            var name = $("#upLoad").val();
+            var w = 660;
+            var h = 200;
+            if (name == "") {
+                return;
+            }
+            else {
+                $.ajaxFileUpload(
+            {
+                url: '/SalesProduct/GetUpLoad?w=' + w + "&h=" + h,
+                secureuri: false,
+                fileElementId: "upLoad",
+                fileTypeExts: '*.jpg;*.png;*.gif;*.jpeg;',
+                fileTypeDesc: 'Please select jpg, gif, png, jpeg format picture',
+                dataType: "text",
+                success: function (data, status) {
+                    if (data) {
+                        if (data == "1") {
+                            Tool.Alert("Please upload jpg, gif or png format picture!", 1000);
+                        } else {
+                            $("#UpImg").attr("src", Tool.RootImage + data);
+                            $("#PicAddress").val(data);
+                            $("#btnUpLoad").parents().find(".field-validation-error").text('');
+                        }
+
+                    } else {
+                        Tool.Alert("Upload picture failed", 1500);
+                    }
+
+                },
+                error: function (data, status, e) {
+                    Tool.Alert("Upload picture failed", 1500);
+                }
+            });
+            }
+        }
+
+    </script>

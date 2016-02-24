@@ -1,0 +1,693 @@
+﻿@using System.Data;
+@using HKSJ.Common
+@using HKTHMall.Core.Utils
+@using HKTHMall.Domain.Entities
+@using HKTHMall.Domain.WebModel.Models.Index
+@using HKTHMall.Domain.WebModel.Models.Product
+@using Microsoft.Ajax.Utilities
+@using Newtonsoft.Json.Linq;
+@using HKTHMall.Core.Extensions;
+@using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical
+@using HKTHMall.Services.Common.MultiLangKeys
+@model ProductInfo
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model != null ? Model.ProductName : CultureHelper.GetLangString("HOME_SHOPPING_ERROR");
+    string defaultImgUrl = "";
+    List<SKU_ProductModel> SKU_ProductList = Model.SKU_ProductList;          /// 产品库存
+    List<SKU_ProductAttributesAndSKU_AttributeValues> SKU_ProductAttributesAndSKU_AttributeValuesList = Model.SKU_ProductAttributesAndSKU_AttributeValuesList;  /// 产品规格值清单
+    List<SKU_SKUItemsAndSKU_AttributeValues> SKU_SKUItemsAndSKU_AttributeValuesList = Model.SKU_SKUItemsAndSKU_AttributeValuesList;                             ///产品扩展属性值列表
+    var ProductCategoryTypeForSKU_AttributesList = Model.ProductCategoryTypeForSKU_AttributesList != null ? Model.ProductCategoryTypeForSKU_AttributesList.Where(p => p.SKU_P_AttributeType == 0 || p.SKU_P_AttributeType == 1).OrderBy(a => a.DisplaySequence).ToList() : null;/// 产品类型规格参数值
+    var ViewProductParametersList = Model.ProductParametersList;/// 产品类型规格参数用于显示用
+    List<IndexExplosion> IndexExplosionList = Model.IndexExplosionList; /// 是否为促销产品
+    ProductPath path = ViewBag.Path;
+
+    Model.StockQuantity = SKU_ProductList.Sum(a => a.Stock);//获取最新总库存
+    var promotionProduct = IndexExplosionList.FirstOrDefault(a => a.ProductId == Model.ProductId);    //获取是否存有促销活动记录
+
+    var htmlMARKETPRICE = CultureHelper.GetLangString("HOME_SHOPPING_MARKETPRICE");                //市场价
+    var htmlHKPRICE = CultureHelper.GetLangString("HOME_SHOPPING_HKPRICE");                        //惠卡价
+    var htmlPROMOTIONPRICE = CultureHelper.GetLangString("HOME_SHOPPING_PROMOTIONPRICE");          //促销价
+
+
+    var hkPrice = "0.00";                                 //销售价
+    var marketPrice = "0.00";                             //市场价
+    var romotionPrice = "0.00";                           //促销价
+    if (promotionProduct != null && promotionProduct.Discount > 0)
+    {
+        romotionPrice = (Model.HKPrice * promotionProduct.Discount).ToString("F2");
+        hkPrice = Model.HKPrice.ToString("F2");
+    }
+    else
+    {
+        marketPrice = Model.MarketPrice.ToString("F2");
+        hkPrice = Model.HKPrice.ToString("F2");
+    }
+
+    //用于显示用
+    string attribute2Web = "";
+    int skuAttributeCount = 0;
+
+    System.Text.StringBuilder attrItems = new System.Text.StringBuilder();
+    string attribute = @"<dl class='{0}'><dt>{1}</dt><dd><ul>{2}</ul>
+						</dd></dl>";
+    string itemtemp = "	<li  data-ValueId='{2}' ><a href='javascript:void(0)' title='{0}' id={1} >{0}</a></li>";
+    if (SKU_ProductAttributesAndSKU_AttributeValuesList.Count > 0)
+    {
+        List<List<string>> shuxingList = new List<List<string>>();
+        foreach (var productCategoryTypeForSkuAttribute in ProductCategoryTypeForSKU_AttributesList)// 产品类型规格
+        {
+            int itemCount = 0;
+            //获取产品规格值
+            var SKU_AttributeValuesList = SKU_ProductAttributesAndSKU_AttributeValuesList.FindAll(a => a.AttributeId == productCategoryTypeForSkuAttribute.AttributeId).OrderBy(b => b.DisplaySequence).ToList();
+            string itemClass = "ls_size";
+            if (SKU_AttributeValuesList.Count > 0 && SKU_ProductList.Count > 0)
+            {
+                string itemList = string.Empty;
+                List<string> shuxing = new List<string>();
+                foreach (var SKU_AttributeValue in SKU_AttributeValuesList)  //加载选项值
+                {
+                    List<SKU_ProductModel> SKU_Products = SKU_ProductList.Where(a => a.SKUStr.Contains(SKU_AttributeValue.ValueId.ToString())).ToList();
+                    if (SKU_Products.Count() > 0)
+                    {
+                        //加载文字按钮,后期需要可以修改成图片按钮
+                        itemList += string.Format(itemtemp, SKU_AttributeValue.ValueStr, string.Format("attr{0}", SKU_AttributeValue.ValueId), SKU_AttributeValue.ValueId);
+                        itemCount++;
+                    }
+                    shuxing.Add(SKU_AttributeValue.ValueId.ToString());
+                }
+
+                shuxingList.Add(shuxing);
+                string name = productCategoryTypeForSkuAttribute.AttributeName;
+                if (name.Length == 2)
+                {
+                    name = name[0] + "&nbsp;&nbsp;" + name[1];
+                }
+                attribute2Web += string.Format(attribute, itemClass, name, itemList);
+                skuAttributeCount++;
+            }
+        }
+        Model.Keys = JsonConverts.ToJson(shuxingList);
+    }
+
+    var skuid = "0";
+    if (skuAttributeCount == 0)
+    {
+        skuid = SKU_ProductList.Count > 0 ? SKU_ProductList[0].SKU_ProducId.ToString() : "0";
+    }
+
+    //判断是否存在属性不存在直接赋值
+    if (SKU_ProductList.Any())
+    {
+        var defaultData = SKU_ProductList.FirstOrDefault(a => a.ProductId == Model.ProductId);
+        if (defaultData != null)
+        {
+            <input type="hidden" id="defualtSKU" value="@(defaultData.SKU_ProducId)" />
+        }
+        else
+        {
+            <input type="hidden" id="defualtSKU" value="-1" />
+        }
+    }
+    else
+    {
+        <input type="hidden" id="defualtSKU" value="-1" />
+    }
+
+}
+<script src="~/Scripts/jquery.cookie.js"></script>
+<script src="~/Content/js/Plug-in-unit.js"></script>
+<script type=text/javascript>
+    var keys = '@Html.Raw(Model.Keys)';
+    var data = '@Html.Raw(Model.Data)';
+    if (keys != '') {
+        keys = JSON.parse('@Html.Raw(Model.Keys)');
+    }
+
+    if (data != '') {
+        data = JSON.parse('@Html.Raw(Model.Data)');
+    }
+</script>
+
+<!--产品放大镜-->
+<!--右侧图片切换-->
+<script src="~/Content/newcss/js/zzsc.js"></script>
+<script type=text/javascript>
+    $(function () {
+        $(".jqzoom").jqueryzoom({
+            xzoom: 400,
+            yzoom: 400,
+            offset: 10,
+            position: "right",
+            preload: 1,
+            lens: 1
+        });
+
+        $("#spec-list img").bind("mouseover", function () {
+            var src = $(this).attr("src");
+            $("#spec-n1 img").eq(0).attr({
+                src: src.replace("\/n5\/", "\/n1\/"),
+                jqimg: src.replace("\/n5\/", "\/n0\/")
+            });
+            $(this).css({
+                "border": "2px solid #333",
+                "padding": "1px"
+            });
+        }).bind("mouseout", function () {
+            $(this).css({
+                "border": "1px solid #ccc",
+                "padding": "2px"
+            });
+        });
+    })
+</script>
+<link href="~/Content/newcss/css/swiper-3.2.7.min.css" rel="stylesheet" />
+<script src="~/Content/newcss/js/swiper-3.2.7.jquery.min.js"></script>
+<div class="main_about">
+    <div class="specLayout">
+        <div class="specMain_2016">
+            <ul>
+                <li><a href="/Home/Index">@CultureHelper.GetLangString("HOME_INDEX_HOMEPAGE")</a></li>
+                <li class="spector"><i class="fa fa-angle-right"></i></li>
+                <li><a href="@Url.Action("ProductList", "Product", new { parentId = path.CategoryId3, cateName = path.CategoryName3, selectCategoryId = path.CategoryId3, level = 1 })">@path.CategoryName3</a></li>
+                <li class="spector"><i class="fa fa-angle-right"></i></li>
+                <li><a href="@Url.Action("ProductList", "Product", new { parentId = path.CategoryId3, cateName = path.CategoryName3, selectCategoryId = path.CategoryId2, level = 2 })">@path.CategoryName2</a></li>
+                <li class="spector"><i class="fa fa-angle-right"></i></li>
+                <li><a href="@Url.Action("ProductList", "Product", new { parentId = path.CategoryId3, cateName = path.CategoryName3, selectCategoryId = path.CategoryId1, level = 3 })">@path.CategoryName1</a></li>
+                <li class="spector"><i class="fa fa-angle-right"></i></li>
+                <li><a href="@(Url.Action("Shopping", "Home", new { id = path.ProductId }))">@path.ProductName</a></li>
+                <span class="clear"></span>
+            </ul>
+        </div>
+    </div>
+    <!--ls_products_show begin-->
+    <div class="ls_products_show">
+        <!--ls_products_info-->
+        <div class="ls_products_info">
+            <!--ls_products_info_1-->
+            <div class="ls_products_info_1">
+
+                @if (promotionProduct == null)
+                {
+                    <div class="" id="CountdownTime">
+                        <input type="hidden" id="intputpromotionProduct" value="0" datatime="0" />
+                    </div>
+                }
+                else
+                {     <div class="ls_products_info_1_time" id="CountdownTime">
+                    @(CultureHelper.GetLangString("HOME_INDEX_SHENGYU"))<time></time>
+                    <input type="hidden" id="intputpromotionProduct" value="1" datatime="@(promotionProduct.Intervalsecond)" discount='@(promotionProduct.Discount)' />
+                </div>
+                }
+                <div id=preview>
+                    <div class=jqzoom id=spec-n1>
+                        @{var firstZoomPic = Model.Imglist.FirstOrDefault();}
+                        @if (null != firstZoomPic)
+                        {
+                            if (firstZoomPic.Flag == 1)
+                            {
+                                <img jqimg="@Html.GetImagesUrl(firstZoomPic.PicUrl, 760, 760)" src="@Html.GetImagesUrl(firstZoomPic.PicUrl, 378, 378)" width="378" height="378" />
+                            }
+                        }
+                    </div>
+                    <div id=spec-n5>
+                        <div class=control id=spec-left>
+                        </div>
+                        <!-- 图片显示列表 -->
+                        <div id=spec-list>
+                            <ul class=list-h>
+
+                                @if (Model.Imglist != null)
+                                {
+                                    bool isSet_car_fly_img = false;
+                                    foreach (var item in Model.Imglist)
+                                    {
+                                        string imgUrl = item.PicUrl;
+                                        string imgNormalUrl = Html.GetImagesUrl(imgUrl, 354, 381);
+                                        string imgMaxUrl = Html.GetImagesUrl(imgUrl, 800, 800);
+                                        <li>
+                                            @if (isSet_car_fly_img)
+                                            {
+                                                <img src="@imgNormalUrl" bimg="@imgMaxUrl" alt="">
+                                            }
+                                            else
+                                            {
+                                                isSet_car_fly_img = true;
+                                                defaultImgUrl = imgNormalUrl;
+                                                <img id="img_@(Model.ProductId)" src="@imgNormalUrl" bimg="@imgMaxUrl" alt="">
+                                            }
+                                        </li>
+                                    }
+                                }
+                                else
+                                {
+                                    string defaultProImg = Url.Content("M00/01/34/wKgQ2lWc8IqAFs4_AAUQIBX7HOA451..png");
+                                    <li><img id="img_@(Model.ProductId)" src="@Html.GetImagesUrl(defaultProImg, 354, 381)" bimg="@Html.GetImagesUrl(defaultProImg, 800, 800)" alt=""></li>
+                                }
+                            </ul>
+                        </div>
+                        <div class=control id=spec-right>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ls_shoucang">
+                    <input type="hidden" id="productId" value="@Model.ProductId" />
+                    <dl>
+                        <i></i>
+                        <a href="javascript:void(0)">@(CultureHelper.GetLangString("HOME_SHOPPING_COLLECTPRODUCT"))</a>
+                    </dl>
+                    <ul>
+                        <span></span>
+                        <a href="#" title="facebook" id="shareFacebook"></a>
+                        <a href="javascript:shareToTwitter(product_share_desc,product_share_url) " title="Twitter"></a>
+                        <a href="javascript: shareToGooglePlus(product_share_url)" title="google"></a>
+                        <a href="javascript: shareToPlurk(foot_share_desc,foot_share_url);" title="Plurk"></a>
+                    </ul>
+                </div>
+                <script>
+                    var product_share_desc = '@(Model.ProductName)';
+                    var product_share_url = window.location;
+
+                    $(function () {
+                        $('#shareFacebook').on('click', function (e) {
+                            e.preventDefault();
+                            FB.ui(
+                            {
+                                method: 'feed',
+                                name: '@(CultureHelper.GetLangString("HOME_FOOTER_FENXIANGTITLE"))',
+                                link: product_share_url,
+                                picture: 'http://www.huikamall.hk/Content/images/logon_bg.jpg',
+                                caption: "slogan",
+                                description: product_share_desc,
+                                message: ''
+                            });
+                        });
+                    })
+                </script>
+            </div>
+            <!--ls_products_info_2-->
+            <div class="ls_products_info_2">
+                <div class="ls_proinfo_1">
+                    <div class="ls_products_name">@(Model.ProductName)</div>
+                    <div class="ls_products_jj">@(Model.Subheading)</div>
+                </div>
+                <div class="ls_proinfo_2">
+                    <div class="ls_proinfo_2_lf">
+                        @if (promotionProduct != null)
+                        {
+                            <dl class="ls_yj">
+                                <dt>@Html.Raw(htmlHKPRICE)</dt>
+                                <dd class="m_0119" id="pCostprice">$@Html.Raw(hkPrice)</dd>
+                            </dl>
+                            if (promotionProduct.Discount > 0)
+                            {
+
+                                <dl class="ls_hkj">
+                                    <dt>@Html.Raw(htmlPROMOTIONPRICE)</dt>
+                                    <span id="HKPrice">$@Html.Raw(romotionPrice)</span>
+                                    <dd><p id="pDiscount">$ @((Convert.ToDecimal(hkPrice) * promotionProduct.Discount).ToString("F2")) OFF</p></dd>
+                                    @*@(((1 - promotionProduct.Discount) * 100).ToString("#0"))%*@
+                                </dl>
+                            }
+                            else
+                            {
+                                <dl class="ls_hkj">
+                                    <dt>@Html.Raw(htmlPROMOTIONPRICE)</dt>
+                                    <span id="HKPrice">$@Html.Raw(romotionPrice)</span>
+                                    <dd><p id="pDiscount">0% OFF</p></dd>
+                                </dl>
+                            }
+                        }
+                        else
+                        {
+                            var priceEqual = marketPrice == hkPrice;
+
+                            if (!priceEqual)
+                            {
+                                <dl class="ls_yj">
+                                    <dt>@(CultureHelper.GetLangString("HOME_SHOPPING_ORIGINALPRICE"))</dt>
+                                    <dd id="pCostprice">$@(marketPrice)</dd>
+                                </dl>
+                            }
+
+                            <dl class="ls_hkj">
+                                <dt>@(CultureHelper.GetLangString("HOME_SHOPPING_HKPRICE"))</dt>
+                                <span id="HKPrice">$@(hkPrice)</span>
+                                @if (!priceEqual)
+                                {
+                                    <dd><p id="pDiscount">$@((Model.MarketPrice - Model.HKPrice).ToString("F2")) OFF</p> </dd>
+
+                                    @*@(((1 - ((Model.MarketPrice - Model.HKPrice) / Model.MarketPrice)) * 100).ToString("#0"))%*@
+                                }
+                            </dl>
+                        }
+                        <div class="ls_pengjia">
+                            <div class="starts">
+                                <div class="c_xx_ss">
+                                    @{int avgRate = Model.AvgCommentRate <= 0 ? 5 : Convert.ToInt32(Math.Round(Model.AvgCommentRate));}
+                                    <div class="c_xx_aa"><div class="c_stars">@(avgRate)</div></div><!--这里的评分是会员评价的，只有1，2，3，4，5-->
+                                </div>
+                            </div>
+                            <span>@(Model.AvgCommentRate <= 0 ? 5 : avgRate)@(CultureHelper.GetLangString("ACCOUNT_MY_TRADECOMMENT_SCORE"))</span><span> @(string.Format(CultureHelper.GetLangString("HOME_LIST_TOTALPINGJIA"), Model.GetCommentCount.CommentTotal))</span>
+                            <span class="clear clearfix"></span>
+                        </div>
+                    </div>
+                    <div class="ls_proinfo_2_rg">
+
+
+                    </div>
+
+                </div>
+                <div class="ls_proinfo_3" data-attribute-count="@(skuAttributeCount)">
+                    <dl class="welfare_2016">
+                        <dt>@(CultureHelper.GetLangString("HOME_SHOPING_ZHUANSHUFULI"))</dt>
+                        <dd>@(CultureHelper.GetLangString("HOME_SHOPING_ALLHUIZENG"))</dd>
+                        <div class="seeBackMore">
+                            @(CultureHelper.GetLangString("HOME_HZ_ABOUT"))
+                            <div class="ls_about_qf">
+                                <ul>
+                                    <div class="triangle_up"></div>
+
+                                    <li>@(CultureHelper.GetLangString("HOME_HZ_COMPURE"))</li>
+                                    <li>@(CultureHelper.GetLangString("HOME_HZ_AMOUNT"))</li>
+                                    <li>@(CultureHelper.GetLangString("HOME_HZ_STARTDATE"))</li>
+                                    <li>@(CultureHelper.GetLangString("HOME_HZ_AFTERSEVENDAYS"))</li>
+                                    <li>@(CultureHelper.GetLangString("HOME_HZ_ENDDATE"))</li>
+                                    <li>@(CultureHelper.GetLangString("HOME_HZ_STOPDATE"))</li>
+                                    <li>@(CultureHelper.GetLangString("HOME_HZ_WAY"))</li>
+                                    <li>@(CultureHelper.GetLangString("HOME_HZ_TO"))</li>
+                                    <li>@(CultureHelper.GetLangString("HOME_HZ_BACKRULES"))</li>
+                                    <li>@(CultureHelper.GetLangString("HOME_HZ_BACKFAILE"))</li>
+                                    <a href="@Url.Content("~/Help/Question")" title="" target="_blank"><i></i>@(CultureHelper.GetLangString("WEBSITE_CHAKANGENGDUO"))</a>
+
+                                </ul>
+
+                            </div>
+                        </div>
+                    </dl>
+                    <dl class="ls_service">
+                        <dt>@(CultureHelper.GetLangString("ORDER_LIST_SERVICE"))</dt>
+                        <dd>
+                            @Html.Raw(string.Format(CultureHelper.GetLangString("HOME_SHOPPING_DISTRIBUTIONANDSERVICE"), "<a href=\"javascript:void(0)\">" + CultureHelper.GetLangString("SORDBYHUIKA") + "</a>"))
+                        </dd>
+                        <div class="ls_fw">
+                            <span>@(CultureHelper.GetLangString("HOME_SHOPING_FREESHIPS"))</span><span>@(CultureHelper.GetLangString("HOME_SHOPPING_ZHENGPINBAOZHANG"))</span><span>@(CultureHelper.GetLangString("HOME_SHOPING_WULIYOUTUIHUO"))</span>
+                        </div>
+                    </dl>
+                    <div class="yListr">
+                        <div class="closered ls_closered" style="display:none;"><span>@(CultureHelper.GetLangString("HOME_SHOPING_SELECTPARAMS"))</span><a href="javascript:" name="closered">&times;</a></div>
+                        @*输出产品参数*@
+                        @Html.Raw(attribute2Web)
+
+                        <dl class="ls_products_buycar2" style="display:none" id="gouwuButSure">
+
+                            <a href="javascript:void(0)" name="@(Model.ProductId)">@(CultureHelper.GetLangString("HOME_SHOPING_SELECTSKU_SURE"))</a>
+
+                        </dl>
+                    </div>
+                    <dl class="ls_number">
+                        <dt>@CultureHelper.GetLangString("HOME_SHOPPING_NUMBER")</dt>
+                        <dd>
+                            <a href="javascript:void(0)" class="tb-reduce">-</a>
+                            <input type="text" class="tb-text" value="1" data-max="@(Model.StockQuantity) " />
+                            <a href="javascript:void(0)" class="tb-increase">+</a>
+                            <span class="HK-detak gray6">（@Html.Raw(string.Format(CultureHelper.GetLangString("HOME_SHOPPING_CURRSTOCK"), string.Format("<span class='red prdStock'>{0}</span>", Model.StockQuantity)))）</span>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="ls_proinfo_4">
+                    @Html.Hidden("hdListclickVal")
+                    <dl class="ls_select" style="display:none">
+                        <dt>@(CultureHelper.GetLangString("HOME_SHOPING_CHECKED"))</dt>
+                        <dd></dd>
+                    </dl>
+                    <div class="ls_products_buy SelectClass" data-total-stock="@Model.StockQuantity">
+                        @*@if (Request.IsAuthenticated)
+                            {*@
+                        <a href="/money/order/orderInfo?productid=@(Model.ProductId)&skunumber=@(skuid)&count=1" class="ls_products_buyNow" id="buyNow">@(CultureHelper.GetLangString("HOME_SHOPPING_BUYNOW"))</a>
+                        <a href="javascript:void(0)" class="ls_products_buycar" name="@(Model.ProductId)" id="addToCart">@(CultureHelper.GetLangString("HOME_SHOPPING_ADDTOCART"))</a>
+
+                        @*}
+                            else
+                            {
+                                <a href="javascript:void(0)" class="ls_products_buyNow" id="buyNow">@(CultureHelper.GetLangString("HOME_SHOPPING_BUYNOW"))</a>
+                                <a href="javascript:void(0)" class="ls_products_buycar" id="addToCart">@(CultureHelper.GetLangString("HOME_SHOPPING_ADDTOCART"))</a>
+                            }*@
+                    </div>
+                </div>
+            </div>
+
+            <!--ls_products_info_3-->
+            @Html.Action("TopList", "Home", new { ProductId = Model.ProductId })
+            <div class="clear clearfix"></div>
+        </div>
+        <!--ls_products_info-->
+        <!--ls_products_down-->
+        <div class="ls_products_down">
+            <!--ls_products_down_lf-->
+            <!--其他类产品推荐-->
+            @Html.Action("RecommendOtherList", "Home", new { ProductId = Model.ProductId, Top = 6 })
+            <!--ls_products_down_lf-->
+            <!--ls_products_down_rg-->
+            <div class="ls_products_down_rg">
+                <div class="ls_products_tab_tit">
+                    <ul class="detail_slider2016">
+                        <li class="ls_on"><a href="javascript:void(0)" title="">@(CultureHelper.GetLangString("HOME_SHOPING_SHANGPINXIANGQING"))</a></li>
+                        <li class="ls_bzcs" style="display:@(ViewProductParametersList.Count > 0?"block":"none")"><a href="javascript:void(0)" title="">@(CultureHelper.GetLangString("HOME_SHOPING_BAOZHUANGCANSHU"))</a></li>
+                        <li class="ls_pj"><a href="javascript:void(0)" title="">@(CultureHelper.GetLangString("ACCOUNT_MY_ORDERACTION_EVALUATION"))&nbsp;<span>(0)</span></a></li>
+                        <li class="ls_zx"><a href="javascript:void(0)" title="">@(CultureHelper.GetLangString("HOME_SHOPING_ZIXUN"))&nbsp;<span>(0)</span></a></li>
+                        <li class="ls_shouhou"><a href="javascript:void(0)" title="">@(CultureHelper.GetLangString("HOME_SHOPING_SHOUHOUBAOZHANG"))</a></li>
+                    </ul>
+                </div>
+                <!--商品详情-->
+                <div class="ls_products_details_1 details_1_1 sliderDetail_2016">
+                    @Html.Raw(Model.Introduction)
+                </div>
+                <!--规格参数-->
+                <div class="ls_products_details_1 details_1_2 sliderDetail_2016" style="display: none;">
+                    @if (ViewProductParametersList != null && ViewProductParametersList.Count > 0)
+                    {
+                        <table cellspacing="0" cellpadding="0" border="1" bordercolor="#eee">
+                            <tbody>
+                                @{
+                        foreach (var productCategoryTypeForSkuAttributese in ViewProductParametersList)
+                        {
+                            <tr>
+                                <td style="width: 180px;">@(productCategoryTypeForSkuAttributese.PName)</td>
+                                <td style="width:730px;">@(productCategoryTypeForSkuAttributese.PValue)</td>
+                            </tr>
+                        }
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+                <!--评价列表-->
+                <div class="sliderDetail_2016">
+                    <!--好评度-->
+                    <div class="ls_products_details_2">
+                        <div class="details_2_1">
+                            @{
+                                decimal commentRate = 100;
+                                if (Model.GetCommentCount.CommentHaoPing > 0 && Model.GetCommentCount.CommentTotal > 0)
+                                {
+                                    commentRate = Math.Round((decimal)Model.GetCommentCount.CommentHaoPing / (decimal)Model.GetCommentCount.CommentTotal * 100, 0);
+                                }
+
+                            }
+                            <b>@(commentRate)%</b><p>@CultureHelper.GetLangString("HOME_SHOPPING_HAOPINGDU")</p>
+                        </div>
+                        <div class="details_2_2">
+                            <p>
+                                @CultureHelper.GetLangString("HOME_DETAILS_PINGJIA_YINXIANG")
+                            </p>
+                            @Html.Action("_CommetLabels", "Product", new { productId = Model.ProductId })
+                        </div>
+                        <div class="details_2_3">
+                            <p>@(CultureHelper.GetLangString("HOME_SHOPING_TOPPINGJIA"))</p>
+
+                            @if (Request.IsAuthenticated)
+                            {
+                                <a class="ls_fbpl" href="@(Url.Content("~/Account/My"))">@(CultureHelper.GetLangString("HOME_SHOPING_PINGJIAHSQ"))</a>
+                            }
+                            else
+                            {
+                                <a class="ls_fbpl" href="javascript:dialogLogin_click()">@(CultureHelper.GetLangString("HOME_SHOPING_PINGJIAHSQ"))</a>
+                            }
+                            <span>
+                                @(CultureHelper.GetLangString("HOME_SHOPING_HUISHANGQIANDOLLARS"))<div class="ls_hsqgz_bt">
+                                    @(CultureHelper.GetLangString("HOME_HSQ_RULES"))
+                                    <div class="ls_hsqgz">
+                                        <div class="ls_hsqgz_up"></div>
+                                        <dl>
+                                            <dt>送惠赏钱规则</dt>
+                                            <dd> 评价送惠赏钱，商品金额需<span>大于20元商品</span>进行评价，且有字数限定<span>15字以上</span>。 </dd>
+                                            <dd>系统抽取对单个商品<span>前10名</span>评价的用户，经过审核通过后发放<span>1惠赏钱</span>直接至账户余额，届时会有<span>邮件</span>通知到您。 </dd>
+                                            <dd>前5位评论用户：139***, 137***, 135***, 189***, lily***</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                    <!--评价列表-->
+                    <div class="ls_products_details_3">
+                        <div class="details_3_tit">
+                            <ul>
+                                <li class="ls_on"><a href="javascript:void(0)" title="" data-level="0">@CultureHelper.GetLangString("ORDER_LIST_STATE_ALL")&nbsp;<span>(@(Model.GetCommentCount.CommentTotal))</span></a></li>
+                                <li><a href="javascript:void(0)" title="" data-level="1">@CultureHelper.GetLangString("HOME_SHOPPING_HIGHPRAISE")&nbsp;<span>(@(Model.GetCommentCount.CommentHaoPing))</span></a></li>
+                                <li><a href="javascript:void(0)" title="" data-level="2">@CultureHelper.GetLangString("HOME_SHOPPING_EVALUATION")&nbsp;<span>(@(Model.GetCommentCount.CommentZhongPing))</span></a></li>
+                                <li><a href="javascript:void(0)" title="" data-level="3">@CultureHelper.GetLangString("HOME_SHOPPING_BADREVIEW")&nbsp;<span>(@(Model.GetCommentCount.CommentChaPing))</span></a></li>
+                            </ul>
+                        </div>
+
+                        <div class="details_3_nr">
+                            <!--全部评论列表-->
+                            <div class="details_3_content details_3_1">
+                                <div id="commentList">
+                                </div>
+                                <div class="details_3_content_page">
+                                    <!--分页导航-->
+                                    <div id="pager1" class="ls_page">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--咨询列表-->
+                @*@{Html.RenderAction("_ConsultList", "Home", new { area = "", productId = Model.ProductId });}*@
+                @Html.Action("_ConsultList", "Home", new { area = "", productId = Model.ProductId })
+                <!--售后保障-->
+                @Html.Partial("_HKService")
+            </div>
+            <!--ls_products_down_rg-->
+        </div>
+        <!--ls_products_down-->
+    </div>
+    <!--ls_products_show end-->
+</div>
+
+<script src="~/Content/js/shopping.js"></script>
+<script src="~/Content/js/shoppingsku.js"></script>
+<script src="~/Content/js/pager.js"></script>
+<!--主体部分-->
+<script type="text/javascript">
+    var commentPageSize = 6;
+    var pid = @(Model.ProductId);
+    function loadCommentData(pageIndex, obj) {
+        $("#commentList").load("@Url.Action("CommetList", "Product")", {  key : obj.key,commentLevel:obj.commentLevel,pageIndex: pageIndex, pageSize: obj.pageSize },
+           function () {
+               var total =parseInt($("#hdCommentCount").val());
+               var  pcount =Math.ceil(total/commentPageSize);
+               //update by liujc
+               if(obj.commentLevel=="0"){
+                   $(".ls_pj>a>span").html("("+$("#hdCommentCount").val()+")");
+               }
+               UpdatePager1(pageIndex,pcount, $("#pager1"), "loadCommentData", obj);
+           });
+    }
+    $(function(){
+        //加載評價記錄
+        loadCommentData(1,{ key :pid ,commentLevel:0,pageIndex: 1, pageSize: commentPageSize});
+    })
+
+    //产品规格选项关闭
+    $(".yListr .ls_closered>a").click(function(){
+        $(".ls_products_buycar2").hide();
+    })
+    //好评中评差评选项卡
+    $(".details_3_tit ul li").click(function (obj) {
+        $(this).addClass("ls_on").siblings().removeClass("ls_on");
+        var ls_num = $(this).index();
+        $(".details_3_nr>div").eq(ls_num).fadeIn(400).siblings().fadeOut(400);
+        //装载好评
+        var level =$(this).find("a").attr("data-level");
+        loadCommentData(1,{ key :pid ,commentLevel:level,pageIndex: 1, pageSize: commentPageSize});
+    });
+
+    //商品详情选项卡
+    $(".ls_products_tab_tit ul li").click(function () {
+        $(this).addClass("ls_on").siblings().removeClass("ls_on");
+
+    });
+    $(".details_4_tit ul li").click(function(){
+        $(this).addClass("ls_on").siblings().removeClass("ls_on");
+        var ls_num=$(".details_4_tit ul li").index(this);
+        $(".details_4_nr > div").eq(ls_num).fadeIn(400).siblings().fadeOut(400);
+    });
+
+    //商品信息底部 导航栏
+    $('.detail_slider2016>li ').click(function(){
+        var _this = $(this),
+            _num = _this.index(),
+            _thisCover = $('.sliderDetail_2016');
+        switch(_num){
+            case 0:
+                console.log("000");
+                _thisCover.hide();
+                _thisCover.eq(0).show();
+                _thisCover.eq(2).show();
+                break;
+            case 1:
+                console.log("111");
+                _thisCover.hide().slice(1,3).show();
+                break;
+            case 2:
+                console.log("222");
+                _thisCover.hide().eq(2).show();
+                break;
+            case 3:
+                console.log("333");
+                _thisCover.hide().eq(3).show();
+                break;
+            case 4:
+                console.log("444");
+                _thisCover.hide().eq(4).show();
+                break;
+        }
+    });
+
+    //关于返利
+    $(function(){
+        $(".seeBackMore").hover(function(){
+            $(".ls_about_qf").fadeIn(400);
+            $(".ls_about_qf>ul dt").show();
+            $(".ls_about_qf>ul dt").nextAll().hide();
+        },function(){
+            $(".ls_about_qf").stop().fadeOut(400);
+        });
+    });
+
+    /*惠赏钱规则*/
+    $(function(){
+        $(".ls_hsqgz_bt").hover(function(){
+            $(".ls_hsqgz").stop().fadeIn(400);
+        },function(){
+            $(".ls_hsqgz").stop().fadeOut(400);
+        });
+    });
+
+    /*星星宽度*/
+    var c_starnum = $(".c_stars").length;
+    for (var i = 0; i < c_starnum; i++) {
+        var cb_starnr = $(".c_stars").eq(i).text();
+        var cb_star_width = cb_starnr / 5 * 75;
+        $(".c_xx_aa").eq(i).css("width", cb_star_width);
+    };
+</script>
+<script>
+    var mySwiper = new Swiper('.swiper-container_ls2', {
+        direction: 'vertical',
+        loop: true,
+        slidesPerView: 3,
+
+        // 如果需要前进后退按钮
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+
+
+    })
+</script>

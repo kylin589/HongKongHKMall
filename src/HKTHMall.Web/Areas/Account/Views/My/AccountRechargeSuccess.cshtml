@@ -1,0 +1,37 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="pct100 Personal tc">
+    <div class="PersonMain dib w1202">
+        
+            @Html.Partial("_userLeft")
+
+            <!--右边的写在这里-->
+            <div class="PmainRight l" id="PmainRight">
+                <div class="PersonInfomation">
+                    <p class="recharge">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_ACCOUNTSPREPAIDPHONE")</p>
+                    <p class="recharge_bg2"></p>
+                    <p style="position: absolute;top: 165px;left: 244px;">
+                        <em style="color: #cccccc;margin-right: 139px;">@CultureHelper.GetLangString("ACCOUNT_MY_ARECHARGESUCCESS_FILLAMOUNT")</em>
+                        <em style="color: #cccccc;margin-right: 150px;">@CultureHelper.GetLangString("ACCOUNT_MY_ARECHARGESUCCESS_ONLINEPAY")</em>
+                        <em style="color: #7abd54;">@CultureHelper.GetLangString("ACCOUNT_MY_ARECHARGESUCCESS_TOPUPSUCCESS")</em>
+                    </p>
+                    <p class="recharge_bg3">@CultureHelper.GetLangString("ACCOUNT_MY_ARECHARGESUCCESS_CONGRATU")！</p>
+                </div>
+            </div>
+        
+    </div>
+</div>
+@*@Html.Partial("_Footer")*@
+<script>
+    //Load Style
+    $(document).ready(function () {
+        $("div.PmainLeft .geren").parent().addClass("Checked");
+        $("div.PmainLeft .geren").removeClass("niutou").addClass("Rniutou");
+    });
+
+
+</script>
+

@@ -1,0 +1,34 @@
+﻿@model List<HKTHMall.Domain.WebModel.Models.Product.ProductCommentModel>
+@foreach (var item in Model)
+{
+    <ul>
+        <li>
+            <div class="ls_touxiang">
+                @if (string.IsNullOrEmpty(item.HeadImageUrl))
+                {
+                    <i ><img src="~/content/newcss/css/images/member_touxiang.jpg" /></i>
+                }
+                else { 
+                    @*<i style="background: transparent url('@(ViewBag.RootImage+item.PicUrl)') no-repeat scroll center center;"></i>*@
+                    <i> <img src="@(ViewBag.RootImage + item.HeadImageUrl)" style=" width:44px; height:44px;" /></i>
+                }
+                <p>@(item.Email)</p>
+            </div>
+            <div class="ls_message">
+                <div class="ls_message_time">
+                    <span>@(item.CommentDT)</span>
+                </div>
+                <div class="ls_message_nr">
+                    @(item.CommentContent)
+                </div>
+                <div class="ls_message_btn">
+                    @foreach (var lbl in item.LablesList)
+                    {
+                        <a href="javascript:void(0)">@HKTHMall.Services.Common.MultiLangKeys.CultureHelper.GetLangString(lbl.LabelsName)</a>
+                    }
+                </div>
+            </div>
+        </li>
+    </ul>
+}
+<input type="hidden" id="hdCommentCount" value="@(ViewBag.ProductCommetCount??0)" />

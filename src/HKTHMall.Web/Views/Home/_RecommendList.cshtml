@@ -1,0 +1,50 @@
+﻿@using HKTHMall.Core.Extensions
+@using HKTHMall.Domain.Models.banner
+@{
+    var list=ViewBag.RecList;
+}
+<ul class="swiper-wrapper">
+    @foreach (bannerModel item in list)
+    {
+        <li class="swiper-slide" style="width:300px;height:130px;"><a href="@item.bannerUrl"><img src="@Html.GetImagesUrl(item.bannerPic)" alt="" width="300" height="130"></a></li>
+    }
+</ul>
+
+<script>
+    $(function () {
+        //var liebiao = new Swiper('.lbCommendMain', {
+        //    speed: 1000,
+        //    slidesPerView: 4,
+        //    simulateTouch: false,
+        //    direction: 'horizontal',
+        //    loop: true,
+        //});
+        //$('.lbCommendMain .swiper-button-prev').on('click', function (e) {
+        //    e.preventDefault()
+        //    liebiao.swipePrev()
+        //});
+        //$('.lbCommendMain .swiper-button-next').on('click', function (e) {
+        //    e.preventDefault()
+        //    liebiao.swipeNext()
+        //});
+
+
+        /*惠卡推荐*/
+        var boomBanner = new Swiper('.lazyComCover', {
+            speed: 1000,
+            slidesPerView: 3,
+            simulateTouch: false,
+            direction: 'horizontal',
+            loop: true,
+        });
+        $('.lazyCommend_prev').on('click', function (e) {
+            e.preventDefault()
+            boomBanner.swipePrev()
+        });
+        $('.lazyCommend_next').on('click', function (e) {
+            e.preventDefault()
+            boomBanner.swipeNext()
+        });
+
+    });
+</script>

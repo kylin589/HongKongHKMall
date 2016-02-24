@@ -1,0 +1,148 @@
+﻿@model List<HKTHMall.Domain.WebModel.Models.Product.OrderProductCommentView>
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="main_a">
+    <<div class="main_about">
+         <div class="ls_member">
+             <!--left-->
+             @Html.Partial("_userLeft")
+
+
+             <!--right-->
+             <div class="ls_member_rg">
+                 <div class="m_user_pubtitle"><span>@CultureHelper.GetLangString("HOME_INDEX_MYORDER") </span>  > <a href="~/trade/comment.html">@CultureHelper.GetLangString("ACCOUNT_MY_ORDERACTION_EVALUATION")</a></div>
+                 <div class="ls_pjxq">
+                     @Html.Partial("_CommentList", Model)
+                 </div>
+             </div>
+             <div class="clear"></div>
+         </div>
+    </div>
+    </div>
+
+<script type="text/javascript">
+
+        $('#isSave').on('click', function () {
+            var $contents = $('.js-content');
+            var totalCount = 0;
+
+            var paramData = '';
+            var index = 0;
+            var isValid = true;
+            
+            var isAnonymous = $('#isAnonymous').prop('checked') ? 1 : 0;
+
+            $contents.each(function (i, dom) {
+                if (!$(dom).val()) {
+                    totalCount++;
+                } else {
+                    var lablestr='';
+                    $(".ls_pjxq_i", $(dom).parents('.ls_pjxq_list')).each(function(i){
+                        lablestr = lablestr + "," + $(this).attr("lablesdata");
+                    });
+                    if (lablestr.length > 0) {
+                        lablestr = lablestr.substring(1, lablestr.length);
+                    }
+
+                    if ($("input[name='score']", $(dom).parents('.ls_pjxq_list')).val() == '') {
+                        ds.dialog({
+                            content: $commonLang.ACCOUNT_MY_TRADECOMMENT_COMMENTLEVEL,
+                            yesText: $commonLang.MESSAGEBOX_SURE,
+                            onyes: function () {
+                                this.close();
+                            }
+                        });
+                        isValid = false;
+                        return isValid;
+                    }
+
+                    if (gblength($(dom).val()) > 500) {
+                        ds.dialog({
+                            content: $commonLang.ACCOUNT_MY_TRADECOMMENT_MAXLENGTH,
+                            yesText: $commonLang.MESSAGEBOX_SURE,
+                            onyes: function () {
+                                this.close();
+                            }
+                        });
+                        isValid = false;
+                        return isValid;
+                    }
+
+                    var dataOption = $.parseJSON($(dom).data('option').replace(/"/g, "#").replace(/'/g, '"').replace(/#/g, "'"));
+                    paramData += '&[' + index + '].OrderId=' + dataOption.OrderId;
+                    paramData += '&[' + index + '].ProductId=' + dataOption.ProductId;
+                    paramData += '&[' + index + '].SKU_ProducId=' + dataOption.SKU_ProducId;
+                    paramData += '&[' + index + '].CommentLevel=' + $("input[name='score']", $(dom).parents('.ls_pjxq_list')).val();
+                    paramData += '&[' + index + '].CommentContent=' + $(dom).val();
+                    paramData += '&[' + index + '].IsAnonymous=' + isAnonymous;
+                    paramData += '&[' + index + '].LablesStr=' + lablestr;
+
+                    index++;
+                }
+            });
+            if (totalCount == $contents.size()) {
+                ds.dialog({
+                    content: $commonLang.ACCOUNT_MY_TRADECOMMENT_ATLEASTCOMMENT,
+                    yesText: $commonLang.MESSAGEBOX_SURE,
+                    onyes: function () {
+                        this.close();
+                    }
+                });
+                //mallbox.alert({ message: $commonLang.ACCOUNT_MY_TRADECOMMENT_ATLEASTCOMMENT });
+                $contents.eq(0).focus();
+                return false;
+            }
+            if (isValid) {
+                paramData = paramData.substring(1);
+                $.post('@Url.Action("SaveComment")', paramData, function (data) {
+                    if (data && data.IsValid) {
+                        ds.dialog({
+                            content: $commonLang.ACCOUNT_MY_TRADECOMMENT_COMMENTSUCCESS,
+                            yesText: $commonLang.MESSAGEBOX_SURE,
+                            onyes: function () {
+                                document.location = document.location;
+                            }
+                        });
+                        //mallbox.alert({
+                        //    message: $commonLang.ACCOUNT_MY_TRADECOMMENT_COMMENTSUCCESS,
+                        //    modal: true,
+                        //    callback: function () {
+                        //        document.location = document.location;
+                        //    }
+                        //});
+                    } else {
+                        ds.dialog({
+                            content: data.Messages[0],
+                            yesText: $commonLang.MESSAGEBOX_SURE,
+                            onyes: function () {
+                                this.close();
+                            }
+                        });
+                        //mallbox.alert({ message: data.Messages[0] });
+                    }
+                });
+            }
+
+            return false;
+        });
+
+
+    function gblength(value) {
+        /// <summary>字符串长度,中文为两个字节</summary>
+        var l = 0;
+        var a = value.split("");
+        for (var i = 0; i < a.length; i++) {
+            if (a[i].charCodeAt(0) < 299) {
+                l++;
+            }
+            else {
+                l += 2;
+            }
+        }
+        return l;
+    }
+</script>

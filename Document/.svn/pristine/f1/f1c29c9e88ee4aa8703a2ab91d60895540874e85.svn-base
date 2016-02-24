@@ -1,0 +1,92 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>对话框插件</title>
+<link rel="stylesheet" type="text/css" href="newcss/css/base.css" />
+<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="newcss/js/dsdialog.js"></script>
+<style>
+	#demo{text-align:center;margin:100px auto;}
+	#demo p{margin:20px auto;}
+	#demo button{padding:10px 30px;cursor:pointer;}
+</style>
+</head>
+<body>
+
+
+
+公共插件需要单独放，目的是当需要引用时，再加载插件部分，来减少初始加载时的加载数据，增加初始加载速度。
+<div id="demo">
+    <p>
+    	<button id="demo5">只有确认按钮</button>
+    	<button id="demo6">有确认和取消按钮！</button>
+		<div class="dialogCover">
+			<div class="dialogMain">
+				<p>该电子邮件地址不接受任何回复邮件，如有疑问请至网站帮助页寻找帮助或联系客服</p>
+			</div>
+		</div>
+    <button class="demo33">自定义内容</button>
+	</p>
+</div>
+    
+    <script type="text/javascript">
+
+
+    $(function () {
+        $("#demo5").click(function () {
+            var diaHtml = $(".dialogCover").html();
+            ds.dialog({
+                //title : '消息提示',
+                content: diaHtml,
+                yesText: '确定',
+                onyes: function () {
+                    //console.log("你点击了确定！");
+                    this.close();
+
+                },
+            });
+        });
+        $(".demo33").click(function () {
+            ds.dialog({
+                title:"提示语",
+                content: "提示内容",
+                yesText: '确认按钮的文字',
+                onyes: function () {
+                    //运行你的事件
+                    this.close();
+                },
+                /*如果不需要取消下面的两个都要去掉*/
+                noText: '取消按钮文字',
+                onno: function () {
+                    //运行你的取消按钮事件
+                    this.close();
+                }
+            });
+        });
+        $("#demo6").click(function () {
+            var diaHtml = $(".dialogCover").html();
+            ds.dialog({
+                //title : '消息提示',
+                content: diaHtml,
+                yesText: '确定',
+                onyes: function () {
+                    //console.log("你点击了确定！");
+                    this.close();
+
+                },
+                noText: '取消',
+                onno: function () {
+                    console.log("你点击了取消！");
+                    this.close();
+                },
+                //icon : "question.gif",
+            });
+        });
+
+
+    });
+    </script>
+</body>
+
+</html>

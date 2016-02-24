@@ -1,0 +1,150 @@
+﻿<!DOCTYPE HTML> 
+<html>
+<head>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="renderer" content="webkit">
+  <title>页面指南</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+	<meta content="telephone=no" name="format-detection" /> 
+	<meta content="email=no" name="format-detection" />
+    <style>
+		body,html,div,blockquote,img,label,p,h1,h2,h3,h4,h5,h6,pre,ul,ol,li,dl,dt,dd,form,a,fieldset,input,th,tr,td,input,select,form{margin:0;padding:0;border:0;outline:none;}
+		html,body{font-family:"微软雅黑",Arial;font-size:12px;padding-bottom:50px;}
+		li{list-style:none;}
+		input,textarea,img{border:0;}
+		table{border-collapse:collapse;border-spacing:0}
+		input, button, select, textarea{font-family: Tahoma,"宋体",Arial,Helvetica,Arial,sans-serif;vertical-align:middle;font-size:100%;margin:0;}
+		em, i{font-style:normal;}
+		img{vertical-align:middle;}
+		a{text-decoration:none;}
+		.clr{clear:both;}
+		.title{width:350px;height:50px;line-height:50px;font-size:20px;background:#ff9966;text-indent:10px;color:#fff;}
+		.links{width:350px;margin:0px auto 0;}
+		.links li{width:350px;height:25px;margin:5px 0 0 0;line-height:25px;text-indent:20px;background:#999;transition:0.5s;-webkit-transition:0.5s;}
+		.links li a{color:#ffffff;font-size:12px;display:block;}
+		.links li:hover{background:#ccc;padding-left:10px;font-size:13px;color:#000;}
+		.links li:hover a{color:#000;font-size:14px;}
+		
+		.cc{width:350px;margin-right: 20px; float: left;}
+    </style>
+</head>
+<body>
+	<div class="cc">
+		<div class="title">前台页面</div>
+		<ul class="links">
+			<li><a href="首页.html" target="_blank">前台-index(2016-01-13)</a></li>
+			<li><a href="列表页.html" target="_blank">前台-列表页(2016-01-14)</a></li>
+			<li><a href="未搜索到结果.html" target="_blank">前台-未搜索到结果(2016-01-14)</a></li>
+			<li><a href="查看没结果.html" target="_blank">前台-查看没结果(2016-01-14)</a></li>
+			<li><a href="付款成功.html" target="_blank">前台-付款成功(2016-01-14)</a></li>
+			<li><a href="付款失败.html" target="_blank">前台-付款失败(2016-01-14)</a></li>
+			<li><a href="购物车为空.html" target="_blank">前台-购物车为空(2016-01-14)</a></li>
+			<li><a href="公告列表.html" target="_blank">前台-公告列表(2016-01-14)</a></li>
+			<li><a href="公告列表-详情.html" target="_blank">前台-公告列表-详情(2016-01-14)</a></li>
+			<li><a href="信用卡.html" target="_blank">前台-信用卡(2016-01-15)</a></li>
+			<li><a href="购物车.html" target="_blank">前台-购物车(2016-01-15)</a></li>
+			<li><a href="提交订单.html" target="_blank">前台-提交订单(2016-01-15)</a></li>
+			<li><a href="支付方式.html" target="_blank">前台-支付方式(2016-01-16)</a></li>
+			<li><a href="产品详情页.html" target="_blank">前台-产品详情(2016-01-16)</a></li>
+			<li><a href="搜索结果页.html" target="_blank">搜索结果页(2016-01-25)</a></li>
+			<li><a href="注册失败.html" target="_blank">注册失败(2016-01-25)</a></li>
+            <li><a href="公告为空.html" target="_blank">公告为空(2016-01-26)</a></li>
+		</ul>
+	</div>
+	
+	<div class="cc">
+		<div class="title">个人中心</div>
+		<ul class="links">
+			<li><a href="登录.html" target="_blank">会员中心-登录(2016-01-13)</a></li>
+			<li><a href="注册.html" target="_blank">会员中心-注册(2016-01-13)</a></li>
+			<li><a href="忘记密码.html" target="_blank">会员中心-忘记密码(2016-01-13)</a></li>
+			<li><a href="忘记密码-设置新密码.html" target="_blank">会员中心-忘记密码-设置新密码(2016-01-13)</a></li>
+			<li><a href="邮箱验证.html" target="_blank">会员中心-邮箱验证(2016-01-14)</a></li>
+			<li><a href="注册成功.html" target="_blank">会员中心-注册成功(2016-01-15)</a></li>
+			<li><a href="会员中心公共.html" target="_blank">会员中心-会员中心主页公共(2016-01-16)</a></li>
+			<li><a href="会员中心-退款维权-退款管理.html" target="_blank">会员中心-退款维权-退款管理(2016-01-16)</a></li>
+			<li><a href="会员中心-退款维权-我的投诉.html" target="_blank">会员中心-退款维权-我的投诉(2016-01-16)</a></li>
+			<li><a href="会员中心-我的账户-我的收藏.html" target="_blank">会员中心-我的账户-我的收藏(2016-01-16)</a></li>
+			<li><a href="会员中心-我的账户-我的评价-评价为空.html" target="_blank">会员中心-我的账户-评价为空(2016-01-16)</a></li>
+			<li><a href="会员中心-我的账户-我的评价-评价列表.html" target="_blank">会员中心-我的账户-评价列表(2016-01-16)</a></li>
+            <li><a href="会员中心-收货地址.html" target="_blank">会员中心-收货地址(2016-01-18)</a></li>
+			<li><a href="我的订单.html" target="_blank">我的订单(2016-01-18)</a></li>
+			<li><a href="我的订单 - 退款申请.html" target="_blank">我的订单-退款申请(2016-01-18)</a></li>
+			<li><a href="我的订单-退款申请-等待结果.html" target="_blank">我的订单-退款申请-等待结果(2016-01-18)</a></li>
+			<li><a href="会员中心-账户设置-账户安全.html" target="_blank">会员中心-账户设置-账户安全(2016-01-18)</a></li>
+			<li><a href="会员中心-账户设置-设置密码.html" target="_blank">会员中心-账户设置-设置密码(2016-01-18)</a></li>
+			<li><a href="会员中心-账户设置-修改登录密码1.html" target="_blank">会员中心-账户设置-修改登录密码1(2016-01-18)</a></li>
+			<li><a href="会员中心-账户设置-修改登录密码2.html" target="_blank">会员中心-账户设置-修改登录密码2(2016-01-18)</a></li>
+			<li><a href="会员中心-账户设置-修改登录密码成功.html" target="_blank">会员中心-账户设置-修改登录密码成功(2016-01-18)</a></li>
+			<li><a href="会员中心-账户设置-修改交易密码1.html" target="_blank">会员中心-账户设置-修改交易密码1(2016-01-18)</a></li>
+			<li><a href="会员中心-账户设置-修改交易密码2.html" target="_blank">会员中心-账户设置-修改交易密码2(2016-01-18)</a></li>
+			<li><a href="会员中心-账户设置-修改交易密码成功.html" target="_blank">会员中心-账户设置-修改交易密码成功(2016-01-18)</a></li>
+			<li><a href="会员中心-账户设置-设置交易密码.html" target="_blank">会员中心-账户设置-设置交易密码(2016-01-18)</a></li>
+			<li><a href="会员中心-个人信息.html" target="_blank">会员中心-账户设置-个人信息(2016-01-18)</a></li>
+			<li><a href="会员中心-我的账户-我的订单-投诉.html" target="_blank">会员中心-我的账户-我的订单-投诉(2016-01-18)</a></li>
+			<li><a href="会员中心-我的账户-我的评价-评价输入.html" target="_blank">会员中心-我的账户-我的评价-评价输入(2016-01-18)</a></li>
+			<li><a href="会员中心-我的账户-我的订单-订单详情-已付款.html" target="_blank">会员中心-我的账户-我的订单-订单详情-已付款(2016-01-18)</a></li>
+			<li><a href="我的订单为空.html" target="_blank">会员中心-我的账户-我的订单为空(2016-01-19)</a></li>
+			<li><a href="我的收藏为空.html" target="_blank">会员中心-我的账户-我的收藏为空(2016-01-20)</a></li>
+			<li><a href="收货地址为空.html" target="_blank">会员中心-我的账户-我的收货地址为空(2016-01-20)</a></li>
+			<li><a href="退款管理为空.html" target="_blank">会员中心-我的账户-退款管理为空(2016-01-20)</a></li>
+			<li><a href="我的投诉为空.html" target="_blank">会员中心-我的账户-我的投诉为空(2016-01-20)</a></li>
+            <li><a href="会员中心-账户设置-我的惠赏钱.html" target="_blank">会员中心-我的账户-我的惠赏钱(2016-01-25)</a></li>
+            <li><a href="会员中心-账户设置-我的惠赏钱.html" target="_blank">会员中心-我的账户-我的惠赏钱(2016-01-25)</a></li>
+            <li><a href="会员中心-我的账户-我的回赠.html" target="_blank">会员中心-我的账户-我的回赠(2016-01-27)</a></li>
+            <li><a href="会员中心-我的账户-我的回赠为空.html" target="_blank">会员中心-我的账户-我的回赠为空(2016-01-27)</a></li>
+		</ul>
+	</div>
+	
+	
+	<div class="cc">
+		<div class="title">其他对话框</div>
+		<ul class="links">
+			<li><a href="publicalert.html" target="_blank">公用弹出提示层(2016-01-13)</a></li>
+			<li><a href="404.html" target="_blank">404(2016-01-15)</a></li>
+			<li><a href="咨询窗口.html" target="_blank">咨询窗口(2016-01-16)</a></li>
+			<li><a href="添加收货人.html" target="_blank">添加收货人(2016-01-16)</a></li>
+			<li><a href="登录弹框.html" target="_blank">登录弹框(2016-01-16)</a></li>
+			<li><a href="设置密码.html" target="_blank">设置密码(2016-01-16)</a></li>
+		</ul>
+	</div>
+	
+	
+	<div class="cc">
+		<div class="title">帮助中心</div>
+		<ul class="links">
+			<li><a href="帮助中心公共.html" target="_blank">帮助中心-左右公共(2016-01-16)</a></li>
+			<li><a href="客户服务-服务协议-繁体.html" target="_blank">会员中心-客户服务-服务协议-繁体(2016-01-19)</a></li>
+			<li><a href="客户服务-服务协议-简体.html" target="_blank">会员中心-客户服务-服务协议-简体(2016-01-19)</a></li>
+			<li><a href="客户服务-常见问题-英文.html" target="_blank">客户服务-常见问题-英文(2016-01-19)</a></li>
+			<li><a href="客户服务-常见问题-繁体.html" target="_blank">客户服务-常见问题-繁体(2016-01-19)</a></li>
+			<li><a href="客户服务-常见问题-简体.html" target="_blank">客户服务-常见问题-简体(2016-01-19)</a></li>
+			<li><a href="关于我们-惠卡承诺-英文.html" target="_blank">关于我们-惠卡承诺-英文(2016-01-19)</a></li>
+			<li><a href="关于我们-惠卡承诺-繁体.html" target="_blank">关于我们-惠卡承诺-繁体(2016-01-19)</a></li>
+			<li><a href="关于我们-惠卡承诺-简体.html" target="_blank">关于我们-惠卡承诺-简体(2016-01-19)</a></li>
+			<li><a href="关于我们-联系我们-英文.html" target="_blank">关于我们-联系我们-英文(2016-01-19)</a></li>
+			<li><a href="关于我们-联系我们-繁体.html" target="_blank">关于我们-联系我们-繁体(2016-01-19)</a></li>
+			<li><a href="关于我们-联系我们-简体.html" target="_blank">关于我们-联系我们-简体(2016-01-19)</a></li>
+			<li><a href="物流配送-退换货流程-英文.html" target="_blank">物流配送-退换货流程-英文(2016-01-19)</a></li>
+			<li><a href="物流配送-退换货流程-繁体.html" target="_blank">物流配送-退换货流程-繁体(2016-01-19)</a></li>
+			<li><a href="物流配送-退换货流程-简体.html" target="_blank">物流配送-退换货流程-简体(2016-01-19)</a></li>
+			<li><a href="物流配送-退换货政策-英文.html" target="_blank">物流配送-退换货政策-英文(2016-01-19)</a></li>
+			<li><a href="物流配送-退换货政策-繁体.html" target="_blank">物流配送-退换货政策-繁体(2016-01-19)</a></li>
+			<li><a href="物流配送-退换货政策-简体.html" target="_blank">物流配送-退换货政策-简体(2016-01-19)</a></li>
+			<li><a href="物流配送-配送说明-英文.html" target="_blank">物流配送-配送说明-英文(2016-01-19)</a></li>
+			<li><a href="物流配送-配送说明-繁体.html" target="_blank">物流配送-配送说明-繁体(2016-01-19)</a></li>
+			<li><a href="物流配送-配送说明-简体.html" target="_blank">物流配送-配送说明-简体(2016-01-19)</a></li>
+			<li><a href="新手指南-支付方式-繁体.html" target="_blank">新手指南-支付方式-繁体(2016-01-19)</a></li>
+			<li><a href="新手指南-支付方式-英文.html" target="_blank">新手指南-支付方式-英文(2016-01-19)</a></li>
+			<li><a href="新手指南-支付方式-简体.html" target="_blank">新手指南-支付方式-简体(2016-01-19)</a></li>
+			<li><a href="新手指南-购物流程-英文.html" target="_blank">新手指南-购物流程-英文(2016-01-19)</a></li>
+			<li><a href="新手指南-购物流程-繁体.html" target="_blank">新手指南-购物流程-繁体(2016-01-19)</a></li>
+			<li><a href="新手指南-购物流程-简体.html" target="_blank">新手指南-购物流程-简体(2016-01-19)</a></li>
+		</ul>
+	</div>
+
+
+</body>
+</html>

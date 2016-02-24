@@ -1,0 +1,54 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.SKU.SKU_ProductTypesModel
+@{
+    //规格属性
+}
+
+<div class="row" style="margin-top:10px;">
+    <div class="col-xs-12">
+        <div class="box box-success">
+            <div class="box-header">
+                <h3 class="box-title">Spec list</h3>
+                <div class="box-tools">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-sm btn-success js-add-item" onclick="selectorStandardAttr()"><i class="fa fa-plus"></i>&nbsp;Add specifications</button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body table-responsive no-padding" style="height:200px;overflow-y:auto;display:block">
+                <table class="table table-hover js-tb-Standard">
+                    <tbody>
+                        <tr data-option="{'DisplaySequence':-1,'Index':-1}">
+                            <th width="33%" class="text-center">specification name</th>
+                            <th class="text-center">Operation</th>
+                        </tr>
+                        @for (int i = 0; i < Model.StandardAttributeModels.Count; i++)
+                        {
+                            var prefix = "StandardAttributeModels[" + i + "].";
+                            var tempProductTypeAttr = Model.StandardAttributeModels[i];
+                            <tr data-option="{'DisplaySequence':@tempProductTypeAttr.DisplaySequence,'Index':@i}" class="js-tr-item">
+                                <td class="text-center">
+                                    <input type="hidden" name="@(prefix + "AttributeId")" value="@tempProductTypeAttr.AttributeId" class="js-AttributeId" />
+                                    <input type="hidden" name="ValueId" value="@tempProductTypeAttr.AttributeId" class="js-ValueId" />
+                                    <input type="hidden" name="@(prefix + "DisplaySequence")" value="@tempProductTypeAttr.DisplaySequence" class="js-DisplaySequence" />
+                                    <input type="hidden" name="@(prefix + "RowStatus")" value="0" class="js-RowStatus" />
+                                    <input type="hidden" class="js-SKU_ProductTypeAttributeId" name="@(prefix + "SKU_ProductTypeAttributeId")" value="@tempProductTypeAttr.SKU_ProductTypeAttributeId" />
+                                    <input type="hidden" name="@(prefix + "SKU_AttributesModel.AttributeName")" value="@tempProductTypeAttr.SKU_AttributesModel.AttributeName" class="js-AttributeName" />
+                                    <div class="form-group" style="margin-left:0;">
+                                        <label>@tempProductTypeAttr.SKU_AttributesModel.AttributeName</label>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-default js-up-item" type="button"><i class="glyphicon glyphicon-arrow-up"></i></button>&nbsp;
+                                        <button class="btn btn-sm btn-default js-down-item" type="button"><i class="glyphicon glyphicon-arrow-down"></i></button>&nbsp;
+                                        @*<button class="btn btn-sm btn-default js-remove-item" onclick="removeProductTypeAttr(this)" type="button"><i class="glyphicon glyphicon-remove"></i></button>&nbsp;*@
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

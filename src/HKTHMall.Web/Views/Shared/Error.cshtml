@@ -1,0 +1,41 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+  
+<div class="main_a">
+    <div class="l_main_a">
+        <div class="cb_xiajiazhuans">
+            <p>@CultureHelper.GetLangString("HOME_SEARCH_GOODSSHELVES")</p>
+            <span>
+                @CultureHelper.GetLangString("HOME_SEARCH_YOUCAN")：<br>
+                1.@CultureHelper.GetLangString("HOME_SEARCH_SERVICEFORGOODS")<br>
+                2.@CultureHelper.GetLangString("HOME_SEARCH_KEYWORDSEARCH")<br>
+                3.@Html.Raw(string.Format(CultureHelper.GetLangString("HOME_SEARCH_JUMPIN"), "<i id='showtimes'>5</i>"))
+            </span>
+        </div>
+    </div>
+    <div class="clear"></div>
+
+    @Html.Action("LikeGuess", "Home", new { area = "" })
+
+    <div class="c_public_bottom"></div>
+</div>
+<script type="text/javascript">
+        //设定倒数秒数
+        var t = 5;
+        var timeid;
+        //显示倒数秒数
+        function showTime() {
+            t -= 1;
+            document.getElementById('showtimes').innerHTML = t;
+            if (t == 0) {
+                clearInterval(timeid);
+                location.href = '/home/index';
+            }
+        }
+        //执行showTime()
+        $(function () {
+            timeid = setInterval("showTime()", 1000);
+        });
+    </script>

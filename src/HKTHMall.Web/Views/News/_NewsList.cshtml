@@ -1,0 +1,10 @@
+﻿@{
+    var sales = ViewBag.ListData;
+    Layout = "";
+}
+<ul>
+    @foreach (var item in sales)
+    {
+        <li><a href="@Url.Action("Details", "News", new { id = item.NewInfoId })" title=""><span>@item.NewTitle</span><i>@item.CreateDT.ToString("yyyy-MM-dd HH:mm:ss")</i></a></li>
+    }
+</ul>

@@ -1,0 +1,51 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>@CultureHelper.GetAPPLangSgring("API_REGISTEREDSUCCESS",ViewBag.Lang)</title>
+
+    <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta charset="utf-8" />
+    <link href="@Url.Content("~/Areas/Content/css/style_suc.css")" rel="stylesheet" type="text/css" />
+</head>
+<body style="background:#ffd200;">
+    <div class="main_a">
+        <div class="login_succ">
+            <div class="login_succ1">
+                <div class="login_succ1_1"><img src="@Url.Content("~/Areas/Content/images/login_succ.png")" style="display:block" alt="" /></div>
+                <div class="login_succ1_2">@CultureHelper.GetAPPLangSgring("LOGIN_GETPASSWORD_REGSUCCESS",ViewBag.Lang)<br />@CultureHelper.GetAPPLangSgring("SHARE_LOGINACCOUNT",ViewBag.Lang):@ViewBag.Acc</div>
+            </div>
+
+        </div>
+        <div class="login_succ_nr">
+            <div class="login_succ_nr1">
+                <div class="login_succ2" style="height:auto">@CultureHelper.GetAPPLangSgring("SHARE_DOWMLOAD_MSG",ViewBag.Lang)</div>
+                <div class="login_succ3"><img src="@Url.Content("~/Areas/Content/images/DownLoad.jpg")" alt="" style="width:40em" /></div>
+            </div>@*@Url.Action("GetImg", "User", new { id = ViewBag.Id })*@
+            <div class="login_succ_nr2">
+                <div class="login_succ4"><span style="height:auto">@CultureHelper.GetAPPLangSgring("SHARE_HUIFEN_MSG1",ViewBag.Lang)</span><p>@CultureHelper.GetAPPLangSgring("SHARE_HUIFEN_MSG2",ViewBag.Lang)<br />@CultureHelper.GetAPPLangSgring("SHARE_HUIFEN_MSG3",ViewBag.Lang)</p></div>
+                <div class="login_succ5">
+                    <div class="log_suc5_1">@CultureHelper.GetAPPLangSgring("SHARE_SHOUYI_MSG1", ViewBag.Lang)</div>
+                    <div class="log_suc5_2">
+                        <ul>
+                            <li><span>@CultureHelper.GetAPPLangSgring("SHARE_SHOUYI_MSG2", ViewBag.Lang)</span><i>+</i><div class="clear"></div></li>
+                            <li><span>@CultureHelper.GetAPPLangSgring("SHARE_SHOUYI_MSG3", ViewBag.Lang)</span><i>+</i><div class="clear"></div></li>
+                            <li><span>@CultureHelper.GetAPPLangSgring("SHARE_SHOUYI_MSG4", ViewBag.Lang)</span><div class="clear"></div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear" style="height:30px;"></div>
+</body>
+</html>

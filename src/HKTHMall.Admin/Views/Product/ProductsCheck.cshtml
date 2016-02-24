@@ -1,0 +1,15 @@
+﻿@using System.Web.Mvc.Html
+@using BrCms.Framework.Mvc.Extensions
+@using HKTHMall.Admin.common
+@using HKTHMall.Domain.Enum
+
+<form action="@Url.Action("ProductsCheck")" id="check_form" method="POST">
+   
+    <input name="ProductIds" value="@ViewBag.ids" type="hidden" />
+     <div class="row">
+        <div class="col-md-3">Review status:</div>
+        <div class="col-md-4">
+            @Html.DropDownList("ProductStatus", ProductStatus.Submitting.ToSelectList(selected: (int)ProductStatus.Submitting), new Dictionary<string, object>() { { "class", "form-control" } })
+        </div>
+    </div>
+</form>

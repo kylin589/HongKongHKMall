@@ -1,0 +1,37 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.SKU.SKU_ProductTypesModel
+<div class="row" style="padding:0 5px;min-height:370px;">
+    <div class="nav-tabs-custom" style="margin-bottom:0;border-bottom:0;">
+        <ul class="nav nav-tabs js-nav-tabs">
+            <li class="active"><a href="#tab_Basic " data-toggle="tab">Basic Info</a></li>
+            <li><a href="#tab_Standard" data-toggle="tab">Spec attribute</a></li>
+            @if (Model.UseExtend.Value == 1)
+            {
+                <li id="nav_tab_UseExtend"><a href="#tab_UseExtend" data-toggle="tab">Extended attributes</a></li>
+            }
+            @if (Model.UseParameter.Value == 1)
+            {
+                <li id="nav_tab_UseParam"><a href="#tab_UseParam" data-toggle="tab">Detailed parameter</a></li>
+            }
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab_Basic">
+                @Html.Partial("_Basic", Model)
+            </div>
+            <div class="tab-pane" id="tab_Standard">
+                @Html.Partial("_Standard", Model)
+            </div>
+            @if (Model.UseExtend.Value == 1)
+            {
+                <div class="tab-pane" id="tab_UseExtend">
+                    @Html.Partial("_UseExtend", Model)
+                </div>
+            }
+            @if (Model.UseParameter.Value == 1)
+            {
+                <div class="tab-pane" id="tab_UseParam">
+                    @Html.Partial("_UseParam", Model)
+                </div>
+            }
+        </div>
+    </div>
+</div>

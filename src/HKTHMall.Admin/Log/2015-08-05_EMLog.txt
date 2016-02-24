@@ -1,0 +1,36 @@
+﻿2015/8/5 11:37:42 : 调用EMLauncherStartUp，开始执行连接到中间件
+2015/8/5 11:37:42 : 调用EMLauncherStartUp函数，开始执行连接到中间件出错：System.DllNotFoundException: 无法加载 DLL“export_c_component.dll”: 找不到指定的模块。 (异常来自 HRESULT:0x8007007E)。
+   在 Em.EmImport.EmLog_Info(String pFuncName, String pLogInfo)
+   在 Em.EmLog.Info(String funcName, String logInfo)
+   在 Em.EmLauncher.Init(String sBinPath, String sLogPath, String sCfgPath, String sBndPath, String sTmpPath)
+   在 HKSJ.MidMessage.Core.EMLauncherRun.EMLauncherStartUp(String pathDll) 位置 f:\01_Work\01_Project\20_HKSJ.MidMessage\trunk\src\HXMidMessage\Core\EMLauncherRun.cs:行号 41
+2015/8/5 11:51:32 : 调用EMLauncherStartUp，开始执行连接到中间件
+2015/8/5 11:51:32 : 调用EMLauncherStartUp函数，开始执行连接到中间件出错：System.DllNotFoundException: 无法加载 DLL“export_c_component.dll”: 找不到指定的模块。 (异常来自 HRESULT:0x8007007E)。
+   在 Em.EmImport.EmLog_Info(String pFuncName, String pLogInfo)
+   在 Em.EmLog.Info(String funcName, String logInfo)
+   在 Em.EmLauncher.Init(String sBinPath, String sLogPath, String sCfgPath, String sBndPath, String sTmpPath)
+   在 HKSJ.MidMessage.Core.EMLauncherRun.EMLauncherStartUp(String pathDll) 位置 f:\01_Work\01_Project\20_HKSJ.MidMessage\trunk\src\HXMidMessage\Core\EMLauncherRun.cs:行号 41
+2015/8/5 15:02:43 : 调用EMLauncherStartUp，开始执行连接到中间件
+2015/8/5 15:02:43 : 调用EMLauncherStartUp函数，开始执行连接到中间件出错：System.DllNotFoundException: 无法加载 DLL“export_c_component.dll”: 找不到指定的模块。 (异常来自 HRESULT:0x8007007E)。
+   在 Em.EmImport.EmLog_Info(String pFuncName, String pLogInfo)
+   在 Em.EmLog.Info(String funcName, String logInfo)
+   在 Em.EmLauncher.Init(String sBinPath, String sLogPath, String sCfgPath, String sBndPath, String sTmpPath)
+   在 HKSJ.MidMessage.Core.EMLauncherRun.EMLauncherStartUp(String pathDll) 位置 f:\01_Work\01_Project\20_HKSJ.MidMessage\trunk\src\HXMidMessage\Core\EMLauncherRun.cs:行号 41
+2015/8/5 15:30:54 : 调用EMLauncherStartUp，开始执行连接到中间件
+2015/8/5 15:30:54 : 调用EMLauncherStartUp函数，开始执行连接到中间件出错：System.DllNotFoundException: 无法加载 DLL“export_c_component.dll”: 找不到指定的模块。 (异常来自 HRESULT:0x8007007E)。
+   在 Em.EmImport.EmLog_Info(String pFuncName, String pLogInfo)
+   在 Em.EmLog.Info(String funcName, String logInfo)
+   在 Em.EmLauncher.Init(String sBinPath, String sLogPath, String sCfgPath, String sBndPath, String sTmpPath)
+   在 HKSJ.MidMessage.Core.EMLauncherRun.EMLauncherStartUp(String pathDll) 位置 f:\01_Work\01_Project\20_HKSJ.MidMessage\trunk\src\HXMidMessage\Core\EMLauncherRun.cs:行号 41
+2015/8/5 15:37:20 : 调用EMLauncherStartUp，开始执行连接到中间件
+2015/8/5 15:37:20 : 调用EMLauncherStartUp函数，开始执行连接到中间件出错：System.DllNotFoundException: 无法加载 DLL“export_c_component.dll”: 找不到指定的模块。 (异常来自 HRESULT:0x8007007E)。
+   在 Em.EmImport.EmLog_Info(String pFuncName, String pLogInfo)
+   在 Em.EmLog.Info(String funcName, String logInfo)
+   在 Em.EmLauncher.Init(String sBinPath, String sLogPath, String sCfgPath, String sBndPath, String sTmpPath)
+   在 HKSJ.MidMessage.Core.EMLauncherRun.EMLauncherStartUp(String pathDll) 位置 f:\01_Work\01_Project\20_HKSJ.MidMessage\trunk\src\HXMidMessage\Core\EMLauncherRun.cs:行号 41
+2015/8/5 15:38:29 : 调用EMLauncherStartUp，开始执行连接到中间件
+2015/8/5 15:38:29 : 调用EMLauncherStartUp函数，开始执行连接到中间件出错：System.DllNotFoundException: 无法加载 DLL“export_c_component.dll”: 找不到指定的模块。 (异常来自 HRESULT:0x8007007E)。
+   在 Em.EmImport.EmLog_Info(String pFuncName, String pLogInfo)
+   在 Em.EmLog.Info(String funcName, String logInfo)
+   在 Em.EmLauncher.Init(String sBinPath, String sLogPath, String sCfgPath, String sBndPath, String sTmpPath)
+   在 HKSJ.MidMessage.Core.EMLauncherRun.EMLauncherStartUp(String pathDll) 位置 f:\01_Work\01_Project\20_HKSJ.MidMessage\trunk\src\HXMidMessage\Core\EMLauncherRun.cs:行号 41

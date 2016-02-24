@@ -1,0 +1,5 @@
+测试数据库存放地址
+ip:192.168.16.222
+name:sa
+password:Sa123
+DBName:HKHongKong

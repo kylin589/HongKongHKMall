@@ -1,0 +1,94 @@
+﻿@using HKTHMall.Core
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Html.Partial("_CSS")
+    <link href="~/Content/css/common.css" rel="stylesheet" />
+    @RenderSection("css", false)
+    @Html.Partial("_Scripts")
+</head>
+<body>
+    @*<section class="main-container">*@
+    <div class="container-fluid">
+        @RenderBody()
+
+    </div>
+    @*</section>*@
+
+    <script type="text/javascript">
+        $(function () {
+
+            //设置图片根路径
+            if (Tool) {
+                Tool.RootImage = '@ViewBag.RootImage';
+                Tool.UserID = '@UserInfo.CurrentUserID';
+            }
+
+            //把bootbox设为中文显示
+            if (bootbox) {
+                bootbox.setLocale('en');
+                //bootbox.setLocale('zh_CN');
+            }
+
+            //增加拖拽效果
+            if ($.fn.dragdrop) {
+                $('body').delegate('.modal-header', 'mouseenter', function () {
+                    var $this = $(this);
+                    if (!$this.data('isbind')) {
+                        $this.parents('.modal-dialog').dragdrop({ anchor: $this });
+                        $this.data('isbind', 1);
+                    }
+
+                });
+            }
+
+            //自适应高度 居中显示
+            $('body').delegate(".modal", 'shown.bs.modal', function () {
+                var $this = $(this);
+                $this.find(".modal-body").css({
+                    "max-height": ($(window).height() - 250) + 'px',
+                    "overflow-y": "auto"
+                });
+
+                var marginTop = ($(window).height() - $this.find(".modal-dialog").height()) / 2;
+                $this.find(".modal-dialog").css({
+                    "margin-top": marginTop + 'px'
+                });
+            });
+
+            //窗体隐藏后自动重置位置
+            $('body').delegate('.modal', 'hidden.bs.modal', function () {
+                var $this = $(this);
+
+                $this.find(".modal-dialog").css({
+                    "top": 'auto',
+                    "left": 'auto'
+                });
+            });
+            if (KindEditor) {
+                KindEditor.options.langType = 'en';
+            }
+
+        });
+
+        function changePageSettings() {
+            ///<summary>页面设置</summary>
+            resetViewTable();
+        }
+
+        function resetViewTable(selector) {
+            ///<summary>重置bootstrap table插件窗体</summary>
+            ///<param name="selector" type="string">选择器</param>
+            var tableObj = selector || '#u_grid';
+            var $tableObj = $(tableObj);
+            if ($tableObj && $tableObj.length > 0) {
+                $tableObj.bootstrapTable('resetView');
+            }
+        }
+
+    </script>
+    @RenderSection("scripts", false)
+</body>
+</html>

@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="Keywords" content="">
+		<title>帮助中心</title>
+		<link rel="stylesheet" type="text/css" href="newcss/css/css.css" />
+		<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+	</head>
+
+<body>
+<div class="header">
+	<div class="clear" style="background: #ccc; height: 175px;"></div>
+</div><!--公共头部-->
+
+
+<div class="main_a">
+	
+	<div class="main_about">
+		<div class="ls_help">
+			
+			<!--left-->
+			<div class="ls_help_lf" style="background: #ccc; height: 800px;"></div>
+			
+			<!--right-->
+			<div class="ls_help_rg">
+				<div class="ls_help_rg_tit">
+					<div class="title1">
+						購物流程
+					</div>
+					<div class="title2">
+						輕鬆購物7步驟流程
+					</div>
+				</div>
+				<div class="ls_help_rg_nr">
+					<div class="help_bt">1.註冊成為會員</div>
+					<div class="help_nr">點擊網頁左上角【註冊】<p>按照網頁提示，完成註冊</p></div>
+					<div class="help_bt">2.登入</div>
+					<div class="help_nr">在官網首頁左上角點擊【登入】，登入香港惠卡商城</div>
+					<div class="help_bt">3.查找商品</div>
+					<div class="help_nr">分類瀏覽或直接搜尋來查找商品</div>
+					<div class="help_bt">4.放入購物車</div>
+					<div class="help_nr">商品放入購買車後去結算或繼續購物</div>
+					<div class="help_bt">5.提交訂單</div>
+					<div class="help_nr">選擇支付方式後提交訂單</div>
+					<div class="help_bt">6.查看訂單狀態</div>
+					<div class="help_nr">分別為待發貨及待收貨兩種狀態</div>
+					<div class="help_bt">7.收貨後評價</div>
+					<div class="help_nr">收貨後可以評價商品</div>
+					
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+
+</div><!--主体部分-->
+
+
+
+<div class="footer"></div><!--公共底部-->
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,9 @@
+F:\WorkSpace\src\Framework\Simple.Data.RawSql\bin\Debug\Simple.Data.RawSql.dll
+F:\WorkSpace\src\Framework\Simple.Data.RawSql\bin\Debug\Simple.Data.RawSql.pdb
+F:\WorkSpace\src\Framework\Simple.Data.RawSql\bin\Debug\Simple.Data.Ado.dll
+F:\WorkSpace\src\Framework\Simple.Data.RawSql\bin\Debug\Simple.Data.dll
+F:\WorkSpace\src\Framework\Simple.Data.RawSql\bin\Debug\Simple.Data.Ado.pdb
+F:\WorkSpace\src\Framework\Simple.Data.RawSql\bin\Debug\Simple.Data.pdb
+F:\WorkSpace\src\Framework\Simple.Data.RawSql\obj\Debug\Simple.Data.RawSql.csprojResolveAssemblyReference.cache
+F:\WorkSpace\src\Framework\Simple.Data.RawSql\obj\Debug\Simple.Data.RawSql.dll
+F:\WorkSpace\src\Framework\Simple.Data.RawSql\obj\Debug\Simple.Data.RawSql.pdb

@@ -1,0 +1,358 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title id="cb_title"></title>
+
+    <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta charset="utf-8" />
+
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/changbiao.js"></script>
+
+    <script>
+
+        String.format = function () {
+            if (arguments.length == 0) {
+                return null;
+            }
+            var str = arguments[0];
+            for (var i = 1; i < arguments.length; i++) {
+                var re = new RegExp('\\{' + (i - 1) + '\\}', 'gm');
+                str = str.replace(re, arguments[i]);
+            }
+            return str;
+        }
+
+        //js获取url传递参数
+        function GetRequest() {
+            var url = location.search;
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+
+
+        var Request = new Object();
+        Request = GetRequest();
+        var cb_lang = Request['lang'];      //language
+        var varPageNo = 1;                  //page
+        var cb_type = Request['type'];      //isStart
+        var totalSize = 0;                  //
+        //语言判断
+        $(function () {
+            if (cb_lang == "1") {
+                $("#cb_title").html((cb_type == "1") ? "爆款进行中" : "即将开始");
+                $("#sh_loading").html("数据加载中...");
+            }
+            if (cb_lang == "2") {
+                $("#cb_title").html((cb_type == "1") ? "Hot Sale Ongoing" : "About to Begin");
+                $("#sh_loading").html("Loading data...");
+            }
+            if (cb_lang == "3") {
+                $("#cb_title").html((cb_type == "1") ? "ช่วงโปรโมชั่น" : "เริ่มโปรโมชั่น");
+                $("#sh_loading").html("โหลดข้อมูลอยู่...");
+            }
+
+
+
+            //加载数据
+            LoadData(varPageNo);
+
+            //滚动加载数据
+            var winH = $(window).height(); //页面可视区域高度
+            $(window).scroll(function () {
+                var pageH = $(document.body).height();
+                var scrollT = $(window).scrollTop(); //滚动条top
+                var aa = (pageH - winH - scrollT) / winH;
+                if (aa < 0.02) {
+                    if (varPageNo < Math.ceil(totalSize / 20)) {
+                        varPageNo += 1;
+                        LoadData(varPageNo);
+                    }
+                }
+            });
+
+        });
+
+
+        function LoadData(page) {
+            $.ajax({
+                type: "Post",//要用post方式
+                url: "/Other/GetExplosiveGoods",//爆款列表
+                dataType: "json",
+                data: {
+                    lang: cb_lang,
+                    isFirstPage: 1,
+                    bannerSize: 5,
+                    pageNo: page,
+                    pageSize: 20
+                },
+                beforeSend: function () {
+                    $("#loading").show();
+                },
+                success: function (JsonData) {//返回成功
+                  
+                    var listhtml = "";
+                    var tempstring = " <div class='c2_pro_list' datatime='{6}' isstart='{7}'>";
+                    tempstring += "<div class='c2_pro_li_time'>";
+                    tempstring += "<dl><span>{0}</span></dl>";
+                    tempstring += "    <ul id='ultime'>";
+                    tempstring += "        <span>0</span>";
+                    tempstring += "        <span>0</span>";
+                    tempstring += "        <i>:</i>";
+                    tempstring += "        <span>0</span>";
+                    tempstring += "        <span>0</span>";
+                    tempstring += "        <i>:</i>";
+                    tempstring += "        <span>0</span>";
+                    tempstring += "        <span>0</span>";
+                    tempstring += "    </ul>";
+                    tempstring += "</div>";
+                    tempstring += "<div class='c2_pro_li_pic'><a href='{2}'><img src='{1}' width='254' height='178' /></a></div>";
+                    tempstring += "<div class='c2_pro_li_text'><a href='{2}'>{3}</a></div>";
+                    tempstring += "<div class='c2_pro_li_price'><span>{4}บาท</span><i>{5}บาท</i></div>";
+                    tempstring += "</div>";
+                     
+
+                    //var safdsdfs =String.format(tempstring,"剩余时间", "#", "http://www.baidu.com", "测试", "1000", "2000");
+                    
+                    //$("#c2_product").html(safdsdfs);
+
+                    if (cb_type == 1)
+                    {
+                        if (JsonData.rs.ipTotal > 0) {
+                            for (var i = 0; i < JsonData.rs.ipTotal; i++) {
+                                var productId = JsonData.rs.inProgressList[i].productId;
+                                var productName = JsonData.rs.inProgressList[i].productName;
+                                var picAddress = JsonData.rs.inProgressList[i].picAddress;
+                                //var activityPrice = parseFloat(JsonData.rs.inProgressList[i].activityPrice).toFixed(2);
+                                //var hKPrice = parseFloat(JsonData.rs.inProgressList[i].hKPrice).toFixed(2);
+                                var activityPrice = Math.round(JsonData.rs.inProgressList[i].activityPrice);
+                                var hKPrice = Math.round(JsonData.rs.inProgressList[i].hKPrice);
+                                var endDate = JsonData.rs.inProgressList[i].endDate;
+                                var serverDt = JsonData.rs.inProgressList[i].serverDt;
+                                var time_a = (endDate - serverDt) / 1000;       //时间差
+                                var langtext = "";
+                                if (cb_lang == "1") {
+                                    langtext = "剩余";
+                                }
+                                else if (cb_lang == "2") {
+                                    langtext = "Remain";
+                                }
+                                else if (cb_lang == "3") {
+                                    langtext = "สินค้าไฮไลท์";
+                                }
+
+                                listhtml += String.format(tempstring, langtext, picAddress,"?method=productDetail&id=" + productId, productName, activityPrice, hKPrice, time_a, 0);
+
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        if (JsonData.rs.atsTotal > 0) {
+                            for (var i = 0; i < JsonData.rs.atsTotal; i++) {
+                                var productId = JsonData.rs.aboutToStart[i].productId;
+                                var productName = JsonData.rs.aboutToStart[i].productName;
+                                var picAddress = JsonData.rs.aboutToStart[i].picAddress;
+                                //var activityPrice = parseFloat(JsonData.rs.aboutToStart[i].activityPrice).toFixed(2);
+                                //var hKPrice = parseFloat(JsonData.rs.aboutToStart[i].hKPrice).toFixed(2);
+                                var activityPrice = Math.round(JsonData.rs.aboutToStart[i].activityPrice);
+                                var hKPrice = Math.round(JsonData.rs.aboutToStart[i].hKPrice);
+                                var starDate = JsonData.rs.aboutToStart[i].starDate;
+                                var serverDt = JsonData.rs.aboutToStart[i].serverDt;
+                                var time_a = (starDate - serverDt)/1000;       //时间差
+                                var langtext = "";
+                                if (cb_lang == "1") {
+                                    langtext = "剩余";
+                                }
+                                else if (cb_lang == "2") {
+                                    langtext = "Remain";
+                                }
+                                else if (cb_lang == "3") {
+                                    langtext = "สินค้าไฮไลท์";
+                                }
+
+                                listhtml += String.format(tempstring, langtext, picAddress, "?method=productDetail&id=" + productId, productName, activityPrice, hKPrice, time_a, 0);
+                            }
+                        } 
+                    }
+                     
+                    if (listhtml == "")
+                    {
+                        $("#nolist").show();
+                    }
+                    else
+                    {
+                        $("#c2_product").html(listhtml);
+                        $("#nolist").hide();
+                    } 
+
+                },
+                complete: function () {
+                    $("#loading").hide();
+                },
+                error: function (err) {//失败
+                    //alert(err);
+                }
+
+            });
+        }
+
+        var objTimer = null;
+        objTimer = window.setInterval(function () { ShowCountDown_iterate(); }, 1000);
+        function ShowCountDown_iterate() {
+            ////需要处理倒计时的控件
+            var leftsecond = 0;  //倒计时总时间
+            //var isstart = 0;
+            $(".c2_pro_list").each(function (i) {
+                leftsecond = parseInt($(this).attr("datatime"));
+                //isstart = parseInt($(this).attr("isstart"));
+                if (leftsecond <= 0) {
+                    //if (objTimer != null) {
+                        //window.clearInterval(objTimer);
+                   // }
+                    LoadData(1);
+                }
+                else {
+                    
+                    var hour = Math.floor((leftsecond) / 3600);
+                    var minute = Math.floor((leftsecond - hour * 3600) / 60);
+                    var second = Math.floor(leftsecond - hour * 3600 - minute * 60);
+                    var txtHour1 = "<span class='btn'>" + hour.toString().substr(0, 1) + "</span><span class='btn'>" + hour.toString().substr(1, 1) + "</span><span class='btn'>" + hour.toString().substr(hour.toString().length - 1, 1) + "</span><i>:</i>";
+                    var txtHour2 = "<span class='btn'>" + (hour < 10 ? '0' : hour.toString().substr(0, 1)) + "</span><span class='btn'>" + hour.toString().substr(hour.toString().length - 1, 1) + "</span><i>:</i>";
+                    var txtHour = (hour >= 100 ? txtHour1 : txtHour2);
+                    var txtMinute = "<span class='btn'>" + (minute < 10 ? '0' : minute.toString().substr(0, 1)) + "</span><span class='btn'>" + minute.toString().substr(minute.toString().length - 1, 1) + "</span><i>:</i>";
+                    var txtSecond = "<span class='btn'>" + (second < 10 ? '0' : second.toString().substr(0, 1)) + "</span><span class='btn'>" + second.toString().substr(second.toString().length - 1, 1) + "</span>";
+                    var txtTime = txtHour + txtMinute + txtSecond;//剩余
+                    $(this).find("ul").html(txtTime);
+                }
+                leftsecond--;
+                //判断是否小于0,小于0的话做其他的处理。
+                $(this).attr("datatime", leftsecond);
+            });
+        }
+
+         
+
+    </script>
+
+
+</head>
+
+<body>
+    <div class="main_a" id="c2_zoom">
+        <div class="main_loading" id="loading"><span><img src="images/loading.gif" /></span><p id="sh_loading"></p></div>
+
+
+
+        <div class="c2_product">
+            <div class="c2_pro_time" id="c2_product">
+
+
+                <!--<div class="c2_pro_list">
+                    <div class="c2_pro_li_time">
+                        <dl><span>剩余</span></dl>
+                        <ul>
+                            <span>2</span>
+                            <span>0</span>
+                            <i>:</i>
+                            <span>2</span>
+                            <span>0</span>
+                            <i>:</i>
+                            <span>2</span>
+                            <span>0</span>
+                        </ul>
+                    </div>
+                    <div class="c2_pro_li_pic"><a href="#"><img src="images/product1.jpg" width="254" height="178" /></a></div>
+                    <div class="c2_pro_li_text"><a href="#">标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题</a></div>
+                    <div class="c2_pro_li_price"><span>12321บาท</span><i>5252บาท</i></div>
+                </div>-->
+
+
+
+
+
+
+
+
+                <div class="clear" style="height:15px;"></div>
+            </div>
+        </div>
+
+        <div class="c2_pj_noneall" id="nolist" style="display:none;"><img src="images/product1.png" /><span id="">暂无数据</span></div><!--暂无爆款-->
+    </div>
+
+
+    <script>
+
+        $(function () {
+            $(".pr_list").each(function () {
+                var cb = $(this).find(".pr3").attr("das");
+                var qq = $(this).attr("id");
+                tim(cb, qq);
+            });
+        });
+
+        function tim(bs, qq) {
+            ts = bs - 1000;
+
+            if (ts <= 0) {
+                $("#" + qq).addClass("ads");
+            } else {
+                $("#" + qq).show();
+            }
+
+            var dd = parseInt(ts / 1000 / 60 / 60 / 24, 10);//计算剩余的天数
+            var hh = parseInt(ts / 1000 / 60 / 60 % 24, 10);//计算剩余的小时数
+            var mm = parseInt(ts / 1000 / 60 % 60, 10);//计算剩余的分钟数
+            var ss = parseInt(ts / 1000 % 60, 10);//计算剩余的秒数
+
+            if (hh < 10) { hh = "0" + hh; }
+            if (mm < 10) { mm = "0" + mm; }
+            if (ss < 10) { ss = "0" + ss; }
+
+            $(function () {
+                if (cb_lang == "1") {
+                    if (dd < 1) {
+                        $("#" + qq).find(".pr3").html("剩 " + hh + ":" + mm + ":" + ss);
+                    }
+                    else {
+                        $("#" + qq).find(".pr3").html("剩 " + dd + "天" + hh + ":" + mm + ":" + ss);
+                    }
+                }
+                if (cb_lang == "2") {
+                    if (dd < 1) {
+                        $("#" + qq).find(".pr3").html("Remain " + hh + ":" + mm + ":" + ss);
+                    }
+                    else {
+                        $("#" + qq).find(".pr3").html("Remain " + dd + "days" + hh + ":" + mm + ":" + ss);
+                    }
+                }
+                if (cb_lang == "3") {
+                    if (dd < 1) {
+                        $("#" + qq).find(".pr3").html("เหลือ " + hh + ":" + mm + ":" + ss);
+                    }
+                    else {
+                        $("#" + qq).find(".pr3").html("เหลือ " + dd + "วัน" + hh + ":" + mm + ":" + ss);
+                    }
+                }
+            });
+            setTimeout("tim('" + ts + "','" + qq + "')", 1000);
+        }
+    </script>
+
+</body>
+</html>

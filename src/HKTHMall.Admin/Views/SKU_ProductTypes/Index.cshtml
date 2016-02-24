@@ -1,0 +1,209 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.SKU.SearchSKU_ProductTypesModel
+@{
+    ViewBag.Title = "Commodity type list page";
+}
+@section css{
+    <style type="text/css">
+        #modal-form .modal-dialog {
+            width: 800px;
+            min-height: 500px;
+        }
+    </style>
+}
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>Type Name: </span>&nbsp;
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-control w70", @placeholder = "Please enter type name" })
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-danger js_reset" onclick="Tool.ClearForm($('#user-toolbar'))">
+            <span class="glyphicon glyphicon-bullhorn"></span> Clear
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-primary js_create">
+            <span class="glyphicon glyphicon-plus"></span> Add
+        </button>
+    </div>
+</div>
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts
+{
+    @* 规格参数模板 *@
+    <script type="text/x-template" id="standardProductTypeAttrTpl">
+        <tr data-option="{'Index':{{Index}},'DisplaySequence':{{DisplaySequence}}}" class=" js-tr-item">
+            <td class="text-center">
+                <input type="hidden" name="StandardAttributeModels[{{Index}}].AttributeId" value="{{AttributeId}}" class="js-AttributeId" />
+                <input type="hidden" name="ValueId" value="0" class="js-ValueId" />
+                <input type="hidden" name="StandardAttributeModels[{{Index}}].DisplaySequence" value="{{DisplaySequence}}" class="js-DisplaySequence" />
+                <input type="hidden" name="StandardAttributeModels[{{Index}}].RowStatus" value="0" class="js-RowStatus" />
+                <input type="hidden" class="js-SKU_ProductTypeAttributeId" name="0" />
+                <input type="hidden" name="StandardAttributeModels[{{Index}}].SKU_AttributesModel.AttributeName" value="{{AttributeName}}" class="js-AttributeName" />
+                <div class="form-group" style="margin-left:0;">
+                    <label>{{AttributeName}}</label>
+                </div>
+            </td>
+            <td class="text-center">
+                <div class="input-group-btn">
+                    <button class="btn btn-sm btn-default js-up-item" type="button"><i class="glyphicon glyphicon-arrow-up"></i></button>&nbsp;
+                    <button class="btn btn-sm btn-default js-down-item" type="button"><i class="glyphicon glyphicon-arrow-down"></i></button>&nbsp;
+                    <button class="btn btn-sm btn-default js-remove-item" onclick="removeProductTypeAttr(this)" type="button"><i class="glyphicon glyphicon-remove"></i></button>&nbsp;
+                </div>
+            </td>
+        </tr>
+    </script>
+
+    @* 扩展参数模版 *@
+    <script type="text/x-template" id="productTypeAttrTpl">
+        <tr data-option="{'Index':{{Index}},'DisplaySequence':{{DisplaySequence}}}" class="js-tr-item">
+            {{#IsUseParam}}
+            <td class="text-center">
+                <div class="form-group" style="margin-left:0;">
+                    <input type="text" name="{{Prefix}}[{{Index}}].AttributeGroup" class="form-control js-AttributeGroup" style="width:105px !important;" value="" />
+                </div>
+            </td>
+            {{/IsUseParam}}
+            <td class="text-center">
+
+                <input type="hidden" name="{{Prefix}}[{{Index}}].RowStatus" value="0" class="js-p-RowStatus" />
+                <input type="hidden" class="js-SKU_ProductTypeAttributeId" name="{{Prefix}}[{{Index}}].SKU_ProductTypeAttributeId" value="0" />
+                <div class="form-group" style="margin-left:0;">
+                    <input type="hidden" name="{{Prefix}}[{{Index}}].SKU_AttributesModel.AttributeId" value="0" />
+                    <input type="text" name="{{Prefix}}[{{Index}}].SKU_AttributesModel.AttributeName" class="form-control js-p-AttributeName" style="width:105px !important;" value="" />
+                </div>
+            </td>
+            <td class="js-td-attrValues text-center">
+                <button class="btn btn-sm btn-default" onclick="showAttrValue(this,{{Type}},{{Index}})" type="button"><i class="glyphicon glyphicon-plus"></i>&nbsp;Add value</button>&nbsp;
+                <input type="hidden" class="js-ValueString" value="" />
+                <i class="fa fa-fw fa-question-circle js-ValueString-Tips" data-toggle="tooltip" data-placement="right" title=""></i>
+            </td>
+            <td class="text-center">
+                <select class="form-control js-UsageMode" name="{{Prefix}}[{{Index}}].SKU_AttributesModel.UsageMode" style="width:105px !important;">
+                    <option value='0'>Check box</option>
+                    <option value='2'>Dropdown box</option>
+                    {{#IsUseParam}}
+                    <option value='3'>Text box</option>
+                    {{/IsUseParam}}
+                </select>
+            </td>
+            <td class="text-center">
+                <div class="form-group" style="margin-left:0;">
+                    <input type="text" name="{{Prefix}}[{{Index}}].DisplaySequence" class="form-control js-p-DisplaySequence" style="width:55px !important;text-align:center;" value="{{DisplaySequence}}" />
+                </div>
+            </td>
+            <td class="text-center">
+                <div class="input-group-btn">
+                    <button class="btn btn-sm btn-default js-remove-item" onclick="removeProductTypeAttr(this)" type="button"><i class="glyphicon glyphicon-remove"></i></button>&nbsp;
+                </div>
+            </td>
+        </tr>
+    </script>
+
+    @* 展示属性值列表模版 *@
+    <script type="text/x-template" id="attrValuesTpl">
+        <div class="row" style="margin-top:10px;">
+            <div class="col-xs-12">
+                <div class="box box-success">
+                    <div class="box-header">
+                        <h3 class="box-title">Attribute value list</h3>
+                        <div class="box-tools">
+
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-sm btn-success" onclick="addAttrValue()"><i class="fa fa-plus"></i>&nbsp;Add</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body table-responsive no-padding" style="height:200px;overflow-y:auto;display:block">
+                        <table class="table table-hover js-tb-attrValues">
+                            <thead>
+                                <tr data-option="{'DisplaySequence':-1,'Index':-1,'AttributeId':0}">
+                                    <th width="33%" class="text-center">Attribute value</th>
+                                    <th class="text-center">Operation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#Items}}
+                                <tr data-option="{'DisplaySequence':{{DisplaySequence}},'Index':{{Index}},'AttributeId':{{AttributeId}}}" class="js-tr-item">
+                                    <td class="text-center">
+                                        <input type="hidden" class="js-ValueId" name="TempValueId{{Index}}" value="{{ValueId}}">
+                                        <input type="hidden" class="js-AttributeId" name="TempAttributeId{{Index}}" value="{{AttributeId}}">
+                                        <input type="hidden" class="js-DisplaySequence" name="TempDisplaySequence{{Index}}" value="{{DisplaySequence}}">
+                                        <input type="hidden" class="js-RowStatus" name="TempRowStatus{{Index}}" value="0">
+                                        <div class="form-group" style="margin-left:0;">
+                                            <input type="text" class="form-control js-ValueStr" name="ValueStr{{Index}}" placeholder="Please enter the name of the property value" value="{{ValueStr}}">
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-default js-up-item" type="button"><i class="glyphicon glyphicon-arrow-up"></i></button>&nbsp;
+                                            <button class="btn btn-sm btn-default js-down-item" type="button"><i class="glyphicon glyphicon-arrow-down"></i></button>&nbsp;
+                                            <button class="btn btn-sm btn-default js-remove-item" type="button" onclick="removeAttrValue(this)"><i class="glyphicon glyphicon-remove"></i></button>&nbsp;
+                                        </div>
+                                    </td>
+                                </tr>
+                                {{/Items}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    @* 添加属性值模版 *@
+    <script type="text/x-template" id="attrValueTpl">
+        <tr data-option="{'DisplaySequence':{{DisplaySequence}},'Index':{{Index}},'AttributeId':{{AttributeId}}}" class="js-attr-item">
+            <td>
+                <input type="hidden" class="js-ValueId" name="TempValueId{{Index}}" value="0">
+                <input type="hidden" class="js-AttributeId" name="TempAttributeId{{Index}}" value="{{AttributeId}}">
+                <input type="hidden" class="js-DisplaySequence" name="TempDisplaySequence{{Index}}" value="{{DisplaySequence}}">
+                <input type="hidden" class="js-RowStatus" name="TempRowStatus{{Index}}" value="0">
+                <div class="form-group" style="margin-left:0;">
+                    <input type="text" class="form-control js-ValueStr" name="TempValueStr{{Index}}" placeholder="Please enter the name of the property value" value="{{ValueStr}}">
+                </div>
+            </td>
+            <td class="text-center">
+                <div class="input-group-btn">
+                    <button class="btn btn-sm btn-default js-up-item" type="button"><i class="glyphicon glyphicon-arrow-up"></i></button>&nbsp;
+                    <button class="btn btn-sm btn-default js-down-item" type="button"><i class="glyphicon glyphicon-arrow-down"></i></button>&nbsp;
+                    <button class="btn btn-sm btn-default js-remove-item" type="button" onclick="removeAttrValue(this)"><i class="glyphicon glyphicon-remove"></i></button>&nbsp;
+                </div>
+            </td>
+        </tr>
+    </script>
+
+    @* 属性值集合模版 *@
+    <script type="text/x-template" id="attrValueItemTpl">
+        {{#Items}}
+        <div class="js-attrValues">
+            <input class="js-ValueId"
+                   name="{{Prefix}}.ValueId" type="hidden" value="{{ValueId}}">
+            <input class="js-AttributeId"
+                   name="{{Prefix}}.AttributeId" type="hidden" value="{{AttributeId}}">
+            <input class="js-ValueStr"
+                   name="{{Prefix}}.ValueStr" type="hidden" value="{{ValueStr}}">
+            <input class="js-DisplaySequence"
+                   name="{{Prefix}}.DisplaySequence" type="hidden" value="{{DisplaySequence}}">
+            <input class="js-RowStatus"
+                   name="{{Prefix}}.RowStatus" type="hidden" value="{{RowStatus}}">
+        </div>
+        {{/Items}}
+    </script>
+
+    <script type="text/x-template" id="attrValuesImageTpl">
+        {{#Items}}
+        <img src="{{ImageUrl}}" title="{{ValueStr}}" alt="{{ValueStr}}" style="width:150px;height:130px;border:1px solid #00a65a;padding:5px;margin:10px;" />
+        {{/Items}}
+    </script>
+    <script type="text/x-template" id="attrValuesTextTpl">
+        {{#Items}}
+        <label title="{{ValueStr}}" style="border:1px solid #00a65a;padding:5px;margin:10px;">{{ValueStr}}</label>
+        {{/Items}}
+    </script>
+    <script src="~/Content/js/SKU_ProductTypes.js"></script>
+}

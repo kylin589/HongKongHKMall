@@ -1,0 +1,36 @@
+/*大陆分页*/
+.A_page{text-align:center;display:table;margin:30px auto 12px auto; overflow:hidden;*left:25%;}
+ul.tunepage {overflow: hidden;zoom: 1;float: left;text-align: center;vertical-align: middle;display: table-cell;margin: 0 auto;*left:25%; *position:relative;}
+.A_page ul.tunepage li{float:left; color:#999;line-height:29px;}
+.A_page ul.tunepage li a{display:block;padding:0px 13px;color:#999;border:1px solid #e6e6e6;border-radius:4px;margin-right:3px; margin-left:3px; height:29px;line-height:29px; background:#fff;}
+.A_page ul.tunepage li a:hover{ text-decoration:none;background:#e72144;color:#fff;display:block;border-radius:4px;}
+.page_ico{ background:url(/Content/css/images/pro_list.png) no-repeat -29px 0px;width:6px;height:9px;display:inline-block; vertical-align:middle;margin-right:5px;}
+.A_page ul.tunepage li .cut:hover{background:#e83434;color:#fff;}
+.page_ico2{background:url(/Content/css/images/pro_list.png) no-repeat -41px 0px;width:6px;height:9px;display:inline-block; vertical-align:middle;margin-left:5px;}
+.pro_bk{width:45px;height:25px;border-bottom:1px solid #e6e6e6;border-right:1px solid #e6e6e6;border-top:1px solid #bfbfbf;border-left:1px solid #bfbfbf;background:#f9f9f9;text-align:center;margin:0px 10px;line-height:25px;}
+.A_page ul.tunepage li .ma{margin-left:5px;}
+.A_page ul.tunepage li .ma:hover{border:1px solid #e72144;background:#fff;color:#e72144;}
+.A_page ul.tunepage li .mab:hover{border:1px solid #e72144;background:#fff;color:#e72144;}
+.A_page ul.tunepage li .select{text-decoration:none;background:#e83434;color:#fff;display:block;border-radius:4px;margin-right:6px;}
+
+.porel{ position:relative;}
+
+/*深圳惠卡世纪有限公司 弹出层*/
+.bubble {padding: 10px 0;font-size:13px;background: #fff;border: 1px solid #a6a6a6;box-shadow:0 0 10px #ebebeb;-moz-box-shadow:0 0 10px #ebebeb;-webkit-box-shadow: 0 0 10px #ebebeb; position: absolute;z-index:10;*top:-190px;}
+.bubble-arrow {border-color:#a6a6a6 transparent transparent transparent;border-width: 12px;border-style: solid;width: 0;height: 0;position: absolute;bottom: -25px;left: 91px;}
+.bubble-arrow-inner {border-color: #fff transparent transparent transparent;border-width: 12px;border-style: solid;width: 0;height: 0;position: absolute;bottom: -24px;left: 91px;}
+
+
+
+.Record-ceng .RecordDialog{width:200px;}
+
+table.Recordcengta{ margin:0 20px;}
+table.Recordcengta td{ border:none; color:#373737; font-size:13px; padding:4px;}
+
+.heart2{background: url(images/heart2.png)no-repeat;width: 18px;height: 16px;border:0 none;}
+
+.Pay-commt{margin-top:0px !important;color:#e72144;font-size:12px;line-height:20px;}
+.pay-table .Pay-commt,.car-table .Pay-commt{ width:110px; text-align:center;}
+.pay-commt1{margin-left:30px;}
+
+.pay-com{background:url(images/user_ico.png) no-repeat -42px -258px;width:16px;height:16px;display:inline-block; vertical-align:middle;margin-right:5px;}

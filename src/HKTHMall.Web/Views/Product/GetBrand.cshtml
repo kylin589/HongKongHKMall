@@ -1,0 +1,50 @@
+﻿@{
+    Layout = null;
+    List<BrandModel> brandList = ViewBag.brandList;    
+}
+@using HKTHMall.Domain.Models.Bra;
+<div class="spectorForce1">
+    <span>@HKTHMall.Services.Common.MultiLangKeys.CultureHelper.GetLangString("HOME_LIST_PINPAI")@*品牌*@：</span>
+    <div class="specselMain">
+        <ul class="hideAllPinpai" id="bandList">
+
+            @if (brandList != null)
+            {
+                foreach (var item in brandList)
+                {
+                    var dcolor="";
+                    var isSelect = "false";
+                    if (ViewBag.brandId==item.BrandID)
+                    {
+                        dcolor="#dd4739";
+                        isSelect = "true";
+                    }
+                    var url = ViewBag.RootImage + item.BrandUrl;
+                    <li><a data-name="@item.BrandName" data-value="@item.BrandID" data-select="@isSelect" href="javascript:GetBrand('@ViewBag.categoryId','@ViewBag.level','@item.BrandID');" style="background:@dcolor"><img src="@url" alt="" width="102" height="50"></a></li>
+                }
+            }
+        </ul>
+        <div class="spenRank_2016">
+            <div class="seeSpectorMore">
+                <a href="###" class="pinpaiMore"><span>@HKTHMall.Services.Common.MultiLangKeys.CultureHelper.GetLangString("HK_NewsReport_More")@*更多*@</span><i class="plusMore"></i></a>
+            </div>
+            <span class="clearfix"></span>
+        </div>
+        <span class="clearfix"></span>
+    </div>
+</div>
+
+<span class="clearfix"></span>
+<script>
+    $(document).ready(function () {
+        $(".specselMain a").click(function () {
+            $(this).css('background', '#dd4739').parent().siblings().children('a').css('background', '#fff');
+            $(".specselMain a").attr("data-select", "false");
+            if ($("#bandList a").index(this) >= 0) {
+                $(this).attr("data-select", "true");
+                RewriteNav($(this).attr("data-value"), 4);
+            }
+        });
+    });
+</script>
+

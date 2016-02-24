@@ -1,0 +1,150 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+@model HKTHMall.Domain.AdminModel.Products.SearchProductConsultModel
+@{
+    ViewBag.Title = "Commodity advisory list page";
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(133);
+    _Authority.Delete = _Authority.CheckAction(132);
+}
+
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>Product SN: </span>&nbsp;
+            @Html.TextBoxFor(x => x.ProductId, new { @class = "form-control w70", @placeholder = "Please enter product number" })
+        </div>
+        &nbsp;&nbsp;
+        <div class="form-group">
+            <span>UserID: </span>&nbsp;
+            @Html.TextBoxFor(x => x.UserID, new { @class = "form-control w70", @placeholder = "Please enter a user ID" })
+        </div>
+        &nbsp;&nbsp;
+        <div class="form-group">
+            <span>Phone: </span>&nbsp;
+            @Html.TextBoxFor(x => x.Phone, new { @class = "form-control w70", @placeholder = "Please enter a user Phone" })
+        </div>
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            var $addCheck = eval("@(_Authority.Add.ToString().ToLower())");
+            var $deleteCheck = eval("@(_Authority.Delete.ToString().ToLower())");
+            var columns = [
+                { field: 'ProductConsultId', title: 'Consulting ID', align: 'center', valign: 'middle', sortable: false },
+                { field: 'ProductId', title: 'Product ID', align: 'center', valign: 'middle', sortable: false },
+                { field: 'ProductName', title: 'Product name', align: 'center', valign: 'middle', sortable: false },
+                { field: 'Account', title: 'User name', align: 'center', valign: 'middle', sortable: false },
+                { field: 'ConsultContent', title: 'Consultation content', align: 'center', valign: 'middle', sortable: false },
+                { field: 'ConsultDT', title: 'Consulting time', align: 'center', valign: 'middle', sortable: false, formatter: function (val) { return val.formatterString(false)/*true 日期格式2015-5-5*/ } },
+                { field: 'ReplyBy', title: 'Reply', align: 'center', valign: 'middle', sortable: false },
+                { field: 'ReplyContent', title: 'Reply content', align: 'center', valign: 'middle', sortable: false },
+                  {
+                      field: "ReplyDT", title: "Recovery time", align: 'center', valign: 'middle', sortable: false, formatter:
+                         function (val) {
+                             return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                         }
+                  },
+                {
+                    field: 'ProductConsultIds',
+                    title: 'Operation',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (val) {
+                        var operation = '';
+                        if ($addCheck) {
+                            operation += '<a class="edit ml10" href="javascript:void(0)" title="Update"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                        }
+                        if ($deleteCheck) {
+                            operation += '<a class="remove ml10" href="javascript:void(0)" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                        }
+                        if (operation == '') {
+                            operation = '-';
+                        }
+                        return [
+                              operation
+                        ].join('');
+                    },
+                    events: {
+                        'click .edit': function (e, value, row, index) {
+                            Tool.ShowModal('@Url.Action("Create")', {
+                                id: row.ProductConsultId, time: new Date().getTime()
+                            }, 'Commodity consultation reply');
+                        },
+                        //删除
+                        'click .remove': function (e, value, row, index) {
+                            DelProductConsult(row.ProductConsultId);
+                        }
+                    }
+                }
+            ];
+
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+                queryParams: function (params) {
+                    return {
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        ProductId: $('#ProductId').val(),
+                        UserID: $("#UserID").val(),
+                        Phone: $("#Phone").val(),
+                        Time: new Date().getTime()
+                    };
+                },
+                sortOrder: 'desc',
+                sortName: 'ConsultDT',
+                columns: columns
+            });
+
+
+            $('body').delegate('#chkIsActive', 'click', function () {
+                var value = $(this).is(':checked') ? 1 : 0;
+
+                $('#IsActive').val(value);
+                console.log($('#IsActive').val());
+            });
+
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+        });
+
+
+        //删除用户信息
+        function DelProductConsult(productConsultId) {
+            bootbox.setLocale("en");
+            //bootbox.setLocale("zh_CN");
+            bootbox.confirm("You sure you want to delete this commodity consulting it？", function (result) {
+                if (result) {
+                    var url = "/ProductConsult/Delete?productConsultId=" + productConsultId;
+                    $.ajax({
+                        url: url,
+                        dataType: "text",
+                        success: function (data, status) {
+                            data = JSON.parse(data);
+                            Tool.Alert(data.Messages, 1500);
+                            Tool.ReloadDataTable($('#u_grid'));
+                        },
+                        error: function (data, status, e) {
+                            Tool.Alert("Delete failed！", 1500);
+                        }
+                    });
+                }
+            });
+        };
+
+        //保存
+        function Save() {
+            Tool.SaveModal($('#u_grid'));
+        }
+    </script>
+}

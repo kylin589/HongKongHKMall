@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="Keywords" content="">
+		<title>香港商城</title>
+		<link rel="stylesheet" type="text/css" href="newcss/css/css.css" />
+		<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+	</head>
+
+<body>
+<div class="header">
+	<div class="clear" style="background: #ccc; height: 175px;"></div>
+</div><!--公共头部-->
+
+ 
+<div class="main_a">
+	<div class="main_about">
+    
+		<div class="m_news_show">
+            <div class="m_news_show_bt">
+            	<h3>惠卡2016年春节大促正式启动</h3>
+                <dl>2016-01-11 19:19:51
+                	<div class="m_news_show_fx"><span>分享到</span>
+                    	<i>
+                        	<a href="#" title="" class="m_news_sfx1"></a>
+                        	<a href="#" title="" class="m_news_sfx2"></a>
+                        	<a href="#" title="" class="m_news_sfx3"></a>
+                        	<a href="#" title="" class="m_news_sfx4"></a>
+                        </i>
+                    </div>
+                </dl>
+            </div>
+                            
+            <div class="m_news_show_nr">
+            	亲爱的各位惠卡网友：<br><br>
+
+1月11日，京东2016年春节大促正式启动！<br><br>
+
+惠卡春节大促将持续至2月14日，涵盖了食品、生鲜、酒饮、母婴、美妆、电脑、数码、手机、品牌电器等多个品类，“数亿元红包”等你来抢、“满减活动”不间断，更推出了“超值商品1元秒杀”、“京东超市买2免1”等促销力度强劲的优惠活动，为您带来一场实惠与品质的盛宴。
+<br><br>
+近90个城市春节配送“不打烊<br><br>”
+
+大促期间惠卡在全国近90个重点城市的商品配送服务不停歇。普通商品订单春节期间（2 月7日-2 月10 日），在北京、上海、广州、武汉、成都、沈阳、西安等88 个核心城市可正常提供生产、配送及取件换新等服务；大件订单春节期间（2月7 日-2月13日），87个城市主城区及139个京东帮县域范围内支持正常生产、配送及取件换新等服务。
+<br><br>
+精准推荐<br><br>
+
+此次惠卡春节大促将为您带来个性化的推荐结果，使您获得最适合自己的高品质年货推荐商品。同时，还首次推出了面向农村市场的“乡亲APP”，此款APP基于乡村客户特性和消费数据，精准推荐符合地域、用户需求和消费习惯的产品。
+<br><br>
+欢迎您来惠卡商城选购年货：http://sale.jd.com/act/FNzfvb6rM3.html
+<br><br>
+祝您购物愉快！
+            </div>
+			<div class="clear"></div>
+		</div>
+        
+        
+        
+        
+	</div>
+</div><!--主体部分-->
+
+
+<div class="footer"></div><!--公共底部-->
+
+
+
+		<script type="text/javascript">
+		
+    $('.m_news_bt li').bind('click',function(){
+        $(this).addClass('active').siblings().removeClass('active');
+        if($(this).index()==0){
+            $('.m_news_nr_1').show().each(function(){
+                $('.m_news_nr_1 ul li').addClass('flipInX');
+            });
+            $('.m_news_nr_2').hide().each(function(){
+                $('.m_news_nr_2 ul li').removeClass('flipInX');
+            });
+        }else if($(this).index()==1){
+            $('.m_news_nr_1').hide().each(function(){
+                $('.m_news_nr_1 ul li').removeClass('flipInX');
+            });
+            $('.m_news_nr_2').show().each(function(){
+                $('.m_news_nr_2 ul li').addClass('flipInX');
+            });
+        }
+    });
+        </script>
+</body>
+
+</html>

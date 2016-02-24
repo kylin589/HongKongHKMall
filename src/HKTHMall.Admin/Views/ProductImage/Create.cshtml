@@ -1,0 +1,114 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.Products.ProductImageModel
+@{
+    var imageType = ViewData["ImageType"] as List<SelectListItem>;
+    Model.linkUrl = Model.linkUrl != null ? Model.linkUrl : "http://";
+}
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Product Name :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.ProductImageId)
+        @Html.TextBoxFor(t => t.ProductName, new { @class = "form-control", @placeholder = "Please enter product picture name", @maxlength = "50" })
+        @Html.ValidationMessageFor(m => m.ProductName)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Product Category :
+    </label>
+    <div class="controls">
+        <select class="form-control" id="ImageType" name="ImageType">
+            @foreach (var item in imageType)
+            {
+                <option value="@(item.Value)" selected="@(item.Selected)">@(item.Text)</option>
+            }
+        </select>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Product picture :
+    </label>
+    <div class="controls">
+        <input id="upLoad" type="file" name="upLoad" class="js-item-file hide" />
+        <span>
+            @if (ViewBag.ImgUrl != null)
+            {
+                <input type="hidden" id="ImageUrl" name="ImageUrl" value="@(ViewBag.ImgUrl)" />
+                <img src="@(ViewBag.ShowImgUrl)" id="UpImg" class="js-item-image" style="width:100px;height:100px;">
+            }
+            else
+            {
+                <input type="hidden" id="ImageUrl" name="ImageUrl" value="" />
+                <img src="/Content/css/images/default-item.jpg" id="UpImg" class="js-item-image" style="width:100px;height:100px;">
+            }
+        </span>
+        <label class="red">*Minimum size of picture 660* 600</label>
+        <br />
+        <div style="padding-top:5px;">
+            <span><button class="btn btn-sm btn-default js-choice-item" type="button"><i class="glyphicon glyphicon-search"></i>&nbsp;Select picture</button></span>
+            <span> <input type="button" value="Upload picture" id="btnUpLoad" class="btn btn-sm btn-default js-upload-item" onclick="getBrandUrl()" /></span>
+            @Html.ValidationMessageFor(m => m.ImageUrl)
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Link Url :
+    </label>
+    <div class="controls">
+        @Html.TextBoxFor(t => t.linkUrl, new { @class = "form-control", @placeholder = "Please enter url", @maxlength = "100" })
+        @Html.ValidationMessageFor(m => m.linkUrl)
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        //选择图片
+        $('#modal-form .js-choice-item').on('click', function () {
+            var $parentTr = $(this).parents('.controls');
+            $('.js-item-file', $parentTr).click();
+        });
+    });
+    //上传产品图图片
+    function getBrandUrl() {
+        var name = $("#upLoad").val();
+        var w = 100;
+        var h = 100;
+        if (name == "") {
+            Tool.Alert("Please upload picture", 1500);
+            return;
+        }
+        $.ajaxFileUpload(
+    {
+        url: '/ProductImage/GetUpLoad?w=' + w + "&h=" + h,
+        secureuri: false,
+        fileElementId: "upLoad",
+        fileTypeExts: '*.jpg;*.png;*.gif;*.jpeg;',
+        fileTypeDesc: 'Please select jpg, gif, png, jpeg format picture',
+        dataType: "text",
+        success: function (data, status) {
+            if (data) {
+                if (data == "1") {
+                    Tool.Alert("Please upload jpg, gif or png format picture!", 1500);
+                }
+                else if (data == "2") {
+                    Tool.Alert("Please upload size is greater than 600*600!", 1500);
+                } else {
+                    $("#UpImg").attr("src", Tool.RootImage + data);
+                    $("#ImageUrl").val(data);
+                    $("#btnUpLoad").parents().find(".field-validation-error").text('');
+                }
+              
+            } else {
+                Tool.Alert("Upload picture failed", 1500);
+            }
+        },
+        error: function (data, status, e) {
+            Tool.Alert("Upload picture failed", 1500);
+        }
+    });
+
+    }
+
+</script>

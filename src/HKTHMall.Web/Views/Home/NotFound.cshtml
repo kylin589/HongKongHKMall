@@ -1,0 +1,15 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+<div class="main_about">
+@{  Layout = "~/Views/Shared/_Layout.cshtml";}
+
+    <div class="m_404">
+        <div class="m_404_sb">
+            <ul><img src="@Url.Content("~/Content/newcss/css/images/m_404.png")"></ul>
+            <dl>@CultureHelper.GetLangString("WEBSITE_ERROR")</dl>
+        </div>
+        <div class="m_404_sb_butt">
+            <a href="/" title="">@CultureHelper.GetLangString("GO_HOME")</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

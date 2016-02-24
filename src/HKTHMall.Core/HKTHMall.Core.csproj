@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{159E8EC8-B111-41F7-86DC-DFCE3EE47931}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HKTHMall.Core</RootNamespace>
+    <AssemblyName>HKTHMall.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>C:\Users\fengm\AppData\Local\Temp\vs4E56.tmp\Debug\</IntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>C:\Users\fengm\AppData\Local\Temp\vs4E56.tmp\Release\</IntermediateOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Apache.NMS">
+      <HintPath>..\..\Libraries\Apache.NMS.dll</HintPath>
+    </Reference>
+    <Reference Include="Apache.NMS.ActiveMQ">
+      <HintPath>..\..\Libraries\Apache.NMS.ActiveMQ.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Couchbase">
+      <HintPath>..\..\Libraries\Couchbase.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\Libraries\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\Libraries\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Enyim.Caching">
+      <HintPath>..\..\Libraries\Enyim.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation">
+      <HintPath>..\..\Libraries\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="Hammock, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hammock.1.3.1\lib\4.0\Hammock.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Hammock.ClientProfile, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hammock.1.3.1\lib\4.0\Hammock.ClientProfile.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HKSJ.Common">
+      <HintPath>..\..\Libraries\HKSJ.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="LZ4Sharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=eb5d0ec6e2efe5a9, processorArchitecture=MSIL">
+      <HintPath>..\packages\CouchbaseAspNetExtended.1.3.5.0\lib\LZ4Sharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NLog.4.0.1\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="PayPal">
+      <HintPath>..\..\Libraries\PayPal.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickLZ, Version=1.0.0.0, Culture=neutral, PublicKeyToken=eb5d0ec6e2efe5a9, processorArchitecture=MSIL">
+      <HintPath>..\packages\CouchbaseAspNetExtended.1.3.5.0\lib\QuickLZ.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Simple.Data, Version=0.19.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Framework\Simple.Data\obj\Debug\Simple.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActiveMQ\MQConfigSection.cs" />
+    <Compile Include="ActiveMQ\MQEntity.cs" />
+    <Compile Include="Configuration\PayPalConfiguration.cs" />
+    <Compile Include="Configuration\IBrSettingsContext.cs" />
+    <Compile Include="Configuration\SiteConfig.cs" />
+    <Compile Include="Config\FastdfsConfigSection.cs" />
+    <Compile Include="Config\GetConfig.cs" />
+    <Compile Include="Controllers\HKBaseController.cs" />
+    <Compile Include="CouchbaseHelp\ICacheManager.cs" />
+    <Compile Include="CouchbaseHelp\MemCacheFactory.cs" />
+    <Compile Include="Data\BcDbContext.cs" />
+    <Compile Include="Data\Efextend.cs" />
+    <Compile Include="Data\HkDataBaseHelper.cs" />
+    <Compile Include="Data\SqlHelper.cs" />
+    <Compile Include="DependencyRegistrar.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Extensions\HkExtensions.cs" />
+    <Compile Include="Extensions\HtmlExtensions.cs" />
+    <Compile Include="Extensions\SimpleReocrdExtensions.cs" />
+    <Compile Include="NLogHelper.cs" />
+    <Compile Include="Payment\LinePay\ConfirmDetailReq.cs" />
+    <Compile Include="Payment\LinePay\ConfirmService.cs" />
+    <Compile Include="Payment\LinePay\LinePayUtil.cs" />
+    <Compile Include="Payment\LinePay\ReserveService.cs" />
+    <Compile Include="Payment\LinePay\ReserveDetailReq.cs" />
+    <Compile Include="Payment\PayPalPay\REST\Common\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SendSMS\SendSMS.cs" />
+    <Compile Include="Session\UserInfo.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Sql\SQLFilterUtil.cs" />
+    <Compile Include="Sql\SqlTransactionUtil.cs" />
+    <Compile Include="StringUtility.cs" />
+    <Compile Include="Translation\TranData.cs" />
+    <Compile Include="UploadFile\FileUploadResult.cs" />
+    <Compile Include="UploadFile\UploadFile.cs" />
+    <Compile Include="Utils\DynamicJsonConverter.cs" />
+    <Compile Include="Utils\ExportFile.cs" />
+    <Compile Include="Utils\JsonConverts.cs" />
+    <Compile Include="Utils\RegexUtil.cs" />
+    <Compile Include="Security\EncryptionService.cs" />
+    <Compile Include="Security\IEncryptionService.cs" />
+    <Compile Include="Security\SecuritySettings.cs" />
+    <Compile Include="Utils\Compare.cs" />
+    <Compile Include="Utils\ToolUtil.cs" />
+    <Compile Include="Utils\Utils.cs" />
+    <Compile Include="Utils\VerifyCodeUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Framework\BrCms.Framework\BrCms.Framework.csproj">
+      <Project>{8b76817c-aa83-4058-99b0-e4eefcae797a}</Project>
+      <Name>BrCms.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\HKTH.Framework.Dapper\HKTH.Framework.Dapper.csproj">
+      <Project>{db3b7067-ac73-419d-9cc4-e12ea61238a0}</Project>
+      <Name>HKTH.Framework.Dapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HKTHMall.Domain\HKTHMall.Domain.csproj">
+      <Project>{4ea27dc4-2015-46e9-8751-f30748df95b2}</Project>
+      <Name>HKTHMall.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

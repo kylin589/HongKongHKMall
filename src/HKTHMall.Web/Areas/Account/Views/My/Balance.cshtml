@@ -1,0 +1,55 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var pages = ViewBag.TotalPages;
+}
+<link href="~/Content/newcss/js/jquery-1.8.2.min.js" rel="stylesheet" type="text/css" />
+<div class="main_about">
+    <div class="ls_member">
+
+
+        <!--left-->
+        @Html.Partial("_userLeft")
+        <!--right-->
+        <div class="ls_member_rg">
+            <div class="m_user_pubtitle">@CultureHelper.GetLangString("ORDER_MONEY_HUIKAYUER")</div>
+            <div class="ls_hsq_info1">
+                <ul>
+                    <li>@CultureHelper.GetLangString("ORDER_MONEY_HUIKAYUER"):<i>$@ViewBag.Balance.ToString("0.00")</i></li>
+                    <li>@CultureHelper.GetLangString("ACCOUNT_REBEAT_TODAY"):<i>$@ViewBag.Rebeat.ToString("0.00")</i><a href="@Url.Action("Rebate")">@CultureHelper.GetLangString("ACCOUNT_MY_REBATE_TITLE")</a></li>
+                    @*<li>@CultureHelper.GetLangString("ORDER_MONEY_HUIKAYUER"):<i>$@ViewBag.Balance.ToString("0.00")</i></li>
+                    <li>@CultureHelper.GetLangString("ACCOUNT_REBEAT_TODAY"):<i>$@ViewBag.Rebeat.ToString("0.00")</i><span></span>待回赠金额:<i>$9.9</i><a href="@Url.Action("Question", "Help",new{area=""})">@CultureHelper.GetLangString("ACCOUNT_ABOUT_100PER_REBEAT")</a></li>*@
+                </ul>
+            </div>
+            <div class="ls_hsq_info2">
+                <table border="0" cellspacing="0" cellpadding="0" id="tb_balancelog">
+                    @*@Html.Action("_BalanceList", "My", new { index = 1, pageSize=10})*@
+                </table>
+            </div>
+
+            <div class="sectionPaging" id="pager1">
+            </div>
+
+        </div>
+        <div class="clear"></div>
+
+    </div>
+</div>
+<script src="~/Content/js/pager.js"></script>
+<script>
+    $(function () {
+        LoadLogs(1);
+    })
+    var _pagesize = 10;
+    function LoadLogs(pageIndex) {
+        $("#tb_balancelog").load("@Url.Action("_BalanceList", "My")", { index: pageIndex, pageSize: _pagesize }, function () {
+            UpdatePager(pageIndex, @pages+"", $("#pager1"), "LoadLogs", null);
+            $("div.ls_hsq_info2 table td a").hover(function () {
+                $(this).next(".ls_hsq_hidden").stop().fadeIn(400);
+            }, function () {
+                $(this).next(".ls_hsq_hidden").stop().fadeOut(400);
+            }
+	);
+        })
+    }
+</script>

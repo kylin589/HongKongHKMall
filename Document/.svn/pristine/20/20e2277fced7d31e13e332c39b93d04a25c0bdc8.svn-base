@@ -1,0 +1,615 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="Keywords" content="">
+		<title>香港商城</title>
+		<link rel="stylesheet" type="text/css" href="newcss/css/css.css" />
+		<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="newcss/js/swiper-3.2.7.jquery.min.js"></script>
+	</head>
+
+<body>
+<div class="header">
+			<div class="layoutHeader">
+				<div class="headMain">
+					<ul class="floatLeft fl">
+						<li class="dropDown">
+							<div class="dropShow">
+								<span>欢迎来惠卡</span>
+								<span>
+									<i></i>
+									<span>02-635-5484</span>
+								</span>
+							</div>
+						</li>
+					</ul>
+					<ul class="floatRight fr">
+						<li class="force1">
+							<a href="javascript:void">请登录</a>
+							<a href="javascript:void">免费注册</a>
+							<!--<a href="javascript:void">用户名</a>
+                              <a href="javascript:void">退出</a>
+  --></li>	
+						<li class="force2">
+							<div class="dropShow"> 
+								<!-- <i class="dropIcon fa-angle-down"></i>  -->
+								<a href="javascript:void">我的惠卡</a> 
+							</div>
+							<!--                        <div class="dropHide">
+                                  <ul>
+                                      <li><a href="javascript:void()">地址1</a></li>
+                                      <li><a href="javascript:void()">地址1</a></li>
+                                      <li><a href="javascript:void()">地址1</a></li>
+                                      <li><a href="javascript:void()">地址1</a></li>
+                                      <li><a href="javascript:void()">地址1</a></li>
+                                      <li><a href="javascript:void()">地址1</a></li>
+                                      <li><a href="javascript:void()">地址1</a></li>
+                                  </ul>
+                              </div>-->
+						</li>
+						<li class="force3">
+							<div class="dropShow"> 
+								<!-- <i class="dropIcon fa-angle-down"></i>  -->
+								<a href="javascript:void">帮助中心</a> 
+							</div>
+							<!--                        <div class="dropHide">
+                                  <ul>
+                                      <li><a href="javascript:void()">地址1</a></li>
+                                      <li><a href="javascript:void()">地址1</a></li>
+                                      <li><a href="javascript:void()">地址1</a></li>
+                                      <li><a href="javascript:void()">地址1</a></li>
+                                      <li><a href="javascript:void()">地址1</a></li>
+                                      <li><a href="javascript:void()">地址1</a></li>
+                                      <li><a href="javascript:void()">地址1</a></li>
+                                  </ul>
+                              </div>-->
+						</li>						
+						<li class="force4">
+							<div class="dropShow">
+								<i class="flagSelctor chinaFlag"></i>
+								<i class="dropIcon fa-angle-down"></i> 
+								<a href="javascript:void">选择语言</a> 
+							</div>
+
+							<!--                        <div class="dropHide">
+                                  <ul>
+                                      <li><a href="javascript:void()">地址1</a></li>
+                                      <li><a href="javascript:void()">地址1</a></li>
+                                      <li><a href="javascript:void()">地址1</a></li>
+                                      <li><a href="javascript:void()">地址1</a></li>
+                                      <li><a href="javascript:void()">地址1</a></li>
+                                      <li><a href="javascript:void()">地址1</a></li>
+                                      <li><a href="javascript:void()">地址1</a></li>
+                                  </ul>
+                              </div>-->
+						</li>
+					</ul>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="layoutSearch">
+				<div class="logo-2016">
+					<a href="index_layout.html"></a>
+				</div>
+				<div class="searchForm">
+					<div class="forceForm">
+						<form action="" method="post">
+							<i class="fa fa-search"></i>
+							<input type="text" value="" placeholder="请输入关键字" class="forceInput">
+							<button class="forceButton">Search</button>
+						</form>
+					</div>
+					<!-- <ul class="hotWords">
+						<li><a href="javascript:void();">111</a></li>
+						<li><a href="javascript:void();">111</a></li>
+						<li><a href="javascript:void();">111</a></li>
+						<li><a href="javascript:void();">111</a></li>
+						<li><a href="javascript:void();">111</a></li>
+						<li><a href="javascript:void();">111</a></li>
+						<li><a href="javascript:void();">111</a></li>
+					</ul> -->
+				</div>
+				<div class="settleUp">
+					<a href="javascript:void();">
+						<span class="settleCar"></span> 
+						<i class="settleCounts">12</i>
+						<span>$<b>233,333</b></span>
+					</a>
+				</div>
+				<div class="clear"></div> 
+			</div>
+			<div class="layoutNav">
+				<div class="navMain">
+					<div class="navCategorys">
+						<div class="cateName"><a href="javascript:void()" class="cateAllLink">全部分类</a></div>
+						<div class="cateCover">
+							<ul class="cateInner">
+								<li><a href="#">บ้านและสวน</a></li>
+                                <li><a href="#">บ้านและสวน</a></li>
+                                <li><a href="#">บ้านและสวน</a></li>
+                                <li><a href="#">บ้านและสวน</a></li>
+                                <li><a href="#">บ้านและสวน</a></li>
+                                <li><a href="#">บ้านและสวน</a></li>
+                                <li><a href="#">บ้านและสวน</a></li>
+                                <li><a href="#">บ้านและสวน</a></li>
+                                <li><a href="#">บ้านและสวน</a></li>
+                                <li><a href="#">บ้านและสวน</a></li>
+                                <li><a href="#">บ้านและสวน</a></li>
+                                <li><a href="#">บ้านและสวน</a></li>
+                                <li><a href="#">บ้านและสวน</a><!-- <i class="fa-angle-right"></i> --></li>
+							</ul>
+							<div class="cateLayer"></div>
+						</div>
+					</div>
+					<div class="navItems">
+                    	<ul class="navGroup">
+                        	<li><a href="javascript:void();">สุขภาพและความงาม</a></li>
+                            <li><a href="javascript:void();">แม่และเด็ก</a></li>
+                            <li><a href="javascript:void();">คอมพิวเตอร์และมือถือ</a></li>
+                            <li><a href="javascript:void();">อาหารและเครื่องดื่ม</a></li>
+                            <li><a href="javascript:void();">บ้านและสวน</a></li>
+                            <li><a href="javascript:void();">สินค้าอื่นๆ</a></li>
+                        </ul>
+                    </div>
+					<div class="clear"></div>
+				</div>
+			</div>
+	
+	
+</div><!--公共头部-->
+
+
+<div class="main_a">
+	<div class="main_about">
+		<div class="specLayout">
+			<div class="specMain_2016">
+				<ul>
+					<li><a href="javascript:void();">首页</a></li>
+					<li class="spector"><i class="fa fa-angle-right"></i></li>
+					<li><a href="javascript:void();">首页</a></li>
+					<li class="spector"><i class="fa fa-angle-right"></i></li>
+					<li><a href="javascript:void();">首页</a></li>
+					<span class="clear"></span>
+				</ul>
+			</div>
+		</div>
+		<div class="lbCommend">
+			<div class="lbCommendMain swiper-container">
+				<ul class="swiper-wrapper">
+					<li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb_tesphonet.jpg" alt="" width="280" height="121"></a></li>
+					<li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb-test22.jpg" alt="" width="280" height="121"></a></li>
+					<li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb_tesphonet.jpg" alt="" width="280" height="121"></a></li>
+					<li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb-test22.jpg" alt="" width="280" height="121"></a></li>
+					<li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb_tesphonet.jpg" alt="" width="280" height="121"></a></li>
+					<li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb-test22.jpg" alt="" width="280" height="121"></a></li>
+				</ul>
+                <!-- 如果需要导航按钮 -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+			</div>
+		</div>
+		<div class="sectionCover">
+			<div class="sectionMain_2016">
+				<div class="sectionMainLeft">
+					<h3>电脑/办公/外设</h3>
+					<ul class="lbSpector">
+					<!--默认展开的话data-show=1，不展开的话是0-->
+						<li data-show="1"><span><i class="fa fa-caret-right"></i><a href="###">列表一</a></span>
+							<dl>
+								<dd><a href="#" class="spectorSelected">列表1-1</a></dd>
+								<dd><a href="#">列表1-1</a></dd>
+								<dd><a href="#">列表1-1</a></dd>
+								<dd><a href="#">列表1-1</a></dd>
+								<dd><a href="#">列表1-1</a></dd>
+								<dd><a href="#">列表1-1</a></dd>
+							</dl>
+						</li>
+						<li data-show="0"><span><i class="fa fa-caret-right"></i><a href="###">列表一</a></span>
+							<dl>
+								<dd><a href="#">列表1-1</a></dd>
+								<dd><a href="#">列表1-1</a></dd>
+								<dd><a href="#">列表1-1</a></dd>
+								<dd><a href="#">列表1-1</a></dd>
+								<dd><a href="#">列表1-1</a></dd>
+								<dd><a href="#">列表1-1</a></dd>
+							</dl>
+						</li>
+						<li data-show="0"><span><i class="fa fa-caret-right"></i><a href="###">列表一</a></span>
+							<dl>
+								<dd><a href="#">列表1-1</a></dd>
+								<dd><a href="#">列表1-1</a></dd>
+								<dd><a href="#">列表1-1</a></dd>
+								<dd><a href="#">列表1-1</a></dd>
+								<dd><a href="#">列表1-1</a></dd>
+								<dd><a href="#">列表1-1</a></dd>
+							</dl>
+						</li>
+					</ul>
+                    <ul class="lbSearchHistory">
+                    	<h3>浏览此目录的客户最终购买</h3>
+                    	<li><a href="javascript:void();">
+                        	<img src="newcss/css/images/sb_tesphonet.jpg" alt="" width="200" height="170">
+                            <span class="scanLimited">deli得力0105而空打印机啊打印机啊打印机</span>
+                            <p><b><font style="font-weight:normal">$</font>1300.00</b><ins>Rebates:100%</ins></p>
+                        </a></li>
+                        <li><a href="javascript:void();">
+                        	<img src="newcss/css/images/sb-test22.jpg" alt="" width="200" height="170">
+                            <span class="scanLimited">deli得力0105而空打印机啊打印机啊打印机</span>
+                            <p><b><font style="font-weight:normal">$</font>1300.00</b><ins>Rebates:100%</ins></p>
+                        </a></li>
+                        <li><a href="javascript:void();">
+                        	<img src="newcss/css/images/sb-test333.jpg" alt="" width="200" height="170">
+                            <span class="scanLimited">deli得力0105而空打印机啊打印机啊打印机</span>
+                            <p><b><font style="font-weight:normal">$</font>1300.00</b><ins>Rebates:100%</ins></p>
+                        </a></li>
+                        <li><a href="javascript:void();">
+                        	<img src="newcss/css/images/sb-test444.jpg" alt="" width="200" height="170">
+                            <span class="scanLimited">deli得力0105而空打印机啊打印机啊打印机</span>
+                            <p><b><font style="font-weight:normal">$</font>1300.00</b><ins>Rebates:100%</ins></p>
+                        </a></li>
+                    </ul>
+				</div>
+				<div class="sectionMainRight">
+                	<div class="spectorSellect">
+                        <div class="selectedNoc">
+                            <span>已选条件</span>
+                            <div class="selectedCover">
+                                <div class="selectedlist"><span>品牌：</span><label>这里是品牌一</label><em class="fa-remove"></em></div>
+                                <div class="selectedlist"><span>品牌：</span><label>这里是品牌一</label><em class="fa-remove"></em></div>
+                                <div class="selectedlist"><span>品牌：</span><label>这里是品牌一</label><em class="fa-remove"></em></div>
+                                <div class="selectedlist"><span>品牌：</span><label>这里是品牌一</label><em class="fa-remove"></em></div>
+                                <div class="selectedlist"><span>品牌：</span><label>这里是品牌一</label><em class="fa-remove"></em></div>
+                                <div class="selectedlist"><span>品牌：</span><label>这里是品牌一</label><em class="fa-remove"></em></div>
+                                <div class="selectClearAll">清除所有条件</div>
+                                <span class="clearfix"></span>
+                            </div>
+                        </div>
+                    	<div class="spectorForce1">
+                        	<span>品牌：</span>
+                            <div class="specselMain">
+                            	<form action="">
+                            		<label>
+                            			<i class="fa fa-search"></i>
+                                    	<input type="text" value="" placeholder="可以搜拼音、汉字查找品牌" class="specMainInput">
+                            		</label>
+                                    <button class="specButSubmit">搜索</button>
+                                    <span class="clearfix"></span>
+                                </form>
+                                <div class="spenRank_2016">
+                                	<div>
+                                    	<a href="#">所有品牌</a>
+                                        <a href="#">A</a>
+                                        <a href="#">B</a>
+                                        <a href="#">C</a>
+                                        <a href="#">其他</a>
+                                    </div>
+                                    <div class="seeSpectorMore">
+                                        <a href="###" class="pinpaiMore"><span>更多</span><i class="plusMore"></i></a>
+                                    </div>
+                                    <span class="clearfix"></span>
+                                </div>
+                                <ul class="hideAllPinpai">
+                                	<li><a href="#"><img src="newcss/css/images/sb_tesphonet.jpg" alt="" width="102" height="50"></a></li>
+                                	<li><a href="#"><img src="newcss/css/images/sb_tesphonet.jpg" alt="" width="102" height="50"></a></li>
+                                	<li><a href="#"><img src="newcss/css/images/sb_tesphonet.jpg" alt="" width="102" height="50"></a></li>
+                                	<li><a href="#"><img src="newcss/css/images/sb_tesphonet.jpg" alt="" width="102" height="50"></a></li>
+                                	<li><a href="#"><img src="newcss/css/images/sb_tesphonet.jpg" alt="" width="102" height="50"></a></li>
+                                	<li><a href="#"><img src="newcss/css/images/sb_tesphonet.jpg" alt="" width="102" height="50"></a></li>
+                                	<li><a href="#"><img src="newcss/css/images/sb_tesphonet.jpg" alt="" width="102" height="50"></a></li>
+                                	<li><a href="#"><img src="newcss/css/images/sb_tesphonet.jpg" alt="" width="102" height="50"></a></li>
+                                	<li><a href="#"><img src="newcss/css/images/sb_tesphonet.jpg" alt="" width="102" height="50"></a></li>
+                                	<li><a href="#"><img src="newcss/css/images/sb_tesphonet.jpg" alt="" width="102" height="50"></a></li>
+                                	<li><a href="#"><img src="newcss/css/images/sb_tesphonet.jpg" alt="" width="102" height="50"></a></li>
+                                	<li><a href="#"><img src="newcss/css/images/sb_tesphonet.jpg" alt="" width="102" height="50"></a></li>
+                                	<li><a href="#"><img src="newcss/css/images/sb_tesphonet.jpg" alt="" width="102" height="50"></a></li>
+                                	<li><a href="#"><img src="newcss/css/images/sb_tesphonet.jpg" alt="" width="102" height="50"></a></li>
+                                	<li><a href="#"><img src="newcss/css/images/sb_tesphonet.jpg" alt="" width="102" height="50"></a></li>
+                                	<li><a href="#"><img src="newcss/css/images/sb_tesphonet.jpg" alt="" width="102" height="50"></a></li>
+                                	<span class="clearfix"></span>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="hiddenCover">
+                            <div class="showlenMore showlenStep1"><span>更多筛选</span><i class="fa-angle-double-down"></i></div>
+                            <div class="spectorForce">
+                                <span>款式：</span>
+                                <div class="specselMain">
+                                    <ul>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#" class="selectedSpec">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <span class="clearfix"></span>
+                                    </ul>
+                                    <div class="seeSpectorMore">
+                                        <a href="###" class="specToMore"><span>更多</span><i class="plusMore"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="spectorForce spectorForce_price">
+                                <span>价格：</span>
+                                <div class="specselMain">
+                                    <dl>
+                                        <dd><a href="###">0-99</a></dd>
+                                        <dd><a href="###" class="selectedSpec">0-99</a></dd>
+                                        <dd><a href="###">0-99</a></dd>
+                                        <dd><a href="###">0-99</a></dd>
+                                        <span class="clearfix"></span>
+                                    </dl>
+                                    <div class="qujianPrice">
+                                        <form action="">
+                                            <span><input type="text"></span><i></i><span><input type="text"></span>
+                                            <button>确定</button>
+                                            <div class="clearfix"></div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="spectorForce">
+                                <span>款式：</span>
+                                <div class="specselMain">
+                                    <ul>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#" class="selectedSpec">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <span class="clearfix"></span>
+                                    </ul>
+                                    <div class="seeSpectorMore">
+                                        <a href="###" class="specToMore"><span>更多</span><i class="plusMore"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="spectorForce">
+                                <span>款式：</span>
+                                <div class="specselMain">
+                                    <ul>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#" class="selectedSpec">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <span class="clearfix"></span>
+                                    </ul>
+                                    <div class="seeSpectorMore">
+                                        <a href="###" class="specToMore"><span>更多</span><i class="plusMore"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="spectorForce">
+                                <span>款式：</span>
+                                <div class="specselMain">
+                                    <ul>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#" class="selectedSpec">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <li><a href="#">款式一</a></li>
+                                        <span class="clearfix"></span>
+                                    </ul>
+                                    <div class="seeSpectorMore">
+                                        <a href="###" class="specToMore"><span>更多</span><i class="plusMore"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="clearfix"></span>
+                            
+                        </div>
+                        <span class="clearfix"></span>
+                    </div>
+                    <div class="selectRankMethod">
+                    	<div class="rankMethod"><a href="###">默认</a><span></span></div>
+                        <div class="rankMethod"><a href="###">销量<i class="fa-long-arrow-down"></i></a><span></span></div>
+                        <div class="rankMethod"><a href="###">评价<i class="fa-long-arrow-down"></i></a><span></span></div>
+                        <div class="rankMethod priceRank up" data-price="v"><a href="###">价格<i class="fa-arrows-v"></i></a><span></span></div>
+                        <div class="rankMethod"><a href="###">返现时间<i class="fa-long-arrow-down"></i></a><span></span></div>
+                        <ul>
+                        	<li class="goPrevPage"><a href="" class="fa-angle-left"></a></li>
+                            <li class="rankPageFirst"><span>1</span></li>
+                            <li class="methodSpacer">/</li>
+                            <li class="rankpagerLast"><span>100</span></li>
+                            <li class="goNextPage"><a href="" class="fa-angle-right"></a></li>
+                            <span class="clearfix"></span>
+                        </ul>
+                    </div>
+                    
+                    <div class="sectionSpec">
+                    	<div class="ls_pro_list">
+                <a href="#"><img src="http://192.168.16.218/pm1/M00/0A/0F/wKgQ2lasL7iAbLKQAACDxS7zJUk910.jpg" alt="" width="210" height="210"></a>
+                <span class="sectionLimited"><a href="#">华为荣耀6</a></span>
+                <span><b><font style="font-size:12px">$</font>199.00</b><div class="ls_addToCart"><i></i>Add to Cart</div></span>
+                <div class="ls_addToCart_txt"><i></i>成功加入购物车，<a href="#">前往付款 &gt;&gt;</a></div>
+                <div class="ls_huizeng"></div>
+                
+                <div class="ls_list_sc"></div>
+                <div class="ls_list_sc_txt">收藏该商品</div>
+            </div>
+                        <a href="" title="">
+                        	<img src="newcss/css/images/sb_022.png" alt="" width="210" height="210">
+                            <span class="sectionLimited">得力（deli）0105 二孔打孔机孔径6mm 颜色随机</span>
+                            <span><b><font style="font-size:12px">$</font>1300.00</b><ins>Rebates:100%</ins></span>
+                        </a>
+                        <a href="" title="">
+                        	<img src="newcss/css/images/sb_023.png" alt="" width="210" height="210">
+                            <span class="sectionLimited">得力（deli）0105 二孔打孔机孔径6mm 颜色随机</span>
+                            <span><b><font style="font-size:12px">$</font>1300.00</b><ins>Rebates:100%</ins></span>
+                        </a>
+                        <a href="" title="">
+                        	<img src="newcss/css/images/sb_024.png" alt="" width="210" height="210">
+                            <span class="sectionLimited">得力（deli）0105 二孔打孔机孔径6mm 颜色随机</span>
+                            <span><b><font style="font-size:12px">$</font>1300.00</b><ins>Rebates:100%</ins></span>
+                        </a>
+                        <a href="" title="">
+                        	<img src="newcss/css/images/sb_025.png" alt="" width="210" height="210">
+                            <span class="sectionLimited">得力（deli）0105 二孔打孔机孔径6mm 颜色随机</span>
+                            <span><b><font style="font-size:12px">$</font>1300.00</b><ins>Rebates:100%</ins></span>
+                        </a>
+                        <a href="" title="">
+                        	<img src="newcss/css/images/sb_026.png" alt="" width="210" height="210">
+                            <span class="sectionLimited">得力（deli）0105 二孔打孔机孔径6mm 颜色随机</span>
+                            <span><b><font style="font-size:12px">$</font>1300.00</b><ins>Rebates:100%</ins></span>
+                        </a>
+                        <span class="clearfix"></span>
+                        <div class="sectionPaging">
+                        	<ul>
+                            	<li class="secPrevPage"><a href="###"><i class="fa-angle-left"></i>上一页</a></li>
+                                <li><a href="###" class="secPageOn">1</a></li>
+                                <li><a href="###">2</a></li>
+                                <li><a href="###">3</a></li>
+                                <li>...</li>
+                                <li><a href="###">8</a></li>
+                                <li class="secNextPage"><a href="###">下一页<i class="fa-angle-right"></i></a></li>
+                                <span class="clearfix"></span>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+				<span class="clearfix"></span>
+			</div>
+		</div>
+	</div>
+
+</div><!--主体部分-->
+
+
+
+<div class="footer">
+	<div class="ls_foot1">
+		<div class="ls_foot1_1 fl">
+			<h2>分享推荐</h2>
+			<p>如果你对我们的实业感兴趣，分享给50个有效会员，即成为我们的合作伙伴<br />合作详情</p>
+			<div class="ls_foot_share"></div>
+		</div>
+		
+		<div class="ls_foot1_2 fl">
+			<dl>
+				<dt>新手指南</dt>
+				<dd><a href="#">购物流程</a></dd>
+				<dd><a href="#">关于惠粉</a></dd>
+				<dd><a href="#">关于代理</a></dd>
+				<dd><a href="#">支付方式</a></dd>
+			</dl>
+			<dl>
+				<dt>客户服务</dt>
+				<dd><a href="#">服务协议</a></dd>
+				<dd><a href="#">安全支付</a></dd>
+				<dd><a href="#">常见问题</a></dd>
+			</dl>
+			<dl>
+				<dt>物流配送</dt>
+				<dd><a href="#">配送说明</a></dd>
+				<dd><a href="#">签收验货</a></dd>
+				<dd><a href="#">退换货政策</a></dd>
+				<dd><a href="#">退换货流程</a></dd>
+			</dl>
+			<dl>
+				<dt>关于我们</dt>
+				<dd><a href="#">惠卡承诺</a></dd>
+				<dd><a href="#">联系我们</a></dd>
+			</dl>
+		</div>
+		
+		<div class="ls_foot1_3 fr">
+			<h2>邮件订阅</h2>
+			<p>想去的我们最新消息？立即订阅电子报，即享50天返现优惠</p>
+			<form>
+				<input type="email" class="ls_foot_email" placeholder="请填写邮件"/>
+				<input type="button" class="ls_foot_ok"  value="ok" />
+			</form>
+			<div>订阅电子报表示您已经知晓并同意我们的<a href="#">隐私条款</a></div>
+		</div>
+		
+	</div>
+	<div class="ls_foot2_">
+		<div class="ls_foot2">
+			<div class="fl">
+			HKSJ Information (Thailand) Co.,Ltd.
+			</div>
+			<div class="fr">
+				<img src="newcss/css/images/ls_foot_pay.png"/>
+			</div>
+		</div>
+	</div>
+</div><!--公共底部-->
+
+
+<script type="text/javascript" src="newcss/js/public.js"></script>
+<script>
+    $(function () {
+        //商品列表交互
+        $('.ls_pro_list').hover(function () {
+            $('.ls_list_sc').fadeIn(400);
+			
+        }, function () {
+            $('.ls_list_sc').fadeIn(400);
+			
+            
+        });
+        $('.ls_list_sc').hover(function(){
+        	$('.ls_list_sc_txt').fadeIn(200);
+        },function(){
+        	$('.ls_list_sc_txt').fadeOut(200);
+        });
+        $('.ls_list_sc').click(function () {
+            $(this).css("background-color", "#ff5040")
+        });
+        $('.ls_addToCart').click(function () {
+			$(this).css("background-color", "#ff5040");
+            $('.ls_addToCart_txt').fadeIn(400);
+            setTimeout(function(){
+            	$('.ls_addToCart').css("background", "#404040");
+            	$('.ls_addToCart_txt').fadeOut(200);
+            }, 3000);
+           
+        });
+    })
+</script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

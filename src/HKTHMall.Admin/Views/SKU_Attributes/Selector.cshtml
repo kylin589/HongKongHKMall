@@ -1,0 +1,57 @@
+﻿@model List<HKTHMall.Domain.AdminModel.Models.SKU.SKU_AttributesModel>
+@{
+    List<Tuple<long, bool>> valueData = ViewBag.ValueData as List<Tuple<long, bool>>;
+}
+<div class="row" style="overflow-x: hidden;">
+    <div class="box box-solid" style="box-shadow:none;">
+        <div class="box-header">
+            <h3 class="box-title">Product Spec</h3>
+            <div class="pull-right">
+                <p class="text-green">Click Checkbox to choose</p>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="box-group" id="standardAttrValues">
+
+                @if (Model != null && Model.Count > 0)
+                {
+
+                    for (int i = 0; i < Model.Count; i++)
+                    {
+                        var tempValue = Model[i];
+
+                        var useValue = valueData.FirstOrDefault(x => x.Item1 == tempValue.AttributeId);
+                        <div class="panel box box-success" style="border:1px;">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">
+                                    <a data-toggle="collapse" data-parent="#attrValues" href="#collapse@(i)" data-id="@tempValue.AttributeId">
+                                        @if (useValue != null)
+                                        {
+                                            @Html.Raw("<input type='checkbox' name='AttributeName" + i + "' id='AttributeName" + "' class='minimal' checked " + (useValue.Item2 ? "disabled" : "") + "  data-option=\"{'AttributeId':" + tempValue.AttributeId + " ,'AttributeName':'" + tempValue.AttributeName.Replace("'","\"") + "'}\" />")
+                                        }
+                                        else
+                                        {
+                                            <input type='checkbox' name='AttributeName@(i)' id='AttributeName@(i)' class='minimal' data-option="{'AttributeId':@tempValue.AttributeId,'AttributeName':'@tempValue.AttributeName'}" />
+                                        }
+
+                                        &nbsp;&nbsp;
+                                        <label>@tempValue.AttributeName</label>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse@(i)" class="panel-collapse collapse" data-option="{'id':@tempValue.AttributeId,'type':'@tempValue.AttributeType'}">
+                                <div class="box-body" style="min-height:30px;">
+                                </div>
+                                <div class="overlay">
+                                    <i class="fa fa-refresh fa-spin"></i>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
+

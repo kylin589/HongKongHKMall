@@ -1,0 +1,24 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.New.BD_NewsInfoModel
+@{
+    var IsCheckList = ViewData["IsCheck"] as List<SelectListItem>;
+}
+
+<form action="@Url.Action("NewsInfoCheck")" id="check_form" method="POST">
+    @Html.HiddenFor(m => m.ID)
+    <div class="row">
+        <div class="col-md-2">Headlines:</div>
+        <div class="col-md-9">@(Model.Title)</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">Review status:</div>
+        <div class="col-md-5">
+            <select class="form-control text-center" id="IsCheck" name="IsCheck">
+                @foreach (var item in IsCheckList)
+                {
+                    <option value="@(item.Value)" selected="@(item.Selected)">@(item.Text)</option>
+                }
+            </select>
+
+        </div>
+    </div>
+</form>

@@ -1,0 +1,221 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.Orders.SearchPaymentOrderModel
+@{
+    ViewBag.Title = "The third party payment record list";
+}
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>Order SN: </span>
+            @Html.TextBoxFor(x => x.OrderID, new { @class = "form-control w70", @placeholder = "Please enter order number" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Email: </span>
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control w70", @placeholder = "Please enter Phone" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>3rd Party Payment SN: </span>
+            @Html.TextBoxFor(x => x.outOrderId, new { @class = "form-control w70", @placeholder = "Please enter 3rd party payment number" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Payment status: </span>
+            <select class="form-control text-center" id="Flag" name="Flag">
+                <option value="">--All--</option>
+                <option value="1">Not paid</option>
+                <option value="2">Paid</option>
+                <option value="3">Cancel</option>
+            </select>
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Payment method: </span>
+            <select class="form-control text-center" id="PayChannel" name="PayChannel">
+                <option value="">--All--</option>
+                <option value="1">Balance</option>
+                <option value="2">Pay by Paypal</option>
+                <option value="4">Pay by Omise</option>
+                <option value="5">Cash on delivery</option>
+                @*<option value="6">Mixed Payment</option>*@
+            </select>
+        </div>
+        &nbsp;<br />
+        <div class="form-group">
+            <span>Payment time: </span>
+            @Html.TextBoxFor(x => x.BeginPaymentDate, new { @class = "form-control w70", @placeholder = "Please select start time" })
+            &nbsp;--&nbsp;
+            @Html.TextBoxFor(x => x.EndPaymentDate, new { @class = "form-control w70", @placeholder = "Please select end time" })
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-danger js_reset" onclick="Tool.ClearForm($('#user-toolbar'))">
+            <span class="glyphicon glyphicon-bullhorn"></span> Clear
+        </button>
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts{
+    <script type="text/javascript">
+        //加载数据
+        $(function () {
+            var columns = [
+            { field: "OrderID", title: "Order SN", align: 'center', valign: 'middle', sortable: false },
+            { field: 'NickName', title: 'NickName', align: 'center', valign: 'middle', sortable: false },
+            { field: 'Email', title: 'Email', align: 'center', valign: 'middle', sortable: false },
+            { field: "outOrderId", title: "3rd Party Payment SN", align: 'center', valign: 'middle', sortable: false },
+            { field: "ProductAmount", title: "Total amount", align: 'center', valign: 'middle', sortable: false },
+            { field: "RealAmount", title: "Actual pay amount", align: 'center', valign: 'middle', sortable: false },
+            {
+                field: "Flag", title: "Payment status", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                      if (arguments && arguments[1]) {
+                          //1中文,2英语,3泰语（默认）
+                          var FlagName = "-";
+                          switch (arguments[1].Flag) {
+                              case 1:
+                                  FlagName = "Not paid";
+                                  break;
+                              case 2:
+                                  FlagName = "Paid";
+                                  break;
+                              case 3:
+                                  FlagName = "Cancel";
+                                  break;
+                              default:
+                                  break;
+
+                          }
+                          return FlagName;
+                      }
+                  }
+              },
+
+            {
+                field: "PayChannel", title: "Payment method", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                              if (arguments && arguments[1]) {
+                                  //1中文,2英语,3泰语（默认）
+                                  var PayTypeName = "Balance";
+                                  switch (arguments[1].PayChannel) {
+                                      case 1:
+                                          PayTypeName = "Balance";
+                                          break;
+                                      case 2:
+                                          PayTypeName = "Pay by Paypal";
+                                          break;
+                                      case 3:
+                                          PayTypeName = "Pay by Credit card";
+                                          break;
+                                      case 4:
+                                          PayTypeName = "Pay by Omise";
+                                          break;
+                                      case 5:
+                                          PayTypeName = "Cash on delivery";
+                                          break;
+                                      case 6:
+                                          PayTypeName = "Mixed Payment";
+                                          break;
+                                      default:
+                                          break;
+
+                                  }
+                                  return PayTypeName;
+                              }
+                          }
+                      },
+            {
+                field: "PaymentDate", title: "Payment time", align: 'center', valign: 'middle', sortable: false, formatter:
+                  function (val)
+                  {
+                      return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                  }
+            },
+             {
+                 field: "CreateDT", title: "Create time", align: 'center', valign: 'middle', sortable: false, formatter:
+                   function (val) {
+                       return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                   }
+             }
+            ];
+         
+            //加载列表数据
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+                queryParams: function (params) {
+                    return {
+                        OrderID: $('#OrderID').val().trim(),
+                        Email: $('#Email').val().trim(),
+                        outOrderId: $('#outOrderId').val().trim(),
+                        Flag: $('#Flag').val().trim(),
+                        PayChannel: $('#PayChannel').val().trim(),
+                        BeginPaymentDate: $('#BeginPaymentDate').val().trim(),
+                        EndPaymentDate: $('#EndPaymentDate').val().trim(),
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        time: new Date().getTime()
+                    };
+                },
+                pagination: true,
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns
+            });
+            //搜索事件
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+            //按Enter键回车搜索
+            $('#OrderID').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#Phone').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#outOrderId').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#Flag').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#PayType').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#EndPaymentDate').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            //日期控件 开始
+            $('#BeginPaymentDate').datepicker({
+                language: "en",
+                autoclose: true
+            }).on("changeDate", function (e) {
+                $('#EndPaymentDate').datepicker('setStartDate', e.date);
+            });
+
+            //日期控件 结束
+            $('#EndPaymentDate').datepicker({
+                language: "en",
+                autoclose: true
+            }).on("changeDate", function (e) {
+                $('#BeginPaymentDate').datepicker('setEndDate', e.date);
+            });
+        });
+    </script>
+}

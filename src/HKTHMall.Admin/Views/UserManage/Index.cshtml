@@ -1,0 +1,56 @@
+﻿<div id="user-toolbar">
+
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+
+<script type="text/javascript">
+    $(function () {
+
+        var columns = [
+            { field: 'TariffNumber', title: '行邮税号', align: 'center', valign: 'middle', sortable: true },
+            { field: 'ParentName', title: '大品类', align: 'center', valign: 'middle', sortable: true },
+            { field: 'Name', title: '小品类', align: 'center', valign: 'middle', sortable: true },
+            { field: 'DutiablePrice', title: '完税价格（￥元）', align: 'center', valign: 'middle', sortable: true },
+            { field: 'TariffRate', title: '税率（%）', align: 'center', valign: 'middle', sortable: true },
+            {
+                field: 'ID',
+                title: 'Operation',
+                align: 'center',
+                valign: 'middle',
+                formatter: function (val) {
+                    return [
+                        '<a class="edit ml10" href="javascript:void(0)" title="Update">',
+                        '<i class="glyphicon glyphicon-edit"></i>',
+                        '</a>'
+                    ].join('');
+                },
+                events: {
+                    'click .edit': function (e, value, row, index) {
+                        //修改
+                        $('#modal-lg .modal-content').load('@Url.Action("Update")/' + value);
+                        $('#modal-lg').modal('show').find('.modal-lg').css('width', 400);
+                    }
+                }
+            }
+        ];
+
+        $('#u_grid').bootstrapTable({
+            url: '@Url.Action("Search")',
+            queryParams: function(params) {
+                return {
+                    UserName: "",
+                    PagedIndex: params.pageNumber - 1,
+                    PagedSize: params.pageSize
+                };
+            },
+            sortOrder: 'desc',
+            pagination: true,
+            showRefresh: true,
+            showColumns: true,
+            striped: true,
+            sidePagination: 'server',
+            columns: columns
+        });
+    });
+</script>

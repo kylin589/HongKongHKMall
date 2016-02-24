@@ -1,0 +1,45 @@
+﻿
+@{
+    Layout = null;
+    var proList = ViewBag.productList;
+    var headImg = ViewBag.RootImage;
+    var key = ViewBag.key;
+    var list=ViewBag.tuJian;
+}
+
+
+
+    @if (proList != null && proList.Count > 0 )
+    {
+        foreach (var item in proList)
+        {
+            string productName = item.ProductName;
+            productName = productName.Length > 20 ? productName.Substring(0, 20) + "..." : productName;
+            <div class="ls_pro_list">
+                <a href="#">
+                    <img src="@ViewBag.RootImage@item.PicUrl" alt="" width="210" height="210"></a>
+                    <span class="sectionLimited"><a href="#">@productName</a></span>
+                    <span><b><font style="font-size:12px">$</font>@item.HKPrice.ToString("F2")</b><div class="ls_addToCart"><i></i>Add to Cart</div></span>
+                    <div class="ls_addToCart_txt"><i></i>成功加入购物车，<a href="#">前往付款 >></a></div>
+                    <div class="ls_huizeng"></div>
+
+                    <div class="ls_list_sc"></div>
+                    <div class="ls_list_sc_txt">收藏该商品</div>
+</div>
+        }
+    }
+    else
+    {
+
+    }
+    <span class="clearfix"></span>
+<input type="hidden" id="hidbrandId" value="@ViewBag.brandId" />
+<input type="hidden" id="hidcategoryId" value="@ViewBag.categoryId" />
+<input type="hidden" id="hidlevel" value="@ViewBag.level" />
+<input type="hidden" id="hidpageTotal" value="@ViewBag.pageTotal" />
+<input type="hidden" id="hidpageIndex" value="@ViewBag.pageIndex" />
+<input type="hidden" id="hidstartPrice" value="@ViewBag.startPrice" />
+<input type="hidden" id="hidendPrice" value="@ViewBag.endPrice" />
+<input type="hidden" id="hidsortSell" value="@ViewBag.sortSell">
+<input type="hidden" id="hidkey" value="@ViewBag.key" />
+<input type="hidden" id="hidsortPrice" value="@ViewBag.sortPrice">

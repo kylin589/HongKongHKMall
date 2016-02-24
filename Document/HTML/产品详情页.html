@@ -1,0 +1,1378 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="Keywords" content="">
+		<title>香港商城</title>
+		<link rel="stylesheet" type="text/css" href="newcss/css/css.css" />
+		<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+		
+			
+		<!--产品放大镜-->
+		<script src="newcss/js/base.js" type=text/javascript></script>
+	<script type=text/javascript>
+	$(function(){			
+	   $(".jqzoom").jqueryzoom({
+			xzoom:400,
+			yzoom:400,
+			offset:10,
+			position:"right",
+			preload:1,
+			lens:1
+		});
+		$("#spec-list").jdMarquee({
+			deriction:"left",
+			width:350,
+			height:56,
+			step:2,
+			speed:4,
+			delay:10,
+			control:true,
+			_front:"#spec-right",
+			_back:"#spec-left"
+		});
+		$("#spec-list img").bind("mouseover",function(){
+			var src=$(this).attr("src");
+			$("#spec-n1 img").eq(0).attr({
+				src:src.replace("\/n5\/","\/n1\/"),
+				jqimg:src.replace("\/n5\/","\/n0\/")
+			});
+			$(this).css({
+				"border":"2px solid #333",
+				"padding":"1px"
+			});
+		}).bind("mouseout",function(){
+			$(this).css({
+				"border":"1px solid #ccc",
+				"padding":"2px"
+			});
+		});				
+	})
+	</script>
+
+<script src="newcss/js/lib.js" type=text/javascript></script>
+<script src="newcss/js/zzsc.js" type=text/javascript></script> 
+
+	<!--右侧图片切换-->
+	<link rel="stylesheet" type="text/css" href="newcss/css/swiper-3.2.7.min.css"/>
+	<script src="newcss/js/swiper-3.2.7.jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+<body>
+<div class="header">
+	<div class="clear" style="background: #ccc; height: 175px;"></div>
+</div><!--公共头部-->
+
+<div class="main_a">
+	
+	<div class="main_about">
+		<div class="specLayout">
+			<div class="specMain_2016">
+				<ul>
+					<li><a href="javascript:void();">首页</a></li>
+					<li class="spector"><i class="fa fa-angle-right"></i></li>
+					<li><a href="javascript:void();">首页</a></li>
+					<li class="spector"><i class="fa fa-angle-right"></i></li>
+					<li><a href="javascript:void();">首页</a></li>
+					<span class="clear"></span>
+				</ul>
+			</div>
+		</div>
+		
+			
+		<!--ls_products_show begin-->
+		<div class="ls_products_show">
+			
+				
+			<!--ls_products_info-->
+			<div class="ls_products_info">
+				
+				<!--ls_products_info_1-->
+				<div class="ls_products_info_1">
+					<div class="ls_products_info_1_time">
+						剩余<time> 123:40:20</time>
+					</div>
+					<div id=preview>
+						<div class=jqzoom id=spec-n1 >
+                        	<IMG height=398 src="newcss/css/images/sb_products_img.jpg" jqimg="newcss/css/images/sb_products_img.jpg" width=398>
+						</div>
+						<div id=spec-n5>
+						<div class=control id=spec-left></div>
+                        <div id=spec-list>
+                            <ul class=list-h>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                                <li><img src="newcss/css/images/sb_products_img.jpg"> </li>
+                            </ul>
+                        </div>
+					<div class=control id=spec-right></div>
+		
+    				</div>
+				</div>
+ 				<div class="ls_shoucang">
+ 					<dl>收藏商品</dl>
+ 					<ul>
+ 						<span>分享到</span>
+ 					<a href="#" title="facebook"></a>
+ 					<a href="#" title="Twitter"></a>
+ 					<a href="#" title="google"></a>
+ 					<a href="#" title="weibo"></a>
+ 					</ul>
+ 				</div>
+				</div>
+				
+				
+				<!--ls_products_info_2-->
+				<div class="ls_products_info_2">
+					<div class="ls_proinfo_1">
+						<div class="ls_products_name">永久自行车 700C铝合金 14速轴承中轴公路车9.2</div>
+						<div class="ls_products_jj">永久官方正品保修，下单送骑行装备好礼</div>
+					</div>
+					<div class="ls_proinfo_2">
+						<div class="ls_proinfo_2_lf">
+							<dl class="ls_yj"><dt>原  价</dt><dd class="m_0119">$467</dd></dl>
+							<dl class="ls_hkj"><dt>惠卡价</dt><span>$288</span><dd>70% OFF</dd></dl>
+							<div class="ls_pengjia">
+								<div class="starts">
+									<div class="c_xx_ss">
+												<div class="c_xx_aa"><div class="c_stars">3</div></div><!--这里的评分是会员评价的，只有1，2，3，4，5-->
+											</div>
+								</div>
+								<span>5分</span><span>共有22人评价</span>
+							</div>
+						</div>
+						
+						
+					</div>
+					<div class="ls_proinfo_3">
+						<dl class="ls_cb_tt">
+							<dt>专属服务</dt>
+							<dd>购买商品返利100%到余额<a href="#" title="">关于全返
+                             <div class="ls_proinfo_2_rg">
+                        <a href="javascript:viod(0)" title="">关于全返
+                            <div class="ls_about_qf">
+
+                                <ul>
+                                    <span></span>
+                                    <li>返利计算公式</li>
+                                    <li>每天返现金额(不含运费)=总返利金额/返利天数。</li>
+                                    <li>返利开始日期</li>
+                                    <li>确认收货的7天后，订单开始返利。</li>
+                                    <li>返利结束日期</li>
+                                    <li>当返利金额达到总返利金额时，返利停止。</li>
+                                    <li>返利方式</li>
+                                    <li>返现到惠卡账户。</li>
+                                    <li>退货规则</li>
+                                    <li>当商品为退货失败，该商品也会开始返利。</li>
+                                    <dt><i></i>查看更多</dt>
+                                    <li>返利计算公式</li>
+                                    <li>每天返现金额(不含运费)=总返利金额/返利天数。</li>
+                                    <li>返利开始日期</li>
+                                    <li>确认收货的7天后，订单开始返利。</li>
+                                    <li>返利结束日期</li>
+                                    <li>当返利金额达到总返利金额时，返利停止。</li>
+                                    <li>返利方式</li>
+                                    <li>返现到惠卡账户。</li>
+                                    <li>退货规则</li>
+                                    <li>当商品为退货失败，该商品也会开始返利。</li>
+                                </ul>
+                            
+                            </div>
+                        </a>
+                        
+                    </div>
+
+                            </a></dd>
+						</dl>
+						<dl class="ls_service">
+							<dt>服务</dt>
+							<dd>本商品由<a href="javascript:void(0)" title="">惠卡自营</a>负责发货，并提供售后服务</dd>
+							<div class="ls_fw">
+								<span>免运费</span><span>正品保障</span><span>7天无理由退换货</span>
+							</div>
+						</dl>
+						<dl class="ls_color"><dt>颜色</dt><dd>
+							<ul>
+								<li><a href="javascript:void(0)" title="黑色">黑色</a></li>
+								<li class="ls_on"><a href="javascript:void(0)" title="蓝色">蓝色</a></li>
+								<li><a href="javascript:void(0)" title="黄色">黄色</a></li>
+								<li><a href="javascript:void(0)" title="红色">红色</a></li>
+							</ul>
+						</dd></dl>
+						<dl class="ls_size"><dt>尺码</dt><dd>
+							<ul>
+								<li><a href="javascript:void(0)" title="XL">XLXLXL</a></li>
+								<li class="ls_on"><a href="javascript:void(0)" title="L">L</a></li>
+								<li><a href="javascript:void(0)" title="M">M</a></li>
+								<li><a href="javascript:void(0)" title="S">S</a></li>
+							</ul>
+						</dd></dl>
+						<dl class="ls_number">
+							<dt>数量</dt>
+							<dd>
+								<a href="javascript:void(0)">-</a>
+								<input type="text"  value="2" />
+								<a href="javascript:void(0)">+</a>
+							</dd>
+						</dl>
+					</div>
+					<div class="ls_proinfo_4">
+						<dl class="ls_select">
+							<dt>已选</dt>
+							<dd><span>“红色”</span><span>“L”</span></dd>
+						</dl>
+						<div class="ls_products_buy">
+							<a href="javascript:void(0)" class="ls_products_buyNow">立即购买</a>
+							<a href="javascript:void(0)" class="ls_products_buycar">加入购物车</a>
+						</div>
+					</div>
+				</div>
+				
+				
+				<!--ls_products_info_3-->
+				<div class="ls_products_info_3">
+					<div class="ls_products_info_3_top">
+						<i></i>
+						<span>看了又看</span>
+					</div>
+					<div class="ls_products_info_3_img swiper-container">
+						<ul class="swiper-wrapper ">
+							<li class="swiper-slide"><a href="javascript:void(0)" title=""><img src="newcss/css/images/sb_products_s.jpg" alt=""/><p>$2964</p></a></li>
+							<li class="swiper-slide"><a href="javascript:void(0)" title=""><img src="newcss/css/images/sb_products_s.jpg" alt=""/><p>$2964</p></a></li>
+							<li class="swiper-slide"><a href="javascript:void(0)" title=""><img src="newcss/css/images/sb_products_s.jpg" alt=""/><p>$2964</p></a></li>
+							<li class="swiper-slide"><a href="javascript:void(0)" title=""><img src="newcss/css/images/sb_products_s.jpg" alt=""/><p>$2964</p></a></li>
+							<li class="swiper-slide"><a href="javascript:void(0)" title=""><img src="newcss/css/images/sb_products_s.jpg" alt=""/><p>$2964</p></a></li>
+							<li class="swiper-slide"><a href="javascript:void(0)" title=""><img src="newcss/css/images/sb_products_s.jpg" alt=""/><p>$2964</p></a></li>
+						</ul>
+						
+
+					</div>
+											
+	<div class="ls_products_info_3_foot">					
+    <!-- 如果需要导航按钮 -->
+    <div class="swiper-button-prev ls_prev_btn"></div>
+    <div class="swiper-button-next ls_next_btn"></div>
+   </div>
+				</div>
+				
+				
+			</div>
+			<!--ls_products_info-->
+			
+			<!--ls_products_down-->
+			<div class="ls_products_down">
+				
+				<!--ls_products_down_lf-->
+				<!--这里和列表页左侧不一样，不要做成一样的-->
+				<div class="ls_products_down_lf">
+					<ul class="lbSearchHistory">
+                    	<h3>浏览此目录的客户最终购买</h3>
+                    	<li><a href="javascript:void();">
+                        	<img src="newcss/css/images/sb_tesphonet.jpg" alt="" width="200" height="170">
+                            <span class="scanLimited">deli得力0105而空打印机啊打印机啊打印机</span>
+                            <p><b><font style="font-weight:normal">$</font>1300.00</b><ins>Rebates:100%</ins></p>
+                        </a></li>
+                        <li><a href="javascript:void();">
+                        	<img src="newcss/css/images/sb-test22.jpg" alt="" width="200" height="170">
+                            <span class="scanLimited">deli得力0105而空打印机啊打印机啊打印机</span>
+                            <p><b><font style="font-weight:normal">$</font>1300.00</b><ins>Rebates:100%</ins></p>
+                        </a></li>
+                        <li><a href="javascript:void();">
+                        	<img src="newcss/css/images/sb-test333.jpg" alt="" width="200" height="170">
+                            <span class="scanLimited">deli得力0105而空打印机啊打印机啊打印机</span>
+                            <p><b><font style="font-weight:normal">$</font>1300.00</b><ins>Rebates:100%</ins></p>
+                        </a></li>
+                        <li><a href="javascript:void();">
+                        	<img src="newcss/css/images/sb-test444.jpg" alt="" width="200" height="170">
+                            <span class="scanLimited">deli得力0105而空打印机啊打印机啊打印机</span>
+                            <p><b><font style="font-weight:normal">$</font>1300.00</b><ins>Rebates:100%</ins></p>
+                        </a></li>
+                    </ul>
+				</div>
+				<!--ls_products_down_lf-->
+				
+				<!--ls_products_down_rg-->
+				<div class="ls_products_down_rg">
+					<div class="ls_products_tab_tit">
+						<ul>
+							<li class="ls_on"><a href="javascript:void(0)" title="">商品详情</a></li>
+							<li class="ls_bzcs"><a href="javascript:void(0)" title="">包装及参数</a></li>
+							<li class="ls_pj"><a href="javascript:void(0)" title="">评价<span>(42)</span></a></li>
+							<li class="ls_zx"><a href="javascript:void(0)" title="">咨询<span>(3)</span></a></li>
+							<li class="ls_shouhou"><a href="javascript:void(0)" title="">售后保障</a></li>
+						</ul>
+					</div>
+					
+					<!--商品详情-->
+					<div class="ls_products_details_1 details_1_1">
+						<div class="details_1_1_1">
+							<ul>
+								<li>产品名称：联想联想联想联想</li>
+								<li>产品名称：联想联想联想联想</li>
+								<li>产品名称：联想联想联想联想</li>
+								<li>产品名称：联想联想联想联想</li>
+								<li>产品名称：联想联想联想联想</li>
+								<li>产品名称：联想联想联想联想</li>
+								<li>产品名称：联想联想联想联想</li>
+								<li>产品名称：联想联想联想联想</li>
+							</ul>
+						</div>
+						<div class="details_1_1_2">
+							<img src="newcss/css/images/sb_ls_products_details.jpg"/>
+						</div>
+					</div>
+					
+					<div class="ls_products_details_1 details_1_2" style="display: none;">
+						 <table  cellspacing="0" cellpadding="0" border="1" bordercolor="#eee" >
+						 	<tr><td colspan="2">包裹清单</td></tr>
+						 	<tr>
+						 		<td>包裹清单</td>
+						 		<td>主机x1、电池x1、充电器x1、说明书x1、数据线x1、保修卡x1</td>
+						 	</tr>
+						 </table>
+						 
+						 <table  cellspacing="0" cellpadding="0" border="1" bordercolor="#eee" >
+						 	<tr><td colspan="2">基本清单</td></tr>
+						 	<tr>
+						 		<td>品牌</td>
+						 		<td>戴尔</td>
+						 	</tr>
+						 	<tr>
+						 		<td colspan="2">网络</td>
+						 	</tr>
+						 	<tr>
+						 		<td>支持3G</td>
+						 		<td>支持</td>
+						 	</tr>
+						 </table>
+						 
+					</div>
+					
+					<div class="ls_products_details_1 details_1_3" style="display: none;">
+						<div class="ls_service_bt">
+							惠卡承诺
+						</div>
+						<div class="ls_service_nr">
+							<div class="ls_service_img">
+								
+							</div>
+						</div>
+						<div class="ls_service_bt">
+							售后服务
+						</div>
+						<div class="ls_service_nr">
+							<div>惠卡商城向您保证所售商品均为正品行货，与您亲临商场选购的商品享受相同的质量保证。<br />
+								本站为您提供具有竞争力的商品价格和服务保障，请放心购买！
+							</div>
+							<p>注:因厂家会在没有任何提前通知的情况下更改产品包装、产地或者一些附件，本司不能确保客户收到的货物与商城图片、产地、附件说明完全一致。只能确保为原厂正货！并且保证与当时市场上同样主流新品一致。若本商城没有及时更新，请大家谅解！</p>
+						</div>
+						<div class="ls_service_bt">
+							退款/货流程
+						</div>
+						<div class="ls_service_nr">
+							<img src="newcss/css/images/ls_tuihuo.jpg"/>
+						</div>
+						<div class="ls_service_bt">
+							温馨提示
+						</div>
+						<div class="ls_service_nr">
+							1、亲爱的顾客，惠卡承诺所售产品均为正品，如您购物环节遇到任何问题，请第一时间联系客服人员，我们会尽心为您处理问题。<br />
+							2、请您收货后与快递人员一起开箱验货，确保产品完好，生产日期认可。如有问题请当场拒收。
+						</div>
+						<div class="ls_service_bt">
+							特别声明
+						</div>
+						<div class="ls_service_nr">
+							本站商品信息均来自惠卡自营商品，其真实性、准确性和合法性由信息拥有者（厂商）负责。本站不提供任何保证，并不承担任何法律责任。因厂家会在没有任何提前通知的情况下更改产品包装、产地或者一些附件，我司不能确保客户收到的货物与商城图片、产地、附件说明完全一致。网站商品的功能参数仅供参考，请以实物为准，我司只能确保网站经营商品均为原厂正品行货！并且保证与当时市场上同样主流新品一致。若本商城没有及时更新，敬请谅解！
+
+						</div>
+						
+					</div>
+					
+					
+					<!--好评率-->
+					<div class="ls_products_details_2">
+						<div class="details_2_1">
+							<b>99%</b><p>好评率</p>
+						</div>
+						<div class="details_2_2">
+							<p>大家印象</p>
+							<div class="djyx">
+								<a href="javascript:void(0)">性价比高<span>(142)</span></a>
+								<a href="javascript:void(0)">性价比高<span>(142)</span></a>
+								<a href="javascript:void(0)">性价比高<span>(142)</span></a>
+								<a href="javascript:void(0)">性价比高<span>(142)</span></a>
+								<a href="javascript:void(0)">性价比高<span>(142)</span></a>
+								<a href="javascript:void(0)">性价比高<span>(142)</span></a>
+								<a href="javascript:void(0)">性价比高<span>(142)</span></a>
+							</div>
+						</div>
+						<div class="details_2_3">
+							<p>前10名发表评价可获1惠米</p>
+							<a class="ls_fbpl" href="javascript:void(0)">发表评论拿惠米</a>
+							<p>1惠米=1元 <a href="javascript:void(0)">惠米规则</a></p>
+						</div>
+					</div>
+					
+					
+					<!--评价列表-->
+					<div class="ls_products_details_3">
+						<div class="details_3_tit">
+							<ul>
+								<li class="ls_on"><a href="javascript:void(0)" title="">全部<span>(42)</span></a></li>
+								<li><a href="javascript:void(0)" title="">好评<span>(15)</span></a></li>
+								<li><a href="javascript:void(0)" title="">中评<span>(42)</span></a></li>
+								<li><a href="javascript:void(0)" title="">差评<span>(3)</span></a></li>
+							</ul>
+						</div>
+						
+						<div class="details_3_nr">
+							<!--全部评论列表-->
+							<div class="details_3_content details_3_1">
+							<ul>
+								<li>
+									<div class="ls_touxiang">
+										<i></i>
+										<p>13*******79</p>
+									</div>
+									<div class="ls_message">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<div class="ls_message_nr">
+											宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物，宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物，宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物，宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物，
+										</div>
+										<div class="ls_message_btn">
+											<a href="javascript:void(0)">性价比高</a><a href="javascript:void(0)">物美价廉</a>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="ls_touxiang">
+										<i></i>
+										<p>13*******79</p>
+									</div>
+									<div class="ls_message">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<div class="ls_message_nr">
+											宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物
+										</div>
+										<div class="ls_message_btn">
+											<a href="javascript:void(0)">性价比高</a><a href="javascript:void(0)">物美价廉</a>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="ls_touxiang">
+										<i></i>
+										<p>13*******79</p>
+									</div>
+									<div class="ls_message">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<div class="ls_message_nr">
+											宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物
+										</div>
+										<div class="ls_message_btn">
+											<a href="javascript:void(0)">性价比高</a><a href="javascript:void(0)">物美价廉</a>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<div class="details_3_content_page">
+								<div class="ls_page">
+								<ul>
+									<li><a href="javascript:void(0)"> < 上一页</a></li>
+									<li class="ls_page_on"><a href="javascript:void(0)">1</a></li>
+									<li><a href="javascript:void(0)">2</a></li>
+									<li><a href="javascript:void(0)">3</a></li>
+									<li><a href="javascript:void(0)">4</a></li>
+									<li>...</li>
+									<li><a href="javascript:void(0)">60</a></li>
+									<li><a href="javascript:void(0)">下一页 > </a></li>
+								</ul>
+							</div>
+							</div>
+						</div>
+							
+							<!--好评列表-->
+							<div class="details_3_content details_3_2" style="display: none;">
+							<ul>
+								<li>
+									<div class="ls_touxiang">
+										<i></i>
+										<p>13*******79</p>
+									</div>
+									<div class="ls_message">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<div class="ls_message_nr">
+											宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物，宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物，宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物，宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物，
+										</div>
+										<div class="ls_message_btn">
+											<a href="javascript:void(0)">性价比高</a><a href="javascript:void(0)">物美价廉</a>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="ls_touxiang">
+										<i></i>
+										<p>13*******79</p>
+									</div>
+									<div class="ls_message">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<div class="ls_message_nr">
+											宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物
+										</div>
+										<div class="ls_message_btn">
+											<a href="javascript:void(0)">性价比高</a><a href="javascript:void(0)">物美价廉</a>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="ls_touxiang">
+										<i></i>
+										<p>13*******79</p>
+									</div>
+									<div class="ls_message">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<div class="ls_message_nr">
+											宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物
+										</div>
+										<div class="ls_message_btn">
+											<a href="javascript:void(0)">性价比高</a><a href="javascript:void(0)">物美价廉</a>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<div class="details_3_content_page">
+								<div class="ls_page">
+								<ul>
+									<li><a href="javascript:void(0)"> < 上一页</a></li>
+									<li class="ls_page_on"><a href="javascript:void(0)">1</a></li>
+									<li><a href="javascript:void(0)">2</a></li>
+									<li><a href="javascript:void(0)">3</a></li>
+									<li><a href="javascript:void(0)">4</a></li>
+									<li>...</li>
+									<li><a href="javascript:void(0)">60</a></li>
+									<li><a href="javascript:void(0)">下一页 > </a></li>
+								</ul>
+							</div>
+							</div>
+						</div>
+						
+							<!--中评列表-->
+							<div class="details_3_content details_3_3"  style="display: none;">
+							<ul>
+								<li>
+									<div class="ls_touxiang">
+										<i></i>
+										<p>13*******79</p>
+									</div>
+									<div class="ls_message">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<div class="ls_message_nr">
+											宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物，宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物，宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物，宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物，
+										</div>
+										<div class="ls_message_btn">
+											<a href="javascript:void(0)">性价比高</a><a href="javascript:void(0)">物美价廉</a>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="ls_touxiang">
+										<i></i>
+										<p>13*******79</p>
+									</div>
+									<div class="ls_message">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<div class="ls_message_nr">
+											宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物
+										</div>
+										<div class="ls_message_btn">
+											<a href="javascript:void(0)">性价比高</a><a href="javascript:void(0)">物美价廉</a>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="ls_touxiang">
+										<i></i>
+										<p>13*******79</p>
+									</div>
+									<div class="ls_message">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<div class="ls_message_nr">
+											宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物
+										</div>
+										<div class="ls_message_btn">
+											<a href="javascript:void(0)">性价比高</a><a href="javascript:void(0)">物美价廉</a>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<div class="details_3_content_page">
+								<div class="ls_page">
+								<ul>
+									<li><a href="javascript:void(0)"> < 上一页</a></li>
+									<li class="ls_page_on"><a href="javascript:void(0)">1</a></li>
+									<li><a href="javascript:void(0)">2</a></li>
+									<li><a href="javascript:void(0)">3</a></li>
+									<li><a href="javascript:void(0)">4</a></li>
+									<li>...</li>
+									<li><a href="javascript:void(0)">60</a></li>
+									<li><a href="javascript:void(0)">下一页 > </a></li>
+								</ul>
+							</div>
+							</div>
+						</div>
+						
+							<!--差评列表-->
+							<div class="details_3_content details_3_4" style="display: none;">
+							<ul>
+								<li>
+									<div class="ls_touxiang">
+										<i></i>
+										<p>13*******79</p>
+									</div>
+									<div class="ls_message">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<div class="ls_message_nr">
+											宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物，宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物，宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物，宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物，
+										</div>
+										<div class="ls_message_btn">
+											<a href="javascript:void(0)">性价比高</a><a href="javascript:void(0)">物美价廉</a>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="ls_touxiang">
+										<i></i>
+										<p>13*******79</p>
+									</div>
+									<div class="ls_message">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<div class="ls_message_nr">
+											宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物
+										</div>
+										<div class="ls_message_btn">
+											<a href="javascript:void(0)">性价比高</a><a href="javascript:void(0)">物美价廉</a>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="ls_touxiang">
+										<i></i>
+										<p>13*******79</p>
+									</div>
+									<div class="ls_message">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<div class="ls_message_nr">
+											宝贝收到以后骑了一段时间来评价 宝贝质量很好 骑起来很舒服很超值的一次购物
+										</div>
+										<div class="ls_message_btn">
+											<a href="javascript:void(0)">性价比高</a><a href="javascript:void(0)">物美价廉</a>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<div class="details_3_content_page">
+								<div class="ls_page">
+								<ul>
+									<li><a href="javascript:void(0)"> < 上一页</a></li>
+									<li class="ls_page_on"><a href="javascript:void(0)">1</a></li>
+									<li><a href="javascript:void(0)">2</a></li>
+									<li><a href="javascript:void(0)">3</a></li>
+									<li><a href="javascript:void(0)">4</a></li>
+									<li>...</li>
+									<li><a href="javascript:void(0)">60</a></li>
+									<li><a href="javascript:void(0)">下一页 > </a></li>
+								</ul>
+							</div>
+							</div>
+						</div>
+							
+						</div>
+											
+					</div>
+					
+					
+					
+					<!--咨询列表-->
+					<div class="ls_products_details_4">
+						<div class="details_4_tit">
+							<ul>
+								<li class="ls_on"><a href="javascript:void(0)" title="">全部咨询<span>(42)</span></a></li>
+								<li><a href="javascript:void(0)" title="">产品咨询<span>(15)</span></a></li>
+								<li><a href="javascript:void(0)" title="">库存配送<span>(0)</span></a></li>
+								<li><a href="javascript:void(0)" title="">发票保修<span>(0)</span></a></li>
+								<li><a href="javascript:void(0)" title="">支付信息<span>(0)</span></a></li>
+								<li><a href="javascript:void(0)" title="">促销优惠<span>(0)</span></a></li>
+								<li><a href="javascript:void(0)" title="">其他问题<span>(0)</span></a></li>
+							</ul>
+							<div class="ls_fbzx">
+								如有问题，请<a href="javascript:void(0)">发表咨询</a>
+							</div>
+						</div>
+						
+						<div class="details_4_nr">
+							
+								
+							<!--全部咨询列表-->
+							<div class="details_4_content details_4_1">
+							<ul>
+								<li>
+									<div class="details_4_content_lf">
+										<div class="ls_question">
+											<i></i>
+											<span>13*******79</span>
+											<div class="ls_question_nr">
+												长虹电视能链接网线么？
+											</div>
+										</div>
+										<div class="ls_answer">
+											<i></i>
+											<div class="ls_answer_nr">
+												惠卡自营:感谢您对惠卡的支持，祝您购物愉快！
+											</div>
+										</div>
+									</div>
+									<div class="details_4_content_rg">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<dl class="ls_zan">
+											<dd>满意<span>(0)</span></dd>
+											<dd>不满意<span>(0)</span></dd>
+										</dl>
+									</div>
+								</li>
+								<li>
+									<div class="details_4_content_lf">
+										<div class="ls_question">
+											<i></i>
+											<span>13*******79</span>
+											<div class="ls_question_nr">
+												长虹电视能链接网线么？
+											</div>
+										</div>
+										<div class="ls_answer">
+											<i></i>
+											<div class="ls_answer_nr">
+												惠卡自营:感谢您对惠卡的支持，祝您购物愉快！
+											</div>
+										</div>
+									</div>
+									<div class="details_4_content_rg">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<dl class="ls_zan">
+											<dd>满意<span>(0)</span></dd>
+											<dd>不满意<span>(0)</span></dd>
+										</dl>
+									</div>
+								</li>
+							</ul>
+							
+							<div class="ls_page">
+								<ul>
+									<li><a href="javascript:void(0)"> < 上一页</a></li>
+									<li class="ls_page_on"><a href="javascript:void(0)">1</a></li>
+									<li><a href="javascript:void(0)">2</a></li>
+									<li><a href="javascript:void(0)">3</a></li>
+									<li><a href="javascript:void(0)">4</a></li>
+									<li>...</li>
+									<li><a href="javascript:void(0)">60</a></li>
+									<li><a href="javascript:void(0)">下一页 > </a></li>
+								</ul>
+							</div>
+						</div>
+							
+							<!--产品咨询列表-->
+							<div class="details_4_content details_4_2" style="display: none;">
+							<ul>
+								<li>
+									<div class="details_4_content_lf">
+										<div class="ls_question">
+											<i></i>
+											<span>13*******79</span>
+											<div class="ls_question_nr">
+												长虹电视能链接网线么长虹电视能链接网线么？
+											</div>
+										</div>
+										<div class="ls_answer">
+											<i></i>
+											<div class="ls_answer_nr">
+												惠卡自营:感谢您对惠卡的支持，祝您购物愉快！
+											</div>
+										</div>
+									</div>
+									<div class="details_4_content_rg">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<dl class="ls_zan">
+											<dd>满意<span>(0)</span></dd>
+											<dd>不满意<span>(0)</span></dd>
+										</dl>
+									</div>
+								</li>
+								<li>
+									<div class="details_4_content_lf">
+										<div class="ls_question">
+											<i></i>
+											<span>13*******79</span>
+											<div class="ls_question_nr">
+												长虹电视能链接网线么？
+											</div>
+										</div>
+										<div class="ls_answer">
+											<i></i>
+											<div class="ls_answer_nr">
+												惠卡自营:感谢您对惠卡的支持，祝您购物愉快！
+											</div>
+										</div>
+									</div>
+									<div class="details_4_content_rg">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<dl class="ls_zan">
+											<dd>满意<span>(0)</span></dd>
+											<dd>不满意<span>(0)</span></dd>
+										</dl>
+									</div>
+								</li>
+							</ul>
+							
+							<div class="ls_page">
+								<ul>
+									<li><a href="javascript:void(0)"> < 上一页</a></li>
+									<li class="ls_page_on"><a href="javascript:void(0)">1</a></li>
+									<li><a href="javascript:void(0)">2</a></li>
+									<li><a href="javascript:void(0)">3</a></li>
+									<li><a href="javascript:void(0)">4</a></li>
+									<li>...</li>
+									<li><a href="javascript:void(0)">60</a></li>
+									<li><a href="javascript:void(0)">下一页 > </a></li>
+								</ul>
+							</div>
+						</div>
+							
+							<!--库存配送列表-->
+							<div class="details_4_content details_4_3" style="display: none;">
+							<ul>
+								<li>
+									<div class="details_4_content_lf">
+										<div class="ls_question">
+											<i></i>
+											<span>13*******79</span>
+											<div class="ls_question_nr">
+												长虹电视能链接网线么长虹电视能链接网线么长虹电视能链接网线么？
+											</div>
+										</div>
+										<div class="ls_answer">
+											<i></i>
+											<div class="ls_answer_nr">
+												惠卡自营:感谢您对惠卡的支持，祝您购物愉快！
+											</div>
+										</div>
+									</div>
+									<div class="details_4_content_rg">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<dl class="ls_zan">
+											<dd>满意<span>(0)</span></dd>
+											<dd>不满意<span>(0)</span></dd>
+										</dl>
+									</div>
+								</li>
+								<li>
+									<div class="details_4_content_lf">
+										<div class="ls_question">
+											<i></i>
+											<span>13*******79</span>
+											<div class="ls_question_nr">
+												长虹电视能链接网线么？
+											</div>
+										</div>
+										<div class="ls_answer">
+											<i></i>
+											<div class="ls_answer_nr">
+												惠卡自营:感谢您对惠卡的支持，祝您购物愉快！
+											</div>
+										</div>
+									</div>
+									<div class="details_4_content_rg">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<dl class="ls_zan">
+											<dd>满意<span>(0)</span></dd>
+											<dd>不满意<span>(0)</span></dd>
+										</dl>
+									</div>
+								</li>
+							</ul>
+							
+							<div class="ls_page">
+								<ul>
+									<li><a href="javascript:void(0)"> < 上一页</a></li>
+									<li class="ls_page_on"><a href="javascript:void(0)">1</a></li>
+									<li><a href="javascript:void(0)">2</a></li>
+									<li><a href="javascript:void(0)">3</a></li>
+									<li><a href="javascript:void(0)">4</a></li>
+									<li>...</li>
+									<li><a href="javascript:void(0)">60</a></li>
+									<li><a href="javascript:void(0)">下一页 > </a></li>
+								</ul>
+							</div>
+						</div>
+						
+							<!--发票保修列表-->
+							<div class="details_4_content details_4_4" style="display: none;">
+							<ul>
+								<li>
+									<div class="details_4_content_lf">
+										<div class="ls_question">
+											<i></i>
+											<span>13*******79</span>
+											<div class="ls_question_nr">
+												长虹电视能链接网线么长虹电视能链接网线么长虹电视能链接网线么？
+											</div>
+										</div>
+										<div class="ls_answer">
+											<i></i>
+											<div class="ls_answer_nr">
+												惠卡自营:感谢您对惠卡的支持，祝您购物愉快！
+											</div>
+										</div>
+									</div>
+									<div class="details_4_content_rg">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<dl class="ls_zan">
+											<dd>满意<span>(0)</span></dd>
+											<dd>不满意<span>(0)</span></dd>
+										</dl>
+									</div>
+								</li>
+								<li>
+									<div class="details_4_content_lf">
+										<div class="ls_question">
+											<i></i>
+											<span>13*******79</span>
+											<div class="ls_question_nr">
+												长虹电视能链接网线么？
+											</div>
+										</div>
+										<div class="ls_answer">
+											<i></i>
+											<div class="ls_answer_nr">
+												惠卡自营:感谢您对惠卡的支持，祝您购物愉快！
+											</div>
+										</div>
+									</div>
+									<div class="details_4_content_rg">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<dl class="ls_zan">
+											<dd>满意<span>(0)</span></dd>
+											<dd>不满意<span>(0)</span></dd>
+										</dl>
+									</div>
+								</li>
+							</ul>
+							
+							<div class="ls_page">
+								<ul>
+									<li><a href="javascript:void(0)"> < 上一页</a></li>
+									<li class="ls_page_on"><a href="javascript:void(0)">1</a></li>
+									<li><a href="javascript:void(0)">2</a></li>
+									<li><a href="javascript:void(0)">3</a></li>
+									<li><a href="javascript:void(0)">4</a></li>
+									<li>...</li>
+									<li><a href="javascript:void(0)">60</a></li>
+									<li><a href="javascript:void(0)">下一页 > </a></li>
+								</ul>
+							</div>
+						</div>
+							
+							<!--支付信息列表-->
+							<div class="details_4_content details_4_5" style="display: none;">
+							<ul>
+								<li>
+									<div class="details_4_content_lf">
+										<div class="ls_question">
+											<i></i>
+											<span>13*******79</span>
+											<div class="ls_question_nr">
+												33333333333333333？
+											</div>
+										</div>
+										<div class="ls_answer">
+											<i></i>
+											<div class="ls_answer_nr">
+												惠卡自营:感谢您对惠卡的支持，祝您购物愉快！
+											</div>
+										</div>
+									</div>
+									<div class="details_4_content_rg">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<dl class="ls_zan">
+											<dd>满意<span>(0)</span></dd>
+											<dd>不满意<span>(0)</span></dd>
+										</dl>
+									</div>
+								</li>
+								<li>
+									<div class="details_4_content_lf">
+										<div class="ls_question">
+											<i></i>
+											<span>13*******79</span>
+											<div class="ls_question_nr">
+												长虹电视能链接网线么？
+											</div>
+										</div>
+										<div class="ls_answer">
+											<i></i>
+											<div class="ls_answer_nr">
+												惠卡自营:感谢您对惠卡的支持，祝您购物愉快！
+											</div>
+										</div>
+									</div>
+									<div class="details_4_content_rg">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<dl class="ls_zan">
+											<dd>满意<span>(0)</span></dd>
+											<dd>不满意<span>(0)</span></dd>
+										</dl>
+									</div>
+								</li>
+							</ul>
+							
+							<div class="ls_page">
+								<ul>
+									<li><a href="javascript:void(0)"> < 上一页</a></li>
+									<li class="ls_page_on"><a href="javascript:void(0)">1</a></li>
+									<li><a href="javascript:void(0)">2</a></li>
+									<li><a href="javascript:void(0)">3</a></li>
+									<li><a href="javascript:void(0)">4</a></li>
+									<li>...</li>
+									<li><a href="javascript:void(0)">60</a></li>
+									<li><a href="javascript:void(0)">下一页 > </a></li>
+								</ul>
+							</div>
+						</div>
+							
+							<!--促销优惠列表-->
+							<div class="details_4_content details_4_6 " style="display: none;">
+							<ul>
+								<li>
+									<div class="details_4_content_lf">
+										<div class="ls_question">
+											<i></i>
+											<span>13*******79</span>
+											<div class="ls_question_nr">
+												5555555555555555555555555555555555555？
+											</div>
+										</div>
+										<div class="ls_answer">
+											<i></i>
+											<div class="ls_answer_nr">
+												惠卡自营:感谢您对惠卡的支持，祝您购物愉快！
+											</div>
+										</div>
+									</div>
+									<div class="details_4_content_rg">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<dl class="ls_zan">
+											<dd>满意<span>(0)</span></dd>
+											<dd>不满意<span>(0)</span></dd>
+										</dl>
+									</div>
+								</li>
+								<li>
+									<div class="details_4_content_lf">
+										<div class="ls_question">
+											<i></i>
+											<span>13*******79</span>
+											<div class="ls_question_nr">
+												长虹电视能链接网线么？
+											</div>
+										</div>
+										<div class="ls_answer">
+											<i></i>
+											<div class="ls_answer_nr">
+												惠卡自营:感谢您对惠卡的支持，祝您购物愉快！
+											</div>
+										</div>
+									</div>
+									<div class="details_4_content_rg">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<dl class="ls_zan">
+											<dd>满意<span>(0)</span></dd>
+											<dd>不满意<span>(0)</span></dd>
+										</dl>
+									</div>
+								</li>
+							</ul>
+							
+							<div class="ls_page">
+								<ul>
+									<li><a href="javascript:void(0)"> < 上一页</a></li>
+									<li class="ls_page_on"><a href="javascript:void(0)">1</a></li>
+									<li><a href="javascript:void(0)">2</a></li>
+									<li><a href="javascript:void(0)">3</a></li>
+									<li><a href="javascript:void(0)">4</a></li>
+									<li>...</li>
+									<li><a href="javascript:void(0)">60</a></li>
+									<li><a href="javascript:void(0)">下一页 > </a></li>
+								</ul>
+							</div>
+						</div>
+							
+							<!--其他问题列表-->
+							<div class="details_4_content details_4_7" style="display: none;">
+							<ul>
+								<li>
+									<div class="details_4_content_lf">
+										<div class="ls_question">
+											<i></i>
+											<span>13*******79</span>
+											<div class="ls_question_nr">
+												fhhhhhhhhhhhhhhhhhhhhhhhhhf？
+											</div>
+										</div>
+										<div class="ls_answer">
+											<i></i>
+											<div class="ls_answer_nr">
+												惠卡自营:感谢您对惠卡的支持，祝您购物愉快！
+											</div>
+										</div>
+									</div>
+									<div class="details_4_content_rg">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<dl class="ls_zan">
+											<dd>满意<span>(0)</span></dd>
+											<dd>不满意<span>(0)</span></dd>
+										</dl>
+									</div>
+								</li>
+								<li>
+									<div class="details_4_content_lf">
+										<div class="ls_question">
+											<i></i>
+											<span>13*******79</span>
+											<div class="ls_question_nr">
+												长虹电视能链接网线么？
+											</div>
+										</div>
+										<div class="ls_answer">
+											<i></i>
+											<div class="ls_answer_nr">
+												惠卡自营:感谢您对惠卡的支持，祝您购物愉快！
+											</div>
+										</div>
+									</div>
+									<div class="details_4_content_rg">
+										<div class="ls_message_time">
+											2016-01-08 <span></span> 18:30:20
+										</div>
+										<dl class="ls_zan">
+											<dd>满意<span>(0)</span></dd>
+											<dd>不满意<span>(0)</span></dd>
+										</dl>
+									</div>
+								</li>
+							</ul>
+							
+							<div class="ls_page">
+								<ul>
+									<li><a href="javascript:void(0)"> < 上一页</a></li>
+									<li class="ls_page_on"><a href="javascript:void(0)">1</a></li>
+									<li><a href="javascript:void(0)">2</a></li>
+									<li><a href="javascript:void(0)">3</a></li>
+									<li><a href="javascript:void(0)">4</a></li>
+									<li>...</li>
+									<li><a href="javascript:void(0)">60</a></li>
+									<li><a href="javascript:void(0)">下一页 > </a></li>
+								</ul>
+							</div>
+						</div>
+						
+						</div>
+						
+
+					</div>
+					
+					
+					
+				</div>
+				<!--ls_products_down_rg-->
+				
+				
+			</div>
+			<!--ls_products_down-->
+			
+			
+		</div>
+		<!--ls_products_show end-->
+		
+	</div>
+
+</div><!--主体部分-->
+
+
+
+<div class="footer"></div><!--公共底部-->
+
+
+<script type="text/javascript">
+	$(function(){
+		//颜色尺码选择
+		$(".ls_color li, .ls_size li").click(function(){
+			$(this).addClass("ls_on").siblings().removeClass("ls_on");
+		});
+		
+		//全部咨询选项卡
+		$(".details_4_tit ul li").click(function(){
+			$(this).addClass("ls_on").siblings().removeClass("ls_on");
+			var ls_num=$(".details_4_tit ul li").index(this);
+			$(".details_4_nr > div").eq(ls_num).fadeIn(400).siblings().fadeOut(400);
+		});
+		
+		//好评中评差评选项卡
+		$(".details_3_tit ul li").click(function(){
+			$(this).addClass("ls_on").siblings().removeClass("ls_on");
+			var ls_num=$(this).index();
+			$(".details_3_nr>div").eq(ls_num).fadeIn(400).siblings().fadeOut(400);
+		});
+		
+		//商品详情选项卡
+		$(".ls_products_tab_tit ul li").click(function(){
+			$(this).addClass("ls_on").siblings().removeClass("ls_on");
+			
+		});
+		$(".ls_bzcs").click(function(){
+			$(".details_1_1").fadeOut(400);
+			$(".details_1_2").fadeIn(400);
+		});
+		$(".ls_products_tab_tit ul li:first").click(function(){
+			$(".details_1_2").fadeOut(400);
+			$(".details_1_1").fadeIn(400);
+		});
+		$(".ls_pj").click(function(){
+			$(".details_1_1").fadeOut(400);
+			$(".details_1_2").fadeOut(400);
+			$(".details_1_3").fadeOut(400);
+			$(".ls_products_details_2").fadeIn(400);
+			$(".ls_products_details_3").fadeIn(400);
+			$(".ls_products_details_4").fadeIn(400);
+		});
+		$(".ls_zx").click(function(){
+			$(".details_1_1").fadeOut(400);
+			$(".details_1_2").fadeOut(400);
+			$(".details_1_3").fadeOut(400);
+			$(".ls_products_details_2").fadeOut(400);
+			$(".ls_products_details_3").fadeOut(400);
+			$(".ls_products_details_4").fadeIn(400);
+		
+			
+		});
+		$(".ls_shouhou").click(function(){
+			$(".details_1_1").fadeOut(400);
+			$(".details_1_2").fadeOut(400);
+			$(".details_1_3").fadeIn(400);
+			$(".ls_products_details_2").fadeOut(400);
+			$(".ls_products_details_3").fadeOut(400);
+			$(".ls_products_details_4").fadeOut(400);
+		});
+		
+		 //关于返利
+    $(function(){
+        $(".ls_proinfo_2_rg>a").hover(function(){
+            $(".ls_about_qf").stop().fadeIn(400);
+            $(".ls_about_qf>ul dt").show();
+            $(".ls_about_qf>ul dt").nextAll().hide();
+            $(".ls_about_qf").click(function(){
+                $(".ls_about_qf>ul dt").nextAll().slideDown(400);
+                $(".ls_about_qf>ul dt").hide();
+            });
+        },function(){
+            $(".ls_about_qf").stop().fadeOut(400);
+        });
+    });
+		
+		/*星星宽度*/
+		var c_starnum = $(".c_stars").length;
+		for(var i = 0;i<c_starnum;i++){
+			var cb_starnr = $(".c_stars").eq(i).text();
+        	var cb_star_width =  cb_starnr/5*75;
+        	$(".c_xx_aa").eq(i).css("width",cb_star_width);
+		};
+		
+	})
+</script>
+<script>        
+  var mySwiper = new Swiper ('.swiper-container', {
+    direction: 'vertical',
+    loop: true,
+    slidesPerView: 3,
+    
+   
+    
+    // 如果需要前进后退按钮
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
+    
+    
+  })        
+  </script>
+</body>
+
+</html>

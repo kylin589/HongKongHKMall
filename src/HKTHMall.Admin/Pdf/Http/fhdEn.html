@@ -1,0 +1,297 @@
+﻿<div>
+    <style>
+        /* CSS Document */
+        * { margin: 0px; padding: 0px; }
+
+        ul, li, ol { list-style-type: none; }
+
+        a { text-decoration: none; }
+
+        body { font-family: Microsoft YaHei, Helvitica, Verdana, Tohoma, Arial, san-serif; font-size: 14px; margin: 0 auto; background: #fff; }
+        /*overflow-x:hidden; */
+
+        .clear, .clr { clear: both; }
+
+        .cl { clear: both; float: left; }
+
+        .cr { clear: both; float: right; }
+
+        .fl { float: left; }
+
+        .fr { float: right; }
+
+        .center { text-align: center; }
+
+        .clr::after { clear: both; content: ""; display: table; }
+
+        input, textarea, img { border: 0; }
+
+        button { border: 0; }
+
+        :focus { outline: 0; }
+
+        table { border-collapse: collapse; border-spacing: 0; }
+
+        input, button, select, textarea { foutline: none; }
+
+        em, i { font-style: normal; border: 0 none; }
+
+        i { font-style: normal; border: 0 none; }
+
+        img { vertical-align: middle; }
+
+        .clearfix:after { content: "."; display: block; height: 0; font-size: 0; visibility: hidden; clear: both; }
+
+        textarea { resize: none; }
+
+        .trans { -ms-transition: all .3s ease-in-out; -o-transition: all .3s ease-in-out; -moz-transition: all .3s ease-in-out; -webkit-transition: all .3s ease-in-out; transition: all .3s ease-in-out; }
+
+        .main_a { height: auto; margin: 0 auto; background: #e6e6e6; }
+
+        .main_b { height: auto; margin: 0 auto; padding: 20px 15px; background-color: #fff; }
+        /*发货单的*/
+        /*发货单*/
+        .z_fahuodan { background-color: #fff; }
+
+        .z_fahuomain { width: 1000px; background-color: #fff; margin: 0 auto; border: 2px solid #888888; }
+
+        .z_fahuohead { width: 1000px; height: 195px; border-bottom: 2px solid #000; }
+
+        .z_fahuohead .z_fhtime { width: 316px; padding: 81px 0; text-indent: 30px; text-align: left; float: left; font-size: 20px; font-family: Garamond Regular; }
+
+        .z_fahuohead .z_logo { width: 365px; float: left; padding-top: 30px; }
+
+        .z_fahuohead .z_delivery { width: 309px; padding: 81px 10px 81px 0; text-align: right; float: left; font-size: 16px; font-family: Garamond Bold; font-weight: bold; }
+
+        .z_ordertype { width: 1000px; height: 233px; border-bottom: 2px solid #000; }
+
+        .z_ordertype .z_order { width: 500px; height: 233px; float: left; border-right: 2px solid #888; }
+        .z_ordertype .z_order b { display: block; clear: both; font-size: 32px; color: #000; line-height: 20px; width: 100%; text-align: center; padding-top: 10px; }
+        .z_ordertype .z_order i { display: block; clear: both; width: 100%; text-align: center; padding-top: 25px; }
+
+        .z_ordertype .z_type { width: 498px; height: 233px; float: left; }
+
+        .z_order .z_ordername { display: inline-block; width: 85%; padding-top: 15px; margin-left: 20px; font-family: Garamond; border-bottom: 2px solid #888; }
+
+        .z_order .z_ordername p { display: block; width: 56%; padding-bottom: 5px; font-size: 24px; color: #000; font-weight: bold; text-align: left; }
+
+        .z_order img { margin:0 auto; }
+
+        .z_order .orderline { width: 85%; height: 2px; background-color: #888; margin-left: 20px; float: left; }
+
+        .z_order .orderline .orderline2 { width: 44%; height: 2px; background-color: #000; float: left; }
+
+        .z_type .z_payment { display: inline-block; width: 85%; padding-top: 15px; margin-left: 20px; border-bottom: 2px solid #888; }
+
+        .z_type .z_payment p { display: block; width: 56%; padding-bottom: 5px; font-size: 24px; color: #000; font-weight: bold; font-family: Garamond Bold; text-align: left; }
+
+        .z_type .z_payment2 { display: inline-block; padding-top: 32px; margin-left: 20px; text-align: center; }
+
+        .z_type .z_payment2 p { display: inline-block; width: 70%; padding-bottom: 5px; font-size: 30px; color: #000; font-weight: bold; font-family: Microsoft YaHei; text-align: left; }
+
+        .z_type .orderline { width: 85%; height: 2px; background-color: #888; margin-left: 20px; float: left; }
+
+        .z_type .orderline .orderline2 { width: 44%; height: 2px; background-color: #000; float: left; }
+
+
+        .z_orderdata { width: 1000px; height: 299px; margin-top: 25px; }
+
+        .z_orderdata .z_orderdata1 { width: 500px; height: 299px; float: left; border-right: 2px solid #000; }
+
+        .z_orderdata .z_orderdata2 { width: 498px; height: 299px; float: left; }
+
+        .z_orderdata .z_orderdata1 ul { font-family: Garamond Regular; font-size: 20px; margin-left: 30px; margin-top: 20px; }
+
+        .z_orderdata .z_orderdata1 ul li { color: #000; font-weight: 400; padding-bottom: 35px; }
+
+        .z_orderdata .z_orderdata2 ul { font-family: Garamond Regular; font-size: 20px; margin-left: 30px; margin-top: 20px; }
+
+        .z_orderdata .z_orderdata2 ul li { color: #000; font-weight: 400; padding-bottom: 35px; }
+
+        .z_wished { width: 1000px; border-bottom: 2px solid #000; text-align: center; font-family: Microsoft YaHei; font-weight: bold; font-size: 25px; padding-bottom: 25px; }
+
+        .z_Receive { width: 1000px; height: 440px; border-bottom: 2px solid #888; }
+
+        .z_Receive .z_Receive1 { width: 500px; height: 440px; float: left; border-right: 2px solid #000; }
+
+        .z_Receive .z_Receive2 { width: 498px; height: 440px; float: left; }
+
+        .z_Receive .z_Receive1 .z_recename { font-family: Garamond; color: #000; font-size: 25px; padding: 40px 0 50px 20px; }
+
+        .z_Receive .z_Receive1 .z_recetime { font-family: Garamond; color: #000; font-size: 25px; padding: 0 0 50px 20px; }
+
+        .z_Receive .z_Receive1 ul { font-family: Garamond; color: #000; font-size: 25px; padding: 0 20px; }
+
+        .z_Receive .z_Receive1 ul li { padding-bottom: 20px; list-style: disc inside; }
+
+        .z_Receive .z_Receive2 ul { font-family: Garamond; color: #000; font-size: 25px; padding: 40px 20px 0; }
+
+        .z_Receive .z_Receive2 ul li { padding-bottom: 20px; list-style: disc inside; }
+
+        .z_item { width: 1000px; }
+
+        .z_item .z_itemhead { width: 1000px; padding: 20px 0; font-family: Microsoft YaHei; font-weight: bold; font-size: 20px; }
+
+        .z_item .z_itemhead ul { text-align: left; padding: 10px 0 15px; border-bottom: 2px solid #000; }
+
+        .z_item .z_itemhead ul li { display: inline-block; }
+
+        .z_item .z_itemhead ul li.z_item1 { margin-left: 20px; margin-right: 130px; }
+
+        .z_item .z_itemhead ul li.z_item2 { margin-right: 174px; }
+
+        .z_item .z_itemhead ul li.z_item3 { margin-right: 50px; }
+
+        .z_item .z_itemhead ul li.z_item4 { margin-right: 56px; }
+
+        .z_item .z_itemhead ul li.z_item5 { margin-right: 46px; }
+
+        .z_item .z_itemhead ul li.z_item6 { }
+
+        .z_itemcount { width: 960px; margin: 10px 20px 0; border-bottom: 2px solid #000; }
+
+        .z_itemcount li { font-family: Garamond; color: #000; font-size: 25px; text-align: left; }
+
+        .z_itemcount li p { display: inline-block; }
+
+        .z_itemcount li p.z_count1 { text-indent: 5px; margin-right: 17px; vertical-align: top; }
+
+        .z_itemcount li p.z_count2 { width: 397px; height: 50px; background-color: #ccc; margin-right: 17px; }
+
+        .z_itemcount li p.z_count3 { width: 100px; height: 50px; background-color: #f60; margin-right: 17px; }
+
+        .z_itemcount li p.z_count4 { width: 100px; height: 50px; background-color: green; margin-right: 17px; }
+
+        .z_itemcount li p.z_count5 { width: 100px; height: 50px; background-color: red; margin-right: 40px; }
+
+        .z_itemcount li p.z_count6 { width: 100px; height: 50px; background-color: blue; }
+
+        .z_zongjie { width: 1000px; text-align: right; }
+
+        .z_zongjie p { display: inline-block; font-size: 20px; font-weight: bold; font-family: Microsoft YaHei; padding: 20px 0; }
+
+        .z_zongjie p.z_zongjie1 { margin-right: 30px; }
+
+        .z_zongjie p.z_zongjie2 { margin-right: 30px; }
+
+        .z_zongjie p.z_zongjie3 { margin-right: 20px; }
+
+        .z_zongjie ul { font-size: 22px; font-family: Garamond; padding: 10px 0 10px 20px; }
+
+        .z_zongjie ul li { list-style: disc inside; text-align: left; }
+    </style>
+
+</div>
+<div class="main_a">
+    <div class="z_fahuodan">
+        <div class="z_fahuomain">
+            <div class="z_fahuohead">
+                <div class="z_fhtime">5/8/2015</div>
+                <div class="z_logo"><img src="http://localhost:35893/pdf/Http/images/fahuologo.png" /></div>
+                <div class="z_delivery">Shipping label/Delivery Note</div>
+            </div>
+            <div class="z_ordertype">
+                <div class="z_order">
+                    <span class="z_ordername">
+                        <p>Order Number >></p>
+                    </span>
+                    <i><img src="http://localhost:35893/pdf/Http/images/tiaoxingma.png" width="241" height="91" /></i>
+                    <b>5728519157</b>
+                </div>
+                <div class="z_type">
+                    <span class="z_payment">
+                        <p>Payment Type >></p>
+                    </span>
+                    <span class="z_payment2">
+                        <p>Cash on Delivery Online Payment</p>
+                    </span>
+                </div>
+            </div>
+            <div class="z_orderdata">
+                <div class="z_orderdata1">
+                    <ul>
+                        <li>วันที่สั่งซื้อ:05 Aug 2015</li>
+                        <li>เลขที่ใบสั่งซื้อ: 619878702156</li>
+                        <li>ลูกค้า: huangxingya</li>
+                        <li>โทรศัพท์มือถือ: 0900000000</li>
+                        <li>ที่อยู่：</li>
+                    </ul>
+                </div>
+                <div class="z_orderdata2">
+                    <ul>
+                        <li>Seller  Name: huangxingya</li>
+                        <li>Tel  nummber: :134875968123</li>
+                        <li>Address: </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="z_wished">• We are looking forward to your visit again.</div>
+            <div class="z_Receive">
+                <div class="z_Receive1">
+                    <p class="z_recename">Recipient Name:</p>
+                    <p class="z_recetime">Receive Date:</p>
+                    <ul>
+                        <li>ผู้รับสินค้าควรตรวจสอบสินค้าตามรายการทั้งหมด ว่าอยู่ในสภาพเรียบร้อยก่อนรับสินค้าและยอมชำระ เงินตามเงื่อนไขทุกประการ</li>
+                        <li>สินค้าตามเอกสารฉบันนี้ แม้จะได้ส่งมอบแก่ผู้ซื้อ แล้วยังคงเป็นทรัพย์สินของผู้ขายจนกว่าผู้ซื้อจะ ได้ชำระเงินเสร็จเรียบร้อยแล้ว</li>
+                       
+                    </ul>
+                </div>
+                <div class="z_Receive2">
+                    <ul>
+                        <li>สามารถคืนสินค้าได้ภายใน7วันหรือเปลี่ยนสินค้าได้ ภายใน15วันนับจากวันที่ผู้ซื้อได้รับสินค้าแต่ด้วย สาเหตุส่วนบุคคลและสินค้าอยู่ในสภาพเรียบร้อยอนุญาต ให้คืนสินค้าโดยลูกค้ายอมออกค่าจัดส่งเองแต่ไม่อนุญาต ให้เปลียนสินค้า</li>
+                        <li>อนุญาตให้เปลียน-คืนสินค้าโดยไม่มีค่าใช้จ่าย เพิ่มเติมใดๆในกรณีที่สินค้าเสียหายก่อนถึงมือ ลูกค้าและ/หรืออยู่ในบรรจุภัณฑ์ที่ชำรุดหรือ สินค้าไม่ตรงกับคำบรรยายบนเว็บไซต์</li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="z_item">
+                <label class="z_itemhead">
+                    <ul>
+                        <li class="z_item1">No.</li>
+                        <li class="z_item2">Item name</li>
+                        <li class="z_item3">Unit price</li>
+                        <li class="z_item4">Qty</li>
+                        <li class="z_item5">Discount</li>
+                        <li class="z_item6">Sub-total</li>
+                    </ul>
+                </label>
+                <ul class="z_itemcount">
+                    <li>
+                        <p class="z_count1">1</p>
+                        <p class="z_count2"></p>
+                        <p class="z_count3"></p>
+                        <p class="z_count4"></p>
+                        <p class="z_count5"></p>
+                        <p class="z_count6"></p>
+                    </li>
+                    <li>
+                        <p class="z_count1">2</p>
+                        <p class="z_count2"></p>
+                        <p class="z_count3"></p>
+                        <p class="z_count4"></p>
+                        <p class="z_count5"></p>
+                        <p class="z_count6"></p>
+                    </li>
+                    <li>
+                        <p class="z_count1">3</p>
+                        <p class="z_count2"></p>
+                        <p class="z_count3"></p>
+                        <p class="z_count4"></p>
+                        <p class="z_count5"></p>
+                        <p class="z_count6"></p>
+                    </li>
+                </ul>
+            </div>
+            <div class="z_zongjie">
+                <p class="z_zongjie1">Total qty：2</p>
+                <p class="z_zongjie2">Freight：0.00</p>
+                <p class="z_zongjie3">Total amount： 258บาท</p>
+                <ul>
+                    <li>ทางเรารู้สึกขอบคุณเป็นอย่างยิ่งในการเข้ามาช็อบปิ้งกับ Huika mall (www.0066mall.com) และหวังว่าคุณจะกลับมาใช้บริการทางเราอีก</li>
+                    <li>หากมีปัญหาเกี่ยวกับการตรวจสอบข้อมูลสินค้า นโยบายการคืนสินค้าและขั้นตอนการสมัครต่าง หากมีปัญหาเกี่ยวกับการตรวจสอบข้อมูลสินค้า นโยบายการคืนสินค้าและขั้นตอนการสมัครต่าง คุณสามารถติดต่อกับศูนย์ช่วยเหลือได้ที่ www.0066mall.com.</li>
+                   
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

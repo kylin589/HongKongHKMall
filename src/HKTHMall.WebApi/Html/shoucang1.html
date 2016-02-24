@@ -1,0 +1,62 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title id="cb_title"></title>
+
+    <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta charset="utf-8" />
+
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+    <div class="main_a">
+        <div class="shoucang" id="shoucang" data-role="page"> </div>
+
+        <div id="bg">
+            <div class="sc_t">
+                <div class="sc_bt" id="sc_dele">确认要删除该商品吗？</div>
+                <div class="sc_nr" id="sc_nr">
+
+                </div>
+            </div>
+        </div>
+
+        <div id="bg_succ">
+            <div class="sc_t_succ">
+                <div class="sc_bt" id="sc_success">删除成功!</div>
+                <div class="sc_nr">
+                    <button type="button" id="sc_button3" onclick="javascript: bg_succhide();"></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        $("#shoucang").unbind('pageinit', function () {
+            cbcb()
+        })
+        function cbcb() {
+            $("#shoucang .sc_list").on("taphold", function () {
+                $(this).children(".sc_show").stop().animate({ left: "-100px" }, 300);
+                $(this).children(".sc_del").stop().animate({ right: 0 }, 300);
+            });
+            $("#shoucang .sc_list").on("swipeleft", function () {
+                $(this).children(".sc_show").stop().animate({ left: "-100px" }, 300);
+                $(this).children(".sc_del").stop().animate({ right: 0 }, 300);
+            });
+            $("#shoucang .sc_list").on("swiperight", function () {
+                $(this).children(".sc_show").stop().animate({ left: 0 }, 300);
+                $(this).children(".sc_del").stop().animate({ right: -100 }, 300);
+            });
+
+        }
+    </script>
+</body>
+</html>

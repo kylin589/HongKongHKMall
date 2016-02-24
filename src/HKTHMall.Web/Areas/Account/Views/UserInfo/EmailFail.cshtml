@@ -1,0 +1,44 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+
+@{
+    Layout = null;
+}
+<script src="~/Content/newcss/js/dsdialog.js"></script>
+<link href="~/Content/newcss/css/css.css" rel="stylesheet" />
+<link href="~/Content/newcss/css/base.css" rel="stylesheet" />
+<div class="main_a">
+    <div class="main_about">
+
+        <div class="ls_reg_fail">
+            <div class="ls_reg_fail_bt">
+                <ul><i></i>@CultureHelper.GetLangString("HOME_REGISTER_EMAILACTIVEFAILE")@*激活失败*@</ul>
+            </div>
+            <div class="ls_reg_fail_nr">
+                <ul>
+                    <li>@CultureHelper.GetLangString("HOME_REGISTER_EMAILACTIVEFAILERES")@*失败的原因可能是：*@</li>
+                    @*邮箱激活链接失效*@
+                    <li>1、@CultureHelper.GetLangString("SET_PAYPWD_INVALID_EMAILLINK"),
+                    <a href="javascript:;" onclick="javascript:void(sendEmail());">@CultureHelper.GetLangString("LOGIN_GETPASSWORD_RESEND")</a>@*重新发送*@                 
+                    @CultureHelper.GetLangString("ACTIVATION_LINK")</li>@*激活链接至邮箱*@
+                    <li>2、@CultureHelper.GetLangString("HOME_REGISTER_EMAILACTIVEFAILERESTWO")@*网络有问题，请检查网络*@</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function sendEmail() {
+        $.post("/Userinfo/SendEmail",
+        {
+            emailAddress: "@ViewBag.Email"
+        },
+        function (data) {
+            if (data.rs == 1) {
+                window.location.href = "/Register/ValidationEmail?loginEmail=" + "@ViewBag.Email";
+            }
+        }, "json");
+    }
+</script>
+
+
+

@@ -1,0 +1,148 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys;
+@using Webdiyer.WebControls.Mvc;
+@model PagedList<HKTHMall.Domain.WebModel.Models.Orders.OrderView>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    //订单状态
+    List<SelectListItem> stateList = (List<SelectListItem>) ViewBag.OrderStatus;
+    var selectedState = stateList.SingleOrDefault(x => x.Selected);
+
+    //时间间隔
+    List<SelectListItem> timeSpanList = (List<SelectListItem>) ViewBag.TimeSpanTypes;
+    var selectedTimeSpan = timeSpanList.SingleOrDefault(x => x.Selected);
+}
+
+    <div class="main_a">
+
+        <div class="main_about">
+            <div class="ls_member">
+
+
+                <!--left-->
+                @Html.Partial("_userLeft")
+
+                <!--right-->
+                <div class="ls_member_rg">
+
+
+                    <!--右侧会员信息展示-->
+                    <div class="ls_member_info">
+@using (Html.BeginForm("Order", ViewContext.RouteData.GetRequiredString("controller"), new { page = "1" }, FormMethod.Post, new { id = "searchForm" }))
+{
+                        <div class="ownerOrder">
+
+                            @******我的订单******@
+                            <h3>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_MYORDER")</h3>
+
+                            <ul>
+                                <li>
+                                    <span>@CultureHelper.GetLangString("ORDER_LIST_STATE")@*状态*@</span>
+                                    <select name="s" id="s">
+                                        @foreach (SelectListItem state in stateList)
+                                        {
+                                            if (ViewBag.Status.ToString() == state.Value)
+                                            {
+                                                <option selected="selected"  value="@state.Value">@state.Text</option>
+                                            }
+                                            else { 
+                                            <option  value="@state.Value">@state.Text</option>
+                                        }
+                                        }
+                                       
+                                    </select>
+                                    @*@Html.Hidden("s",0)*@
+
+                                </li>
+                                <li>
+                                    <span>@CultureHelper.GetLangString("ORDER_LIST_TIME")@*时间*@</span>
+                                    <select name="d" id="d">
+                                        @foreach (SelectListItem state in timeSpanList)
+                                        {
+                                            <option  value="@state.Value">@state.Text</option>
+                                        }
+                                      
+                                    </select>
+                                    @*@Html.Hidden("d", 0)*@
+                                </li>
+                            </ul> 
+
+                            <span class="clearfix"></span>
+                        </div>
+}
+                        <ul class="orderTitle_2016">
+                            <li>@CultureHelper.GetLangString("ORDER_LIST_GOODS")@*商品*@</li>
+                            <li>@CultureHelper.GetLangString("ORDER_LIST_NUMBER")@*数量*@</li>
+                            <li>@CultureHelper.GetLangString("ORDER_LIST_SERVICE")@*服务*@</li>
+                            <li>@CultureHelper.GetLangString("ORDER_LIST_AMOUNTOFREALPAY")@*实付金额*@</li>
+                            <li>@CultureHelper.GetLangString("ORDER_LIST_ORDERSTATUS")@*订单状态*@</li>
+                            <li>@CultureHelper.GetLangString("ORDER_LIST_OPERATE")@*操作*@</li>
+                            <span class="clearfix"></span>
+                        </ul>
+                        
+                        <div id="updateId">
+                            @Html.Partial("_OrderList", Model)
+                        </div>
+                           
+                        
+                                        
+
+                    </div>
+                </div>
+                <div class="clear"></div>
+
+            </div>
+        </div>
+
+    </div><!--主体部分-->
+@section scripts{
+    <script type="text/javascript" src="/scripts/MvcPager.js"></script>
+        }
+<script>
+    $('.orderMain_2016').each(function () {
+        var _height = $(this).children('dd').eq(0).innerHeight();
+        $(this).children('dd').css({
+            'height': _height
+        });
+    });
+        // $('.orderMain_2016 > dd').eq(0).innerHeight();
+
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#d").change(function () {
+            
+            SelectOptionState(1);
+        });
+        $("#s").change(function () {
+            SelectOptionState(1);
+        });
+    });
+    function SelectOptionState(page) {
+        var d = $("#d").val();
+        var s = $("#s").val();
+        $("#s").val(s);
+        $("#d").val(d);
+        //alert(s);
+        //alert(d);
+        $.post("@Url.Action("Order")", { s: s, d: d, page: page }, function (response) {
+            
+            $("#updateId").html(response);
+        });
+       // $("#searchForm").submit();
+        @*$(".OrderList").load('@Url.Action("Order")', $.extend({ s: s ,d: d,pageNo: 1 }), function (response) {
+        });*@
+    }
+    @*function SelectOptiondate(d) {
+        var s = $("#selectstate").val();
+        $(".OrderList").load('@Url.Action("Order")', $.extend({ s: s }, { d: d.value }, { pageNo: 1 }), function (response) {
+        });
+    }*@
+
+    function SearchPage(obj) {
+        $.post($(obj).attr("href"), $("#searchForm").serialize(), function (response) {
+            $("#updateId").html(response);
+        });
+    }
+</script>

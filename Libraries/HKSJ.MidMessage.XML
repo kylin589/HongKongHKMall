@@ -1,0 +1,4769 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HKSJ.MidMessage</name>
+    </assembly>
+    <members>
+        <member name="M:HKSJ.MidMessage.Common.Computer.GetCpuID">
+            <summary>
+            获取CPU序列号ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.Computer.GetMacAddress">
+            <summary>
+            获取网卡硬件地址
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.Computer.GetIPAddress">
+            <summary>
+            获取计算机IP地址 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.Computer.GetDiskID">
+            <summary>
+            获取硬盘ID 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.Computer.GetTotalPhysicalMemory">
+            <summary> 
+            物理内存 
+            </summary> 
+            <returns></returns> 
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.Computer.GetSystemType">
+            <summary> 
+            PC类型 
+            </summary> 
+            <returns></returns> 
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.Computer.GetUserName">
+            <summary> 
+            操作系统的登录用户名 
+            </summary> 
+            <returns></returns> 
+        </member>
+        <member name="T:HKSJ.MidMessage.Common.Constants">
+            <summary>
+            常量类
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Common.Constants.MultipleAmount">
+            <summary>
+            金额倍数，发送金额之前都要乘以这个数，
+            收到数据还原时要除以这个数
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Common.Constants.xmlPath">
+            <summary>
+            嵌入式资源的xml路径
+            </summary>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.ConstMethod.FlagSysNameByte(System.String)">
+            <summary>
+            请求方标识名 [请求方标识名 表示: 1系统  2系统...]
+            </summary>
+            <param name="FlagSys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.ConstMethod.CertPath(System.String)">
+            <summary>
+            获取数字证书数据 
+            </summary>
+            <param name="CertPath"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HKSJ.MidMessage.Common.DEncrypt.DEncrypt">
+            <summary>
+            Encrypt 的摘要说明。
+            Copyright (C) EIM
+            </summary>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.DEncrypt.DEncrypt.#ctor">
+            <summary>
+            构造方法
+            </summary>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.DEncrypt.DEncrypt.Encrypt(System.String)">
+            <summary>
+            使用缺省密钥字符串加密string
+            </summary>
+            <param name="original">明文</param>
+            <returns>密文</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.DEncrypt.DEncrypt.Decrypt(System.String)">
+            <summary>
+            使用缺省密钥字符串解密string
+            </summary>
+            <param name="original">密文</param>
+            <returns>明文</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.DEncrypt.DEncrypt.Encrypt(System.String,System.String)">
+            <summary>
+            使用给定密钥字符串加密string
+            </summary>
+            <param name="original">原始文字</param>
+            <param name="key">密钥</param>
+            <returns>密文</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.DEncrypt.DEncrypt.Decrypt(System.String,System.String)">
+            <summary>
+            使用给定密钥字符串解密string
+            </summary>
+            <param name="original">密文</param>
+            <param name="key">密钥</param>
+            <returns>明文</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.DEncrypt.DEncrypt.Decrypt(System.String,System.String,System.Text.Encoding)">
+            <summary>
+            使用给定密钥字符串解密string,返回指定编码方式明文
+            </summary>
+            <param name="encrypted">密文</param>
+            <param name="key">密钥</param>
+            <param name="encoding">字符编码方案</param>
+            <returns>明文</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.DEncrypt.DEncrypt.Decrypt(System.Byte[])">
+            <summary>
+            使用缺省密钥字符串解密byte[]
+            </summary>
+            <param name="encrypted">密文</param>
+            <param name="key">密钥</param>
+            <returns>明文</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.DEncrypt.DEncrypt.Encrypt(System.Byte[])">
+            <summary>
+            使用缺省密钥字符串加密
+            </summary>
+            <param name="original">原始数据</param>
+            <param name="key">密钥</param>
+            <returns>密文</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.DEncrypt.DEncrypt.MakeMD5(System.Byte[])">
+            <summary>
+            生成MD5摘要
+            </summary>
+            <param name="original">数据源</param>
+            <returns>摘要</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.DEncrypt.DEncrypt.Encrypt(System.Byte[],System.Byte[])">
+            <summary>
+            使用给定密钥加密
+            </summary>
+            <param name="original">明文</param>
+            <param name="key">密钥</param>
+            <returns>密文</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.DEncrypt.DEncrypt.Decrypt(System.Byte[],System.Byte[])">
+            <summary>
+            使用给定密钥解密数据
+            </summary>
+            <param name="encrypted">密文</param>
+            <param name="key">密钥</param>
+            <returns>明文</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.DEncrypt.DEncrypt.getMD5(System.String)">
+            <summary>
+            获取md5码
+            </summary>
+            <param name="source">待转换字符串</param>
+            <returns>md5加密后的字符串</returns>
+        </member>
+        <member name="T:HKSJ.MidMessage.Common.DEncrypt.DESEncrypt">
+            <summary>
+            DES加密/解密类。
+            Copyright (C) EIM
+            </summary>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.DEncrypt.DESEncrypt.Encrypt(System.String)">
+            <summary>
+            加密
+            </summary>
+            <param name="Text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.DEncrypt.DESEncrypt.Encrypt(System.String,System.String)">
+            <summary> 
+            加密数据 
+            </summary> 
+            <param name="Text"></param> 
+            <param name="sKey"></param> 
+            <returns></returns> 
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.DEncrypt.DESEncrypt.Decrypt(System.String)">
+            <summary>
+            解密
+            </summary>
+            <param name="Text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.DEncrypt.DESEncrypt.Decrypt(System.String,System.String)">
+            <summary> 
+            解密数据 
+            </summary> 
+            <param name="Text"></param> 
+            <param name="sKey"></param> 
+            <returns></returns> 
+        </member>
+        <member name="T:HKSJ.MidMessage.Common.DEncrypt.RSACryption">
+            <summary> 
+            RSA加密解密及RSA签名和验证
+            </summary> 
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.DEncrypt.RSACryption.RSAEncryptData(System.String)">
+            <summary>
+            调用C的RSA加密接口
+            </summary>
+            <param name="path"></param>
+            <param name="m_strEncryptString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.DEncrypt.RSACryption.RSAKey(System.String@,System.String@)">
+            <summary>
+            RSA 的密钥产生 产生私钥 和公钥 
+            </summary>
+            <param name="xmlKeys"></param>
+            <param name="xmlPublicKey"></param>
+        </member>
+        <member name="T:HKSJ.MidMessage.Common.EMLogHelper">
+            <summary>
+            日志
+            </summary>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.EMLogHelper.GetReceiveErrorMsg(System.UInt16,System.String,System.UInt32)">
+            <summary>
+            组合接收信息
+            </summary>
+            <param name="msgId"></param>
+            <param name="requestJson"></param>
+            <param name="code"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.EMLogHelper.GetSendErrorMsg(System.UInt16,System.String)">
+            <summary>
+            组合发送信息
+            </summary>
+            <param name="msgId"></param>
+            <param name="requestJson"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.EMLogHelper.AsncLogText(System.String)">
+            <summary>
+            账号log
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.EMLogHelper.AsncFundLogText(System.String)">
+            <summary>
+            //资金log
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.EMLogHelper.AsncLogText(System.String,System.Int32)">
+            <summary>
+            异步log
+            </summary>
+            <param name="info">错误消息</param>
+            <param name="type">1账号，2资金</param>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.EMLogHelper.logText(System.String)">
+            <summary>
+            写log
+            </summary>
+            <param name="Info">log内容</param>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.EMLogHelper.logText(System.String,System.String)">
+            <summary>
+            写log
+            </summary>
+            <param name="Info">log内容</param>
+            <param name="filename">log文件名</param>
+        </member>
+        <member name="T:HKSJ.MidMessage.Common.IPHelper">
+            <summary>
+            IP操作辅助类
+            </summary>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.IPHelper.IsIPAddress(System.String)">
+            <summary>
+            验证合法地址
+            </summary>
+            <param name="strIP">IP</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.IPHelper.ConverLogToIp(System.String)">
+            <summary>
+            十进制转成IP
+            </summary>
+            <param name="log"></param>
+            <returns></returns>
+        </member>
+        <member name="P:HKSJ.MidMessage.Common.IPHelper.ClientIP">
+            <summary>
+            获取HTTP客户端IP地址
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Common.Utinity">
+            <summary>
+            资金系统
+            </summary>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.Utinity.ConvertToEmAmountLong(System.Decimal)">
+            <summary>
+            金额--发送之前要调用该方法，把金额转化为long类型
+            </summary>
+            <param name="amount">转化前的金额</param>
+            <returns>转化后的金额</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.Utinity.ConvertToLocalAmountDecimal(System.Int64)">
+            <summary>
+            金额--接收之后要调用该方法，把金额转化为decimal类型
+            </summary>
+            <param name="amount">转化前的金额</param>
+            <returns>转化后的金额</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.Utinity.ConvertDateTimeToUTC(System.DateTime)">
+            <summary>
+            转化时间为utc毫秒
+            </summary>
+            <param name="time"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.Utinity.ConvertDateTimeToUTC(System.String)">
+            <summary>
+            转化时间为utc毫秒
+            </summary>
+            <param name="time"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.Utinity.ConvertToEmClass(HKSJ.MidMessage.Protocol.RequestFund)">
+            <summary>
+            对余额进行处理，发送之前，变成long类型(实际金额(元)*100000) RequestFundDetail
+            </summary>
+            <param name="requestFund"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.Utinity.ConvertToEmBatchBusClass(HKSJ.MidMessage.Protocol.RequestBatchBusiness)">
+            <summary>
+            对余额进行处理，发送之前，变成long类型(实际金额(元)*100000)
+            </summary>
+            <param name="batchBus"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Common.Utinity.ConvertToEmFundDetail(HKSJ.MidMessage.Protocol.RequestFundDetail)">
+            <summary>
+            发送前，对时间进行处理
+            </summary>
+            <param name="requestFund"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HKSJ.MidMessage.Core.EMLauncherRun">
+            <summary>
+            账号系统启动类
+            </summary>
+        </member>
+        <member name="M:HKSJ.MidMessage.Core.EMLauncherRun.EMLauncherStartUp(System.String)">
+            <summary>
+            启动账号系统
+            </summary>
+            <param name="pathDll">加载账号系统dll路径</param>
+        </member>
+        <member name="M:HKSJ.MidMessage.Core.EMLauncherRun.Dispose">
+            <summary>
+            停止账号系统
+            </summary>
+        </member>
+        <member name="M:HKSJ.MidMessage.Core.EMLauncherRun.IsLinkToEm">
+            <summary>
+            是否连接上账号系统，主要是为了检测连接地址，地址不对，就连不上。
+            连接上true，连不上false
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:HKSJ.MidMessage.Core.EMLauncherRun.DelegateHandleNotify">
+            <summary>
+            设置同步数据委托
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.EmDllPath">
+            <summary>
+            加载账号系统dll路径
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.IsUsed">
+            <summary>
+            已注册状态码
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.SystemId">
+            <summary>
+            系统ID
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.SystemModleId">
+            <summary>
+            模块ID
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.FriendSystemId">
+            <summary>
+            好友系统ID
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.SystemRegSrcId">
+            <summary>
+            注册来源src
+            1//注册来源(1=网站,2=移动设备)
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.PushSystemId">
+            <summary>
+            推送服务器ID
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.FundSystemId">
+            <summary>
+            资金系统ID
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MMSQueryAccountBalanceReq">
+            <summary>
+            资金 请求：查询资金账户余额
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MMSInAccountReq">
+            <summary>
+            请求：入账
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MMSAdjustAccountBalanceReq">
+            <summary>
+            请求：校准资金账户余额
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MMSOutAccountReq">
+            <summary>
+            请求：出账
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MMSQuerySerialResustReq">
+            <summary>
+            请求：查询操作流水结果
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MMSQuerySerialDetailReq">
+            <summary>
+            请求：查询操作流水明细
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MMSChangeFreezeStateReq">
+            <summary>
+            请求：账户状态冻结/解冻
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MMSChangeLockStateReq">
+            <summary>
+            请求：账户状态锁定/解锁
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MMSExceptionStateResumeReq">
+            <summary>
+            请求：异常账户状态恢复
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MMSProcessBatchBusinessReq">
+            <summary>
+            批量资金操作事务处理
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgQueryContainSenseReq">
+            <summary>
+            查询内容中是否包含敏感词汇请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgModifyAccReq">
+            <summary>
+            修改用户惠信号请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgQueryReferRelationReq">
+            <summary>
+            查询用户的推荐人关系链数据请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgQueryUsersFromReferReq">
+            <summary>
+            查询当前用户推荐注册的所有用户数据请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgSetUserRealNameReq">
+            <summary>
+            实名认证信息设置请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.SearchUserAlbumReq">
+            <summary>
+            查看用户相册请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.SearchUserAlbumRes">
+            <summary>
+            响应相册请求ID
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.AddUserAlbumReq">
+            <summary>
+            添加用户相册请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.DeleteUserAlbumReq">
+            <summary>
+            审核用户相册请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.PSMessageReq">
+            <summary>
+            消息推送
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.PushCommonMessage">
+            <summary>
+            普通消息服务器
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MSSubmitReq">
+            <summary>
+            提交好友消息
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.PushMessage">
+            <summary>
+            普通消息服务器
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgRegMemberAccReq">
+            <summary>
+            注册请求 MsgRegMemberAccReq
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgPushAccDataReq">
+            <summary>
+            注册请求-推送账号数据到新系统请求 MsgPushAccDataReqId
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgLogOnAccReq">
+            <summary>
+            登录请求ID MsgLogOnAccReq
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgRegGetUserIdRsp">
+            <summary>
+            注册账号获取用户id响应 
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgRegAccGetCodeReq">
+            <summary>
+            注册会员账号获取短信验证码请求 消息ID MsgRegAccGetCodeReq
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgRegAccGetCodeLife">
+            <summary>
+            验证码有效期秒数
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgQueryAccValidReq">
+            <summary>
+            查询账号是否已被注册请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgQueryIdcardValidReq">
+            <summary>
+            查询身份证是否被绑定过
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgBatchGetInfoByIdReq">
+            <summary>
+            批量获取用户信息请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgQueryUserInfoReq">
+            <summary>
+            查询用户信息请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgModifyLogPwdReq">
+            <summary>
+            修改登录密码请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgResetPwdCodeCheckReq">
+            <summary>
+            忘记密码短信验证码比对请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgResetPwdPostPwdReq">
+            <summary>
+            忘记密码重置密码提交新密码请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgResetPwdSendCodeReq">
+            <summary>
+            忘记密码短信重置密码发验证码请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgRemoveBindPhoneGetCodeReq">
+            <summary>
+            解除绑定手机验证原手机号获取验证码请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgRemoveBindPhoneCheckCodeReq">
+            <summary>
+            解除绑定手机验证原手机号验证码比对请求 比对请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgQueryPhoneValidReq">
+            <summary>
+            查询手机号码是否可用请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgBindCheckCodeReq">
+            <summary>
+            绑定手机验证码比对请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgBindNewPhoneReq">
+            <summary>
+            绑定新手机号请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgBindNewPhoneGetCodeReq">
+            <summary>
+            绑定新手机获取验证码请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgSetUserInfoReq">
+            <summary>
+            设置用户信息请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgQueryInfoActivateStateReq">
+            <summary>
+            查询用户密保信息激活状态请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.GetAllFriend">
+            <summary>
+            获取所有好友请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.SendSNSMessage">
+            <summary>
+            朋友圈发送动态请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MerchantPrivilegeReq">
+            <summary>
+            商家优惠、买单
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgSearchUsersReq">
+            <summary>
+            账号系统查询条件过滤--后台用
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgQueryUserSpecialRecordReq">
+            <summary>
+            查询用户特定记录请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.isFriendExist">
+            <summary>
+            获取所有好友请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgRegCheckCodeReq">
+            <summary>
+            验证用户注册短信验证码
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgQueryAllBind3rdAccReq">
+            <summary>
+            查询当前绑定的第三方账号列表请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgUnbind3rdAccReq">
+            <summary>
+            第三方账号解绑请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgLogBind3rdAccReq">
+            <summary>
+            登录状态下绑定第三方账号请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgCommSmsCodeSendReq">
+            <summary>
+            发送通用手机短信验证码请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgCommSmsCodeCheckReq">
+            <summary>
+            通用手机验证码校验请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgCheckPhoneModifyLogPwdReq">
+            <summary>
+            手机验证后修改登录密码请求 此接口已经更改取消
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgSetUserVipRightsReq">
+            <summary>
+            设置用户特殊权限请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.SSysMessage">
+            <summary>
+            系统消息服务器
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.URInviteInGroupReq">
+            <summary>
+            邀请好友入群
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.URQueryIsGroupMemberReq">
+            <summary>
+            查询是否为群成员请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.SysMessage">
+            <summary>
+            系统消息服务器
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.SMInviteInGroupReq">
+            <summary>
+            邀请好友入群
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.RelationSysId">
+            <summary>
+            用户关系服务器
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.URQueryGroupListReq">
+            <summary>
+            查询群列表请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgForgetPwdMailResetPwdReq">
+            <summary>
+            忘记密码重设新密码请求--0x0209
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgForgetPwdSendAuthMailReq">
+            <summary>
+            忘记密码发认证邮件请求--0x03AD
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgQueryMailSessKeyStateReqReq">
+            <summary>
+            查询邮箱会话凭证状态请求--0x00DB
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgQueryEmailIsBindReq">
+            <summary>
+            查询邮箱是否被绑定请求--0x00DD
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgCommitBindNewEmailReq">
+            <summary>
+            提交绑定新密保邮箱请求--0x020B
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgBindEmailSendAuthMailReq">
+            <summary>
+            绑定新邮箱发验证邮件请求--0x03AF
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgEmailStateOfActivationReq">
+            <summary>
+            查询邮箱激活状态请求--0x00DF
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgPhoneIsValidReq">
+            <summary>
+            查询手机号码是否可用请求--0x00E1
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgPostActivateMailReq">
+            <summary>
+            提交激活邮箱数据请求-0x020D-涉及到查询账号个人信息参数可用性查询时，服务端返回错误码为0，表示该信息可用。
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgActivatEmailSendEmailReq">
+            <summary>
+            激活密保邮箱发激活邮件请求--0x03B1
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgForgetPwdSendMailCodeReq">
+            <summary>
+            忘记密码发邮件验证码请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgMailCodeResetLogPwdReq">
+            <summary>
+            邮件验证码重置密码请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgMailCheckSendMailCodeReq">
+            <summary>
+            验证老邮箱发验证码请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgBindNewMailSendMailCodeReq">
+            <summary>
+            绑定新邮箱发验证码请求 0x03B7
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgMailCodeCheckReq">
+            <summary>
+            邮件验证码校验
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgMailCodeBindNewMailReq">
+            <summary>
+            验证码绑定新邮箱请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MsgAppealResultNotifySendMailReq">
+            <summary>
+            申诉结果发通知邮件请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MMSQueryBatchAccountReq">
+            <summary>
+            请求：批量查询账户余额
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MMSQueryAccoutUseStateReq">
+            <summary>
+            请求：按资金状态查询整个账户信息
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Core.MethodConst.MMSTransferAccountReq">
+            <summary>
+            请求：系统内部账户间转账
+            </summary>
+        </member>
+        <member name="M:HKSJ.MidMessage.Core.MidComponent.NotifyClientDataToSync(Em.EmJMessage,Em.EmHandle)">
+            <summary>
+            数据推送同步处理 方法
+            </summary>
+            <param name="pushReqMsg"></param>
+            <param name="svcHandle"></param>
+        </member>
+        <member name="M:HKSJ.MidMessage.Core.MidRequest.GoOn">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:HKSJ.MidMessage.Core.MidRequest.Request``1(System.Int32)">
+            <summary>
+            
+            </summary>
+            <typeparam name="R"></typeparam>
+            <param name="wait"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Core.MidRequest.RequestFund``1">
+            <summary>
+            资金系统
+            </summary>
+            <typeparam name="R"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Core.MidRequest.RequestFastDFS``1">
+            <summary>
+            IM FastDFS文件请求处理
+            </summary>
+            <typeparam name="R"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="P:HKSJ.MidMessage.Core.MidRequest.CheckIsConnectOk">
+            <summary>
+            中间件是否连接上账号系统
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.APPRequestMessageExt.time">
+            <summary>
+            <param name="time">消息创建时间</param>
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.APPRequestMessageExt.num">
+            <summary>
+             <param name="num">消息条数 惠信圈状态3条数无用</param>
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.APPRequestMessageExt.imageUrl">
+            <summary>
+            <param name="imageUrl">发送消息图片</param>
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.APPRequestMessageExt.isNew">
+            <summary>
+             <param name="isNew">有新动态更新 1有 0 无</param>
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Dto.Status">
+            <summary>
+            执行结果状态码，0表示成功，1,表示超时， 其他则代表错误
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Dto.isOK">
+            <summary>
+            是否成功执行操作
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Dto.ErrorMsg">
+            <summary>
+            错误消息
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.CreateGroupDto.gid">
+            <summary>
+            群ID
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.IsExistMember.exist">
+            <summary>
+            1不存在, 2存在
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseMobileVerification.state">
+            <summary>
+            手机响应码
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ReqBase">
+            <summary>
+            公共请求类
+            </summary>
+        </member>
+        <member name="M:HKSJ.MidMessage.Protocol.ErrMsg.LoadXmlError(System.Collections.Generic.Dictionary{System.UInt32,System.String})">
+            <summary>
+            
+            </summary>
+            <param name="dic"></param>
+        </member>
+        <member name="M:HKSJ.MidMessage.Protocol.ErrMsg.GetErrorMsg(System.UInt32)">
+            <summary>
+            获取错误消息字符串
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.BaseFund.sys_id">
+            <summary>
+            请求方系统标识ID(u16)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.BusTrans.uid">
+            <summary>
+            用户id(u64)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.BusTrans.seq">
+            <summary>
+            批量资金操作的执行顺序(u32)，从1开始
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.BusTrans.opt_type">
+            <summary>
+            资金操作类型(u16)，1：入账，2：出账，9：转入，10：转出
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.BusTrans.amount">
+            <summary>
+            金额(s64)，不允许为零，值为实际金额(元)*100000，即支持小数点后5位
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.BusTrans.chg_type">
+            <summary>
+            资金变动类型(u16)，非零，业务系统自定义
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.BusTrans.up_sys_serial">
+            <summary>
+            请求方关联流水号(26)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.BusTrans.up_sys_order">
+            <summary>
+            方案号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.BusTrans.comment">
+            <summary>
+            操作说明(32)，业务系统备注，不允许为空串.ansii字符最多200个,汉字最多66个
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.RequestFund">
+            <summary>
+            资金入/出账请求类
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFund.uid">
+            <summary>
+            用户id(u64)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFund.amount">
+            <summary>
+            金额(s64)，不允许为零，值为实际金额(元)*100000，即支持小数点后5位
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFund.chg_type">
+            <summary>
+            资金变动类型(u16)，非零，业务系统自定义
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFund.up_sys_serial">
+            <summary>
+            请求方关联流水号(26)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFund.up_sys_order">
+            <summary>
+            方案号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFund.comment">
+            <summary>
+            操作说明(32)，业务系统备注，不允许为空串
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.RequestFundDetail">
+            <summary>
+            请求：查询操作流水明细  0x000B
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundDetail.begin">
+            <summary>
+            开始时间(u64)，非零
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundDetail.end">
+            <summary>
+            结束时间(u64)，非零
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundDetail.cnt">
+            <summary>
+            查询条数(u32)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundDetail.offset">
+            <summary>
+            偏移量(u32)，零开始
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundDetail.uid">
+            <summary>
+            用户id(u64)，0：所有用户
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundDetail.up_sys">
+            <summary>
+            待查询业务系统标识(u16)，0：所有业务系统
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundDetail.chg_type">
+            <summary>
+            变动类型(u16)，0：所有类型
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundDetail.up_sys_serial">
+            <summary>
+            待查询上游系统操作流水(ansii字符最多26个)，可选字段，不传此字段或为空串表示查询所有流水
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundDetail.up_sys_order">
+            <summary>
+            方案号--待查询上游系统操作订单号(ansii字符最多26个)，可选字段，不传此字段或为空串表示查询所有订单
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.RequestFundState">
+            <summary>
+            请求--更新资金状态用
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundState.uid">
+            <summary>
+            用户id(u64)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundState.state">
+            <summary>
+            1.当是解冻/冻结标记(u8)，1：解冻，2：冻结
+            2.当是锁定/解锁标记(u8)，1：解锁，3：锁定
+            3.当是请求：异常账户状态恢复，该字段不要传
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundState.chg_type">
+            <summary>
+            资金变动类型(u16)，非零，业务系统自定义
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundState.up_sys_serial">
+            <summary>
+            请求方关联流水号(26)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundState.comment">
+            <summary>
+            操作说明(32)，业务系统备注，不允许为空串
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.RequestTransferIn">
+            <summary>
+            资金入/出账请求类
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestTransferIn.uid_from">
+            <summary>
+            转出用户id
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestTransferIn.uid_to">
+            <summary>
+            转入用户id
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestTransferIn.amount">
+            <summary>
+            金额(s64)，不允许为零，值为实际金额(元)*100000，即支持小数点后5位
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestTransferIn.chg_type">
+            <summary>
+            资金变动类型(u16)，非零，业务系统自定义
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestTransferIn.up_serial_from">
+            <summary>
+            请求方转出用户唯一流水号(ansii字符最多26个)，业务系统内部唯一
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestTransferIn.up_serial_to">
+            <summary>
+            请求方转入用户唯一流水号(ansii字符最多26个)，业务系统内部唯一
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestTransferIn.up_sys_order">
+            <summary>
+            请求方关联订单号(ansii字符最多26个)，可选字段
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestTransferIn.comment">
+            <summary>
+            操作说明(ansii字符最多200个,汉字最多66个)，业务系统备注，不允许为空串
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.Fund.ResponseFundInfoData">
+            <summary>
+            查询明细详细使用
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundInfoData.total">
+            <summary>
+            查询[begin,end]时间段内记录的总条数
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.Fund.ResponseFundInfo">
+            <summary>
+            获取资金系统信息响应
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundInfo.serial">
+            <summary>
+            资金操作流水(u64)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundInfo.uid">
+            <summary>
+            资金账号(u64)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundInfo.chg_amount">
+            <summary>
+            注意：该属性只为接收，非真实的变动金额，请不要使用。如要获取变动金额，则用RealChgAmount.
+            变动金额(s64)，即实际金额(元)*100000
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundInfo.RealChgAmount">
+            <summary>
+            真实的变动金额
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundInfo.chg_before">
+            <summary>
+            注意：该属性只为接收，非真实的变动前余额，请不要使用。如要获取变动前余额，则用RealChgBefore.
+            变动前余额(s64)，即实际金额(元)*100000
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundInfo.RealChgBefore">
+            <summary>
+            真实的变动前余额
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundInfo.chg_after">
+            <summary>
+            注意：该属性只为接收，非真实的变动后余额，请不要使用。如要获取变动后余额，则用RealChgAfter.
+            变动后余额(s64)，即实际金额(元)*100000
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundInfo.RealChgAfter">
+            <summary>
+            真实的变动后余额
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundInfo.chg_type">
+            <summary>
+            资金变动类型(u16)，非零    （u无符号）
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundInfo.up_sys">
+            <summary>
+            上游系统标识(u16)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundInfo.up_sys_serial">
+            <summary>
+            上游系统操作流水号(26)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundInfo.comment">
+            <summary>
+            操作说明(32)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundInfo.opt_type">
+            <summary>
+            操作类型(u16)，1：入账，2：出账，3：校准，4：冻结，5：解冻，6：锁定，7：解锁，8：异常恢复，9：转入，10：转出
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundInfo.rec_state">
+            <summary>
+            记录状态(u16)，1：正常，2：非法篡改，3：非法删除
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundInfo.time">
+            <summary>
+            时间戳(u64)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundInfo.up_sys_order">
+            <summary>
+            方案号
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.Fund.ResponseFundItem">
+            <summary>
+            获取资金系统信息响应
+            此类包含所有的可能的响应字段，要了解具体的返回，请查看文档
+            如果查询明细，请使用ResponseFundInfoData做响应
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundItem.uid">
+            <summary>
+            用户UID
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundItem.amount">
+            <summary>
+            注意：该属性只为接收，非真实的金额，请不要使用。如要获取金额，则用RealAmount.
+            金额(s64)，默认含5位精度   （有符号）
+            金额(s64)，值为实际金额(元)*100000，即支持小数点后5位
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundItem.RealAmount">
+            <summary>
+            真实的金额
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundItem.state">
+            <summary>
+            资金账户状态(u8)，1：正常，2：冻结，3：锁定，4：异常
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundItem.time">
+            <summary>
+            时间戳(u64)UTC时间，单位毫秒
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundItem.serial">
+            <summary>
+            操作流水(u64)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundItem.up_sys_serial">
+            <summary>
+            请求方关联流水号(26)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundItem.balance">
+            <summary>
+            注意：该属性只为接收，非真实的余额，请不要使用。如要获取金额，则用RealBalance.
+            余额(s64)，默认含5位精度   （有符号）
+            余额(s64)，值为实际金额(元)*100000，即支持小数点后5位
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.Fund.ResponseFundItem.RealBalance">
+            <summary>
+            真实的余额
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.QueryGroupListDto">
+            <summary>
+            查询群列表相应
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.QueryGroupListDto.GroupInfo.gid">
+            <summary>
+            群id
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.QueryGroupListDto.GroupInfo.gname">
+            <summary>
+            群名，ansii字符最多30个，中文字符最多10个
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.QueryGroupListDto.GroupInfo.remark">
+            <summary>
+            群备注，ansii字符最多30个，中文字符最多10个
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.QueryGroupListDto.GroupInfo.icon">
+            <summary>
+            头像，ansii字符最多255个
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.QueryGroupListDto.GroupInfo.desc">
+            <summary>
+            介绍，ansii字符最多750个,汉字最多250个
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.QueryGroupListDto.GroupInfo.veri">
+            <summary>
+            验证方式，1：允许任何人，2：需要验证消息，3：不允许任何人
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.QueryGroupListDto.GroupInfo.nty">
+            <summary>
+            群消息标记，1：接收消息不推送，2：接收消息并推送，3：屏蔽消息，4：收进群助手但不推送
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.QueryGroupListDto.GroupInfo.role">
+            <summary>
+            群权限，1:群主，2：管理员，3：普通成员
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.QueryGroupListDto.GroupInfo.type">
+            <summary>
+            群类型，1：群，2：讨论组
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.QueryGroupListDto.GroupInfo.amount">
+            <summary>
+            群规模可容纳人数(u32)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.QueryGroupListDto.GroupInfo.count">
+            <summary>
+            实际群成员数(u32)
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.RequestAlbum">
+            <summary>
+            功能：相册实体类
+            作者：xwf
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestAlbum.uid">
+            <summary>
+            注册用户uid
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestAlbum.album_id">
+            <summary>
+            相册id
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestAlbum.number">
+            <summary>
+            最近的张数
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.RequestASFileUpload">
+            <summary>
+            请求：文件上传 Luoqiongqiang 
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestASFileUpload.uid">
+            <summary>
+            用户uid
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestASFileUpload.type">
+            <summary>
+            文件摘要生成类型，1:MD5
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestASFileUpload.modle">
+            <summary>
+            2：IM按期存储模块，3：帐号模块，4：IM永久存储模块，5：相册 (账号系统，则用3)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestASFileData.ext">
+            <summary>
+            扩展名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestASFileData.type">
+            <summary>
+            1：图片，2：语音，3：视频，4：文件
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestASFileData.tag">
+            <summary>
+            文件数据tlv对应tag值
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestASFileData.digest">
+            <summary>
+            文件摘要
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestASFileData.size">
+            <summary>
+            文件大小(字节byte)
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ResponseASFileUpload">
+            <summary>
+            响应：文件上传
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestCommSms.phone">
+            <summary>
+            用户手机号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestCommSms.life">
+            <summary>
+            验证码有效期秒数 默认是 有效期=120m
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespCommSms.sms_seq">
+            <summary>
+            '短信业务序列标示号',//用于0x0227接口参数校验传入
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestCommSmsCheck.sms_seq">
+            <summary>
+            '短信业务序列标示号',//此值由0x03BD请求接口返回
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestCommSmsCheck.code">
+            <summary>
+            手机验证码
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestCommSmsCheck.del">
+            <summary>
+            1=验证后验证码立即失效，2=验证后在有效期内验证码保留有效性
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseEmail.email">
+            <summary>
+            带掩码*邮箱账号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseEmail.state">
+            <summary>
+            (1=无邮箱,2=邮箱激活,3=邮箱未激活）
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseEmail.key">
+            <summary>
+            流程操作许可码
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseEmailIsValid.state">
+            <summary>
+            (1=无邮箱,2=邮箱激活,3=邮箱未激活）
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.RequestNewBindEmailInfo">
+            <summary>
+            提交绑定新密保邮箱请求
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestNewBindEmailInfo.code">
+            <summary>
+            邮箱验证码---该值由用户查收邮件获取指定字符串
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestNewBindEmailInfo.uid">
+            <summary>
+            通行证id(64位有符号整数)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestNewBindEmailInfo.email">
+            <summary>
+            邮箱账号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestNewBindEmailInfo.pwd">
+            <summary>
+            通行证账号登陆密码--md5值
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestNewBindEmailInfo.npwd">
+            <summary>
+            1=不需要输入登陆密码,2=需要输入登陆密码.当npwd=1是忽略pwd字段
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ReqForgetPwdSendMailCode">
+            <summary>
+            忘记密码发邮件验证码请求
+            0x03B3
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqForgetPwdSendMailCode.acc">
+            <summary>
+            惠信号/手机号/邮箱'，
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqForgetPwdSendMailCode.life">
+            <summary>
+            找回密码所发验证码验证码有效期分钟数
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqMailCodeResetLogPwdReq.key">
+            <summary>
+            流程操作许可码'//即0x021A返回的key
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqMailCodeResetLogPwdReq.new_pwd">
+            <summary>
+            新密码'//大写样式32位md5值
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ReqMailCheckSendMailCode">
+            <summary>
+            验证老邮箱发验证码请求类
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqMailCheckSendMailCode.uid">
+            <summary>
+            通行证id(64位有符号整数),
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqMailCheckSendMailCode.acc">
+            <summary>
+            惠信号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqMailCheckSendMailCode.life">
+            <summary>
+            所发验证码验证码有效期分钟数
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ReqBindNewMailSendMailCode">
+            <summary>
+            绑定新邮箱发验证码请求
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqBindNewMailSendMailCode.uid">
+            <summary>
+            通行证id(64位有符号整数),
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqBindNewMailSendMailCode.acc">
+            <summary>
+            惠信号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqBindNewMailSendMailCode.email">
+            <summary>
+            新邮箱
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqBindNewMailSendMailCode.life">
+            <summary>
+            所发验证码验证码有效期分钟数
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ReqMailCodeCheckReq">
+            <summary>
+            邮件验证码校验
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqMailCodeCheckReq.uid">
+            <summary>
+            通行证id(64位有符号整数),
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqMailCodeCheckReq.code">
+            <summary>
+            邮件验证码
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqMailCodeCheckReq.type">
+            <summary>
+            操作验证码类型(1=重置登录密码,2=验证原邮箱,3=绑定新邮箱)
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ReqMsgMailCodeBindNewMail">
+            <summary>
+            验证码绑定新邮箱请求  0x021D
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqMsgMailCodeBindNewMail.key">
+            <summary>
+            流程操作许可码'//即0x021A返回的key
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqMsgMailCodeBindNewMail.email">
+            <summary>
+            新邮箱
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqAppealResultNotifySendMail.acc">
+            <summary>
+            申诉时填写的(惠信号/手机号/邮箱)',
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqAppealResultNotifySendMail.email">
+            <summary>
+            申诉结果通知邮箱
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqAppealResultNotifySendMail.result">
+            <summary>
+            1=申诉成功,2=申诉失败
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqAppealResultNotifySendMail.life">
+            <summary>
+            邮箱链接操作有效期小时数(最短1小时,最长7天,即168小时)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundInfo.uid">
+            <summary>
+            用户uid
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundInfo.sys_id">
+            <summary>
+            请求方系统标识ID
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundInfo.seq">
+            <summary>
+            执行顺序
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundInfo.opt_type">
+            <summary>
+            资金操作类型
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundInfo.amount">
+            <summary>
+            金额
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundInfo.chg_type">
+            <summary>
+            资金变动类型
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundInfo.up_sys_serial">
+            <summary>
+            请求方唯一流水号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundInfo.up_sys_order">
+            <summary>
+            请求方关联订单号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFundInfo.comment">
+            <summary>
+            操作说明
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestMessageExt.sentType">
+            <summary>
+            发送类型（1 后台推送 2 收到订课申请 3 处理订课申请 4 用户间转账 5 发布课程）
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestMessageExt.linkID">
+            <summary>
+            链接ID
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestMessageInesrt.SendTime">
+            <summary>
+            消息创建时间
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestMessageInesrt.SendNum">
+            <summary>
+            消息条数
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestMessageInesrt.SendImageUrl">
+            <summary>
+            发送消息图片
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestMessageInesrt.IsNew">
+            <summary>
+            判断有无更新(0 没有更新 1 有更新)
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.RequestPhone">
+            <summary>
+            功能：手机实体类
+            作者：Luoqiongqiang
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestPhone.uid">
+            <summary>
+            注册用户uid
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestPhone.acc">
+            <summary>
+            通行证账号名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestPhone.phone">
+            <summary>
+            用户手机号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestPhone.code">
+            <summary>
+            手机验证码
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestPhone.key">
+            <summary>
+            流程操作许可码
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestPhone.life">
+            <summary>
+            验证码有效期秒数 默认是 有效期=120m
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestPhone.del">
+            <summary>
+            1=验证后验证码失效，2=验证后验证码保留有效性
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ReqPhoneCodeLogAccGetCode">
+            <summary>
+            手机验证码登录账号请求验证码请求
+            Msg_LogAccGetCodeReq
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Protocol.ReqPhoneCodeLogAccGetCode._life">
+            <summary>
+            验证码有效期秒数(默认最短300秒,最长3600秒)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqPhoneCodeLogAccGetCode.acc">
+            <summary>
+            惠信号/手机号/邮箱
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.RespPhoneCodeLogAccGetCode">
+            <summary>
+            手机验证码登录账号请求验证码响应
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespPhoneCodeLogAccGetCode.seq_id">
+            <summary>
+            短信业务序列标示号'//用于0x000F接口参数校验传入
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespPhoneCodeLogAccGetCode.phone">
+            <summary>
+            带掩码*手机号
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.RequestContainSense">
+            <summary>
+            查询内容中是否包含敏感词汇请求
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestContainSense.value">
+            <summary>
+            待查询内容
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestContainSense.type">
+            <summary>
+            值类型(1=昵称)
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.RequestQueryChkInfo">
+            <summary>
+            查询内容中是否包含敏感词汇请求
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestQueryChkInfo.value">
+            <summary>
+            待查询内容
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestQueryChkInfo.type">
+            <summary>
+            值类型(1=昵称)
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.RequestSearchUser">
+            <summary>
+            账号系统查询条件请求类--后台用
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSearchUser.uid_list">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSearchUser.pagecount">
+            <summary>
+            每页数目
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSearchUser.pageindex">
+            <summary>
+            数据分页索引序号(1=第1页)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSearchUser.res_fld">
+            <summary>
+            res_fld配置输出结果数据结构，列表['acc','nick','phone','img_url','sign','sex','regtime','rname','idcard','src'],
+            当仅为空数组[]时返回id列表,'uid'是每条数据必须返回的数据，无res_fld则返回全部字段结果
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSearchUserInfo.acc">
+            <summary>
+            通行证账号名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSearchUserInfo.phone">
+            <summary>
+            用户手机号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSearchUserInfo.regtime">
+            <summary>
+            用户注册时间
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSearchUserInfo.src">
+            <summary>
+            1//注册来源(1=网站,2=移动设备)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSearchUserInfo.rname">
+            <summary>
+            真实姓名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSearchUserInfo.idcard">
+            <summary>
+            身份证号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSearchUserInfo.regstart">
+            <summary>
+            注册开始时间
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSearchUserInfo.email">
+            <summary>
+            邮件
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSearchUserInfo.nick">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSearchUserInfo.regend">
+            <summary>
+            注册结束时间
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSearchUserInfo.reg_sys">
+            <summary>
+            注册来源业务系统编号(具体编号参见业务系统编号表)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSearchUserInfo.sex">
+            <summary>
+            系统性别(1=男,2=女,0=未设)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSearchUserInfo.st_use">
+            <summary>
+            账号可用状态(1=正常,2=后台锁定,3=软删除)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSearchUserInfo.vip">
+            <summary>
+            用户特殊权限值(1=惠卡商城用户)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFullSearchUser.types">
+            <summary>
+            查询范围配置表:1=账号,2=手机号,3=昵称,4=邮箱
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFullSearchUser.whole">
+            <summary>
+            1=完整匹配查询,2=子串匹配查询
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFullSearchUser.vip">
+            <summary>
+            用户特殊权限值(1=惠卡商城用户)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFullSearchUser.value">
+            <summary>
+            查询参数值
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFullSearchUser.offset">
+            <summary>
+            查询结果集起点偏移量
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestFullSearchUser.recnum">
+            <summary>
+            返回最大记录数目
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestUserInfo.uid">
+            <summary>
+            注册用户uid
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestUserInfo.acc">
+            <summary>
+            通行证账号名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestUserInfo.pwd">
+            <summary>
+            注册密码
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestUserInfo.nick">
+            <summary>
+            昵称用户名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestUserInfo.phone">
+            <summary>
+            用户手机号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestUserInfo.img_url">
+            <summary>
+            头像图片url
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestUserInfo.sign">
+            <summary>
+            个性签名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestUserInfo.sex">
+            <summary>
+            性别(1=男,2=女,0=未设) => 旧系统性别(0：女，1：男，-1：未设)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestUserInfo.key">
+            <summary>
+            流程操作许可码
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestUserInfo.regtime">
+            <summary>
+            用户注册时间
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestUserInfo.src">
+            <summary>
+            1//注册来源(1=网站,2=移动设备) => 旧系统注册来源(0：网站，1：移动设备) 
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestUserInfo.rname">
+            <summary>
+            真实姓名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestUserInfo.idcard">
+            <summary>
+            身份证号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestUserInfo.cert_type">
+            <summary>
+            证件号类型
+            (1=大陆居民身份证,2=香港身份证,3=澳门身份证,4=台湾身份证,5=  护照)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestUserInfo.level">
+            <summary>
+            认证状态
+            (1=未验证,2=编码校验合法,3=第三方验证一致,4=人工审核通过) 
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestUserInfo.type">
+            <summary>
+            密保信息类型
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestUserInfo.acc_cnt">
+            <summary>
+            用户账号已经修过过的次数
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestUserInfo.location">
+            <summary>
+            所在地编号
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ReqRegUserInfoData">
+            <summary>
+            用户注册实体类 【针对注册接口】
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqRegUserInfoData.uid">
+            <summary>
+            注册用户uid
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqRegUserInfoData.acc">
+            <summary>
+            通行证账号名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqRegUserInfoData.pwd">
+            <summary>
+            注册密码
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqRegUserInfoData.nick">
+            <summary>
+            昵称用户名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqRegUserInfoData.img_url">
+            <summary>
+            头像图片url
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqRegUserInfoData.phone">
+            <summary>
+            用户手机号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqRegUserInfoData.code">
+            <summary>
+            手机验证码
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqRegUserInfoData.email">
+            <summary>
+            用户邮箱
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqRegUserInfoData.src">
+            <summary>
+            1//注册来源(1=网站,2=移动设备) => 旧系统注册来源(0：网站，1：移动设备) 
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqRegUserInfoData.genid">
+            <summary>
+            用户uid是否要输入（1=后台产生,2=输入uid有效）,
+            当genid=1时uid可可忽略
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqRegUserInfoData.ncd">
+            <summary>
+            有无手机和验证码的标志(1=无验证码无手机号，2=有验证码有手机号,3=无验证码有手机号）
+            当ncd=1时code字段可忽略
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqRegUserInfoData.acmail">
+            <summary>
+            邮箱有无参数(1=无邮箱,2=邮箱默认激活,3=邮箱默认不激活）
+            当acmail=1或无acmail时email可忽略
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqRegUserInfoData.sys_id">
+            <summary>
+            业务系统编号  Luoqiongqiang 2015-1-15
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqRegUserInfoData.refer">
+            <summary>
+            推荐人凭证(惠信号/手机号/邮箱)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqRegUserInfoData.c_r">
+            <summary>
+            国家地区代号(与国际电话区域代号值一致)
+            无c_r字段默认c_r值为86
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ReqQueryUserInfo">
+            <summary>
+            查询用户信息请求
+            0x00D7
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Protocol.ReqQueryUserInfo._whole">
+            <summary>
+            1=完整匹配查询,2=子串匹配查询
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryUserInfo.type">
+            <summary>
+            密保信息类型
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryUserInfo.vip">
+            <summary>
+            用户特殊权限值(1=惠卡商城用户)
+            vip为可选字段
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryUserInfo.value">
+            <summary>
+            查询参数值
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryUserInfo.recnum">
+            <summary>
+            返回最大记录数目
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ReqUserInfoActivateState">
+            <summary>
+            用户密保信息激活状态
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqUserInfoActivateState.uid">
+            <summary>
+            用户uid
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqUserInfoActivateState.type">
+            <summary>
+            密保信息类型
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqUserInfoActivateState.state">
+            <summary>
+            (1=无,2=激活,3=未激活）
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqUserInfoActivateState.info">
+            <summary>
+            '带掩码*密保信息'//用于界面用户提示用
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ReqModifyAccInfo">
+            <summary>
+            修改用户惠信号 实体类
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqModifyAccInfo.uid">
+            <summary>
+            用户uid
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqModifyAccInfo.old_acc">
+            <summary>
+            原通行证账号名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqModifyAccInfo.new_acc">
+            <summary>
+            新通行证账号名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqModifyAccInfo.sys_id">
+            <summary>
+            具体业务系统编号（具体编号参见业务系统编号表）
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqModifyAccInfo.ip">
+            <summary>
+            用户操作的终端设备ip地址
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqModifyAccInfo.mac">
+            <summary>
+            用户操作的终端设备物理网卡地址
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqModifyAccInfo.dev">
+            <summary>
+            用户操作的终端设备类型(1=网站,2=android,3=ios)
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ReqQueryReferRelation">
+            <summary>
+            查询用户的推荐人关系链数据请求实体类 0x00EB 
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryReferRelation.uid">
+            <summary>
+            通行证id(64位有符号整数)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryReferRelation.layers">
+            <summary>
+            关系链递归的限定最大层数(非0值,不超过10)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryReferRelation.res_fld">
+            <summary>
+            配置输出结果选项
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ReqQueryUsersFromRefer">
+            <summary>
+            查询当前用户推荐注册的所有用户数据请求实体类 0x00ED
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryUsersFromRefer.uid">
+            <summary>
+            通行证id(64位有符号整数)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryUsersFromRefer.type">
+            <summary>
+            推荐用户类型(1=直接推荐人,2=间接推荐人)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryUsersFromRefer.offset">
+            <summary>
+            查询结果集起点偏移量
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryUsersFromRefer.recnum">
+            <summary>
+            返回最大记录数目
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryUsersFromRefer.res_fld">
+            <summary>
+            配置输出结果选项
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.RequestUserLoginOn">
+            <summary>
+            登录账号请求
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Protocol.RequestUserLoginOn._mode">
+            <summary>
+            1//登录模式(1=正式登录,2=校验登录,无此字段则默认mode=1)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestUserLoginOn.acc">
+            <summary>
+            惠信号/手机号/邮箱
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestUserLoginOn.pwd">
+            <summary>
+            登录密码'//用户原始密码大写样式32位md5值(大写)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestLogOn3rdAcc.id_3rd">
+            <summary>
+            第三方账号唯一标识',//从第三方接口返回
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestLogOn3rdAcc.type">
+            <summary>
+            登录第三方账号类型(1=QQ,2=微信,3=新浪)
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.RequestConfirm3rdAcc">
+            <summary>
+            第三方登录确认账号关系请求
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestConfirm3rdAcc.seq_id">
+            <summary>
+            '流程序列号标识值',//0x000C当错误码为0x001000D2返回
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestConfirm3rdAcc.type">
+            <summary>
+            (关联惠信号方式:1=注册惠信号后关联,2=绑定老惠信号后关联)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestConfirm3rdAcc.acc">
+            <summary>
+            '惠信号/手机号/邮箱',
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestConfirm3rdAcc.nick">
+            <summary>
+            '用户昵称',
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestConfirm3rdAcc.pwd">
+            <summary>
+            '登录密码',//用户原始密码大写样式32位md5值(大写)
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.RequestRepair3rdLogPwd">
+            <summary>
+            第三方注册账号设置惠信号登录密码请求
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestRepair3rdLogPwd.uid">
+            <summary>
+            通行证id(64位有符号整数)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestRepair3rdLogPwd.acc">
+            <summary>
+            用户凭证(惠信号/手机号/邮箱)'
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestRepair3rdLogPwd.pwd">
+            <summary>
+            '账号登录密码',
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestRepair3rdLogPwd.type">
+            <summary>
+            调用类型(1=第三方注册需设置密码,2=手机登陆后需设置密码)
+            无type字段则默认type=1
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.RequestSetUserRealName">
+            <summary>
+            实名认证信息设置请求类
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSetUserRealName.uid">
+            <summary>
+            注册用户uid
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSetUserRealName.rname">
+            <summary>
+            真实姓名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSetUserRealName.cert">
+            <summary>
+            证件号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSetUserRealName.cert_type">
+            <summary>
+            证件号类型(1=大陆居民身份证,2=香港身份证,3=澳门身份证,4=台湾身份证,5=护照)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RequestSetUserRealName.level">
+            <summary>
+            认证状态(1=未验证,2=编码校验合法,3=第三方验证一致,4=人工审核通过)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryUserSpecialRecord.acc">
+            <summary>
+            惠信号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryUserSpecialRecord.start">
+            <summary>
+            开始时间(UTC时间秒数)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryUserSpecialRecord.end">
+            <summary>
+            结束时间(UTC时间秒数)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryUserSpecialRecord.offset">
+            <summary>
+            查询结果集起点偏移量
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryUserSpecialRecord.recnum">
+            <summary>
+            返回最大记录数目
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryUserSpecialRecord.order">
+            <summary>
+            按time时间排序规则(1=升序,2=降序,无则默认降序排序)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryUserSpecialRecord.type">
+            <summary>
+            查询记录类型
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryUserFrequentLogInfo.acc">
+            <summary>
+            '惠信号/手机号/邮箱',
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryUserFrequentLogInfo.type">
+            <summary>
+            //查询信息类型(1=常用登录地,2=常用登录系统)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryAllBind3rdAcc.uid">
+            <summary>
+            通行证id(64位有符号整数)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqQueryAllBind3rdAcc.acc">
+            <summary>
+            '惠信号/手机号/邮箱',
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqMsgUnbind3rdAcc.uid">
+            <summary>
+            通行证id(64位有符号整数)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqMsgUnbind3rdAcc.acc">
+            <summary>
+            '惠信号/手机号/邮箱',
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqMsgUnbind3rdAcc.type">
+            <summary>
+            解绑第三方账号类型(1=腾讯QQ,2=微信,3=新浪微博)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqLogBind3rdAcc.uid">
+            <summary>
+            通行证id(64位有符号整数)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqLogBind3rdAcc.acc">
+            <summary>
+            '惠信号/手机号/邮箱',
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqLogBind3rdAcc.id_3rd">
+            <summary>
+            第三方账号唯一标识',//从第三方接口返回
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqLogBind3rdAcc.type">
+            <summary>
+            解绑第三方账号类型(1=腾讯QQ,2=微信,3=新浪微博)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqMsgCheckPhoneModifyLogPwd.uid">
+            <summary>
+            通行证id(64位有符号整数)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqMsgCheckPhoneModifyLogPwd.phone">
+            <summary>
+            '惠信号/手机号/邮箱',
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqMsgCheckPhoneModifyLogPwd.pwd">
+            <summary>
+            账号登录密码
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ReqSetUserVipRights">
+            <summary>
+            设置用户特殊权限请求类
+            0x0225
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqSetUserVipRights.uid">
+            <summary>
+            通行证id(64位有符号整数)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqSetUserVipRights.acc">
+            <summary>
+            用户凭证(惠信号/手机号/邮箱)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqSetUserVipRights.vip">
+            <summary>
+            用户特殊权限列表[1,2,...](1=该用户具有惠卡商城体验金领取资格)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqSetUserVipRights.bus_seq">
+            <summary>
+            上游支付业务流水号
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ReqPhoneCodeLogAcc">
+            <summary>
+            手机验证码登录账号请求类
+            0x000F
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqPhoneCodeLogAcc.seq_id">
+            <summary>
+            流程序列号标识值
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ReqPhoneCodeLogAcc.code">
+            <summary>
+            手机验证码
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.FriendRelation.sid">
+            <summary>
+            组ID
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.FriendRelation.remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.IsFriendExistDto.fid">
+            <summary>
+            好友ID 
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.IsFriendExistDto.exist">
+            <summary>
+            1：不存在   2：存在
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.IsFriendExistDto.remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponeMerchantPrivilege.ids">
+            <summary>
+            商家的ID们
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponeMerchantPrivilege.content">
+            <summary>
+            消息内容
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponeMerchantPrivilege.count">
+            <summary>
+            消息数量[角标]
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponeMerchantPrivilege.time">
+            <summary>
+            消息时间
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponeStatus.uid">
+            <summary>
+            用户uid
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponeStatus.acc">
+            <summary>
+            惠信号【注：注册时候，惠信号是账号系统那边自动生成，则返回这个惠信号】
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponeStatus.pwd">
+            <summary>
+            用户是否设置密码
+            1(0=未设置登陆密码,1=已设置登陆密码)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponeStatus.code">
+            <summary>
+            手机验证码
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponeStatus.key">
+            <summary>
+            流程操作许可码
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponeStatus.update">
+            <summary>
+            最后一次更新时间戳
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponeStatus.regtime">
+            <summary>
+            用户注册时间
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ResponseFundInfo">
+            <summary>
+            获取资金系统信息响应
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundInfo.uid">
+            <summary>
+            用户UID
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundInfo.amount">
+            <summary>
+            金额(s64)，默认含5位精度   （有符号）
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundInfo.comment">
+            <summary>
+            操作说明(32)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundInfo.chg_type">
+            <summary>
+            资金变动类型(u16)，非零    （u无符号）
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundInfo.state">
+            <summary>
+            资金状态(u8)，1：正常，2：冻结
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundInfo.rec_state">
+            <summary>
+            记录状态(u16)，1：正常，2：非法篡改，3：非法删除
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundInfo.begin">
+            <summary>
+            开始时间(u64)，0：当前时间
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundInfo.end">
+            <summary>
+            结束时间(u64)，即begin之前的时间，0：查询以条数为准
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundInfo.time">
+            <summary>
+            时间戳(u64)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundInfo.chg_amount">
+            <summary>
+            变动金额(s64)，即实际金额(元)*100000
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundInfo.chg_before">
+            <summary>
+            变动前余额(s64)，即实际金额(元)*100000
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundInfo.chg_after">
+            <summary>
+            变动后余额(s64)，即实际金额(元)*100000
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundInfo.opt_type">
+            <summary>
+            操作类型(u16)，1：入账，2：出账，3：校准
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ResponseFundItem">
+            <summary>
+            获取资金系统信息响应
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundItem.uid">
+            <summary>
+            用户UID
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundItem.amount">
+            <summary>
+            金额(s64)，默认含5位精度   （有符号）
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundItem.comment">
+            <summary>
+            操作说明(32)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundItem.chg_type">
+            <summary>
+            资金变动类型(u16)，非零    （u无符号）
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundItem.state">
+            <summary>
+            资金状态(u8)，1：正常，2：冻结
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundItem.rec_state">
+            <summary>
+            记录状态(u16)，1：正常，2：非法篡改，3：非法删除
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundItem.begin">
+            <summary>
+            开始时间(u64)，0：当前时间
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundItem.end">
+            <summary>
+            结束时间(u64)，即begin之前的时间，0：查询以条数为准
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundItem.time">
+            <summary>
+            时间戳(u64)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundItem.chg_amount">
+            <summary>
+            变动金额(s64)，即实际金额(元)*100000
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundItem.chg_before">
+            <summary>
+            变动前余额(s64)，即实际金额(元)*100000
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundItem.chg_after">
+            <summary>
+            变动后余额(s64)，即实际金额(元)*100000
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseFundItem.opt_type">
+            <summary>
+            操作类型(u16)，1：入账，2：出账，3：校准
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ResponsePushData">
+            <summary>
+            推送数据响应类
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.PushUserInfo.uid">
+            <summary>
+            通行证id(64位有符号整数)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.PushUserInfo.update">
+            <summary>
+            用户信息最近一次更新时间戳秒数  
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.PushUserInfo.data">
+            <summary>
+            用户基础数据
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.PushUser.acc">
+            <summary>
+            通行证账号名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.PushUser.pwd">
+            <summary>
+            账号密码
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.PushUser.email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.PushUser.phone">
+            <summary>
+            用户手机号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.PushUser.st_mail">
+            <summary>
+            邮箱激活状态(1=无,2=激活,3=未激活）
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.PushUser.st_ph">
+            <summary>
+            手机激活状态(1=无,2=激活,3=未激活）
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.PushUser.st_use">
+            <summary>
+            账号运行状态(1=正常,2=后台锁定,3=软删除) 
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.PushUser.regtime">
+            <summary>
+            用户注册时间--UTC时间秒数
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.PushUser.src">
+            <summary>
+            注册来源(1=网站,2=移动设备)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.PushUser.reg_sys">
+            <summary>
+            注册来源业务系统编号（具体编号参见业务系统编号表）
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.PushUser.nick">
+            <summary>
+            昵称用户名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.PushUser.img_url">
+            <summary>
+            头像图片url
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.PushUser.sign">
+            <summary>
+            个性签名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.PushUser.sex">
+            <summary>
+            性别(1=男,2=女,0=未设)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.PushUser.rname">
+            <summary>
+            真实姓名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.PushUser.idcard">
+            <summary>
+            身份证号
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ResponseSearchUser">
+            <summary>
+            账号系统查询结果类--后台用
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseSearchUser.data">
+            <summary>
+            用户信息
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseSearchUser.total">
+            <summary>
+            结果总条数
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseSearchUser.curindex">
+            <summary>
+            当前页索引号
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ResponseSearchUserInfo">
+            <summary>
+            获取用户信息响应
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseSearchUserInfo.acc">
+            <summary>
+            通行证账号名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseSearchUserInfo.nick">
+            <summary>
+            昵称用户名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseSearchUserInfo.phone">
+            <summary>
+            用户手机号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseSearchUserInfo.img_url">
+            <summary>
+            头像图片url
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseSearchUserInfo.sign">
+            <summary>
+            个性签名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseSearchUserInfo.sex">
+            <summary>
+            性别(1=男,2=女,0=未设)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseSearchUserInfo.regtime">
+            <summary>
+            用户注册时间
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseSearchUserInfo.src">
+            <summary>
+            1//注册来源(1=网站,2=移动设备)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseSearchUserInfo.rname">
+            <summary>
+            真实姓名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseSearchUserInfo.idcard">
+            <summary>
+            身份证号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseSearchUserInfo.email">
+            <summary>
+            电子邮件
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseSearchUserInfo.st_use">
+            <summary>
+            账号可用状态(1=正常,2=后台锁定冻结,3=软删除)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseSearchUserInfo.cert_type">
+            <summary>
+            证件号类型(1=大陆居民身份证,2=香港身份证,3=澳门身份证,4=台湾身  份证,5=  护照) 
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseSearchUserInfo.level">
+            <summary>
+            证件认证状态(1=未验证,2=编码校验合法,3=第三方验证一致,4=人工审核通过)  
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseSpecialRecord`1.total">
+            <summary>
+            结果总条数
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseSpecialRecordType.id_3rd">
+            <summary>
+            第三方id标识
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseSpecialRecordType.time">
+            <summary>
+            时间戳(u64)
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ResponseUserInfo">
+            <summary>
+            获取用户信息响应
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Protocol.ResponseUserInfo._st_mail">
+            <summary>
+            邮箱激活状态(1=无,2=激活,3=未激活）
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Protocol.ResponseUserInfo._st_ph">
+            <summary>
+            手机激活状态(1=无,2=激活,3=未激活,4=激活且冲突,5=未激活且冲突）
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserInfo.acc">
+            <summary>
+            通行证账号名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserInfo.nick">
+            <summary>
+            昵称用户名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserInfo.phone">
+            <summary>
+            用户手机号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserInfo.email">
+            <summary>
+            用户邮箱
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserInfo.img_url">
+            <summary>
+            头像图片url
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserInfo.sign">
+            <summary>
+            个性签名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserInfo.sex">
+            <summary>
+            性别(1=男,2=女,0=未设)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserInfo.key">
+            <summary>
+            流程操作许可码
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserInfo.regtime">
+            <summary>
+            用户注册时间
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserInfo.src">
+            <summary>
+            1//注册来源(1=网站,2=移动设备)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserInfo.rname">
+            <summary>
+            真实姓名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserInfo.idcard">
+            <summary>
+            身份证号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserInfo.acc_cnt">
+            <summary>
+            用户账号已经修过过的次数 返回惠信号已经被修改过的次数
+            增加时间 2015-3-10
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserInfo.ip">
+            <summary>
+            用户操作的终端设备ip地址
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserInfo.mac">
+            <summary>
+            用户操作的终端设备物理网卡地址
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserInfo.dev">
+            <summary>
+            用户操作的终端设备类型(1=网站,2=android,3=ios)  
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserInfo.location">
+            <summary>
+            所在地编号
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ResponseUserItem">
+            <summary>
+            获取用户信息响应
+            </summary>
+            <summary>
+            获取用户信息响应
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Protocol.ResponseUserItem._st_mail">
+            <summary>
+            邮箱激活状态(1=无,2=激活,3=未激活）
+            </summary>
+        </member>
+        <member name="F:HKSJ.MidMessage.Protocol.ResponseUserItem._st_ph">
+            <summary>
+            手机激活状态(1=无,2=激活,3=未激活,4=激活且冲突,5=未激活且冲突）
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserItem.acc">
+            <summary>
+            通行证账号名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserItem.pwd">
+            <summary>
+            账号密码
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserItem.nick">
+            <summary>
+            昵称用户名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserItem.phone">
+            <summary>
+            用户手机号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserItem.img_url">
+            <summary>
+            头像图片url
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserItem.sign">
+            <summary>
+            个性签名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserItem.sex">
+            <summary>
+            性别(1=男,2=女,0=未设)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserItem.key">
+            <summary>
+            流程操作许可码
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserItem.regtime">
+            <summary>
+            用户注册时间
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserItem.src">
+            <summary>
+            1//注册来源(1=网站,2=移动设备)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserItem.rname">
+            <summary>
+            真实姓名
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserItem.idcard">
+            <summary>
+            身份证号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserItem.email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserItem.acc_cnt">
+            <summary>
+            用户账号已经修过过的次数 返回惠信号已经被修改过的次数
+            增加时间 2015-3-10
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserItem.ip">
+            <summary>
+            用户操作的终端设备ip地址
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserItem.mac">
+            <summary>
+            用户操作的终端设备物理网卡地址
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserItem.dev">
+            <summary>
+            用户操作的终端设备类型(1=网站,2=android,3=ios)  
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserItem.location">
+            <summary>
+            所在地编号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserItem.reg_sys">
+            <summary>
+            注册业务系统编号（具体编号参见业务系统编号表）
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseUserItem.vip">
+            <summary>
+            用户特殊权限列表
+            [1,2,...],//用户特殊权限列表(1=该用户具有惠卡商城体验金领取资格)
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.RespInfoActivateState">
+            <summary>
+            获取用户信息响应 [邮件]
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespInfoActivateState.state">
+            <summary>
+            (1=无,2=激活,3=未激活）
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespInfoActivateState.info">
+            <summary>
+            '带掩码*密保信息'//用于界面用户提示用
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.RespQueryReferRelation">
+            <summary>
+            查询用户的推荐人关系链数据响应
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespQueryUsersFromRefer.total">
+            <summary>
+            查询结果集总结果条数
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespQueryUsersFromRefer.data">
+            <summary>
+            查询当前用户推荐注册的所有用户数据响应
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.RespQueryUserSpecialRecord">
+            <summary>
+            查询用户特定记录请求
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespQueryUserSpecialRecord.type">
+            <summary>
+            返回结果
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespQueryUserSpecialRecord.data">
+            <summary>
+            查询当前用户推荐注册的所有用户数据响应
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespQueryUserSpecialRecordInfo.uid">
+            <summary>
+            通行证id(64位有符号整数)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespQueryUserSpecialRecordInfo.acc">
+            <summary>
+            惠信号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespQueryUserSpecialRecordInfo.id_3rd">
+            <summary>
+            第三方id标识
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespQueryUserSpecialRecordInfo.phone">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespQueryUserSpecialRecordInfo.email">
+            <summary>
+            邮箱地址
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespQueryUserSpecialRecordInfo.start">
+            <summary>
+            开始时间(UTC时间秒数)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespQueryUserSpecialRecordInfo.end">
+            <summary>
+            结束时间(UTC时间秒数)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespQueryUserSpecialRecordInfo.offset">
+            <summary>
+            查询结果集起点偏移量
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespQueryUserSpecialRecordInfo.recnum">
+            <summary>
+            返回最大记录数目
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespQueryUserSpecialRecordInfo.order">
+            <summary>
+            按time时间排序规则(1=升序,2=降序,无则默认降序排序)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespQueryUserSpecialRecordInfo.type">
+            <summary>
+            查询记录类型
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespQueryUserSpecialRecordInfo.ref_loc">
+            <summary>
+            参考地点
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespQueryUserSpecialRecordInfo.time">
+            <summary>
+            注册时间(UTC时间秒数)
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespQueryUserSpecialRecordInfo.sys_id">
+            <summary>
+            具体业务系统编号（具体编号参见业务系统编号表）
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespQueryUserSpecialRecordInfo.ip">
+            <summary>
+            用户操作的终端设备ip地址
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespQueryUserSpecialRecordInfo.mac">
+            <summary>
+            用户操作的终端设备物理网卡地址
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.RespQueryUserSpecialRecordInfo.dev">
+            <summary>
+            用户操作的终端设备类型(1=网站,2=android,3=ios)  
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Protocol.ResponseLogOn3rdAcc">
+            <summary>
+            登录第三方账号响应
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseLogOn3rdAcc.pwd">
+            <summary>
+            登录第三方账号响应 返回密码
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseLogOn3rdAcc.seq_id">
+            <summary>
+            流程序列号标识值'//用于0x000D接口参数校验传入
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseQueryUserFrequentLogInfo.data">
+            <summary>
+            流程序列号标识值'//用于0x000D接口参数校验传入
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Protocol.ResponseQueryAllBind3rdAcc.data">
+            <summary>
+            流程序列号标识值'//用于0x000D接口参数校验传入
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Services.EmEmail">
+            <summary>
+            邮箱方法的实现类
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Services.IEmEmail">
+            <summary>
+            账号系统邮箱方法的接口
+            </summary>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmEmail.ForgetPwdMailResetPwdReq(System.String,System.String,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            忘记密码重设新密码请求 0x0209 Msg_ForgetPwdMailResetPwdReq
+            </summary>
+            <param name="sess_key">'安全加密会话凭证'，//该值由邮件链接地址动态获取</param>
+            <param name="new_pwd"> '新密码'//md5值</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmEmail.ForgetPwdSendAuthMailReq(HKSJ.MidMessage.Protocol.RequestEmail)">
+            <summary>
+            忘记密码发认证邮件请求  0x03AD Msg_ForgetPwdSendAuthMailReq
+            和0x03AD接口和新增0x0209Msg_ForgetPwdMailResetPwdReq，提供忘记密码通过邮件方式找回重置密码配套功能;
+            </summary>
+            <param name="requestEmail"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmEmail.MsgQueryMailSessKeyStateReqReq(System.String,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            查询邮箱会话凭证状态请求  [使用此接口，要先执行 0x03AF]
+            </summary>
+            <param name="sess_key">安全加密会话凭证--该值由邮件链接地址动态获取</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmEmail.MsgQueryEmailIsBindReq(System.String,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            查询邮箱是否被绑定请求
+            </summary>
+            <param name="email">待绑定密码邮箱</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmEmail.MsgCommitBindNewEmailReq(HKSJ.MidMessage.Protocol.RequestNewBindEmailInfo)">
+            <summary>
+            提交绑定新密保邮箱请求0x020B  配合0x03AF接口使用提供绑定新密保邮箱功能;
+            </summary>
+            <param name="requestNewBindEmail">请求实体类</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmEmail.MsgBindEmailSendAuthMailReq(System.String,System.Int64,System.Int32,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            绑定新邮箱发验证邮件请求 0x03AF Msg_ForgetPwdSendAuthMailReq
+            </summary>
+            <param name="email">待绑定新邮箱</param>
+            <param name="uid">通行证id(64位有符号整数)</param>
+            <param name="life">所发验证邮件有效期（单位：小时,取值范围1至720）</param>
+            <returns></returns>  SendAuthMailReq
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmEmail.MsgEmailStateOfActivationReq(System.Int64,System.Int32,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            查询邮箱激活状态请求--0x00DF
+            </summary>
+            <param name="uid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmEmail.MsgPostActivateMailReq(System.String,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            提交激活邮箱数据请求 0x020D  //该值由邮件链接地址动态获取
+            0x020D配合0x03B1接口使用用来设置或激活用户密保邮箱
+            </summary>
+            <param name="sess_key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmEmail.MsgActivatEmailSendEmailReq(HKSJ.MidMessage.Protocol.RequestActivateMailInfo)">
+            <summary>
+            激活密保邮箱【发激活邮件】请求--0x03B1 MsgActivatEmailSendEmailReq
+            </summary>
+            <param name="uid">通行证id(64位有符号整数)</param>
+            <param name="email">先前没有邮箱则使用此邮箱发激活邮件，否则忽略</param>
+            <param name="life">激活邮件有效期（单位：小时,取值范围1至72）</param>
+            <param name="web_type">动态响应网页类型(1:c#-.asp, 2:php-.php,3:java-.jsp)</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmEmail.MsgForgetPwdSendMailCodeReq(HKSJ.MidMessage.Protocol.ReqForgetPwdSendMailCode)">
+            <summary>
+            忘记密码发邮件验证码请求
+            </summary>
+            <param name="ActivateMailInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmEmail.MailCodeResetLogPwdReq(HKSJ.MidMessage.Protocol.ReqMailCodeResetLogPwdReq)">
+            <summary>
+            邮件验证码重置密码请求
+            0x021B
+            </summary>
+            <param name="MailCodeResetLogPwdReq"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmEmail.MsgMailCheckSendMailCodeReq(HKSJ.MidMessage.Protocol.ReqMailCheckSendMailCode)">
+            <summary>
+            验证老邮箱发验证码请求
+            </summary>
+            <param name="MailCodeResetLogPwdReq"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmEmail.BindNewMailSendMailCodeReq(HKSJ.MidMessage.Protocol.ReqBindNewMailSendMailCode)">
+            <summary>
+            绑定新邮箱发验证码请求
+            </summary>
+            <param name="BindNewMailSendMailCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmEmail.MsgMailCodeCheckReq(HKSJ.MidMessage.Protocol.ReqMailCodeCheckReq)">
+            <summary>
+            邮件验证码校验 0x0219
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmEmail.MsgMailCodeBindNewMailReq(HKSJ.MidMessage.Protocol.ReqMsgMailCodeBindNewMail)">
+            <summary>
+            验证码绑定新邮箱请求 0x021D
+            Msg_MailCodeBindNewMailReq 
+            </summary>
+            <param name="MailCodeBindNewMail"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmEmail.MsgAppealResultNotifySendMailReq(HKSJ.MidMessage.Protocol.ReqAppealResultNotifySendMail)">
+            <summary>
+            申诉结果发通知邮件请求 2015-4-22
+            </summary>
+            <param name="MailCodeBindNewMail"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmEmail.ForgetPwdMailResetPwdReq(System.String,System.String,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            邮件方式忘记密码重设新密码请求
+            </summary>
+            <param name="sess_key"></param>
+            <param name="new_pwd"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmEmail.ForgetPwdSendAuthMailReq(HKSJ.MidMessage.Protocol.RequestEmail)">
+            <summary>
+            忘记密码发认证邮件请求 0x03AD
+            </summary>
+            <param name="requestEmail"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmEmail.MsgQueryMailSessKeyStateReqReq(System.String,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            查询邮箱会话凭证状态请求 0x00DB
+            </summary>
+            <param name="sess_key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmEmail.MsgQueryEmailIsBindReq(System.String,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            查询邮箱是否被绑定请求 0x00DD
+            Msg_QueryMailValidReq
+            </summary>
+            <param name="email"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmEmail.MsgCommitBindNewEmailReq(HKSJ.MidMessage.Protocol.RequestNewBindEmailInfo)">
+            <summary>
+            提交绑定新密保邮箱请求 Msg_PostNewBindMailReq 0x020B
+            </summary>
+            <param name="requestNewBindEmail"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmEmail.MsgBindEmailSendAuthMailReq(System.String,System.Int64,System.Int32,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            绑定新邮箱发验证邮件请求 旧接口 0x03AF
+            Msg_BindNewMailSendAuthMailReq
+            </summary>
+            <param name="email"></param>
+            <param name="uid"></param>
+            <param name="life"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmEmail.MsgBindEmailSendAuthMailReq(System.String,System.Int64,System.Int32,System.Int32,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            绑定新邮箱发验证邮件请求 新接口 0x03AF
+            Msg_BindNewMailSendAuthMailReq
+            </summary>
+            <param name="email"></param>
+            <param name="uid"></param>
+            <param name="life"></param>
+            <param name="web_type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmEmail.MsgForgetPwdSendMailCodeReq(HKSJ.MidMessage.Protocol.ReqForgetPwdSendMailCode)">
+            <summary>
+            忘记密码发邮件验证码请求
+            </summary>
+            <param name="ForgetPwdSendMailCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmEmail.MailCodeResetLogPwdReq(HKSJ.MidMessage.Protocol.ReqMailCodeResetLogPwdReq)">
+            <summary>
+            邮件验证码重置密码请求
+            0x021B
+            </summary>
+            <param name="MailCodeResetLogPwdReq"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmEmail.MsgMailCheckSendMailCodeReq(HKSJ.MidMessage.Protocol.ReqMailCheckSendMailCode)">
+            <summary>
+            验证老邮箱发验证码请求
+            </summary>
+            <param name="MsgMailCheckSendMailCodeReq"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmEmail.BindNewMailSendMailCodeReq(HKSJ.MidMessage.Protocol.ReqBindNewMailSendMailCode)">
+            <summary>
+            绑定新邮箱发验证码请求 0x03B7
+            </summary>
+            <param name="BindNewMailSendMailCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmEmail.MsgMailCodeCheckReq(HKSJ.MidMessage.Protocol.ReqMailCodeCheckReq)">
+            <summary>
+            邮件验证码校验 
+            </summary>
+            <param name="BindNewMailSendMailCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmEmail.MsgMailCodeBindNewMailReq(HKSJ.MidMessage.Protocol.ReqMsgMailCodeBindNewMail)">
+            <summary>
+            验证码绑定新邮箱请求 0x021D
+            </summary>
+            <param name="BindNewMailSendMailCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmEmail.MsgAppealResultNotifySendMailReq(HKSJ.MidMessage.Protocol.ReqAppealResultNotifySendMail)">
+            <summary>
+            申诉结果发通知邮件请求
+            </summary>
+            <param name="AppealSendMail"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmFASTDFSManage.ASFileUpload(HKSJ.MidMessage.Protocol.RequestASFileUpload,System.String)">
+            <summary>
+            请求：文件清理
+            </summary>
+            <param name="uid"></param>
+            <param name="day"></param>
+            <param name="modle"></param>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmFASTDFSManage.FASTDFSGetLoadImgData(System.String)">
+            <summary>
+            获取分布式文件系统数据 头像图片读取显示 [return 返回头像服务器地址]
+            </summary>
+            <param name="iniFilePath"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HKSJ.MidMessage.Services.EmFindUpdate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Services.IEmFindUpdate">
+            <summary>
+            账号系统查找和修改接口
+            </summary>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgQueryAccValidReq(System.String,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            查询账号是否已被注册请求
+            </summary>
+            <param name="acc">待注册账号名</param>
+            <returns>ResponeStatus里的IsOk表示是否成功</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgBatchGetInfoByIdReq(System.Int64[],HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            批量获取用户信息请求
+            </summary>
+            <param name="uids">用户信息uid集合{'uid_list':[10000,100001,10002,10003,10004,10005,10006]}</param>
+            <returns>"{'data': [{'uid': uid1, 'acc':'通行证账号名','nick': '昵称用户名','img_url':'头像图片url','sign':'个性签名','sex':1 //性别(1=男,2=女,0=未设)},...]}"</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgQueryUserInfoReq(HKSJ.MidMessage.Protocol.ReqQueryUserInfo)">
+            <summary>
+            查询用户信息请求 新接口
+            {'type':1,'whole':2,'value':'ywb','recnum':10}
+            </summary>
+            <param name="type">查询参数类型:1=账号,2=手机号,3=昵称</param>
+            <param name="whole">1=完整匹配查询,2=子串匹配查询</param>
+            <param name="value">查询参数值</param>
+            <returns>"{'data': [{'uid': uid1, 'acc':'通行证账号名','nick': '昵称用户名','img_url':'头像图片url','sign':'个性签名','sex':1 //性别(1=男,2=女,0=未设)},...]}"</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgQueryUserInfoReq(System.Int32,System.Int32,System.String,System.Int32,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            查询用户信息请求 老接口 
+            </summary>
+            <param name="type"></param>
+            <param name="whole"></param>
+            <param name="value"></param>
+            <param name="recnum"></param>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgModifyLogPwdReq(System.Int64,System.String,System.String,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            修改登录密码请求
+            </summary>
+            <param name="uid">通行证id(64位有符号整数)</param>
+            <param name="old_pwd">原密码,md5</param>
+            <param name="new_pwd">新密码,md5</param>
+            <returns>ResponeStatus里的IsOk表示是否成功</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgResetPwdCodeCheckReq(System.String,System.String,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            忘记密码短信验证码比对请求
+            </summary>
+            <param name="acc">通行证账号名</param>
+            <param name="code">短信验证码</param>
+            <returns>{'uid':2014, //通行证id(64位有符号整数)'key':'流程操作许可码'}</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgResetPwdPostPwdReq(System.Int64,System.String,System.String,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            忘记密码重置密码提交新密码请求
+            </summary>
+            <param name="uid">通行证id(64位有符号整数)</param>
+            <param name="new_pwd">新密码,md5</param>
+            <param name="key">流程操作许可码</param>
+            <returns>ResponeStatus里的IsOk表示是否成功</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgRemoveBindPhoneCheckCodeReq(System.Int64,System.String,System.Int32,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            解除绑定手机验证原手机号验证码比对请求
+            </summary>
+            <param name="uid">通行证id(64位有符号整数)</param>
+            <param name="code">手机验证码</param>
+            <returns>key:流程操作许可码</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgBindCheckCodeReq(HKSJ.MidMessage.Protocol.RequestPhone)">
+            <summary>
+             绑定新手机验证码比对请求  0x0213   
+             作者：luoqiongqiang  2015-1-23
+            </summary>
+            <param name="phone"></param>
+            <param name="code"></param>
+            <param name="del"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgBindNewPhoneReq(System.Int64,System.String,System.String,System.String,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            绑定新手机号请求
+            </summary>
+            <param name="uid">通行证id(64位有符号整数)</param>
+            <param name="code">手机验证码</param>
+            <param name="phone">待绑定新手机号码</param>
+            <param name="key">流程操作许可码</param>
+            <returns>ResponeStatus里的IsOk表示是否成功</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgSetUserInfoReq(HKSJ.MidMessage.Protocol.RequestUserInfoData)">
+            <summary>
+            设置用户信息请求-uid
+            支持修改属性nick，img_url，sign
+            </summary>
+            <param name="userInfo">用户信息</param>
+            <returns>ResponeStatus里的IsOk表示是否成功</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgSearchUsers(HKSJ.MidMessage.Protocol.RequestSearchUser)">
+            <summary>
+            查询满足特定组合条件用户集合请求
+             账号系统查询条件过滤--后台用
+             Msg_CombQueryUserReq
+             0x041B
+            </summary>
+            <param name="userInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgQueryInfoActivateStateReq(HKSJ.MidMessage.Protocol.ReqUserInfoActivateState)">
+            <summary>
+            查询用户密保信息激活状态请求
+            </summary>
+            <param name="uid"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgManageResetUserInfoReq(HKSJ.MidMessage.Protocol.RequestUserInfoData)">
+            <summary>
+            后台重置用户信息请求
+            </summary>
+            <param name="userInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgFullTextSearchUserInfoReq(HKSJ.MidMessage.Protocol.RequestFullSearchUser)">
+            <summary>
+            全文检索用户信息请求
+            </summary>
+            <param name="userInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgQueryContainSenseReq(System.String,System.Int32,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            查询内容中是否包含敏感词汇请求  Luoqiongqiang  2015-2-12
+            0x00E9
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgModifyAccReq(HKSJ.MidMessage.Protocol.ReqModifyAccInfo)">
+            <summary>
+            修改用户惠信号请求
+            </summary>
+            <param name="uid">通行证id(64位有符号整数)</param>
+            <param name="old_acc">原通行证账号名',</param>
+            <param name="new_acc">新通行证账号名</param>
+            <param name="sys_id">具体业务系统编号（具体编号参见业务系统编号表）</param>
+            <param name="ip">用户操作的终端设备ip地址</param>
+            <param name="mac">用户操作的终端设备物理网卡地址</param>
+            <param name="dev">用户操作的终端设备类型(1=网站,2=android,3=ios)</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgQueryReferRelationReq(HKSJ.MidMessage.Protocol.ReqQueryReferRelation)">
+            <summary>
+            查询用户的推荐人关系链数据请求 0x00EB
+            </summary>
+            <param name="ReqModifyAcc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgQueryUsersFromReferReq(HKSJ.MidMessage.Protocol.ReqQueryUsersFromRefer)">
+            <summary>
+            查询当前用户推荐注册的所有用户数据请求 0x00ED
+            </summary>
+            <param name="ReferRelationInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgSetUserRealNameReq(HKSJ.MidMessage.Protocol.RequestSetUserRealName)">
+            <summary>
+            实名认证信息设置请求类
+            </summary>
+            <param name="userRealNameInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgQueryUserSpecialRecordReq(HKSJ.MidMessage.Protocol.RequestSpecialRecord)">
+            <summary>
+            查询特定用户操作记录
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgQueryUserSpecialRecord(HKSJ.MidMessage.Protocol.ReqQueryUserSpecialRecord)">
+            <summary>
+            查询用户特定记录请求
+            </summary>
+            <param name="UserSpecialRecordInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgQueryUserFrequentLogInfoReq(HKSJ.MidMessage.Protocol.ReqQueryUserFrequentLogInfo)">
+            <summary>
+            查询用户常用登录信息请求
+            </summary>
+            <param name="QUserFrequentLogInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgQueryAllBind3rdAccReq(HKSJ.MidMessage.Protocol.ReqQueryAllBind3rdAcc)">
+            <summary>
+            查询当前绑定的第三方账号列表请求
+            0x00F5
+            </summary>
+            <param name="ReqAllBind3rdAcc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgUnbind3rdAccReq(HKSJ.MidMessage.Protocol.ReqMsgUnbind3rdAcc)">
+            <summary>
+            第三方账号解绑请求
+            </summary>
+            <param name="ReqAllBind3rdAcc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgCheckPhoneModifyLogPwdReq(HKSJ.MidMessage.Protocol.ReqMsgCheckPhoneModifyLogPwd)">
+            <summary>
+            手机验证后修改登录密码请求
+            0x041D接口新增cert_type、level字段;
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFindUpdate.MsgSetUserVipRightsReq(HKSJ.MidMessage.Protocol.ReqSetUserVipRights)">
+            <summary>
+            设置用户特殊权限请求
+            0x0225
+            可用来配置用户vip特殊权限,如标记用户具有惠卡商城体验金领取资格
+            </summary>
+            <param name="CheckPhoneModifyLogPwd"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmFindUpdate.MsgQueryUserInfoReq(HKSJ.MidMessage.Protocol.ReqQueryUserInfo)">
+            <summary>
+            查询用户信息请求 最新接口 2015-5-29
+            0x00D7
+            </summary>
+            <param name="QueryUserInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmFindUpdate.MsgQueryUserInfoReq(System.Int32,System.Int32,System.String,System.Int32,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            查询用户信息请求 老接口 
+            </summary>
+            <param name="type"></param>
+            <param name="whole"></param>
+            <param name="value"></param>
+            <param name="recnum"></param>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <!-- 对于成员“M:HKSJ.MidMessage.Services.EmFindUpdate.MsgModifyLogPwdReq(System.Int64,System.String,System.String,HKSJ.MidMessage.Protocol.ReqBase)”忽略有格式错误的 XML 注释 -->
+        <member name="M:HKSJ.MidMessage.Services.EmFindUpdate.MsgQueryPhoneVerificationReq(System.String,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            查询手机是否可用  'state':2//(0=待定,1=无,2=激活,3=未激活）
+            </summary>
+            <param name="phone"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmFindUpdate.MsgBindNewPhoneReq(HKSJ.MidMessage.Protocol.RequestPhone)">
+            <summary>
+            绑定新手机号请求  2015-1-16
+            </summary>
+            <param name="BindNewPhone"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmFindUpdate.MsgManageResetUserInfoReq(HKSJ.MidMessage.Protocol.RequestUserInfoData)">
+            <summary>
+            后台重置用户信息请求
+            </summary>
+            <param name="userInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmFindUpdate.MsgQueryContainSenseReq(System.String,System.Int32,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            查询内容中是否包含敏感词汇请求  Luoqiongqiang  2015-2-12
+            </summary>
+            <param name="CheckStrValue"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmFindUpdate.MsgQueryReferRelationReq(HKSJ.MidMessage.Protocol.ReqQueryReferRelation)">
+            <summary>
+            查询用户的推荐人关系链数据请求 0x00EB
+            </summary>
+            <param name="ReferRelationInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmFindUpdate.MsgQueryUsersFromReferReq(HKSJ.MidMessage.Protocol.ReqQueryUsersFromRefer)">
+            <summary>
+            查询用户的推荐人关系链数据请求
+            </summary>
+            <param name="UsersFromRefer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmFindUpdate.MsgSetUserRealNameReq(HKSJ.MidMessage.Protocol.RequestSetUserRealName)">
+            <summary>
+            实名认证信息设置请求类
+            </summary>
+            <param name="userRealNameInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmFindUpdate.MsgManageAccStateReq(HKSJ.MidMessage.Protocol.RequestAccState)">
+            <summary>
+            后台管理 账号操作状态(1=解除后台锁定冻结,2=后台锁定冻结,3=软删除,4=登录保护解锁)
+            </summary>
+            <param name="state"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmFindUpdate.MsgQueryUserSpecialRecord(HKSJ.MidMessage.Protocol.ReqQueryUserSpecialRecord)">
+            <summary>
+            查询用户特定记录请求
+            </summary>
+            <param name="UserSpecialRecordInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmFindUpdate.MsgQueryUserFrequentLogInfoReq(HKSJ.MidMessage.Protocol.ReqQueryUserFrequentLogInfo)">
+            <summary>
+            查询用户常用登录信息请求
+            </summary>
+            <param name="QUserFrequentLogInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmFindUpdate.MsgQueryAllBind3rdAccReq(HKSJ.MidMessage.Protocol.ReqQueryAllBind3rdAcc)">
+            <summary>
+            查询当前绑定的第三方账号列表请求
+            0x00F5
+            </summary>
+            <param name="ReqAllBind3rdAcc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmFindUpdate.MsgUnbind3rdAccReq(HKSJ.MidMessage.Protocol.ReqMsgUnbind3rdAcc)">
+            <summary>
+            第三方账号解绑请求
+            0x0221
+            </summary>
+            <param name="Unbind3rdAccReq"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmFindUpdate.MsgCheckPhoneModifyLogPwdReq(HKSJ.MidMessage.Protocol.ReqMsgCheckPhoneModifyLogPwd)">
+            <summary>
+            手机验证后修改登录密码请求
+            0x0225
+            </summary>
+            <param name="CheckPhoneModifyLogPwd"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmFindUpdate.MsgSetUserVipRightsReq(HKSJ.MidMessage.Protocol.ReqSetUserVipRights)">
+            <summary>
+            功能：设置用户特殊权限请求
+            消息ID:0x0225
+            描述：可用来配置用户vip特殊权限,如标记用户具有惠卡商城体验金领取资格
+            </summary>
+            <param name="SetUserVipRights"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmFriendRelation.EmFriendRelation.GetAllFriend(System.Int64,System.Int32)">
+            <summary>
+            获取好友ID列表
+            </summary>
+            <param name="uid">账号ID</param>
+            <param name="pdt">1//产品类型，1：惠信会员，2：惠信商家，3：拼宝，4：约电，5：约教</param>
+            <returns>uid</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmFriendRelation.EmFriendRelation.IsFriendExist(System.Int64,System.Int64)">
+            <summary>
+            判断好友是否存在(1：不存在  2：存在)
+            </summary>
+            <param name="uid"></param>
+            <returns>uid</returns>
+        </member>
+        <member name="T:HKSJ.MidMessage.Services.EmFundManage">
+            <summary>
+            资金系统实现方法
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Services.IEmFundManage">
+            <summary>
+            资金系统接口
+            </summary>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFundManage.MMSQueryAccountBalanceReq(System.Int64,System.UInt16)">
+            <summary>
+            请求：查询资金账户余额
+            </summary>
+            <param name="uid">用户uid</param>
+            <param name="sys_id">请求方系统标识ID(u16):前端sys_id=2</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFundManage.MMSInAccountReq(HKSJ.MidMessage.Protocol.RequestFund)">
+            <summary>
+            请求入账
+            </summary>
+            <param name="uid">用户uid</param>
+            <param name="sys_id">请求方系统标识ID(u16)</param>
+            <param name="amount">金额(s64)，默认含5位精度，不允许为零，即实际金额(元)*100000</param>
+            <param name="chg_type">资金变动类型(u16)，非零</param>
+            <param name="up_sys_serial">请求方关联流水号(26)</param>
+            <param name="comment">操作说明(32)</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFundManage.MMSAdjustAccountBalanceReq(HKSJ.MidMessage.Protocol.RequestFund)">
+            <summary>
+            请求：校准资金账户余额
+            </summary>
+            <param name="uid">用户id(u64)</param>
+            <param name="sys_id">请求方系统标识ID(u16)</param>
+            <param name="amount">金额(s64)，默认含5位精度，不允许为零，即实际金额(元)*100000</param>
+            <param name="chg_type">资金变动类型(u16)，非零</param>
+            <param name="up_sys_serial">请求方关联流水号(26)</param>
+            <param name="comment">操作说明(32)</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFundManage.MMSOutAccountReq(HKSJ.MidMessage.Protocol.RequestFund)">
+            <summary>
+            请求 出账
+            </summary>
+            <param name="uid">用户id(u64)</param>
+            <param name="sys_id">请求方系统标识ID(u16)</param>
+            <param name="amount">金额(s64)，默认含5位精度，不允许为零，即实际金额(元)*100000</param>
+            <param name="chg_type">资金变动类型(u16)，非零</param>
+            <param name="up_sys_serial">请求方关联流水号(26)</param>
+            <param name="comment">操作说明(32)</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFundManage.MMSQuerySerialResustReq(System.Int64,System.String,System.UInt16)">
+            <summary>
+            请求：查询操作流水结果
+            </summary>
+            <param name="uid"></param>
+            <param name="sys_id">请求方系统标识ID(u16)</param>
+            <param name="up_sys_serial">上游系统操作流水(26)</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFundManage.MMSQuerySerialResustReq(System.Int64,System.String,System.UInt16,System.Int32)">
+            <summary>
+            请求：查询操作流水结果
+            </summary>
+            <param name="uid"></param>
+            <param name="sys_id">请求方系统标识ID(u16)</param>
+            <param name="up_sys_serial">上游系统操作流水(26)</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFundManage.MMSQuerySerialDetailReq(HKSJ.MidMessage.Protocol.RequestFundDetail)">
+            <summary>
+            请求：查询操作流水明细 0x000B 
+            </summary> 
+            <param name="uid">用户id(u64)，0：所有用户</param>
+            <param name="sys_id">请求方系统标识ID(u16)</param>
+            <param name="begin">开始时间(u64)，0：当前时间</param>
+            <param name="end">结束时间(u64)，即begin之前的时间，0：查询以条数为准</param>
+            <param name="cnt">查询条数(u32)</param>
+            <param name="offset">偏移量(u32)，零开始</param>
+            <param name="chg_type">变动类型(u16)，0：所有类型</param>
+            <param name="up_sys">上游系统标识(u16)，0：所有上游系统</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFundManage.MMSChangeFreezeStateReq(HKSJ.MidMessage.Protocol.RequestFundState)">
+            <summary>
+            0x000D 请求：变更资金状态  更改  请求：账户状态冻结/解冻
+            </summary>
+            <param name="uid"></param>
+            <param name="sys_id"></param>
+            <param name="state">资金状态(u8)，1：正常，2：冻结</param>
+            <param name="chg_type">资金变动类型(u16)，非零</param>
+            <param name="up_sys_serial">请求方关联流水号(26)</param>
+            <param name="comment">操作说明(32)</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFundManage.MMSQueryBatchAccountReq(System.UInt16,System.Int64[])">
+            <summary>
+            批量查询账户余额
+            </summary>
+            <param name="sys_id">请求方系统标识ID(u16)</param>
+            <param name="uids">//查询指定id账户信息 1,2 用户id(u64)</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFundManage.MMSQueryAccoutUseStateReq(System.UInt16,System.UInt32,System.UInt32,System.Byte)">
+            <summary>
+            按资金状态查询整个账户信息
+            </summary>
+            <param name="sys_id">请求方系统标识ID(u16)</param>
+            <param name="cnt">查询最大条数(u32)</param>
+            <param name="offset">偏移量(u32)，从零开始</param>
+            <param name="State">查询资金账户状态(u8)，可选，1：正常，2：冻结，3：锁定，4：异常</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFundManage.MMSTransferAccountReq(HKSJ.MidMessage.Protocol.RequestTransferIn)">
+            <summary>
+            系统内部账户间转账
+            </summary>
+            <param name="sys_id"></param>
+            <param name="uid_from"></param>
+            <param name="uid_to"></param>
+            <param name="amount"></param>
+            <param name="chg_type"></param>
+            <param name="up_sys_serial"></param>
+            <param name="comment"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmFundManage.MMSProcessBatchBusinessReq(HKSJ.MidMessage.Protocol.RequestBatchBusiness)">
+            <summary>
+            批量资金操作事务处理
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmFundManage.MMSTransferAccountReq(HKSJ.MidMessage.Protocol.RequestTransferIn)">
+            <summary>
+            系统内部账户间转账
+            </summary>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmGroupManage.IEmGroupManage.InviteInGroup(System.UInt64,System.Int32,System.Int32,System.String,System.Nullable{System.Int32},System.Nullable{System.UInt64},System.Int64[])">
+            <summary>
+            创建群/讨论组(邀请入群/讨论组)
+            </summary>
+            <param name="uid">用户ID</param>
+            <param name="pdt">产品类型，1：惠信会员，2：惠信商家，3：拼宝，4：约电，5：约教，6：泰游帮，7：惠粉</param>
+            <param name="flag">1:新增默认讨论组，2：已存在群</param>
+            <param name="name">讨论组名称(ansii字符最多30个，中文字符最多10个)，flag=1时有效，可选(默认"讨论组")</param>
+            <param name="qual">群资格，可选，flag=1有效，1：50，2：100(默认)，11：500，12：1000，13：2000</param>
+            <param name="gid">群ID，在flag=2时有效</param>
+            <param name="frd">好友ID数组</param>
+            <returns>Status=100则参数错误</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmGroupManage.IEmGroupManage.SInviteInGroup(System.UInt64,System.Int32,System.Int32,System.String,System.Nullable{System.Int32},System.Nullable{System.UInt64},System.Int64[])">
+            <summary>
+            创建群/讨论组(邀请入群/讨论组)
+            </summary>
+            <param name="uid">用户ID</param>
+            <param name="pdt">产品类型，1：惠信会员，2：惠信商家，3：拼宝，4：约电，5：约教，6：泰游帮，7：惠粉</param>
+            <param name="flag">1:新增默认讨论组，2：已存在群 3：新增默认讨论组且不过滤群名</param>
+            <param name="name">讨论组名称(ansii字符最多30个，中文字符最多10个)，flag=1时有效，可选(默认"讨论组")</param>
+            <param name="qual">群资格，可选，flag=1有效，1：50，2：100(默认)，11：500，12：1000，13：2000</param>
+            <param name="gid">群ID，在flag=2时有效</param>
+            <param name="frd">好友ID数组</param>
+            <returns>Status=100则参数错误</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmGroupManage.IEmGroupManage.QueryGroupListByUserId(System.Int64,System.Int32)">
+            <summary>
+            查询群列表
+            </summary>
+            <param name="uid">用户ID</param>
+            <param name="pdt">产品类型，1：惠信会员，2：惠信商家，3：拼宝，4：约电，5：约教，6：泰游帮，7：惠粉</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmGroupManage.IEmGroupManage.QueryIsExistMember(System.UInt64,System.Int32,System.UInt64)">
+            <summary>
+            查询是否为群成员请求
+            </summary>
+            <param name="gid">群id</param>
+            <param name="pdt">产品类型，1：惠信会员，2：惠信商家，3：拼宝，4：约电，5：约教，6：泰游帮，7：惠粉</param>
+            <param name="member">查询用户</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmGroupManage.EmGroupManage.InviteInGroup(System.UInt64,System.Int32,System.Int32,System.String,System.Nullable{System.Int32},System.Nullable{System.UInt64},System.Int64[])">
+            <summary>
+            创建群/讨论组(邀请入群/讨论组)
+            </summary>
+            <param name="uid">用户ID</param>
+            <param name="pdt">产品类型，1：惠信会员，2：惠信商家，3：拼宝，4：约电，5：约教，6：泰游帮，7：惠粉</param>
+            <param name="flag">1:新增默认讨论组，2：已存在群</param>
+            <param name="name">讨论组名称(ansii字符最多30个，中文字符最多10个)，flag=1时有效，可选(默认"讨论组")</param>
+            <param name="qual">群资格，可选，flag=1有效，1：50，2：100(默认)，11：500，12：1000，13：2000</param>
+            <param name="gid">群ID，在flag=2时有效</param>
+            <param name="frd">好友ID数组</param>
+            <returns>Status=100则参数错误</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmGroupManage.EmGroupManage.SInviteInGroup(System.UInt64,System.Int32,System.Int32,System.String,System.Nullable{System.Int32},System.Nullable{System.UInt64},System.Int64[])">
+            <summary>
+            创建群/讨论组(邀请入群/讨论组)
+            </summary>
+            <param name="uid">用户ID</param>
+            <param name="pdt">产品类型，1：惠信会员，2：惠信商家，3：拼宝，4：约电，5：约教，6：泰游帮，7：惠粉</param>
+            <param name="flag">1:新增默认讨论组且过滤群名，2：已存在群，3：新增默认讨论组且不过滤群名</param>
+            <param name="name">讨论组名称(ansii字符最多30个，中文字符最多10个)，flag=1时有效，可选(默认"讨论组")</param>
+            <param name="qual">群资格，可选，flag=1有效，1：50，2：100(默认)，11：500，12：1000，13：2000</param>
+            <param name="gid">群ID，在flag=2时有效</param>
+            <param name="frd">好友ID数组</param>
+            <returns>Status=100则参数错误</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmGroupManage.EmGroupManage.QueryGroupListByUserId(System.Int64,System.Int32)">
+            <summary>
+            查询群列表
+            </summary>
+            <param name="uid">用户ID</param>
+            <param name="pdt">产品类型，1：惠信会员，2：惠信商家，3：拼宝，4：约电，5：约教，6：泰游帮，7：惠粉</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmGroupManage.EmGroupManage.QueryIsExistMember(System.UInt64,System.Int32,System.UInt64)">
+            <summary>
+            查询是否为群成员请求
+            </summary>
+            <param name="gid">群id</param>
+            <param name="pdt">产品类型，1：惠信会员，2：惠信商家，3：拼宝，4：约电，5：约教，6：泰游帮，7：惠粉</param>
+            <param name="member">查询用户</param>
+            <returns></returns>
+        </member>
+        <member name="T:HKSJ.MidMessage.Services.EmLoginRegster">
+            <summary>
+            登录注册类
+            </summary>
+        </member>
+        <member name="T:HKSJ.MidMessage.Services.IEmLoginRegster">
+            <summary>
+            用户登录注册访问接口
+            </summary>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmLoginRegster.MsgLogOnAccReq(HKSJ.MidMessage.Protocol.RequestUserLoginOn)">
+            <summary>
+            登录账号请求 新接口  2015-5-15  最新接口
+            注：新增登录模式 新增mode字段[登录模式(1=正式登录,2=校验登录,无此字段则默认mode=1)]
+            </summary>
+            <param name="acc">通行证账号名</param>
+            <param name="pwd">md5值</param>
+            <param name="sys_id"></param>
+            <param name="ip"></param>
+            <param name="mac"></param>
+            <param name="dev"></param>
+            <returns></returns>
+        </member>
+        <!-- 对于成员“M:HKSJ.MidMessage.Services.IEmLoginRegster.MsgPhoneCodeLogAccReq(HKSJ.MidMessage.Protocol.ReqPhoneCodeLogAcc)”忽略有格式错误的 XML 注释 -->
+        <member name="M:HKSJ.MidMessage.Services.IEmLoginRegster.MsgLogAccGetCodeReq(HKSJ.MidMessage.Protocol.ReqPhoneCodeLogAccGetCode)">
+            <summary>
+            手机验证码登录账号请求验证码请求
+            0x03BB
+            </summary>
+            <param name="PhoneCodeLogAcc"></param>
+            <returns></returns>
+        </member>
+        <!-- 对于成员“M:HKSJ.MidMessage.Services.IEmLoginRegster.MsgLogOn3rdAccReq(HKSJ.MidMessage.Protocol.RequestLogOn3rdAcc)”忽略有格式错误的 XML 注释 -->
+        <!-- 对于成员“M:HKSJ.MidMessage.Services.IEmLoginRegster.MsgConfirm3rdAccReq(HKSJ.MidMessage.Protocol.RequestConfirm3rdAcc)”忽略有格式错误的 XML 注释 -->
+        <!-- 对于成员“M:HKSJ.MidMessage.Services.IEmLoginRegster.MsgRepair3rdLogPwdReq(HKSJ.MidMessage.Protocol.RequestRepair3rdLogPwd)”忽略有格式错误的 XML 注释 -->
+        <member name="M:HKSJ.MidMessage.Services.IEmLoginRegster.MsgResetPwdSendCodeReq(HKSJ.MidMessage.Protocol.RequestPhone)">
+            <summary>
+            忘记密码短信重置密码发验证码请求  新接口 二 2015
+            消息ID 0x034A
+            'acc':'惠信号/手机号/邮箱'
+            </summary>
+            <param name="RemoveBindPhone"></param>
+            <returns></returns>
+        </member>
+        <!-- 对于成员“M:HKSJ.MidMessage.Services.IEmLoginRegster.RegMemberAccReq(HKSJ.MidMessage.Protocol.ReqRegUserInfoData)”忽略有格式错误的 XML 注释 -->
+        <member name="M:HKSJ.MidMessage.Services.IEmLoginRegster.MsgRegGetUserIdRsp">
+            <summary>
+            申请用户注册ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmLoginRegster.MsgPushAccDataReq(HKSJ.MidMessage.Protocol.RequestUserInfoData)">
+            <summary>
+            用户注册2 账号同步 推送账号数据到新系统请求  【二期暂停使用】
+            uid或者账号相同，重复提交，将推送失败否则成功
+            </summary>
+            <param name="userInfo">用户信息</param>
+            <returns>ResponeStatus里的IsOk表示是否成功</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmLoginRegster.MsgRegAccGetCodeReq(HKSJ.MidMessage.Protocol.RequestPhone)">
+            <summary>
+            注册会员账号获取短信验证码请求  默认有效时间是120m
+            0x0348
+            </summary>
+            <param name="ReqPhone"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmLoginRegster.MsgQueryAccValidReq(System.String,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            查询账号是否已被注册请求
+            </summary>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmLoginRegster.MsgQueryIdcardValidReq(System.String,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            查询身份证是否被绑定过
+            </summary>
+            <param name="Idcard"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmLoginRegster.MsgBindNewPhoneGetCodeReq(HKSJ.MidMessage.Protocol.RequestPhone)">
+            <summary>
+            绑定新手机获取验证码请求
+            </summary>
+            <param name="ReqBindNewPhone"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmLoginRegster.MsgRemoveBindPhoneGetCodeReq(HKSJ.MidMessage.Protocol.RequestPhone)">
+            <summary>
+            解绑手机号获取验证码
+            </summary>
+            <param name="RemoveBindPhone"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmLoginRegster.MsgRegCheckCodeReq(HKSJ.MidMessage.Protocol.RequestPhone)">
+            <summary>
+            注册短信验证码比对
+            </summary>
+            <param name="BindNewPhone"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmLoginRegster.MsgBatchGetInfoByIdReq(System.Int64,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            通过UserID 进行用户查询    移放到 EmFindUpdate (请使用EmFindUpdate中的接口)
+            </summary>
+            <param name="uids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmLoginRegster.MsgQueryUserInfoReq(System.Int32,System.Int32,System.String,System.Int32,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            用户查询  查询用户信息请求  移放到 EmFindUpdate (请使用EmFindUpdate中的接口)
+            </summary>
+            <param name="type"></param>
+            <param name="whole"></param>
+            <param name="value"></param>
+            <param name="recnum"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmLoginRegster.MsgQueryUserInfoReq(System.Int32,System.Int32,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            用户查询
+            </summary>
+            <param name="type"></param>
+            <param name="whole"></param>
+            <param name="value"></param>
+            <param name="ip"></param>
+            <param name="mac"></param>
+            <param name="sys_id"></param>
+            <param name="dev"></param>
+            <param name="recnum"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmLoginRegster.MsgCommSmsCodeSendReq(HKSJ.MidMessage.Protocol.RequestCommSms)">
+            <summary>
+            发送通用手机短信验证码请求
+            0x03BD
+            </summary>
+            <param name="CommSms"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.IEmLoginRegster.MsgCommSmsCodeCheckReq(HKSJ.MidMessage.Protocol.RequestCommSmsCheck)">
+            <summary>
+            通用手机验证码校验请求
+            0x0227
+            </summary>
+            <param name="CommSmsCheck"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.#ctor(HKSJ.MidMessage.Core.IJsonDataSerializer)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="jsonDataSerializer"></param>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.MsgLogOnAccReq(HKSJ.MidMessage.Protocol.RequestUserLoginOn)">
+            <summary>
+            登录账号请求(最新)
+            时间：2015-5-28  最新
+            </summary>
+            <param name="UserLoginOn"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.MsgPhoneCodeLogAccReq(HKSJ.MidMessage.Protocol.ReqPhoneCodeLogAcc)">
+            <summary>
+            手机验证码登录账号请求
+            0x000F
+            </summary>
+            <param name="PhoneCodeLogAcc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.MsgLogAccGetCodeReq(HKSJ.MidMessage.Protocol.ReqPhoneCodeLogAccGetCode)">
+            <summary>
+            手机验证码登录账号请求验证码请求
+            0x03BB
+            </summary>
+            <param name="PhoneCodeLogAcc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.MsgLogOn3rdAccReq(HKSJ.MidMessage.Protocol.RequestLogOn3rdAcc)">
+            <summary>
+            第三方账号登录请求
+            </summary>
+            <param name="UserLogOn3rdAcc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.MsgConfirm3rdAccReq(HKSJ.MidMessage.Protocol.RequestConfirm3rdAcc)">
+            <summary>
+            第三方登录确认账号关系请求
+            </summary>
+            <param name="UserConfirm3rdAcc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.MsgRepair3rdLogPwdReq(HKSJ.MidMessage.Protocol.RequestRepair3rdLogPwd)">
+            <summary>
+            第三方注册账号设置惠信号登录密码请求
+            </summary>
+            <param name="UserRepair3rdLogPwd"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.RegMemberAccReq(HKSJ.MidMessage.Protocol.ReqRegUserInfoData)">
+            <summary>
+            新用户注册 0x0001
+            'genid':1//（1=后台产生,2=输入uid有效）, 'ncd':1//(1=无验证码，2=有验证码）
+            </summary>
+            <param name="acc"></param>
+            <param name="pwd"></param>
+            <param name="phone"></param>
+            <param name="code"></param>
+            <param name="src"></param>
+            <param name="genid"></param>
+            <param name="ncd"></param>
+            <param name="uid"></param>
+            <param name="refer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.MsgRegGetUserIdRsp">
+            <summary>
+            申请用户注册ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.MsgPushAccDataReq(HKSJ.MidMessage.Protocol.RequestUserInfoData)">
+            <summary>
+            
+            </summary>
+            <param name="userInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.MsgRegAccGetCodeReq(HKSJ.MidMessage.Protocol.RequestPhone)">
+            <summary>
+            注册会员账号获取短信验证码请求
+            Msg_RegAccGetCodeReq
+            0x0348
+            </summary>
+            <param name="phone"></param>
+            <returns>code</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.MsgRegAccGetCodeReq(System.String,System.Int32,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            注册会员账号获取短信验证码请求
+            Msg_RegAccGetCodeReq
+            0x0348
+            </summary>
+            <param name="phone"></param>
+            <returns>code</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.MsgRegCheckCodeReq(HKSJ.MidMessage.Protocol.RequestPhone)">
+            <summary>
+            验证短信验证（注册）
+            </summary>
+            <param name="BindNewPhone"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.MsgQueryAccValidReq(System.String,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            
+            </summary>
+            <param name="acc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.MsgQueryIdcardValidReq(System.Object)">
+            <summary>
+            string idcard
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.MsgBindNewPhoneGetCodeReq(HKSJ.MidMessage.Protocol.RequestPhone)">
+            <summary>
+            绑定新手机获取验证码请求----
+            0x034E
+            </summary>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.MsgRemoveBindPhoneGetCodeReq(HKSJ.MidMessage.Protocol.RequestPhone)">
+            <summary>
+            解除绑定手机验证原手机号获取验证码请求  GetCode  新接口
+            Luoqiongqiang
+            </summary>
+            <param name="RemoveBindPhone"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.MsgResetPwdSendCodeReq(HKSJ.MidMessage.Protocol.RequestPhone)">
+            <summary>
+            忘记密码短信重置密码发验证码请求
+            </summary>
+            <param name="RemoveBindPhone"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.MsgBatchGetInfoByIdReq(System.Int64,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            通过UserID 进行用户查询
+            </summary>
+            <param name="uids"></param>
+            <returns></returns>
+        </member>
+        <!-- 对于成员“M:HKSJ.MidMessage.Services.EmLoginRegster.MsgQueryUserInfoReq(System.Int32,System.Int32,System.String,System.Int32,HKSJ.MidMessage.Protocol.ReqBase)”忽略有格式错误的 XML 注释 -->
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.MsgRemoveBindPhoneGetCodeReq(System.Int64,System.Int32,HKSJ.MidMessage.Protocol.ReqBase)">
+            <summary>
+            解除绑定手机验证原手机号获取验证码请求 APP
+            </summary>
+            <param name="uid">用户账号ID</param>
+            <param name="times">延时APP端自己设定</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.MsgLogBind3rdAccReq(HKSJ.MidMessage.Protocol.ReqLogBind3rdAcc)">
+            <summary>
+            登录状态下绑定第三方账号请求
+            </summary>
+            <param name="LogBind3rdAcc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.MsgCommSmsCodeSendReq(HKSJ.MidMessage.Protocol.RequestCommSms)">
+            <summary>
+            发送通用手机短信验证码请求
+            0x03BD
+            </summary>
+            <param name="CommSms"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmLoginRegster.MsgCommSmsCodeCheckReq(HKSJ.MidMessage.Protocol.RequestCommSmsCheck)">
+            <summary>
+            通用手机验证码校验请求
+            0x0227
+            </summary>
+            <param name="CommSmsCheck"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmMerchantPrivilege.IEmMerchantPrivilege.GetMerchantPrivilege(System.Int32[],System.Int32,System.Int32,System.String,System.Int32,System.Int64,System.Int32,System.String)">
+            <summary>
+            获取商家优惠消息\买单
+            </summary>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmMerchantPrivilege.EmMerchantPrivilege.GetMerchantPrivilege(System.Int32[],System.Int32,System.Int32,System.String,System.Int32,System.Int64,System.Int32,System.String)">
+            <summary>
+            获取商家优惠 消息
+            </summary>
+            <param name="ids">传入ID数组 </param>
+            <param name="bdg">APNS badge标记，1：不加入计数，2：计数加1</param>
+            <param name="apns">1：不走APNS，2：走apns通道</param>
+            <param name="content">UTF8编码，中文字符(最多50个)，英文字符(最多150个)</param>
+            <param name="time">消息创建时间</param>
+            <param name="num">消息条数</param>
+            <param name="account">发送消息账号</param>
+            <returns>uid</returns>
+        </member>
+        <member name="P:HKSJ.MidMessage.Services.EmMethodManage.EmLoginInstance">
+            <summary>
+            登录注册方法的实例
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Services.EmMethodManage.EmFindUpdateInstance">
+            <summary>
+            查找和维护方法类的实例
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Services.EmMethodManage.EmEmailInstance">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Services.EmMethodManage.IEmYDAlbumInstance">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Services.EmMethodManage.IEmYDSubmitInstance">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Services.EmMethodManage.EmFriendRelationInstance">
+            <summary>
+            查找和维护方法类的实例
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Services.EmMethodManage.EmSNSMessageInstance">
+            <summary>
+            查找和维护方法类的实例
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Services.EmMethodManage.EmMerchantPrivilegeInstance">
+            <summary>
+            查找和维护方法类的实例
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Services.EmMethodManage.EmFundManageInstance">
+            <summary>
+            资金系统方法类的实例
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Services.EmMethodManage.EmMessageInstance">
+            <summary>
+            发送消息
+            </summary>
+        </member>
+        <member name="P:HKSJ.MidMessage.Services.EmMethodManage.EmGroupManage">
+            <summary>
+            群
+            </summary>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmSentMessage.IEmSentMessage.PSMessageReq(System.Int32[],System.Int32,System.Int32,System.Int32,System.String,System.Int32,HKSJ.MidMessage.Protocol.RequestMessageExt)">
+            <summary>
+            推送消息服务
+            </summary>
+            <param name="ids">用户ID数组</param>
+            <param name="bdg">APNS badge标记，1：不加入计数，2：计数加1</param>
+            <param name="apns">1：不走APNS，2：走apns通道</param>
+            <param name="pdt">1：惠信会员，2：惠信商家，3：拼宝，4：约电，5：约教</param>
+            <param name="content">UTF8编码，中文字符(最多50个)，英文字符(最多150个)</param>
+            <param name="type">1//通知类型，非零值，业务自己选择使用</param>
+            <param name="ext">APNS扩展JSON对象信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmSentMessage.IEmSentMessage.MSSubmitReq(System.Int32,System.String,System.Int32,System.String,System.Int64,HKSJ.MidMessage.Protocol.RequestMessageExt,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            普通消息服务提交好友消息
+            </summary>
+            <param name="from">发送信息用户id</param>
+            <param name="nickname">from的昵称</param>
+            <param name="to">到达用户id</param>
+            <param name="content">消息内容：文字内容（含插入表情）/图片url/语音url/视频url</param>
+            <param name="timestamp">消息唯一标记，暂定使用毫秒级时间戳</param>
+            <param name="ext">业务自定义扩展字段，可选，值为完整JSON对象</param>
+            <param name="dev">设备类型 1：web，2：pc，3：iphone，4：android</param>
+            <param name="retry">是否消息重发标记 0-不重复 1-重复</param>
+            <param name="msg_type">1:富文本(文本，基本表情)，2：特殊表情，3：非实时语音，4：非实时视频，5：震动，6：位置，7：图片，8：文件，9：集赞，10：提示信息，11：转账</param>
+            <param name="encode">内容编码类型(u8)，1：未编码(默认)，2：base64编码</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmSentMessage.IEmSentMessage.MSSubmitReq(System.Int32,System.String,System.Int32,System.String,System.Int64,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            普通消息服务提交好友消息
+            </summary>
+            <param name="from">发送信息用户id</param>
+            <param name="nickname">from的昵称</param>
+            <param name="to">到达用户id</param>
+            <param name="content">消息内容：文字内容（含插入表情）/图片url/语音url/视频url</param>
+            <param name="timestamp">消息唯一标记，暂定使用毫秒级时间戳</param>
+            <param name="dev">设备类型 1：web，2：pc，3：iphone，4：android</param>
+            <param name="retry">是否消息重发标记 0-不重复 1-重复</param>
+            <param name="msg_type">1:富文本(文本，基本表情)，2：特殊表情，3：非实时语音，4：非实时视频，5：震动，6：位置，7：图片，8：文件，9：集赞，10：提示信息，11：转账</param>
+            <param name="encode">内容编码类型(u8)，1：未编码(默认)，2：base64编码</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmSentMessage.IEmSentMessage.TSFHMessageReq(System.Int32[],System.Int32,System.Int32,System.String,System.Int32,HKSJ.MidMessage.Protocol.RequestMessageInesrt)">
+            <summary>
+            推送惠信圈消息服务
+            </summary>
+            <param name="ids">用户ID数组</param>
+            <param name="bdg">APNS badge标记，1：不加入计数，2：计数加1</param>
+            <param name="apns">1：不走APNS，2：走apns通道</param>
+            <param name="content">UTF8编码，中文字符(最多50个)，英文字符(最多150个)</param>
+            <param name="ext">APNS扩展JSON对象信息</param>
+            <param name="time">消息创建时间</param>
+            <param name="num">消息条数</param>
+            <param name="imageUrl">发送图片信息</param>
+            <param name="isNew">有新动态更新 0:无 1:有</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmSentMessage.EmSentMessage.PSMessageReq(System.Int32[],System.Int32,System.Int32,System.Int32,System.String,System.Int32,HKSJ.MidMessage.Protocol.RequestMessageExt)">
+            <summary>
+            推送消息服务
+            </summary>
+            <param name="ids">用户ID数组</param>
+            <param name="bdg">APNS badge标记，1：不加入计数，2：计数加1</param>
+            <param name="apns">1：不走APNS，2：走apns通道</param>
+            <param name="pdt">1：惠信会员，2：惠信商家，3：拼宝，4：约电，5：约教</param>
+            <param name="content">UTF8编码，中文字符(最多50个)，英文字符(最多150个)</param>
+            <param name="type">1//通知类型，非零值，业务自己选择使用</param>
+            <param name="ext">APNS扩展JSON对象信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmSentMessage.EmSentMessage.MSSubmitReq(System.Int32,System.String,System.Int32,System.String,System.Int64,HKSJ.MidMessage.Protocol.RequestMessageExt,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            普通消息服务提交好友消息
+            </summary>
+            <param name="from">发送信息用户id</param>
+            <param name="nickname">from的昵称</param>
+            <param name="to">到达用户id</param>
+            <param name="content">消息内容：文字内容（含插入表情）/图片url/语音url/视频url</param>
+            <param name="timestamp">消息唯一标记，暂定使用毫秒级时间戳</param>
+            <param name="ext">业务自定义扩展字段，可选，值为完整JSON对象</param>
+            <param name="dev">设备类型 1：web，2：pc，3：iphone，4：android</param>
+            <param name="retry">是否消息重发标记 0-不重复 1-重复</param>
+            <param name="msg_type">1:富文本(文本，基本表情)，2：特殊表情，3：非实时语音，4：非实时视频，5：震动，6：位置，7：图片，8：文件，9：集赞，10：提示信息，11：转账</param>
+            <param name="encode">内容编码类型(u8)，1：未编码(默认)，2：base64编码</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmSentMessage.EmSentMessage.MSSubmitReq(System.Int32,System.String,System.Int32,System.String,System.Int64,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            普通消息服务提交好友消息
+            </summary>
+            <param name="from">发送信息用户id</param>
+            <param name="nickname">from的昵称</param>
+            <param name="to">到达用户id</param>
+            <param name="content">消息内容：文字内容（含插入表情）/图片url/语音url/视频url</param>
+            <param name="timestamp">消息唯一标记，暂定使用毫秒级时间戳</param>
+            <param name="dev">设备类型 1：web，2：pc，3：iphone，4：android</param>
+            <param name="retry">是否消息重发标记 0-不重复 1-重复</param>
+            <param name="msg_type">1:富文本(文本，基本表情)，2：特殊表情，3：非实时语音，4：非实时视频，5：震动，6：位置，7：图片，8：文件，9：集赞，10：提示信息，11：转账</param>
+            <param name="encode">内容编码类型(u8)，1：未编码(默认)，2：base64编码</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmSentMessage.EmSentMessage.TSFHMessageReq(System.Int32[],System.Int32,System.Int32,System.String,System.Int32,HKSJ.MidMessage.Protocol.RequestMessageInesrt)">
+            <summary>
+            推送惠信圈消息服务
+            </summary>
+            <param name="ids">用户ID数组</param>
+            <param name="bdg">APNS badge标记，1：不加入计数，2：计数加1</param>
+            <param name="apns">1：不走APNS，2：走apns通道</param>
+            <param name="content">UTF8编码，中文字符(最多50个)，英文字符(最多150个)</param>
+            <param name="pdt">1：惠信会员，2：惠信商家，3：拼宝，4：约电，5：约教</param>
+            <param name="ext">APNS扩展JSON对象信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmSNSMessage.EmSNSMessage.SendSNSMessage(System.Int64,System.Int32,System.Int32,System.Int64,System.Int32,System.String,System.Int32,System.Int32)">
+            <summary>
+            发布朋友圈动态 回复 评论 赞 推送
+            </summary>
+            <param name="toid">送达用户Id</param>
+            <param name="type">通知类型 1 内容 2赞</param>
+            <param name="level">服务级别，1：缓存所有通知，2：缓存最新通知</param>
+            <param name="time">消息创建时间</param>
+            <param name="opt">1：最新推送，2：已读处理</param>
+            <returns>uid</returns>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmSNSMessage.EmSNSMessage.PSMessageHxReq(System.Int32[],System.Int32,System.Int32,System.Int32,System.String,System.Int32,HKSJ.MidMessage.Protocol.APPRequestMessageExt)">
+            <summary>
+            推送消息服务 惠信
+            </summary>
+            <param name="ids">用户ID数组</param>
+            <param name="bdg">APNS badge标记，1：不加入计数，2：计数加1</param>
+            <param name="apns">1：不走APNS，2：走apns通道</param>
+            <param name="pdt">1：惠信会员，2：惠信商家，3：拼宝，4：约电，5：约教</param>
+            <param name="content">UTF8编码，中文字符(最多50个)，英文字符(最多150个)</param>
+            <param name="type">1买单 2 优惠 3 朋友圈</param>
+            <param name="time">消息创建时间</param>
+            <param name="num">消息条数</param>
+            <param name="imageUrl">发送消息图片</param>
+            <param name="isNew">有新动态更新 1有 0 无</param>
+            <returns></returns>
+        </member>
+        <member name="T:HKSJ.MidMessage.Services.EmSynchroData">
+            <summary>
+            异步推送账号类
+            </summary>
+        </member>
+        <member name="M:HKSJ.MidMessage.Services.EmSynchroData.SynchroDataAsync(HKSJ.MidMessage.Protocol.RequestUserInfoData)">
+            <summary>
+            异步推送账号数据
+            </summary>
+            <param name="user"></param>
+        </member>
+    </members>
+</doc>

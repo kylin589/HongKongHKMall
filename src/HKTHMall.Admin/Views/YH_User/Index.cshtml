@@ -1,0 +1,394 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+@model HKTHMall.Domain.Models.YHUser.SearchYHUserModel
+@{
+    ViewBag.Title = "Mall user list page";
+
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.UserAccount = _Authority.CheckAction(63);//用户账单
+    _Authority.ConsumerOrders = _Authority.CheckAction(64);//商品消费
+    _Authority.Lock = _Authority.CheckAction(65);//锁定
+    _Authority.Unlock = _Authority.CheckAction(66);//解锁
+    _Authority.Reset = _Authority.CheckAction(69);//重置登录密码
+    _Authority.ResetTradPwd = _Authority.CheckAction(70);//重置交易密码
+    _Authority.Delete = _Authority.CheckAction(67);//删除
+    _Authority.Restore = _Authority.CheckAction(68);//恢复
+    _Authority.UpgradeMerchant = _Authority.CheckAction(165); //升级商家
+    _Authority.UpgradeAgent = _Authority.CheckAction(171); //升级经纪人
+}
+
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        @*<div class="form-group">
+                <span>Huixin account: </span>&nbsp;
+                @Html.TextBoxFor(x => x.Account, new { @class = "form-control w70" })
+            </div>
+            &nbsp;&nbsp;
+            <div class="form-group">
+                <span>True name: </span>&nbsp;
+                @Html.TextBoxFor(x => x.RealName, new { @class = "form-control w70" })
+            </div>
+            &nbsp;&nbsp;*@
+        <div class="form-group">
+            <span>Account: </span>&nbsp;
+            @Html.TextBoxFor(x => x.Account, new { @class = "form-control w70" })
+        </div>
+        &nbsp;&nbsp;
+        <div class="form-group">
+            <span>Lock status: </span>&nbsp;
+            <select id="IsLock" class="form-control text-center">
+                <option value="-1">-Select-</option>
+                <option value="0">Normal</option>
+                <option value="1">Lock</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <span>Register time: </span>
+            @Html.TextBoxFor(x => x.RegisterDateBegin, new { @class = "form-control w70" })
+            &nbsp;-&nbsp;
+            @Html.TextBoxFor(x => x.RegisterDateEnd, new { @class = "form-control w70" })
+        </div>
+        &nbsp;&nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar" class="table"></table>
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/javascript">
+        //权限
+        var $userAccountCheck = eval("@(_Authority.UserAccount.ToString().ToLower())");
+        var $consumerOrdersCheck = eval("@(_Authority.ConsumerOrders.ToString().ToLower())");
+        var $LockCheck = eval("@(_Authority.Lock.ToString().ToLower())");
+        var $UnlockCheck = eval("@(_Authority.Unlock.ToString().ToLower())");
+        var $ResetCheck = eval("@(_Authority.Reset.ToString().ToLower())");
+        var $ResetTradPwdCheck = eval("@(_Authority.ResetTradPwd.ToString().ToLower())");
+        var $DeleteCheck = eval("@(_Authority.Delete.ToString().ToLower())");
+        var $RestoreCheck = eval("@(_Authority.Restore.ToString().ToLower())");
+        var $UpgradeMerchant = eval("@(_Authority.UpgradeMerchant.ToString().ToLower())")
+        var $UpgradeAgent = eval("@(_Authority.UpgradeAgent.ToString().ToLower())")
+
+        $(function () {
+
+            var columns = [
+                { field: 'Account', title: 'Account', align: 'center', valign: 'middle', width: "10%", sortable: false },//update by liujc
+                //{ field: 'RealName', title: 'True name', align: 'center', valign: 'middle', width: "8%", sortable: false },
+                //{ field: 'Phone', title: 'Mobile phone', align: 'center', valign: 'middle', width: "10%", sortable: false },//update by liujc
+                {
+                    field: 'RegisterDate', title: 'Register time', align: 'center', width: "10%", valign: 'middle', sortable: true, formatter: function (val)
+                    {
+                        //update by liujc
+                        if (!val) {
+                            return "";
+                        }
+                        else {
+                            return val.formatterString(false)/*true 日期格式2015-5-5*/
+                        }
+                    }
+                },
+                {
+                    field: 'UserID', title: 'Huifen Number', align: 'center', width: "10%", valign: 'middle', sortable: false, formatter: function (val) {
+                        return GetYH_UserReferrerIDCount(val);
+                    }
+                },
+                {
+                    field: 'UserID', title: 'Consumption amount', align: 'center', width: "10%", valign: 'middle', sortable: false, formatter: function (val) {
+                        return GetYH_UserMoney(val, 1);
+                    }
+                },
+                {
+                    field: 'UserID', title: 'Income', align: 'center', width: "10%", valign: 'middle', sortable: false, formatter: function (val) {
+                        return GetYH_UserMoney(val, 2);
+                    }
+                },
+                {
+                    field: 'IsLock',
+                    title: 'Lock status',
+                    align: 'center',
+                    valign: 'middle',
+                    width: "10%",
+                    sortable: false,
+                    formatter: function (val) {
+                        return val === 1 ? 'Lock' : 'Normal';
+                    }
+                },
+                {
+                    field: 'UserID',
+                    title: 'Operation',
+                    align: 'center',
+                    valign: 'middle',
+                    width: "8%",
+                    formatter: function (val, row) {
+                        var operation = '';
+                        if ($userAccountCheck) {
+                            operation += "&nbsp;&nbsp;<a class=\"details ml10\" href='javascript:void(0)' onclick=\"OpenUserBlanceChange('" + val + "')\" title=\"User account\">User account</a>";
+                        }
+                        if ($consumerOrdersCheck) {
+                            operation += "&nbsp;&nbsp;<a class=\"details ml10\" href='javascript:void(0)' onclick=\"OpenOrder('" + val + "')\" title=\"Consumption order\">Consumption order</a>";
+                        }
+                        if (row.IsLock == 0) {
+                            if ($LockCheck) {
+                                operation += "&nbsp;&nbsp;&nbsp;&nbsp;<a class=\"status ml10\" href='javascript:void(0)' onclick=\"LockYH_User(" + val + ",1)\" title=\"Lock\">Lock</a>";
+                            }
+                        } else {
+                            if ($UnlockCheck)
+                                operation += "&nbsp;&nbsp;&nbsp;&nbsp;<a class=\"status ml10\" href='javascript:void(0)' onclick=\"LockYH_User(" + val + ",0)\" title=\"Unlock\">Unlock</a>";
+                        }
+                        if ($ResetCheck) {
+                            operation += "<br/>&nbsp;&nbsp;<a class=\"details ml10\" href='javascript:void(0)' onclick=\"ResetYH_UserPassWord(" + val + ")\" title=\"Reset login password\">Reset login password</a>";
+                        }
+                        if ($ResetTradPwdCheck) {
+                            operation += "&nbsp;&nbsp;<a class=\"details ml10\" href='javascript:void(0)' onclick=\"ResetYH_UserPayPassWord(" + val + ")\" title=\"Reset deal password\">Reset deal password</a>";
+                        }
+                        if (row.IsDelete == 0) {
+                            if ($DeleteCheck)
+                                operation += "&nbsp;&nbsp;<a class=\"details ml10\" href='javascript:void(0)' onclick=\"DeleteYH_User(" + val + ",1)\" title=\"Delete\">Delete</a>";
+                        } else {
+                            if ($RestoreCheck)
+                                operation += "&nbsp;&nbsp;<a class=\"details ml10\" href='javascript:void(0)' onclick=\"DeleteYH_User(" + val + ",0)\" title=\"Recovery\">Recovery</a>";
+                        }
+                        if (row.UserType == 0) {
+                            if ($UpgradeMerchant) {
+                                operation += "&nbsp;&nbsp;<a class=\"details ml10\" href='javascript:void(0)' onclick=\"OpenUpgradeMerchantIndex('" + val + "',1)\" title=\"User account\">Upgrade Merchant</a>";
+                            }
+                        }
+                        if ($UpgradeAgent) {
+                            operation += "&nbsp;&nbsp;<a class=\"details ml10\" href='javascript:void(0)' onclick=\"OpenUpgradeAgentIndex('" + val + "')\" title=\"User account\">Upgrade Agent</a>";
+                        }
+                        if (operation == '') {
+                            operation = '-';
+                        }
+                        return operation;
+                        //var result = "&nbsp;&nbsp;<a class=\"details ml10\" href='javascript:void(0)' onclick=\"OpenUserBlanceChange('" + val + "')\" title=\"用户帐单\">用户帐单</a>";
+                        //result += "&nbsp;&nbsp;<a class=\"details ml10\" href='javascript:void(0)' onclick=\"OpenOrder('" + val + "')\" title=\"商城消费订单\">商城消费订单</a>";
+                        //if (row.IsLock == 0) {
+                        //    result += "&nbsp;&nbsp;&nbsp;&nbsp;<a class=\"status ml10\" href='javascript:void(0)' onclick=\"LockYH_User(" + val + ",1)\" title=\"锁定\">锁定</a>";
+                        //} else {
+                        //    result += "&nbsp;&nbsp;&nbsp;&nbsp;<a class=\"status ml10\" href='javascript:void(0)' onclick=\"LockYH_User(" + val + ",0)\" title=\"解锁\">解锁</a>";
+                        //}
+                        //result += "<br/>&nbsp;&nbsp;<a class=\"details ml10\" href='javascript:void(0)' onclick=\"ResetYH_UserPassWord(" + val + ")\" title=\"重置登录密码\">重置登录密码</a>";
+                        //result += "&nbsp;&nbsp;<a class=\"details ml10\" href='javascript:void(0)' onclick=\"ResetYH_UserPayPassWord(" + val + ")\" title=\"重置交易密码\">重置交易密码</a>";
+                        //if (row.IsDelete == 0) {
+                        //    result += "&nbsp;&nbsp;<a class=\"details ml10\" href='javascript:void(0)' onclick=\"DeleteYH_User(" + val + ",1)\" title=\"删除\">删除</a>";
+                        //} else {
+                        //    result += "&nbsp;&nbsp;<a class=\"details ml10\" href='javascript:void(0)' onclick=\"DeleteYH_User(" + val + ",0)\" title=\"恢复\">恢复</a>";
+                        //}
+                        //return result;
+                    },
+                    events: {
+
+                    }
+                }
+            ];
+
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("YH_UserList")',
+                queryParams: function (params) {
+                    return {
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        Account: $('#Account').val(),
+                        RealName: $("#RealName").val(),
+                        Phone: $("#Phone").val(),
+                        IsLock: $("#IsLock").val(),
+                        RegisterDateBegin: $("#RegisterDateBegin").val(),
+                        RegisterDateEnd: $("#RegisterDateEnd").val(),
+                        Time: new Date().getTime()
+                    };
+                },
+                sortOrder: 'desc',
+                sortName: 'CreateDT',
+                columns: columns
+            });
+
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+        });
+
+
+        //删除用户
+        function DeleteYH_User(userID, status) {
+            var message = "Delete this user?";
+            if (status == 0) {
+                message = "Restore this user？";
+            }
+            bootbox.setLocale("en");
+            bootbox.confirm(message, function (result) {
+                if (result) {
+                    var url = "/YH_User/DeleteYH_User?userID=" + userID + "&status=" + status;
+                    $.ajax({
+                        url: url,
+                        dataType: "text",
+                        success: function (data, status) {
+                            data = JSON.parse(data);
+                            if (data.IsValid) {
+                                Tool.ReloadDataTable($('#u_grid'));
+                            }
+                            Tool.Alert(data.Messages, 1500);
+                        },
+                        error: function (data, status, e) {
+                            Tool.Alert("Delete failed.", 1500);
+                        }
+                    });
+                }
+            });
+        };
+
+        //锁定用户
+        function LockYH_User(userID, status) {
+            bootbox.setLocale("en");
+            //bootbox.setLocale("zh_CN");
+            bootbox.confirm("Operate this user？", function (result) {
+                if (result) {
+                    var url = "/YH_User/LockYH_User?userID=" + userID + "&status=" + status;
+                    $.ajax({
+                        url: url,
+                        dataType: "text",
+                        success: function (data, status) {
+                            data = JSON.parse(data);
+                            if (data.IsValid) {
+                                Tool.ReloadDataTable($('#u_grid'));
+                            }
+                            Tool.Alert(data.Messages, 1500);
+                        },
+                        error: function (data, status, e) {
+                            Tool.Alert("Failed.", 1500);
+                        }
+                    });
+                }
+            });
+        };
+
+        //重置用户交易密码
+        function ResetYH_UserPayPassWord(userID) {
+            bootbox.setLocale("en");
+            bootbox.confirm("Reset trading password(@ViewBag.PayPass)?", function (result) {
+                if (result) {
+                    var url = "/YH_User/ResetYH_UserPayPassWord?userID=" + userID;
+                    $.ajax({
+                        url: url,
+                        dataType: "text",
+                        success: function (data, status) {
+                            data = JSON.parse(data);
+                            if (data.IsValid) {
+                                Tool.ReloadDataTable($('#u_grid'));
+                            }
+                            Tool.Alert(data.Messages, 1500);
+                        },
+                        error: function (data, status, e) {
+                            Tool.Alert("Failed.", 1500);
+                        }
+                    });
+                }
+            });
+        };
+
+        //重置用户登录密码
+        function ResetYH_UserPassWord(userID) {
+            bootbox.setLocale("en");
+            bootbox.confirm("Reset login password(@ViewBag.LoginPass)？", function (result) {
+                if (result) {
+                    var url = "/YH_User/ResetYH_UserPassWord?userID=" + userID;
+                    $.ajax({
+                        url: url,
+                        dataType: "text",
+                        success: function (data, status) {
+                            data = JSON.parse(data);
+                            if (data.IsValid) {
+                                Tool.ReloadDataTable($('#u_grid'));
+                            }
+                            Tool.Alert(data.Messages, 1500);
+                        },
+                        error: function (data, status, e) {
+                            Tool.Alert("Failed.", 1500);
+                        }
+                    });
+                }
+            });
+        };
+
+        //感恩惠粉人数获取
+        function GetYH_UserReferrerIDCount(userID) {
+            result = 0;
+            var url = "/YH_User/GetYH_UserReferrerIDCount?userID=" + userID + "&time=" + new Date().getTime();
+            $.ajax({
+                url: url,
+                dataType: "text",
+                async: false,
+                success: function (data, status) {
+                    result = data;
+                }
+            });
+            return result;
+        };
+
+        //用户金额变动获取
+        function GetYH_UserMoney(userID, type) {
+            result = 0;
+            var url = "/YH_User/GetYH_UserMoney?userID=" + userID + "&type=" + type + "&time=" + new Date().getTime();
+            $.ajax({
+                url: url,
+                dataType: "text",
+                async: false,
+                success: function (data, status) {
+                    result = data;
+                }
+            });
+            return result;
+        };
+
+        //用户帐单
+        function OpenUserBlanceChange(userID) {
+            var url = "/YH_User/UserBalanceChangeIndex?userID=" + userID;
+            parent.addTab(userID, "Balance record", url);
+        }
+
+        //升级商家
+        //type 1 添加 2 修改 3 审核
+        function OpenUpgradeMerchantIndex(userID, type) {
+            var url = "/YH_User/UpgradeMerchantIndex?userID=" + userID + "&type=" + type;
+            parent.addTab(userID, "Upgrade Merchant", url);
+        }
+
+        //升级代理商
+        function OpenUpgradeAgentIndex(userID) {
+            Tool.ShowModal('@Url.Action("UpgradeAgentIndex")', { userID: userID, time: new Date().getTime() }, 'Upgrade Agent');
+        }
+
+        //商城消费订单
+        function OpenOrder(userID) {
+            var url = "/Order/Index?userID=" + userID;
+            parent.addTab(userID, "Order manage", url);
+        }
+
+        //日期控件 开始
+        $('#RegisterDateBegin').datepicker({
+            format: 'yyyy-mm-dd',
+            language: "en",
+            autoclose: true
+        }).on("changeDate", function (e) {
+
+            $('#RegisterDateEnd').datepicker('setStartDate', e.date);
+        });
+
+        //日期控件 结束
+        $('#RegisterDateEnd').datepicker({
+            format: 'yyyy-mm-dd',
+            language: "en",
+            autoclose: true
+        }).on("changeDate", function (e) {
+            $('#RegisterDateBegin').datepicker('setEndDate', e.date);
+        });
+
+        //保存
+        function Save() {
+            Tool.SaveModal($('#u_grid'));
+        }
+    </script>
+}

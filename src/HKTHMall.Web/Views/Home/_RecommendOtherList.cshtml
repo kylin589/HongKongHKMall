@@ -1,0 +1,19 @@
+﻿@using HKTHMall.Core.Extensions
+@model  List<HKTHMall.Domain.WebModel.Models.Product.ProductInfo>
+
+<div class="ls_products_down_lf">
+    <h3>@HKTHMall.Services.Common.MultiLangKeys.CultureHelper.GetLangString("HOME_LIST_ZUIZHONGGOUMAI")@*浏览此目录的客户最终购买*@</h3>
+    <ul class="lbSearchHistory">
+        
+        @foreach (var item in Model)
+        {
+            <li>
+                <a href="@Url.Action("shopping", "home", new { area = "", id = item.ProductId })">
+                    <img alt="@(item.ProductName)" src=" @Html.GetImagesUrl(item.PicUrl, 180, 180) " width="180" height="180">
+                    <span class="scanLimited">@(item.ProductName)</span>
+                    <p><b><font style="font-weight:normal">$</font>@item.HKPrice.ToString("F2")</b><ins>@HKTHMall.Services.Common.MultiLangKeys.CultureHelper.GetLangString("HOME_HZ_REWARDS") </ins></p>
+                </a>
+            </li>
+        }
+    </ul>
+</div>

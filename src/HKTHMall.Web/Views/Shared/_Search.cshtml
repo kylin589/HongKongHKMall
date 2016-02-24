@@ -1,0 +1,86 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    string searchKey = string.Empty;
+    try
+    {
+        searchKey = Request.QueryString["key"];
+    }
+    catch
+    {
+        string url = Request.Url.ToString();
+        searchKey = url.Substring(url.IndexOf("key=") + 4);
+    }
+}
+<script src="~/Content/newcss/js/flipclock.min.js"></script>
+
+<div class="floatCover" id="floatSearch">
+    <div class="layoutSearch">
+        <div class="logo-2016">
+            <a href="@Url.Action("Index", "Home", new { area=""})"></a>
+        </div>
+        <div class="searchForm">
+            <div class="forceForm">
+                @using (Html.BeginForm("ProductList", "Product", new { area = "" }, FormMethod.Get, new { name = "ProductListForm", id = "ProductListForm" }))
+                {
+                    <i class="search_icon"></i>
+                    <input id="txtSearchKey" name="key" type="text" value="@(searchKey)" placeholder="@(CultureHelper.GetLangString("HOME_SEARCH_KEYWORDS"))" class="forceInput">
+                    <input id="btnHeadSearch" type="button" class="forceButton" value="SEARCH">
+                }
+            </div>
+        </div>
+        <div class="settleUp" id="end">
+            @{
+                //string cookieValue = HKTHMall.Web.Common.CookieHelper.GetCookies(FormsAuthentication.FormsCookieName, false);
+                //if (!HKTHMall.Web.Common.Util.StrIsNullOrEmpty(cookieValue))
+                //{
+                <a href="/money/ShoppingCart/MyShoppingCart">
+                    <span class="settleCar"></span>
+                    <i class="settleCounts" id="shoppingCart">0</i>
+                    <span>$<b class="priceLimited">0.00</b></span>
+                </a>
+                @* }
+                    else
+                    {
+
+                        <a id="logindialog" href="javascript:void(0)">
+                            <span class="settleCar"></span>
+                            <i class="settleCounts" id="shoppingCart">0</i>
+                            <span>$<b class="priceLimited">0.00</b></span>
+                        </a>
+                    }*@
+                <div id="dialogForLogin" style="display:none"></div>
+            }
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<script src="~/Content/newcss/js/dsdialog.js"></script>
+<script src="~/Scripts/Presenter/HKMall.Utility.js"></script>
+<script src="~/Scripts/Presenter/MyShoppingCartBll.js"></script>
+<script src="~/Scripts/Presenter/MyShoppingCartPresenter.js"></script>
+<script src="~/Scripts/jquery.fly.js"></script>
+<script src="~/Scripts/jquery.cookie.js"></script>
+<script language="javascript" type="text/javascript">
+    $(function () {
+        refreshCart();
+    });
+
+    //刷新购车库存
+    function refreshCart() {
+        var cartCount = new MyShoppingCartBll().getGoodsCount();
+        $(".settleCounts").show();
+        $(".settleCounts").text(cartCount.iTotalCount);
+        $(".priceLimited").text(parseFloat(cartCount.amount).toFixed(2));
+    }
+
+
+</script>
+<script src="~/Content/js/loginEject.js"></script>
+<script src="~/Content/js/search.js"></script>
+@section scripts{
+
+    <script src="~/Content/js/thirdLogin.js"></script>
+
+}
+

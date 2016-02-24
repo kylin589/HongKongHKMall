@@ -1,0 +1,82 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    List<HKTHMall.Domain.Models.THArea_lang> thArea_langList = Model.THAreas;
+}
+<div class="dialogCover" id="ShippingAddress">
+    <div class="dialogMain" id="addressDialog">
+        <div class="addShouhuo">
+            <form action="" id="fromAddress">
+                <label for="">
+                    <span><b>*</b>@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_CONSIGNEE")</span>
+                    <span>
+                        <input id="txtReceiver" type="text" class="Per_bk W208 " maxlength="30" onblur='CheckValue("Receiver")' />
+                        <input id="txtUserAddressId" type="hidden" value="0" />
+                        <dd class="true" id="successReceiver" style="display:none"></dd>
+                        <p class="address_arr" id="pReceiver" style="display:none">@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_CONSIGNEENOTEMPTY")</p>
+                    </span>
+                </label>
+                <div for="">
+                    <span><b>*</b>@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_INAREA")</span>
+                    <select id="slCountry">
+                        <option value="-1">-@CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_SELECTA")</option>
+                        @if (thArea_langList != null)
+                        {
+                            foreach (HKTHMall.Domain.Models.THArea_lang lang in thArea_langList)
+                            {
+                                if (lang.THAreaID == 344)
+                                {
+                                    <option value="@lang.THAreaID">@lang.AreaName</option>
+                                }
+                            }
+                        }
+                    </select>
+                    <select id="slSheng"><option value="-1">-@CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_SELECTA")-ki</option></select>
+                    <select id="slShi"><option value="-1">-@CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_SELECTA")-</option></select>
+                    <select id="slQu"><option value="-1">-@CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_SELECTA")-</option></select>
+                    <dd class="true" id="successTHAreaID" style="display:none"></dd>
+                    <p class="address_arr" id="pTHAreaID" style="display:none">@CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_SELECTAREGION")</p>
+                </div>
+                <label for="">
+                    <span><b>*</b>@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_DETAILEDADDRESS")</span>
+                    <span>
+                        <input id="txtDetailsAddress" type="text" class="Per_bk W208" maxlength="50" onblur='CheckValue("DetailsAddress")' />
+                        <dd class="true" id="successDetailsAddress" style="display:none"></dd>
+                        <p class="address_arr" id="pDetailsAddress" style="display:none">@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_ADDRESSNOTEMPTY")</p>
+                    </span>
+                </label>
+                <label for="">
+                    <span><b>*</b>@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_PHONENUMBER")</span>
+                    <span>
+                        <input id="txtMobile" type="text" onblur='CheckValue("Mobile")' class="Per_bk W208" maxlength="15" onkeyup="this.value = value.replace(/[^\d]/g, '')" onbeforepaste="    clipboardData.setData('text', clipboardData.getData('text').replace(/[^\d]/g, ''))" />
+                        <dd class="true" id="successMobile" style="display:none"></dd>
+                        <p class="address_arr" id="pMobile" style="display:none">@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_MOBILEISBEEMPTYORCORRECT")</p>
+                        <p class="address_arr" id="pMobileError" style="display:none">@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_MOBILEISBEEMPTYORCORRECTERROR")</p>
+                    </span>
+                </label>
+                <label for="">
+                    <span><b></b>@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_FIXEDTELEPHONE")</span>
+                    <span>
+                        <input id="txtPhone" type="text" class="Per_bk W208" maxlength="15" onkeyup="this.value = value.replace(/[^\d]/g, '')" onbeforepaste="clipboardData.setData('text', clipboardData.getData('text').replace(/[^\d]/g, ''))" />
+                        <p class="address_arr" id="pPhone" style="display:none">@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_TELEPHONEFORMATERROR")</p>
+                    </span>
+                </label>
+                <label for="">
+                    <span>@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_EMAIL")</span>
+                    <span>
+                        <input id="txtEmail" type="text" class="Per_bk W208" maxlength="30" />
+                        <p class="address_arr" style="display:none" id="pErroEmail">@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_EMAILFORMATERROR")</p>
+                    </span>
+                </label>
+                <p class="address_arr" id="pEmail">@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_ORDERNOTIFICATIONS")</p>
+
+                <label for="">
+                    <span>
+                        <input type="button" value="@CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_SAVE")" class="dialogSubmit">
+                        <p class="address_arr" id="pSaveError" style="display:none">@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_COMPLETEADDRESS")</p>
+
+                    </span>
+                </label>
+            </form>
+        </div>
+    </div>
+</div>

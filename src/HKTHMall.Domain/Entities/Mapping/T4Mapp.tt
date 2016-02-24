@@ -1,0 +1,48 @@
+﻿<#@ template language="C#" debug="false" hostspecific="true"#>
+<#@ assembly name="System.Xml"#>
+<#@ assembly name="System.Xml.Linq"#>
+<#@ assembly name="System.Linq"#>
+<#@ import namespace="System.Xml.Linq"#>
+<#@ import namespace="System.Linq"#>
+<#@include file="$(SolutionDir)HKTHMall.Domain\Entities\Mapping\Manager.ttinclude"#> 
+<#@ output extension=".cs"#>
+<# var manager = Manager.Create(Host, GenerationEnvironment); #>
+<# 
+	string inputFile = Host.ResolvePath("../Model1.edmx"); 
+	XDocument xdoc = XDocument.Load(inputFile);
+	XNamespace ns = "http://schemas.microsoft.com/ado/2009/11/edm/ssdl";
+    var xes = xdoc.Descendants(ns + "EntityType");
+	foreach (var xe in xes)
+	{
+		manager.StartNewFile(xe.Attribute("Name").Value + "Mapping.cs");
+		#>
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
+using BrCms.Framework.Data;
+ 
+
+namespace HKTHMall.Domain.Entities.Mapping
+{
+	[DbContextType((byte)BcDbType.Default)]
+	public partial class <#= xe.Attribute("Name").Value+"Mapping" #> : EntityTypeConfiguration<<#= xe.Attribute("Name").Value #>>
+	{
+		public <#= xe.Attribute("Name").Value #>Mapping()
+		{
+		    <# 
+			   var keyName = xe.Descendants(ns + "PropertyRef").FirstOrDefault().Attribute("Name").Value;
+               var attr = xe.Descendants(ns + "Property").FirstOrDefault().Attribute("StoreGeneratedPattern");
+			   var opt = attr == null?"None":attr.Value;
+			 #>this.ToTable("<#= xe.Attribute("Name").Value #>");
+   			this.HasKey(m => m.<#= keyName #>).Property(m=>m.<#= keyName #>).HasDatabaseGeneratedOption(DatabaseGeneratedOption.<#= opt #>);
+   			this.Mapping();
+		}
+   		partial void Mapping();
+	}
+}
+		<#
+		manager.EndBlock();		
+    }
+
+	manager.Process(true);  
+#>
+

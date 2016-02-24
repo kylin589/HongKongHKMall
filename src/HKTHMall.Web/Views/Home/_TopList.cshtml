@@ -1,0 +1,38 @@
+﻿@using HKTHMall.Core.Extensions
+@model  List<HKTHMall.Domain.WebModel.Models.Product.ProductInfo>
+<!--右侧图片切换-->
+
+
+<div class="ls_products_info_3">
+    <div class="ls_products_info_3_top">
+        <i></i>
+        <span>@HKTHMall.Services.Common.MultiLangKeys.CultureHelper.GetLangString("HOME_INDEX_KANLIAOYOUKAN")@*看了又看*@</span>
+    </div>
+    <div class="ls_products_info_3_img swiper-container_ls2">
+        <ul class="" style="">
+            @foreach (var item in Model)
+            {
+                <li class=""><a href="@Url.Action("shopping", "home", new { area = "", id = item.ProductId })" title=""><img src="@Html.GetImagesUrl(item.PicUrl,120,120) " alt=" " /><p>$ @item.HKPrice.ToString("F2")</p></a></li>
+            }
+        </ul>
+    </div>
+
+    <div class="ls_products_info_3_foot">
+        <!-- 如果需要导航按钮 -->
+        <div class="swiper-button-prev ls_prev_btn"></div>
+        <div class="swiper-button-next ls_next_btn"></div>
+    </div>
+</div>
+<script>
+    
+    $(document).ready(function () {
+        /*详情页*/
+        $(".ls_products_info_3_img").jCarouselLite({
+            vertical:true,
+            liNum: 3,//获取需要滚动的个数
+            btnNext: $(".ls_next_btn"),
+            btnPrev: $(".ls_prev_btn")
+        });
+        
+    });
+</script>

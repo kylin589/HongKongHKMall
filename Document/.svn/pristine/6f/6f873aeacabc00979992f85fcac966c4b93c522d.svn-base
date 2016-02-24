@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="Keywords" content="">
+		<title>香港商城</title>
+		<link rel="stylesheet" type="text/css" href="newcss/css/css.css" />
+		<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+	</head>
+
+<body>
+<div class="header">
+	<div class="clear" style="background: #ccc; height: 175px;"></div>
+</div><!--公共头部-->
+
+
+<div class="main_a">
+	
+	<div class="main_about">
+		<div class="ls_member">
+			
+				
+			<!--left-->
+			<div class="ls_member_lf">
+				<div class="ls_member_lf_top"><h1>会员中心</h1></div>
+				<div class="ls_member_lf_nav">
+					<dl>
+						<dt class="ls_user_on"><i></i>我的账户</dt>
+						<dd class="ls_user_on"><a href="#" title="">我的惠卡</a></dd>
+						<dd><a href="#" title="">我的订单</a></dd>
+						<dd><a href="#" title="">我的收藏</a></dd>
+						<dd><a href="#" title="">我的评价</a></dd>
+					</dl>
+					<dl>	
+						<dt><i></i>账户设置</dt>
+						<dd><a href="#" title="">个人信息</a></dd>
+						<dd><a href="#" title="">收货地址</a></dd>
+						<dd><a href="#" title="">账户安全</a></dd>
+					</dl>
+					<dl>
+						<dt><i></i>退款维权</dt>
+						<dd><a href="#" title="">退款管理</a></dd>
+						<dd><a href="#" title="">我的投诉</a></dd>
+					</dl>
+					
+				</div>
+			</div>
+			
+			
+			<!--right-->
+			<div class="ls_member_rg">
+				<div class="m_user_pubtitle">账户安全</div>
+				<div class="m_zhaq">
+					<div class="m_zhaq_bt m_zhaq_safe_1"><!--如果安全级别为低，样式为m_zhaq_safe_1，安全级别为中，样式为m_zhaq_safe_2,安全级别为高，样式为m_zhaq_safe_3-->
+                    	<i></i>
+                        <span>安全级别：</span>
+                        <div class="m_zhaq_ee">
+                            <dl>中</dl>
+                            <ul><li class="m_zhaq_ee_seaf"></li><li class="m_zhaq_ee_seaf"></li><li></li><li></li></ul><!--如果要增加色条，要增加样式-->
+                        </div>
+	                    <b>建议您启动全部安全设置，以保障账户及资金安全。</b>
+            		</div>		
+					<div class="m_zhaq_nr">
+                    	<ul>
+                        	<li>
+                            	<span><ins class="m_zhaq_s1"></ins>邮箱验证</span>
+                                <i>验证后，可用于找回密码，接收最新活动等信息</i>
+                            </li>
+                        	<li>
+                            	<span><ins class="m_zhaq_s2"></ins>登录密码</span>
+                                <i>互联网账号存在被盗风险，建议您定期更改密码以保护账户安全。</i>
+                                <b><a href="#" title="">修改</a></b>
+                            </li>
+                        	<li>
+                            	<span><ins class="m_zhaq_s3"></ins>交易密码</span>
+                                <i>建议您定期修改交易密码，以确保账号安全</i>
+                                <b><a href="#" title="">设置</a><a href="#" title="">修改</a></b><!--如果用户已经设置了，那么只显示"修改"按钮，如果用户没有设置过交易密码，那么只显示"设置"按钮-->
+                            </li>
+                        </ul>
+            		</div>			
+					<div class="clear"></div>	
+				</div>
+				
+			</div>
+			<div class="clear"></div>
+		
+		</div>
+	</div>
+
+</div><!--主体部分-->
+
+
+
+<div class="footer"></div><!--公共底部-->
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+﻿@{
+    Layout = null;
+    var buyList = ViewBag.buyList;
+}
+@if (buyList != null && buyList.Count > 0)
+{
+    foreach (var item in buyList)
+    {
+        string productName = item.ProductName;
+        productName = productName.Length > 20 ? productName.Substring(0, 20) + "..." : productName;
+        <li>
+            @*<a href="@Url.Action("shopping", "home", new { area = "", id = item.ProductId })">*@
+            <a href="@Url.Action("shopping", "home", new { area = "", id = item.ProductId })" title="@productName">
+                <img src="@ViewBag.RootImage@item.PicUrl" alt="" width="180" height="180">
+                @*<span class="sectionLimited">@productName</span>
+                    <span><b><font style="font-weight:normal">$</font>@Convert.ToDouble(item.HKPrice)</b><ins>Rebates:100%</ins></span>*@
+                <span class="scanLimited">@productName</span>
+                <p><b><font style="font-weight:normal">$</font>@item.HKPrice.ToString("F2")</b><ins>@HKTHMall.Services.Common.MultiLangKeys.CultureHelper.GetLangString("HOME_HZ_REWARDS")</ins></p>
+            </a>
+        </li>
+    }
+}

@@ -1,0 +1,288 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title id="cb_title"></title>
+
+    <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta charset="utf-8" />
+
+    <link href="css/style1.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/jquery.mobile-1.3.2.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/changbiao.js"></script>
+    <script>
+        //js获取url传递参数
+        function GetRequest() {
+            var url = location.search;
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+        var Request = new Object();
+        Request = GetRequest();
+        var userId = Request['userId'];
+        var cb_lang = Request['lang'];
+        var varPageNo = 1;
+
+
+        //语言判断
+        $(function () {
+            if (cb_lang == "1") {
+                $("#cb_title").html("我的收藏");
+                $("#sh_loading").html("数据加载中...");
+                $("#sc_dele").html("确认要删除该商品吗？");
+                $("#sc_success").html("删除成功！");
+            }
+            if (cb_lang == "2") {
+                $("#cb_title").html("My Collections");
+                $("#sh_loading").html("Loading data...");
+                $("#sc_dele").html("Confirm to delete this item?");
+                $("#sc_success").html("Successfully deleted！");
+            }
+            if (cb_lang == "3") {
+                $("#cb_title").html("รายการโปรด");
+                $("#sh_loading").html("โหลดข้อมูลอยู่...");
+                $("#sc_dele").html("ต้องการลบสินค้านี้ออกหรือไม่？");
+                $("#sc_success").html("ลบสำเร็จแล้ว！");
+            }
+
+        });
+
+
+        function shouc() {
+            $(function () {
+                $("#loading").ajaxStart(function () {
+                    $(this).show();
+                });
+                $.ajax({
+                    type: "Post",//要用post方式
+                    url: "/User/GetFavorites",//获取收藏
+                    dataType: "json",
+                    data: {//参数
+                        userId: userId + "=",
+                        pageNo: varPageNo,
+                        pageSize: 10,
+                        lang: cb_lang
+
+                    },
+                    success: function (JsonData) {//返回成功
+
+                        if (JsonData.rs == null || JsonData.rs == "") {
+                            if (cb_lang == "1") {
+                                $("#shoucang").html("<div class='product_zw2'><img src='images/product1.png'/><div id='zanwu'>暂无收藏</div></div>");
+                            }
+                            if (cb_lang == "2") {
+                                $("#shoucang").html("<div class='product_zw2'><img src='images/product1.png'/><div id='zanwu'>No collections</div></div>");
+                            }
+                            if (cb_lang == "3") {
+                                $("#shoucang").html("<div class='product_zw2'><img src='images/product1.png'/><div id='zanwu'>ยังไม่เก็บเข้ารายการโปรด</div></div>");
+                            }
+
+                        }
+                        else {
+                            var html = "";
+                            var totalSize = JsonData.totalSize;
+                            for (var i = 0; i < JsonData.rs.length; i++) {
+                                var ProductId = JsonData.rs[i].ProductId;
+                                var PicUrl = commonUrl.ImagePath + JsonData.rs[i].PicUrl;
+                                var ProductName = JsonData.rs[i].ProductName;
+                                var FavoritesID = JsonData.rs[i].FavoritesID;
+                                var hKPrice = Math.round(JsonData.rs[i].HKPrice);
+                                var marketPrice = Math.round(JsonData.rs[i].MarketPrice);
+                                var activityPrice = Math.round(JsonData.rs[i].activityPrice);
+                                var isActivity = JsonData.rs[i].isActivity;
+                                var FPrice;
+                                var SPrice;
+
+
+                                if (isActivity == true) {
+                                    FPrice = activityPrice;
+                                    SPrice = hKPrice;
+                                }
+                                else {
+                                    FPrice = hKPrice;
+                                    SPrice = marketPrice;
+                                }
+
+
+                                html += "<div class='c2_sc_list'><div class='c2_sc_show'><a href='#' onclick='javascript:cb_url(" + ProductId + ");'><span><img src='" + PicUrl + "' alt='" + ProductName + "' /></span><p><strong>" + ProductName + "</strong><i>" + FPrice + "บาท <font>" + SPrice + "บาท </font></i></p><div class='clear'></div></a></div><div class='c2_sc_del'><span onclick='javascript:delet(" + FavoritesID + ");' class='cb_del'></span></div><div class='clear'></div></div>";
+
+                            }
+                            //?method=productDetail&id=" + ProductId + "
+                            $("#shoucang").append(html);
+
+                            $(function () {
+                                var winH = $(window).height(); //页面可视区域高度
+                                $(window).scroll(function () {
+                                    var pageH = $(document.body).height();
+                                    var scrollT = $(window).scrollTop(); //滚动条top
+                                    var aa = (pageH - winH - scrollT) / winH;
+                                    if (aa < 0.02) {
+                                        if (varPageNo < Math.floor(totalSize / 10)) {
+                                            varPageNo += 1;
+                                            shouc();
+                                        } else { }
+                                    }
+                                });
+                            });
+
+                            //语言判断
+                            $(function () {
+                                if (cb_lang == "1") {
+                                    $(".cb_del").html("删除");
+                                }
+                                if (cb_lang == "2") {
+                                    $(".cb_del").html("Delete");
+                                }
+                                if (cb_lang == "3") {
+                                    $(".cb_del").html("ลบ");
+                                }
+                            });
+
+                            cbcb()
+                        }
+
+                    },
+                    error: function (err) {//失败
+                        //alert(err);
+                    }
+
+                });
+                $("#loading").ajaxStop(function () {
+                    $(this).hide();
+                });
+            });
+        }
+
+        function bgshow() { $("#bg").show(); };
+        function bghide() { $("#bg").hide(); };
+        function bg_succshow() { $("#bg_succ").show(); $("#bg").hide(); };
+
+        function delet_id(aa) {
+            $(function () {
+                $("#bg_succ").ajaxStart(function () {
+                    $(this).show();
+                    bghide();
+                });
+                $.ajax({
+                    type: "Post",//要用post方式
+                    url: "/User/DeleteFavorites",//删除收藏
+                    dataType: "json",
+                    data: {//参数
+                        lang: cb_lang,
+                        favoritesID: aa,
+                        userId: userId + "="
+                    },
+                    success: function (JsonData) {//返回成功
+                        $("#bg_succ").hide();
+                        window.location.reload();
+                    },
+                    error: function (err) {//失败
+                        //alert(err);
+                    }
+
+                });
+                $("#bg_succ").ajaxStop(function () {
+                    $(this).hide();
+                    window.location.reload();
+                });
+
+            });
+
+        };
+
+        function delet(cb_favoritesID) {
+            bgshow();
+
+            $("#sc_nr").html("<button type='button' id='sc_button1' onclick='javascript:bghide();'></button><button type='button' id='sc_button2' onclick='javascript: delet_id(" + cb_favoritesID + ");'></button>");
+
+            //语言判断
+            $(function () {
+                if (cb_lang == "1") {
+                    $("#sc_button1").html("取消");
+                    $("#sc_button2").html("确定");
+                    $("#sc_button3").html("确定");
+                }
+                if (cb_lang == "2") {
+                    $("#sc_button1").html("Cancel");
+                    $("#sc_button2").html("Confirm");
+                    $("#sc_button3").html("Confirm");
+                }
+                if (cb_lang == "3") {
+                    $("#sc_button1").html("ยกเลิก");
+                    $("#sc_button2").html("ยีนยัน");
+                    $("#sc_button3").html("ยีนยัน");
+                }
+            });
+        }
+
+
+        shouc();
+        
+        function cb_url(cb_ss) {
+            //alert(cb_ss);
+            window.location.href = "?method=productDetail&id=" + cb_ss;
+        }
+        
+
+    </script>
+</head>
+
+<body>
+    <div class="main_a" id="c2_zoom">
+
+        <div class="main_loading" id="loading"><span><img src="images/loading.gif" /></span><p id="sh_loading"></p></div>
+        <div class="c2_shoucang" id="shoucang" data-role="page"> </div>
+
+        <div id="bg">
+            <div class="c2_sc_t">
+                <div class="c2_sc_bt" id="sc_dele">确认要删除该商品吗？</div>
+                <div class="c2_sc_nr" id="sc_nr">
+
+                </div>
+            </div>
+        </div>
+
+        <div id="bg_succ">
+            <div class="sc_t_succ">
+                <img src="images/loading.gif" />
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        $("#shoucang").unbind('pageinit', function () {
+            cbcb()
+        })
+        function cbcb() {
+            $("#shoucang .c2_sc_list").on("taphold", function () {
+                $(this).children(".c2_sc_show").stop().animate({ left: "-150px" }, 300);
+                $(this).children(".c2_sc_del").stop().animate({ right: 0 }, 300);
+            });
+            $("#shoucang .c2_sc_list").on("swipeleft", function () {
+                $(this).children(".c2_sc_show").stop().animate({ left: "-150px" }, 300);
+                $(this).children(".c2_sc_del").stop().animate({ right: 0 }, 300);
+            });
+            $("#shoucang .c2_sc_list").on("swiperight", function () {
+                $(this).children(".c2_sc_show").stop().animate({ left: 0 }, 300);
+                $(this).children(".c2_sc_del").stop().animate({ right: "-150px" }, 300);
+            });
+
+        }
+    </script>
+</body>
+</html>

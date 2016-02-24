@@ -1,0 +1,6 @@
+﻿.custom-nav-tabs > li { position: relative;}
+.custom-nav-tabs .custom-nav-tab-close, .custom-nav-tabs .custom-nav-tab-close:hover, .custom-nav-tabs .custom-nav-tab-close:focus { position: absolute; right: 0; top: 0; background: #999 !important; width: 15px; height: 15px; line-height: 12px; font-size: 14px; border: 0 !important; display: block; padding: 0 !important; margin: 0 !important; text-align: center; color: #fff !important; }
+    .custom-nav-tabs .custom-nav-tab-close:hover { background: #000 !important; cursor: pointer !important; }
+.tab-content { padding: 0; overflow: hidden; }
+
+.custom-menu .active,.custom-menu .active:focus{ background: #EEEEEE !important;} 

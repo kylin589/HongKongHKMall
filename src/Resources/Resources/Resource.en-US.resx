@@ -1,0 +1,3892 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ACCOUNT_MY_ACCOUNTRECHARGE_ACCOUNTNUMBEREMPTY" xml:space="preserve">
+    <value>Vacant account number </value>
+    <comment>账户是空号</comment>
+  </data>
+  <data name="ACCOUNT_MY_ACCOUNTRECHARGE_DECIMALPLACES" xml:space="preserve">
+    <value>Enter top-up amount, correct to two decimal places </value>
+    <comment>输入充值金额,只允许小数点后2位</comment>
+  </data>
+  <data name="ACCOUNT_MY_ACCOUNTRECHARGE_ENTERTOPAMOUNT" xml:space="preserve">
+    <value>Please enter top-up amount </value>
+    <comment>请输入充值金额</comment>
+  </data>
+  <data name="ACCOUNT_MY_ACCOUNTRECHARGE_INPUTCORRECTAMOUNT" xml:space="preserve">
+    <value>Please enter the correct top-up amount</value>
+    <comment>请输入正确的充值金额</comment>
+  </data>
+  <data name="ACCOUNT_MY_ACCOUNTRECHARGE_PREPAIDPHONE" xml:space="preserve">
+    <value>Top Up Now</value>
+    <comment>立即充值</comment>
+  </data>
+  <data name="ACCOUNT_MY_ACCOUNTRECHARGE_REGEAMOUNT" xml:space="preserve">
+    <value>Top-up amount </value>
+    <comment>充值金额</comment>
+  </data>
+  <data name="ACCOUNT_MY_ACCOUNTRECHARGE_SUBMITTED" xml:space="preserve">
+    <value>It’s being submitted; please do not click repeatedly</value>
+    <comment>正在提交中，请勿多次点击</comment>
+  </data>
+  <data name="ACCOUNT_MY_ACCOUNTRECHARGE_THIRDPARTY" xml:space="preserve">
+    <value>Please select third-party top-up</value>
+    <comment>请选择第三方充值</comment>
+  </data>
+  <data name="ACCOUNT_MY_ACCOUNTRECHARGE_TOPAMOUNT" xml:space="preserve">
+    <value>Top-up amount must between 100฿  to 1,000,000฿.</value>
+    <comment>充值金额必须处于100-1000000฿之间！</comment>
+  </data>
+  <data name="ACCOUNT_MY_ACCOUNTRECHARGE_TOPUPACCOUNT" xml:space="preserve">
+    <value>Top-up account </value>
+    <comment>充值账户</comment>
+  </data>
+  <data name="ACCOUNT_MY_ARECHARGESUCCESS_CONGRATU" xml:space="preserve">
+    <value>Congratulations, top-up succeeded</value>
+    <comment>恭喜您，充值成功</comment>
+  </data>
+  <data name="ACCOUNT_MY_ARECHARGESUCCESS_FILLAMOUNT" xml:space="preserve">
+    <value>Fill out top-up amount </value>
+    <comment>填写充值金额</comment>
+  </data>
+  <data name="ACCOUNT_MY_ARECHARGESUCCESS_ONLINEPAY" xml:space="preserve">
+    <value>Online payment</value>
+    <comment>在线支付</comment>
+  </data>
+  <data name="ACCOUNT_MY_ARECHARGESUCCESS_TOPUPSUCCESS" xml:space="preserve">
+    <value>Top-up succeeded</value>
+    <comment>充值成功</comment>
+  </data>
+  <data name="ACCOUNT_MY_COLLECTION_CANCEL" xml:space="preserve">
+    <value>Cancel </value>
+    <comment>取消</comment>
+  </data>
+  <data name="ACCOUNT_MY_COLLECTION_DELETECOLLECTION" xml:space="preserve">
+    <value>Remove from collections </value>
+    <comment>删除收藏</comment>
+  </data>
+  <data name="ACCOUNT_MY_COLLECTION_DELETECURRENTCONTENT" xml:space="preserve">
+    <value>Delete current content? </value>
+    <comment>是否删除当前内容</comment>
+  </data>
+  <data name="ACCOUNT_MY_COMMENTLIST_ATMOSTWORDS" xml:space="preserve">
+    <value>You can enter 500 words at most</value>
+    <comment>最多可以输入500个字</comment>
+  </data>
+  <data name="ACCOUNT_MY_COMMENTLIST_COMMENT" xml:space="preserve">
+    <value>Please enter your review </value>
+    <comment>请输入评论</comment>
+  </data>
+  <data name="ACCOUNT_MY_COMMENTLIST_EVALUATE" xml:space="preserve">
+    <value>Write a review</value>
+    <comment>我要评价</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_ACCOUNTSECURITY" xml:space="preserve">
+    <value>Account Security </value>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_ACCOUNTSETTINGS" xml:space="preserve">
+    <value>Account Settings </value>
+    <comment>账户设置</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_ACCOUNTSPREPAIDPHONE" xml:space="preserve">
+    <value>Top Up</value>
+    <comment>账户充值</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_ASCENSION" xml:space="preserve">
+    <value>Upgrade </value>
+    <comment>提升</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_BINDINGOFBANK" xml:space="preserve">
+    <value>Bind Bank Card</value>
+    <comment>绑定银行卡</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_CARDRECOMMENDED" xml:space="preserve">
+    <value>Huika’s Picks </value>
+    <comment>惠卡推荐</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_FORPAYMENT" xml:space="preserve">
+    <value>Await payment </value>
+    <comment>待付款</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_FORTHEGOODS" xml:space="preserve">
+    <value>Await sign-off</value>
+    <comment>待收货</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_HANGOUT" xml:space="preserve">
+    <value>Start Free Shopping Now</value>
+    <comment>去随便逛逛吧</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_HUIKA" xml:space="preserve">
+    <value>My Huika </value>
+    <comment>我的惠卡</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_INTERMEDIATE" xml:space="preserve">
+    <value>Medium </value>
+    <comment>中级</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_LASTLOGINIP" xml:space="preserve">
+    <value>Last login IP</value>
+    <comment>上次登录IP</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_LASTLOGINTIME" xml:space="preserve">
+    <value>Last login time </value>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_MODIFYTHEPICTURE" xml:space="preserve">
+    <value>Change picture </value>
+    <comment>修改头像</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_MYACCOUNT" xml:space="preserve">
+    <value>My Account </value>
+    <comment>我的账户</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_MYCOLLECTION" xml:space="preserve">
+    <value>My Collections </value>
+    <comment>我的收藏</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_MYCOMPLAINT" xml:space="preserve">
+    <value>My Complaints </value>
+    <comment>我的投诉</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_MYEVALUATION" xml:space="preserve">
+    <value>My Reviews </value>
+    <comment>我的评价</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_MYORDER" xml:space="preserve">
+    <value>My Orders </value>
+    <comment>我的订单 </comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_MYWEALTH" xml:space="preserve">
+    <value>My Wealth </value>
+    <comment>我的财富</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_NOCOLLECTION" xml:space="preserve">
+    <value>You haven’t add any item to collections yet.</value>
+    <comment>您还没收藏过商品哦</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_PERSONALINFORMATION" xml:space="preserve">
+    <value>Personal Info</value>
+    <comment>个人信息</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_PRIMARY" xml:space="preserve">
+    <value>Weak</value>
+    <comment>初级</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_REFUNDMANAGEMENT" xml:space="preserve">
+    <value>Refund Management </value>
+    <comment>退款管理</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_REFUNDRIGHTS" xml:space="preserve">
+    <value>Refund Guarantee</value>
+    <comment>退款维权</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_SEELIKE" xml:space="preserve">
+    <value>Find what you like </value>
+    <comment>看看有没有喜欢的</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_SENIOR" xml:space="preserve">
+    <value>Strong</value>
+    <comment>高级</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_SHIPPINGADDRESS" xml:space="preserve">
+    <value>Shipping Add</value>
+    <comment>收货地址</comment>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_THEEDITOR" xml:space="preserve">
+    <value>Edit </value>
+  </data>
+  <data name="ACCOUNT_MY_INDEX_TOEVALUATE" xml:space="preserve">
+    <value>Await feedback</value>
+    <comment>待评价</comment>
+  </data>
+  <data name="ACCOUNT_MY_ORDERACTION_CANCELORDER" xml:space="preserve">
+    <value>Cancel order </value>
+    <comment>取消订单</comment>
+  </data>
+  <data name="ACCOUNT_MY_ORDERACTION_COMPLAINTS" xml:space="preserve">
+    <value>Write a complaint </value>
+    <comment>投诉</comment>
+  </data>
+  <data name="ACCOUNT_MY_ORDERACTION_EVALUATION" xml:space="preserve">
+    <value>Write a review </value>
+    <comment>评价</comment>
+  </data>
+  <data name="ACCOUNT_MY_ORDERACTION_IMMPAYMENT" xml:space="preserve">
+    <value>Pay Now </value>
+    <comment>立即付款</comment>
+  </data>
+  <data name="ACCOUNT_MY_ORDERACTION_REFUNDAPP" xml:space="preserve">
+    <value>Apply for refund</value>
+    <comment>退款申请</comment>
+  </data>
+  <data name="ACCOUNT_MY_ORDERACTION_SURECANCEL" xml:space="preserve">
+    <value>Are you sure to cancel the order?</value>
+    <comment>你确定要取消订单吗</comment>
+  </data>
+  <data name="ACCOUNT_MY_ORDERACTION_SYSTEMBUSY" xml:space="preserve">
+    <value>System is busy. Please try again later</value>
+    <comment>系统繁忙，请稍后再试</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderComplaints_Appsubmitted" xml:space="preserve">
+    <value>Application successfully submitted</value>
+    <comment>申请已提交</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderComplaints_Complaint" xml:space="preserve">
+    <value>Write a complaint </value>
+    <comment>投诉</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderComplaints_Content" xml:space="preserve">
+    <value>Reasons for complaint </value>
+    <comment>投诉原因</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderComplaints_ContentPrompt" xml:space="preserve">
+    <value>You can enter 500 words at most.</value>
+    <comment>最多输入500个字</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderComplaints_Exceptionofordernumber" xml:space="preserve">
+    <value>Wrong order number</value>
+    <comment>订单号异常</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderComplaints_ExpressMoney" xml:space="preserve">
+    <value>Shipping fees</value>
+    <comment>运费</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderComplaints_MyOrder" xml:space="preserve">
+    <value>My orders</value>
+    <comment>我的订单</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderComplaints_OrderDate" xml:space="preserve">
+    <value>Transaction date </value>
+    <comment>成交时间</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderComplaints_orderhasbeencomplaint" xml:space="preserve">
+    <value>Complaint about this order has been made</value>
+    <comment>该订单已经进行过投诉</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderComplaints_OrderID" xml:space="preserve">
+    <value>Order No.</value>
+    <comment>订单编号</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderComplaints_Submitapplication" xml:space="preserve">
+    <value>Submit </value>
+    <comment>提交申请</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderComplaints_ThereIsnoordernumber" xml:space="preserve">
+    <value>Order number doesn’t exist </value>
+    <comment>订单号不存在</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderComplaints_TotalAmount" xml:space="preserve">
+    <value>Total </value>
+    <comment>总计</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderComplaints_Yuan" xml:space="preserve">
+    <value>RMB</value>
+    <comment>元</comment>
+  </data>
+  <data name="ACCOUNT_MY_ORDERPRODUCTLISTT1_COMMOPRICE" xml:space="preserve">
+    <value>Subtotal </value>
+    <comment>商品总价</comment>
+  </data>
+  <data name="ACCOUNT_MY_ORDERPRODUCTLISTT1_POSTAGE" xml:space="preserve">
+    <value>Postage </value>
+    <comment>邮费</comment>
+  </data>
+  <data name="ACCOUNT_MY_ORDERPRODUCTLISTT1_REALPAYMENT" xml:space="preserve">
+    <value>Total </value>
+    <comment>实付款</comment>
+  </data>
+  <data name="ACCOUNT_MY_ORDERPRODUCTLISTT2_CONFIMREFUND" xml:space="preserve">
+    <value>Are you sure to withdraw application?</value>
+    <comment>确定要撤消申请吗</comment>
+  </data>
+  <data name="ACCOUNT_MY_ORDERPRODUCTLISTT2_INCHARGES" xml:space="preserve">
+    <value>Shipping fees included </value>
+    <comment>含运费</comment>
+  </data>
+  <data name="ACCOUNT_MY_ORDERPRODUCTLISTT2_ORDERDETAILS" xml:space="preserve">
+    <value>Order details</value>
+    <comment>订单详情</comment>
+  </data>
+  <data name="ACCOUNT_MY_ORDERPRODUCTLISTT2_REFUND" xml:space="preserve">
+    <value>Refund being processed</value>
+    <comment>退款中</comment>
+  </data>
+  <data name="ACCOUNT_MY_ORDERPRODUCTLISTT2_REFUNDCOMPLETE" xml:space="preserve">
+    <value>Refunded</value>
+    <comment>已退款</comment>
+  </data>
+  <data name="ACCOUNT_MY_ORDERPRODUCTLISTT2_RETURNMONEY" xml:space="preserve">
+    <value>Refund </value>
+    <comment>退款</comment>
+  </data>
+  <data name="ACCOUNT_MY_ORDERRETURNPRODUCT_FAIL" xml:space="preserve">
+    <value>Operation failed, please try again</value>
+    <comment>操作失败,请重试</comment>
+  </data>
+  <data name="ACCOUNT_MY_ORDERRETURNPRODUCT_RETURNPRICE" xml:space="preserve">
+    <value>Refund not allowed for orders receiving dividends</value>
+    <comment>已经分红过的订单不允许退款</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_beensubmitted" xml:space="preserve">
+    <value>Application submitted</value>
+    <comment>申请已提交</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_Causeofcomplain" xml:space="preserve">
+    <value>You can enter 200 words at most</value>
+    <comment>最多可以输入200个字</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_Causeofcomplaint" xml:space="preserve">
+    <value>Reasons for complaint </value>
+    <comment>投诉原因</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_Delayeddelivery" xml:space="preserve">
+    <value>Delayed delivery </value>
+    <comment>延迟发货</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_ExpressMoney" xml:space="preserve">
+    <value>Shipping fees</value>
+    <comment>运费</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_goodsweredamaged" xml:space="preserve">
+    <value>Damaged goods</value>
+    <comment>商品破损了</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_MaximumElement" xml:space="preserve">
+    <value>RMB {0} at most</value>
+    <comment>最多{0}元</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_myOrder" xml:space="preserve">
+    <value>My orders</value>
+    <comment>我的订单</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_Notwhatyouwant" xml:space="preserve">
+    <value>Not what I want </value>
+    <comment>不是自己想要的</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_OrderDate" xml:space="preserve">
+    <value>Transaction date</value>
+    <comment>成交时间</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_OrderID" xml:space="preserve">
+    <value>Order No.</value>
+    <comment>订单编号</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_Otherreasons" xml:space="preserve">
+    <value>Others </value>
+    <comment>其他原因</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_Qualityproblems" xml:space="preserve">
+    <value>Quality problems </value>
+    <comment>质量有问题</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_Quantity" xml:space="preserve">
+    <value>Qty </value>
+    <comment>数量</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_Quantityofreturned" xml:space="preserve">
+    <value>Qty of return</value>
+    <comment>退货数量</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_Refund" xml:space="preserve">
+    <value>Refund </value>
+    <comment>退款</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_ReturnApplication" xml:space="preserve">
+    <value>Apply for Return &amp; Refund</value>
+    <comment>退货/款申请</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_Returnphreason" xml:space="preserve">
+    <value>Please select a reason for return / refund</value>
+    <comment>请选择退货/款原因</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_Returnreason" xml:space="preserve">
+    <value>Reasons for return / refund</value>
+    <comment>退货/款原因</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_SalesPrice" xml:space="preserve">
+    <value>Unit price</value>
+    <comment>单价</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_SaveErrorMessage" xml:space="preserve">
+    <value>Operation failed, refund for this order has already been applied </value>
+    <comment>操作失败，该订单已经申请过退款</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_ShopName" xml:space="preserve">
+    <value>Seller </value>
+    <comment>商家</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_Submitapplication" xml:space="preserve">
+    <value>Submit </value>
+    <comment>提交申请</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_SubTotal" xml:space="preserve">
+    <value>Subtotal </value>
+    <comment>小计</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_TotalAmount" xml:space="preserve">
+    <value>Total </value>
+    <comment>总计</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_yuan" xml:space="preserve">
+    <value>RMB</value>
+    <comment>元</comment>
+  </data>
+  <data name="ACCOUNT_My_OrderReturnProductInfo_ZUIDUO" xml:space="preserve">
+    <value>At most</value>
+    <comment>最多</comment>
+  </data>
+  <data name="ACCOUNT_MY_REVIEW_BYEVALUATIONMERCHANTS" xml:space="preserve">
+    <value>Seller receiving reviews</value>
+    <comment>被评价商家</comment>
+  </data>
+  <data name="ACCOUNT_MY_REVIEW_COMMENTONCONTENT" xml:space="preserve">
+    <value>Review content </value>
+    <comment>评论内容</comment>
+  </data>
+  <data name="ACCOUNT_MY_REVIEW_NOEVALUATIONPRESENT" xml:space="preserve">
+    <value>There are no customer reviews yet.</value>
+    <comment>当前暂无评价</comment>
+  </data>
+  <data name="ACCOUNT_MY_REVIEW_PENDING" xml:space="preserve">
+    <value>Await approval</value>
+    <comment>待审</comment>
+  </data>
+  <data name="ACCOUNT_MY_REVIEW_REFUSEDTO" xml:space="preserve">
+    <value>Denied  </value>
+    <comment>拒绝</comment>
+  </data>
+  <data name="ACCOUNT_MY_REVIEW_REVIEWTHESTATUS" xml:space="preserve">
+    <value>Approval status </value>
+    <comment>审核状态</comment>
+  </data>
+  <data name="ACCOUNT_MY_REVIEW_THAILANDPROPRIETARY" xml:space="preserve">
+    <value>Sold by Huika</value>
+    <comment>泰国商城自营</comment>
+  </data>
+  <data name="ACCOUNT_MY_REVIEW_THROUGH" xml:space="preserve">
+    <value>Approved </value>
+    <comment>通过</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_ACCOUNTBALANCE" xml:space="preserve">
+    <value>Account balance </value>
+    <comment>账户余额</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_ACCOUNTWITHDRAWAL" xml:space="preserve">
+    <value>Account withdrawal</value>
+    <comment>账户提现</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_AGENTBENEFITRECORDS" xml:space="preserve">
+    <value>Agent earnings </value>
+    <comment>代理收益记录</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_AMOUNT" xml:space="preserve">
+    <value>Amount </value>
+    <comment>金额</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_BINDINGOFBANK" xml:space="preserve">
+    <value>Bind A Bank Card</value>
+    <comment>绑定银行卡</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_CAIFUSHOUZHIJILU" xml:space="preserve">
+    <value>Wealth record </value>
+    <comment>财富收支记录</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_CASHACCOUNT" xml:space="preserve">
+    <value>Transfer-in account  </value>
+    <comment>提现账户</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_COLLECTBRANCH" xml:space="preserve">
+    <value>Income/ Expenses </value>
+    <comment>收/支</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_COPYINFORMATION" xml:space="preserve">
+    <value>Press Ctrl+C to copy information </value>
+    <comment>请Ctrl+C复制信息</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_COPYSUCCESS" xml:space="preserve">
+    <value>Successfully copied </value>
+    <comment>复制成功</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_COPYTHELINK" xml:space="preserve">
+    <value>Copy link</value>
+    <comment>复制链接</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_CUSTOMERNOTBINDINGBANK" xml:space="preserve">
+    <value>Sorry, dear user {0}, you haven't bound any bank card. Please bind a card first!</value>
+    <comment>尊敬的 {0} 用户，抱歉，您还没有绑定银行卡请先绑定银行卡，再提现！</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_DETAILS" xml:space="preserve">
+    <value>Details </value>
+    <comment>详情</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_EVENT" xml:space="preserve">
+    <value>Event </value>
+    <comment>事件</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_FAZHANHUIFEN" xml:space="preserve">
+    <value>Acquire Huifen followers to get gross profit share! Now come to join!</value>
+    <comment>发展惠粉，获惠粉消费毛利分红，赶紧加入吧！</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_HUIFENCONSUMPTION" xml:space="preserve">
+    <value>All consumption oriented profits back to account balance!</value>
+    <comment>惠粉消费的每一笔收益均返至账户余额</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_HUIPOWDERCONSUMPTION" xml:space="preserve">
+    <value>All consumption oriented profits back to account balance! Acquire Huifen followers to get gross profit share! Now come to join!</value>
+    <comment>惠粉消费的每一笔收益均返至账户余额，发展惠粉，获惠粉消费毛利分红，赶紧加入吧</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_IMMEDIATEWITHDRAWAL" xml:space="preserve">
+    <value>Withdraw Now</value>
+    <comment>立即提现</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_NOINFORMATION" xml:space="preserve">
+    <value>No information for now</value>
+    <comment>当前暂无信息</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_ORDERNUMBER" xml:space="preserve">
+    <value>Order No.</value>
+    <comment>订单号</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_POWDEREARNINGSRECORD" xml:space="preserve">
+    <value>Huifen earnings </value>
+    <comment>惠粉收益记录</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_POWDERYIELDSFENRUN" xml:space="preserve">
+    <value>See Huifen Income-sharing System </value>
+    <comment>查看惠粉收益分润制度</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_PREPAIDPHONERECORDS" xml:space="preserve">
+    <value>Top-up history</value>
+    <comment>充值记录</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_RECORDSOFCONSUMPTION" xml:space="preserve">
+    <value>Purchase history</value>
+    <comment>消费记录</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_RESPECT" xml:space="preserve">
+    <value>Dear user {0}, withdrawal successfully applied! Money will be transferred to your account after review by stuff, please be patient.</value>
+    <comment>尊敬的{0}用户，提现申请成功，资金会在工作人员审核后到账，请耐心等待</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_SALESRECORD" xml:space="preserve">
+    <value>Revenue record</value>
+    <comment>营收记录</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_SERIALNUMBER" xml:space="preserve">
+    <value>Serial No.</value>
+    <comment>流水号</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_TOPUP" xml:space="preserve">
+    <value>Top up </value>
+    <comment>充值</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_TOVIEW" xml:space="preserve">
+    <value>View </value>
+    <comment>查看</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_WITHDRAWAL" xml:space="preserve">
+    <value>Withdraw</value>
+    <comment>提现</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_WITHDRAWALAMOUNT" xml:space="preserve">
+    <value>Withdrawal amount </value>
+    <comment>提现金额</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_WITHDRAWALRECORD" xml:space="preserve">
+    <value>Withdrawal history</value>
+    <comment>提现记录</comment>
+  </data>
+  <data name="ACCOUNT_MY_WEALTH_YOURPROMOTIONLINK" xml:space="preserve">
+    <value>Your referral link</value>
+    <comment>您的推广链接</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_COMPLAIN_ALLFEE" xml:space="preserve">
+    <value>Total </value>
+    <comment>总    计</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_COMPLAIN_BYTIME" xml:space="preserve">
+    <value>Publish time</value>
+    <comment>发起时间</comment>
+  </data>
+  <data name="ACCOUNT_Rights_Complain_ComplaintHandling" xml:space="preserve">
+    <value>Being processed </value>
+    <comment>投诉处理中</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_COMPLAIN_COMPLAINTNUMBER" xml:space="preserve">
+    <value>Complaint No.</value>
+    <comment>投诉编号</comment>
+  </data>
+  <data name="ACCOUNT_Rights_Complain_ComplaintsBeenProcessed" xml:space="preserve">
+    <value>Handled </value>
+    <comment>投诉已处理</comment>
+  </data>
+  <data name="ACCOUNT_Rights_Complain_ComplaintsDate" xml:space="preserve">
+    <value>Publish time</value>
+    <comment>发起时间</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_COMPLAIN_COMPLAINTSHANDLED" xml:space="preserve">
+    <value>Handled </value>
+    <comment>投诉已处理</comment>
+  </data>
+  <data name="ACCOUNT_Rights_Complain_ComplaintsID" xml:space="preserve">
+    <value>Complaint No.</value>
+    <comment>投诉编号</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_COMPLAIN_COMPLAINTSMERCHANTS" xml:space="preserve">
+    <value>Seller receiving complaints </value>
+    <comment>被投诉商家</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_COMPLAIN_COMPLAINTSREASONS" xml:space="preserve">
+    <value>Reasons for complaint </value>
+    <comment>投诉原因</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_COMPLAIN_COMPLAINTSTATUS" xml:space="preserve">
+    <value>Complaint status </value>
+    <comment>投诉状态</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_COMPLAIN_COMPLETETIME" xml:space="preserve">
+    <value>Transaction date</value>
+    <comment>成交时间</comment>
+  </data>
+  <data name="ACCOUNT_Rights_Complain_Content" xml:space="preserve">
+    <value>Reasons for complaint </value>
+    <comment>投诉原因</comment>
+  </data>
+  <data name="ACCOUNT_Rights_Complain_MyComplaint" xml:space="preserve">
+    <value>My complaints</value>
+    <comment>我的投诉</comment>
+  </data>
+  <data name="ACCOUNT_Rights_Complain_OrderID" xml:space="preserve">
+    <value>Order No.</value>
+    <comment>订单编号</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_COMPLAIN_ORDERNO" xml:space="preserve">
+    <value>Order No.</value>
+    <comment>订单编号</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_COMPLAIN_POSTAGEFEE" xml:space="preserve">
+    <value>Shipping fees</value>
+    <comment>运    费</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_COMPLAIN_RETURNREASONS" xml:space="preserve">
+    <value>Refund instructions</value>
+    <comment>退款说明</comment>
+  </data>
+  <data name="ACCOUNT_Rights_Complain_ShopName" xml:space="preserve">
+    <value>Seller receiving complaints </value>
+    <comment>被投诉商家</comment>
+  </data>
+  <data name="ACCOUNT_Rights_Complain_status" xml:space="preserve">
+    <value>Complaint status </value>
+    <comment>投诉状态</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_COMPLAIN_SUBMITAPPLY" xml:space="preserve">
+    <value>Submit </value>
+    <comment>提交申请</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_COMPLAIN_WITHCOMPLAINTS" xml:space="preserve">
+    <value>Being processed </value>
+    <comment>投诉处理中</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_INDEX_APPLICATIONREJECTED" xml:space="preserve">
+    <value>Application denied </value>
+    <comment>申请已驳回</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_INDEX_APPLICATIONWITHDRAW" xml:space="preserve">
+    <value>Application revoked </value>
+    <comment>申请已撤销</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_INDEX_APPLYTIME" xml:space="preserve">
+    <value>Application time </value>
+    <comment>申请时间</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_INDEX_APPROVED" xml:space="preserve">
+    <value>Approved </value>
+    <comment>审核通过</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_INDEX_CONFIRMGOODS" xml:space="preserve">
+    <value>Confirm receipt </value>
+    <comment>确认收货</comment>
+  </data>
+  <data name="ACCOUNT_Rights_index_CreateTime" xml:space="preserve">
+    <value>Application time </value>
+    <comment>申请时间</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_INDEX_INAPPLICATION" xml:space="preserve">
+    <value>Application being processed </value>
+    <comment>申请中</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_INDEX_MERCHANTS" xml:space="preserve">
+    <value>Seller </value>
+    <comment>商家</comment>
+  </data>
+  <data name="ACCOUNT_Rights_index_OrderID" xml:space="preserve">
+    <value>Order No./ Item info</value>
+    <comment>订单编号/商品信息</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_INDEX_ORDERNOINFORMATION" xml:space="preserve">
+    <value>Order No./ Item info</value>
+    <comment>订单编号/商品信息</comment>
+  </data>
+  <data name="ACCOUNT_Rights_index_RefundAmount" xml:space="preserve">
+    <value>Refund amount </value>
+    <comment>退款金额</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_INDEX_REFUNDCOMPLETE" xml:space="preserve">
+    <value>Refunded </value>
+    <comment>退款完成</comment>
+  </data>
+  <data name="ACCOUNT_Rights_index_RefundDate" xml:space="preserve">
+    <value>Refund time </value>
+    <comment>退款时间</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_INDEX_REFUNDMANAGEMENT" xml:space="preserve">
+    <value>Refund management </value>
+    <comment>退款管理</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_INDEX_REFUNDMONEY" xml:space="preserve">
+    <value>Refund amount </value>
+    <comment>退款金额</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_INDEX_REFUNDNUMBER" xml:space="preserve">
+    <value>Refund No.</value>
+    <comment>退款编号</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_INDEX_REFUNDTIME" xml:space="preserve">
+    <value>Refund time </value>
+    <comment>退款时间</comment>
+  </data>
+  <data name="ACCOUNT_Rights_index_ReturnOrderID" xml:space="preserve">
+    <value>Refund No.</value>
+    <comment>退款编号</comment>
+  </data>
+  <data name="ACCOUNT_Rights_index_ShopName" xml:space="preserve">
+    <value>Seller </value>
+    <comment>商家</comment>
+  </data>
+  <data name="ACCOUNT_Rights_index_STATUS" xml:space="preserve">
+    <value>Status time </value>
+    <comment>状态</comment>
+  </data>
+  <data name="ACCOUNT_Rights_index_STATUSAppHasBeenRejected" xml:space="preserve">
+    <value>Application denied </value>
+    <comment>申请已驳回</comment>
+  </data>
+  <data name="ACCOUNT_Rights_index_STATUSApplication" xml:space="preserve">
+    <value>Being processed </value>
+    <comment>申请中</comment>
+  </data>
+  <data name="ACCOUNT_Rights_index_STATUSApprevoked" xml:space="preserve">
+    <value>Application revoked</value>
+    <comment>申请已撤销</comment>
+  </data>
+  <data name="ACCOUNT_Rights_index_STATUSAuditThrough" xml:space="preserve">
+    <value>Approved </value>
+    <comment>审核通过</comment>
+  </data>
+  <data name="ACCOUNT_Rights_index_STATUSConfirmReceipt" xml:space="preserve">
+    <value>Confirm receipt </value>
+    <comment>确认收货</comment>
+  </data>
+  <data name="ACCOUNT_Rights_index_STATUSRefund" xml:space="preserve">
+    <value>Refunded </value>
+    <comment>退款完成</comment>
+  </data>
+  <data name="ACCOUNT_Rights_index_STATUSUnknown" xml:space="preserve">
+    <value>Unknown </value>
+    <comment>未知</comment>
+  </data>
+  <data name="ACCOUNT_Rights_index_TradeAmount" xml:space="preserve">
+    <value>Transaction amount </value>
+    <comment>交易金额</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_INDEX_TRANAMOUNT" xml:space="preserve">
+    <value>Transaction amount </value>
+    <comment>交易金额</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_INDEX_UNDO" xml:space="preserve">
+    <value>Withdraw application</value>
+    <comment>撤消申请</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_INDEX_UNDOERROR" xml:space="preserve">
+    <value>Withdrawal of application failed</value>
+    <comment>撤消申请失败</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_INDEX_UNDOSUCCESS" xml:space="preserve">
+    <value>Withdrawal of application succeeded</value>
+    <comment>撤消申请成功</comment>
+  </data>
+  <data name="ACCOUNT_RIGHTS_INDEX_UNKNOWN" xml:space="preserve">
+    <value>Unknown </value>
+    <comment>未知</comment>
+  </data>
+  <data name="ACCOUNT_SYSTEM_ERROR" xml:space="preserve">
+    <value>ACCOUNT SYSTEM ERROR</value>
+    <comment>账号系统错误 </comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_ADD" xml:space="preserve">
+    <value>Add </value>
+    <comment>添加</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_ADDRECEIVINGADDRESS" xml:space="preserve">
+    <value>Add new shipping address</value>
+    <comment>添加新的收货地址</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_ADDRESS" xml:space="preserve">
+    <value>Shipping address</value>
+    <comment>收货地址</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_ADDRESSNOTEMPTY" xml:space="preserve">
+    <value>Address is required </value>
+    <comment>地址不能为空</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_ALREADYEXISTS" xml:space="preserve">
+    <value>This address already exists</value>
+    <comment>该地址已存在</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_Area" xml:space="preserve">
+    <value>Region </value>
+    <comment>所在地区</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_COMPLETEADDRESS" xml:space="preserve">
+    <value>Please complete Recipient’s address</value>
+    <comment>请完善收货人地址</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_CONSIGNEE" xml:space="preserve">
+    <value>Recipient </value>
+    <comment>收货人</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_CONSIGNEEINFORMATION" xml:space="preserve">
+    <value>Recipient’s info</value>
+    <comment>收货人信息</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_CONSIGNEENOTEMPTY" xml:space="preserve">
+    <value>Recipient is required </value>
+    <comment>收货人不能为空</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_DELETE" xml:space="preserve">
+    <value>Delete </value>
+    <comment>删除</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_DELETEFAILURE" xml:space="preserve">
+    <value>Operation failed, abnormal shipping address ID</value>
+    <comment>操作失败，收货地址ID异常</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_DELETESUCCESS" xml:space="preserve">
+    <value>Operation succeeded</value>
+    <comment>操作成功</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_DETAILEDADDRESS" xml:space="preserve">
+    <value>Detailed address</value>
+    <comment>详细地址</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_DetailsAddress" xml:space="preserve">
+    <value>Detailed address</value>
+    <comment>详细地址</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_DetailsAddressERROR" xml:space="preserve">
+    <value>Address is required </value>
+    <comment>地址不能为空</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_EMAIL" xml:space="preserve">
+    <value>E-mail</value>
+    <comment>邮箱</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_EMAILERROR" xml:space="preserve">
+    <value>Wrong email address format  </value>
+    <comment>邮箱格式错误</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_EMAILFORMATERROR" xml:space="preserve">
+    <value>Wrong email address format</value>
+    <comment>邮箱格式错误</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_EmailPrompt" xml:space="preserve">
+    <value>For receiving order notifications so that you can know order status in time.</value>
+    <comment>用来接收订单提醒邮件，便于您及时了解订单状态</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_FIXEDTELEPHONE" xml:space="preserve">
+    <value>Tel </value>
+    <comment>固定电话</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_FIXEDTELEPHONE_ERROR" xml:space="preserve">
+    <value>Wrong tel format</value>
+    <comment>固定电话格式不正确</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_FixedTelephoneERROR" xml:space="preserve">
+    <value>Wrong tel format </value>
+    <comment>固定电话格式不正确</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_INAREA" xml:space="preserve">
+    <value>Region </value>
+    <comment>所在地区</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_Mobile" xml:space="preserve">
+    <value>Mobile number </value>
+    <comment>手机号码</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_MOBILEERROR" xml:space="preserve">
+    <value>Mobile number is required/ Wrong mobile number</value>
+    <comment>手机号码不能为空或者填写不正确</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_MOBILEISBEEMPTYORCORRECT" xml:space="preserve">
+    <value>Mobile number is required/ Wrong mobile number</value>
+    <comment>手机号码不能为空或者填写不正确</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_MOBILEISBEEMPTYORCORRECTERROR" xml:space="preserve">
+    <value>Wrong mobile number format, please re-enter</value>
+    <comment>手机号码格式错误，请重新输入</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_MobileORPHONE" xml:space="preserve">
+    <value>Mobile/ Tel</value>
+    <comment>手机/电话</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_MOBILEPHONE" xml:space="preserve">
+    <value>Mobile/Tel</value>
+    <comment>手机/电话</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_MODIFY" xml:space="preserve">
+    <value>Change </value>
+    <comment>修改</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_NEWSHIPADDRESS" xml:space="preserve">
+    <value>Add new shipping address</value>
+    <comment>添加新的收货地址</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_Operation" xml:space="preserve">
+    <value>Operation </value>
+    <comment>操作</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_OPERATIONFAILS" xml:space="preserve">
+    <value>Operation failed, abnormal shipping address ID</value>
+    <comment>操作失败，收货地址ID异常</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_OPERATIONSUCCESSFUL" xml:space="preserve">
+    <value>Operation succeeded</value>
+    <comment>操作成功</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_ORDERNOTIFICATIONS" xml:space="preserve">
+    <value>For receiving order notifications so that you can know order status in time.</value>
+    <comment>用来接收订单提醒邮件，便于您及时了解订单状态</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_PHONENUMBER" xml:space="preserve">
+    <value>Mobile number</value>
+    <comment>手机号码</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_PleaseChoose" xml:space="preserve">
+    <value>Please select</value>
+    <comment>请选择</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_POSTALCODE" xml:space="preserve">
+    <value>Zip code</value>
+    <comment>邮政编码</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_POSTALCODENULL" xml:space="preserve">
+    <value>Please fill out zip code</value>
+    <comment>请填写邮政编码</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_PRESERVEDADDRESSES" xml:space="preserve">
+    <value>{0} addresses have been saved; {1} more can be saved.</value>
+    <comment>已保存了{0}条地址，还能保存{1}条地址</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_RECEIVER" xml:space="preserve">
+    <value>Recipient </value>
+    <comment>收货人</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_RECEIVERERROR" xml:space="preserve">
+    <value>Recipient is required</value>
+    <comment>收货人不能为空</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_RECEIVING_ADDRESS" xml:space="preserve">
+    <value>Shipping address</value>
+    <comment>收货地址</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_RECEIVINGADDRESS" xml:space="preserve">
+    <value>Shipping address</value>
+    <comment>收货地址</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_RECEIVINGADDRESSPROMPT" xml:space="preserve">
+    <value>{0} addresses have been saved, and {1} more can be added.</value>
+    <comment>已保存了{0}条地址，还能保存{1}条地址</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_RECIPIENTEMAIL" xml:space="preserve">
+    <value>Recipient’s E-mail</value>
+    <comment>收件人邮箱</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_RecipientMailbox" xml:space="preserve">
+    <value>Recipient’s e-mail</value>
+    <comment>收件人邮箱</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_SavaAddressERROR" xml:space="preserve">
+    <value>You can save 20 shipping addresses at most.</value>
+    <comment>个人最多保存20条收货地址</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_SavaAddressSuccess" xml:space="preserve">
+    <value>Shipping address successfully saved</value>
+    <comment>收货地址保存成功</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_SavaDefaultADDRESSFAILURE" xml:space="preserve">
+    <value>Failed to set default shipping address</value>
+    <comment>默认收货地址设置失败</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_SaveDefaultAddressSuccess" xml:space="preserve">
+    <value>Default shipping address successfully set</value>
+    <comment>默认收货地址设置成功</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_SAVEINFORMATION" xml:space="preserve">
+    <value>Save Recipient’s information</value>
+    <comment>保存收货人信息</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_SelectAreaERROR" xml:space="preserve">
+    <value>Please select a region</value>
+    <comment>请选择地区</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_SETDEFAULT" xml:space="preserve">
+    <value>Set as default </value>
+    <comment>设为默认</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_SetToDefault" xml:space="preserve">
+    <value>Set as default </value>
+    <comment>设为默认</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_TELEPHONEFORMATERROR" xml:space="preserve">
+    <value>Wrong tel format</value>
+    <comment>固定电话格式错误</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_UPDATEADDRESSFailure" xml:space="preserve">
+    <value>Failed to update shipping address</value>
+    <comment>收货地址更新失败</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_UPDATEADDRESSSUCCESS" xml:space="preserve">
+    <value>Shipping address successfully updated</value>
+    <comment>收货地址更新成功</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_ADDRESS_ZIPCODE" xml:space="preserve">
+    <value>Zip code</value>
+    <comment>邮政编码</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_Delete" xml:space="preserve">
+    <value>ACCOUNT DELETED</value>
+    <comment>用户已删除</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_EMAILFAIL_FAILTIPONE" xml:space="preserve">
+    <value>1. Check the Spam or Ad box. It may be mistaken for spam.</value>
+    <comment>1.查看邮箱的垃圾箱或广告箱，邮件有可能被误认为垃圾邮件</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_EMAILFAIL_FAILTIPTWO" xml:space="preserve">
+    <value>2. If you haven't received the verification mail for more than 10 minutes, please click Re-send </value>
+    <comment>2.如果超过10分钟仍未收到验证邮件，请点击</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_EMAILFAIL_NOTRECEIVED" xml:space="preserve">
+    <value>Not receiving the activation email?</value>
+    <comment>没收到激活邮件？</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_EMAILFAIL_SORRY" xml:space="preserve">
+    <value>Sorry, your email hasn’t been activated yet.</value>
+    <comment>对不起，您的邮箱激活失败</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_EMAILSUCCESS_CONGRATULATION" xml:space="preserve">
+    <value>Congratulations,your email has been activated</value>
+    <comment>恭喜您，您的邮箱已经激活</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_HEAD_MESSAGE" xml:space="preserve">
+    <value>Please select a file</value>
+    <comment>请选择文件</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_ABNORMSERVER" xml:space="preserve">
+    <value>Server error  </value>
+    <comment>服务器异常</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_ACCOUNT" xml:space="preserve">
+    <value>Account </value>
+    <comment>账号</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_AUTHENFAILED" xml:space="preserve">
+    <value>ID verification failed, please log in again </value>
+    <comment>身份验证失败，请重新登录</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_BIRTHDAY" xml:space="preserve">
+    <value>Birthday </value>
+    <comment>生日</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_CHECKLOGINEMAIL" xml:space="preserve">
+    <value>Sorry, the corresponding login email address cannot be found. Please go to your email box to check the mail.</value>
+    <comment>抱歉!未找到对应的邮箱登录地址，请自己登录邮箱查看邮件</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_CONFIRMTOSAVE" xml:space="preserve">
+    <value>Save </value>
+    <comment>确认保存</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_CORRECTEMAILADDRESS" xml:space="preserve">
+    <value>Please enter the correct email address</value>
+    <comment>请输入正确的邮箱地址</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_DAY" xml:space="preserve">
+    <value>Day </value>
+    <comment>日</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_EMAIL" xml:space="preserve">
+    <value>E-mail </value>
+    <comment>电子邮箱</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_EMAILCANNOTEMPTY" xml:space="preserve">
+    <value>Email address is required </value>
+    <comment>邮箱不能为空</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_EMAILCANUSED" xml:space="preserve">
+    <value>The email address is available.</value>
+    <comment>邮箱可以使用</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_EMAILUSE" xml:space="preserve">
+    <value>The email address has already been taken. Please change.</value>
+    <comment>邮箱已经被使用，请更改</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_ENTEREMAILADDRESS" xml:space="preserve">
+    <value>Please enter email address first </value>
+    <comment>请先输入邮箱地址</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_ENTERFULLBIRTHDAY" xml:space="preserve">
+    <value>Please enter complete birthday</value>
+    <comment>请输入完整的生日</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_ENTERNICKNAME" xml:space="preserve">
+    <value>Please enter your nickname </value>
+    <comment>请输入昵称</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_FAILUREUPLOAD" xml:space="preserve">
+    <value>Uploading picture failed</value>
+    <comment>上传图片失败</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_FEMALE" xml:space="preserve">
+    <value>Female </value>
+    <comment>女</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_GENDER" xml:space="preserve">
+    <value>Gender </value>
+    <comment>性别</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_HEADPORTRAIT" xml:space="preserve">
+    <value>Picture </value>
+    <comment>头像</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_ILLEGALCHARACTERS" xml:space="preserve">
+    <value>Nickname includes illegal characters</value>
+    <comment>昵称中包含非法字符</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_IMMEDIATELY" xml:space="preserve">
+    <value>Verify Now</value>
+    <comment>立即验证</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_MAN" xml:space="preserve">
+    <value>Male </value>
+    <comment>男</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_MEDIATELYED" xml:space="preserve">
+    <value>Verified </value>
+    <comment>已验证</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_MONTH" xml:space="preserve">
+    <value>Month </value>
+    <comment>月</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_MYHEAD" xml:space="preserve">
+    <value>User picture </value>
+    <comment>我的头像</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_NICKNAME" xml:space="preserve">
+    <value>Nickname </value>
+    <comment>昵称</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_NICKNAMEMAXIMUM" xml:space="preserve">
+    <value>Nickname includes 20 characters at most</value>
+    <comment>昵称最大字符长度为20字</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_NOTLOGGEDIN" xml:space="preserve">
+    <value>You haven’t logged in yet</value>
+    <comment>没有登录</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_NOTUPLOADFILE" xml:space="preserve">
+    <value>No file uploaded</value>
+    <comment>没有上传任何文件</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_SAVE" xml:space="preserve">
+    <value>Save </value>
+    <comment>保存</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_SAVEFAILED" xml:space="preserve">
+    <value>Failed to save </value>
+    <comment>保存失败</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_SAVESUCCESS" xml:space="preserve">
+    <value>Successfully saved</value>
+    <comment>保存成功</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_SELECTA" xml:space="preserve">
+    <value>Select </value>
+    <comment>请选择</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_SELECTAREGION" xml:space="preserve">
+    <value>Select a region</value>
+    <comment>请选择地区</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_SELECTGENDER" xml:space="preserve">
+    <value>Please select gender </value>
+    <comment>请选择性别</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_SELECTIMAGES" xml:space="preserve">
+    <value>Please select jpg/gif/png/jpeg pictures </value>
+    <comment>请选择jpg,gif,png,jpeg格式图片</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_SENDFAILURE" xml:space="preserve">
+    <value>Failed to send </value>
+    <comment>发送失败</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_SENDIN" xml:space="preserve">
+    <value>Sending </value>
+    <comment>发送中</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_SENDSUCCESS" xml:space="preserve">
+    <value>Successfully sent </value>
+    <comment>发送成功</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_SHIPPINGADDRESS" xml:space="preserve">
+    <value>Shipping address</value>
+    <comment>收货地址</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_UPLOADFAILED" xml:space="preserve">
+    <value>Failed to upload</value>
+    <comment>上传失败</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_UPLOADFILEERRORS" xml:space="preserve">
+    <value>Wrong file type</value>
+    <comment>上传文件类型错误</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_UPLOADIMAGE" xml:space="preserve">
+    <value>Upload picture </value>
+    <comment>上传图像</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_UPLOADTOOPICTURES" xml:space="preserve">
+    <value>Too many pictures uploaded </value>
+    <comment>上传图片过多</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_USERNOTEXIST" xml:space="preserve">
+    <value>The user you’re looking for doesn’t exist </value>
+    <comment>查找的用户不存在</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_INDEX_YEAR" xml:space="preserve">
+    <value>Year </value>
+    <comment>年</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_MYBANKCARD_BANKACCOUNT" xml:space="preserve">
+    <value>Account No.</value>
+    <comment>开户行账户</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_MYBANKCARD_BANKADDRESS" xml:space="preserve">
+    <value>Account bank add</value>
+    <comment>开户行地址</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_MYBANKCARD_BANKNAME" xml:space="preserve">
+    <value>Name of account bank</value>
+    <comment>开户行名称</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_MYBANKCARD_BANKUSERNAME" xml:space="preserve">
+    <value>Name of account holder</value>
+    <comment>开户人姓名</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_MYBANKCARD_BINDBANK" xml:space="preserve">
+    <value>For successful account withdrawal, please bind your bank card now.</value>
+    <comment>为了您能顺利完成账户取款，请您立即绑定银行卡</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_MYBANKCARD_BINDINGFAILURE" xml:space="preserve">
+    <value>Failed to bind </value>
+    <comment>绑定失败</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_MYBANKCARD_BINDINGSUCCESS" xml:space="preserve">
+    <value>Successfully bound</value>
+    <comment>绑定成功</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_MYBANKCARD_CORRECTACCOUNT" xml:space="preserve">
+    <value>Please enter the correct account number.</value>
+    <comment>请输入正确的开户账户</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_MYBANKCARD_CORRECTBANKNAME" xml:space="preserve">
+    <value>Please enter the correct name of account bank.</value>
+    <comment>请输入正确的开户行名称</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_MYBANKCARD_CORRECTUSERNAME" xml:space="preserve">
+    <value>Please enter the name of account holder.</value>
+    <comment>请输入开户人姓名</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_MYBANKCARD_ENTERBRANCHNAME" xml:space="preserve">
+    <value>Please enter the branch name.</value>
+    <comment>请输入支行名称</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_MYBANKCARD_HAVEBINDBANKCARD" xml:space="preserve">
+    <value>You’ve bound a bank card with details as follows</value>
+    <comment>您已绑定银行卡，以下为您的绑定银行卡信息</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_MYBANKCARD_IMMEDIATEBIND" xml:space="preserve">
+    <value>Bind Now</value>
+    <comment>立即绑定</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_MYBANKCARD_REBIND" xml:space="preserve">
+    <value>Re-bind </value>
+    <comment>重新绑定</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_MYBANKCARD_SELECTACCOUNT" xml:space="preserve">
+    <value>Please enter the account bank address.</value>
+    <comment>请输入开户行地址</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_SAFE_AUTHENTICATED" xml:space="preserve">
+    <value>Verified </value>
+    <comment>已验证</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_SAFE_EMAILVERIFICATION" xml:space="preserve">
+    <value>Verification with E-mail</value>
+    <comment>邮箱验证</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_SAFE_PASSWORD" xml:space="preserve">
+    <value>Login password</value>
+    <comment>登陆密码</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_SAFE_PAYMENTWITHDRAWAL" xml:space="preserve">
+    <value>Transaction password is for balance payment or withdrawal </value>
+    <comment>交易密码用于余额支付及提现</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_SAFE_RECOMMENDEDACCOUNT" xml:space="preserve">
+    <value>We suggest you launch all security settings to guarantee account safety.</value>
+    <comment>建议您启动全部安全设置，以保障账户及资金安全</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_SAFE_SECURITYACCOUNT" xml:space="preserve">
+    <value>Given the risk of internet account being compromised, you’d better change your password regularly.  </value>
+    <comment>互联网账号存在被盗风险，建议您定期更改密码以保护账户安全</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_SAFE_SECURITYLEVEL" xml:space="preserve">
+    <value>Security level</value>
+    <comment>安全级别</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_SAFE_SETUP" xml:space="preserve">
+    <value>Settings </value>
+    <comment>设置</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_SAFE_TRADEPASSWORD" xml:space="preserve">
+    <value>Transaction password</value>
+    <comment>交易密码</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_SAFE_VALIDATION" xml:space="preserve">
+    <value>Verify </value>
+    <comment>验证</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_SAFE_VERIFICATIONINFORMATION" xml:space="preserve">
+    <value>Upon verification, it can be used for retrieving password and receiving information on latest activities, etc. </value>
+    <comment>验证后，可用于找回密码，接收最新活动等信息</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_SETPAYPASSWORD_INPUTTPAYPASSWORD" xml:space="preserve">
+    <value>Please enter transaction password</value>
+    <comment>请输入交易密码</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_SETPAYPASSWORD_SETPAYPASSWORD" xml:space="preserve">
+    <value>Create a transaction password</value>
+    <comment>设置交易密码</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_SETPAYPASSWORD_SETSUCCESS" xml:space="preserve">
+    <value>Congratulations, transaction password successfully created!</value>
+    <comment>恭喜您，交易密码设置成功</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_UPDATELOGINPASSWORD_LOGINPASSWORD" xml:space="preserve">
+    <value>Please enter login password</value>
+    <comment>请输入登录密码</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_UPDATELOGINPASSWORD_OLDLOGINPASSWORD" xml:space="preserve">
+    <value>Please enter original login password</value>
+    <comment>请输入原始登录密码</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_UPDATELOGINPASSWORD_OLDPASSWORD" xml:space="preserve">
+    <value>Original password</value>
+    <comment>原始密码</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_UPDATELOGINPASSWORD_SETPASSWORD" xml:space="preserve">
+    <value>Create a password</value>
+    <comment>设置密码</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_UPDATELOGINPASSWORD_UPDATELOGINPASSWORD" xml:space="preserve">
+    <value>Change login password</value>
+    <comment>修改登陆密码</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_UPDATEPAYPASSWORD_ACCOUNTLEVEL" xml:space="preserve">
+    <value>Your account security level has been improved!</value>
+    <comment>您的账户安全等级提升了</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_UPDATEPAYPASSWORD_INPUTTOLDPAYPASSWORD" xml:space="preserve">
+    <value>Please enter original transaction password </value>
+    <comment>请输入原始交易密码</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_UPDATEPAYPASSWORD_MODIFYSUCCESS" xml:space="preserve">
+    <value>Congratulations, transaction password successfully changed</value>
+    <comment>恭喜您，交易密码修改成功</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_UPDATEPAYPASSWORD_UPDATEPAYPASSWORD" xml:space="preserve">
+    <value>Change transaction password </value>
+    <comment>修改交易密码</comment>
+  </data>
+  <data name="ACCOUNT_USERINFO_UPDATEPAYPASSWORD_UPDATESUCCESS" xml:space="preserve">
+    <value>Congratulations, password successfully changed</value>
+    <comment>恭喜您，修改密码设置成功</comment>
+  </data>
+  <data name="ADDORCUTTYPE_CHONGZHI" xml:space="preserve">
+    <value>Top up</value>
+    <comment>充值</comment>
+  </data>
+  <data name="ADDORCUTTYPE_DINGDANJIESUAN" xml:space="preserve">
+    <value>Settlement amount</value>
+    <comment>订单结算货款</comment>
+  </data>
+  <data name="ADDORCUTTYPE_GANDONGJIAMENG" xml:space="preserve">
+    <value>Inspiring Huifen [Secondary distributor]  follower ‘s gains from join-in</value>
+    <comment>感动[二级分销商]粉丝加盟收益</comment>
+  </data>
+  <data name="ADDORCUTTYPE_GANDONGXIAOFEI" xml:space="preserve">
+    <value>Inspiring Huifen [Secondary distributor]  follower ‘s gains from consumption</value>
+    <comment>感动[二级分销商]粉丝消费收益</comment>
+  </data>
+  <data name="ADDORCUTTYPE_GANENJIAMENG" xml:space="preserve">
+    <value>Grateful Huifen [Primary distributor]  follower ‘s gains from join-in</value>
+    <comment>感恩[一级分销商]粉丝加盟收益</comment>
+  </data>
+  <data name="ADDORCUTTYPE_GANENXIAOFEI" xml:space="preserve">
+    <value>Grateful Huifen [Primary distributor]  follower ‘s gains from consumption</value>
+    <comment>感恩[一级分销商]粉丝消费收益</comment>
+  </data>
+  <data name="ADDORCUTTYPE_GANXIEJIAMENG" xml:space="preserve">
+    <value>Thankful Huifen [Tertiary distributor]  follower ‘s gains from join-in</value>
+    <comment>感谢[三级分销商]粉丝加盟收益</comment>
+  </data>
+  <data name="ADDORCUTTYPE_GANXIEXIAOFEI" xml:space="preserve">
+    <value>Thankful Huifen [Tertiary distributor]  follower ‘s gains from consumption</value>
+    <comment>感谢[三级分销商]粉丝消费收益</comment>
+  </data>
+  <data name="ADDORCUTTYPE_HOUTAICHONGZHI" xml:space="preserve">
+    <value>Background top-up</value>
+    <comment>后台充值</comment>
+  </data>
+  <data name="ADDORCUTTYPE_HOUTAICHONGZHIKOUKUAN" xml:space="preserve">
+    <value>Background Top-up</value>
+    <comment>后台充值扣款</comment>
+  </data>
+  <data name="ADDORCUTTYPE_QUANQIUDAIYUEDUJIAMENG" xml:space="preserve">
+    <value>Global agent’s monthly share of initial fees </value>
+    <comment>全球代月度加盟费分红</comment>
+  </data>
+  <data name="ADDORCUTTYPE_QUANQIUDAIYUEDUXIAOFEI" xml:space="preserve">
+    <value>Global agent’s monthly share of gross profits</value>
+    <comment>全球代月度毛利分红</comment>
+  </data>
+  <data name="ADDORCUTTYPE_QUDAIJIAMENG" xml:space="preserve">
+    <value>Regional agent’s gains from join-in</value>
+    <comment>区级代理加盟收益</comment>
+  </data>
+  <data name="ADDORCUTTYPE_QUDAIXIAOFEI" xml:space="preserve">
+    <value>Regional agent’s gains from consumption</value>
+    <comment>区级代理消费收益</comment>
+  </data>
+  <data name="ADDORCUTTYPE_SHENGDAIJIAMENG" xml:space="preserve">
+    <value>Provincial agent’s gains from join-in</value>
+    <comment>省级代理加盟收益</comment>
+  </data>
+  <data name="ADDORCUTTYPE_SHENGDAIXIAOFEI" xml:space="preserve">
+    <value>Provincial agent’s gains from consumption</value>
+    <comment>省级代理消费收益</comment>
+  </data>
+  <data name="ADDORCUTTYPE_SHENGDAIYUEDUJIANMENG" xml:space="preserve">
+    <value>Provincial agent’s monthly share of initial fees</value>
+    <comment>省代月度加盟费分红</comment>
+  </data>
+  <data name="ADDORCUTTYPE_SHENGDAIYUEDUXIAOFEI" xml:space="preserve">
+    <value>Provincial agent’s monthly dividend</value>
+    <comment>省代月度分红</comment>
+  </data>
+  <data name="ADDORCUTTYPE_SHIDAIJIAMENG" xml:space="preserve">
+    <value>Municipal agent’s gains from join-in</value>
+    <comment>市级代理加盟收益</comment>
+  </data>
+  <data name="ADDORCUTTYPE_SHIDAIXIAOFEI" xml:space="preserve">
+    <value>Municipal agent’s gains from consumption</value>
+    <comment>市级代理消费收益</comment>
+  </data>
+  <data name="ADDORCUTTYPE_SHOUJICHONGZHI" xml:space="preserve">
+    <value>Mobile Top-up</value>
+    <comment>手机充值</comment>
+  </data>
+  <data name="ADDORCUTTYPE_TIXIAN" xml:space="preserve">
+    <value>Withdraw </value>
+    <comment>提现</comment>
+  </data>
+  <data name="ADDORCUTTYPE_TUIKUAN" xml:space="preserve">
+    <value>Refund </value>
+    <comment>退款</comment>
+  </data>
+  <data name="ADDORCUTTYPE_WEIXINZHIFU" xml:space="preserve">
+    <value>WeChat Payment</value>
+    <comment>微信支付</comment>
+  </data>
+  <data name="ADDORCUTTYPE_XIAOFEI" xml:space="preserve">
+    <value>Purchase </value>
+    <comment>消费</comment>
+  </data>
+  <data name="ADDORCUTTYPE_YINSHOU" xml:space="preserve">
+    <value>Revenue </value>
+    <comment>营收</comment>
+  </data>
+  <data name="ADDORCUTTYPE_ZHUANGZHANG" xml:space="preserve">
+    <value>Transfer </value>
+    <comment>转账</comment>
+  </data>
+  <data name="ADDRESS_DEFAULT" xml:space="preserve">
+    <value>Please select</value>
+    <comment>请选择</comment>
+  </data>
+  <data name="ALL_LOVE" xml:space="preserve">
+    <value>Everybody likes</value>
+    <comment>大家都喜欢</comment>
+  </data>
+  <data name="ALL_MENU" xml:space="preserve">
+    <value>All categories</value>
+  </data>
+  <data name="API_ACCOUNTCLOCK" xml:space="preserve">
+    <value>Account lock-out</value>
+    <comment>账号已被锁定</comment>
+  </data>
+  <data name="API_ACCOUNTPASSWORDERROR" xml:space="preserve">
+    <value>Account or password error</value>
+    <comment>账号或密码错误</comment>
+  </data>
+  <data name="API_EMAILREGISTERED" xml:space="preserve">
+    <value>Email address has been registered</value>
+    <comment>邮箱已注册</comment>
+  </data>
+  <data name="API_FORMATERROR" xml:space="preserve">
+    <value>Mobile number format error</value>
+    <comment>手机号格式错误</comment>
+  </data>
+  <data name="API_INVITINGNOTEXIST" xml:space="preserve">
+    <value>Invalid referral</value>
+    <comment>推荐人不存在</comment>
+  </data>
+  <data name="API_LOGINFAILURE" xml:space="preserve">
+    <value>Login error</value>
+    <comment>登陆错误</comment>
+  </data>
+  <data name="API_PASSWORDFORMAT" xml:space="preserve">
+    <value>Password is consist of 8-16 characters and include numbers and characters </value>
+    <comment>密码由8-16位数字、字符组成</comment>
+  </data>
+  <data name="API_PASSWORDUPDATEFAILURE" xml:space="preserve">
+    <value>Password change failed</value>
+    <comment>密码修改失败</comment>
+  </data>
+  <data name="API_PASSWORDUPDATESUCCESS" xml:space="preserve">
+    <value>Password change success</value>
+    <comment>密码修改成功</comment>
+  </data>
+  <data name="API_PHONEFORMATERROR" xml:space="preserve">
+    <value>Mobile format error</value>
+    <comment>手机格式错误</comment>
+  </data>
+  <data name="API_PHONENOREGISTERED" xml:space="preserve">
+    <value>Mobile number is available</value>
+    <comment>手机号未注册</comment>
+  </data>
+  <data name="API_PHONEREGISTERED" xml:space="preserve">
+    <value>This number has been registered</value>
+    <comment>此手机号已注册</comment>
+  </data>
+  <data name="API_REGISTEREDSUCCESS" xml:space="preserve">
+    <value>Register success</value>
+    <comment>注册成功</comment>
+  </data>
+  <data name="API_VERIFICATIONERROR" xml:space="preserve">
+    <value>Verification code error</value>
+    <comment>验证码错误</comment>
+  </data>
+  <data name="API_VERIFICATIONINVALID" xml:space="preserve">
+    <value>Verification code is invalid please try again</value>
+    <comment>验证码已失效，请重新获取</comment>
+  </data>
+  <data name="APP_FeebackSuccess" xml:space="preserve">
+    <value>Thanks you. We have recorded your kind feedback and wish you happy shopping. Default return to home page of Huika mall in 3 seconds.</value>
+    <comment>您的反馈我们已经记录。感谢您的反馈，祝您购物愉快。3S后将自动返回到惠卡商城首页</comment>
+  </data>
+  <data name="BEYONDMAXIMUMNUMBEROFCHARACTERS" xml:space="preserve">
+    <value>Beyond maximum number of characters</value>
+    <comment>超过最大字符数</comment>
+  </data>
+  <data name="CHANGE_ANOTHER_ONE" xml:space="preserve">
+    <value>Change another one</value>
+    <comment>换一张</comment>
+  </data>
+  <data name="CODE_CANNOT_NULL" xml:space="preserve">
+    <value>Verification code is required</value>
+    <comment>验证码不能为空</comment>
+  </data>
+  <data name="CODE_IS_RIGHT" xml:space="preserve">
+    <value>Verification code is correct</value>
+    <comment>验证码正确</comment>
+  </data>
+  <data name="COMMENT_FAILURE" xml:space="preserve">
+    <value>COMMENT FAILURE</value>
+    <comment>提交评论失败</comment>
+  </data>
+  <data name="COMMENT_HAVE" xml:space="preserve">
+    <value>Repeat comment</value>
+    <comment>重复评论</comment>
+  </data>
+  <data name="COMMENT_SUCCESS" xml:space="preserve">
+    <value>COMMENT SUCCESS</value>
+    <comment>提交评论成功</comment>
+  </data>
+  <data name="COMMENT_TRADECOMMENT_REVIEWCONTENT" xml:space="preserve">
+    <value>Review content</value>
+    <comment>评价内容</comment>
+  </data>
+  <data name="COMMENT_TRADECOMMENT_UNNAMECOMMENT" xml:space="preserve">
+    <value>Anonymous review</value>
+    <comment>匿名评价</comment>
+  </data>
+  <data name="CONTENT_NOT_EMPTY" xml:space="preserve">
+    <value>CONTENT CANNOT BE EMPTY</value>
+    <comment>内容不能为空</comment>
+  </data>
+  <data name="DELETE_Failure" xml:space="preserve">
+    <value>DELETE FAILURE</value>
+    <comment>删除失败</comment>
+  </data>
+  <data name="DELETE_RECEIVING_ADDRESS" xml:space="preserve">
+    <value>Delete shipping address</value>
+    <comment>删除收货人地址</comment>
+  </data>
+  <data name="DELETE_SUCCESS" xml:space="preserve">
+    <value>DELETE SUCCESS</value>
+    <comment>删除成功</comment>
+  </data>
+  <data name="ENTER_RIGHT_CODE" xml:space="preserve">
+    <value>Please enter the correct verification code</value>
+    <comment>请输入正确的验证码</comment>
+  </data>
+  <data name="Equals_OLDPASSWORD_DISAGREEN" xml:space="preserve">
+    <value>Old passWord is incorrect</value>
+    <comment>与原始密码不一致</comment>
+  </data>
+  <data name="FAILURE" xml:space="preserve">
+    <value>FAILURE</value>
+    <comment>失败</comment>
+  </data>
+  <data name="FAX" xml:space="preserve">
+    <value>Fax </value>
+    <comment>传真</comment>
+  </data>
+  <data name="FOOTER_ABOUT" xml:space="preserve">
+    <value>About Us</value>
+    <comment>关于我们</comment>
+  </data>
+  <data name="FOOTER_CONTACT_US" xml:space="preserve">
+    <value>Contact Us</value>
+    <comment>联系我们</comment>
+  </data>
+  <data name="FOOTER_CUSTOMER_AGREEMENT" xml:space="preserve">
+    <value>Customer Agreement </value>
+    <comment>客户协议</comment>
+  </data>
+  <data name="FOOTER_DISCLAIMER" xml:space="preserve">
+    <value>Disclaimer</value>
+    <comment>免责声明</comment>
+  </data>
+  <data name="FOOTER_PRIVACY_POLICY" xml:space="preserve">
+    <value>Privacy Policy </value>
+    <comment>隐私条款</comment>
+  </data>
+  <data name="GO_HOME" xml:space="preserve">
+    <value>Back to Home</value>
+    <comment>返回首页</comment>
+  </data>
+  <data name="GOODS_ID_IllEGAL" xml:space="preserve">
+    <value>INVALID GOODS ID</value>
+    <comment>商品ID不合法</comment>
+  </data>
+  <data name="HAVE_HUIKAMALL" xml:space="preserve">
+    <value>Already have a HuikaMall account</value>
+    <comment>已有HuikaMall帐号</comment>
+  </data>
+  <data name="HOME_CALL_CENTER" xml:space="preserve">
+    <value>Huika Customer Services</value>
+    <comment>惠卡客服</comment>
+  </data>
+  <data name="HOME_CEBIANLAN_HAIKEYISHURU" xml:space="preserve">
+    <value>You can enter </value>
+    <comment>还可以输入</comment>
+  </data>
+  <data name="HOME_CEBIANLAN_KEFUJINLILIANXI" xml:space="preserve">
+    <value>Service Manager will contact you as soon as possible</value>
+    <comment>客服经理会第一时间和您取得联系</comment>
+  </data>
+  <data name="HOME_CEBIANLAN_LIJIZIXUN" xml:space="preserve">
+    <value>Consult now</value>
+    <comment>立即咨询</comment>
+  </data>
+  <data name="HOME_CEBIANLAN_NIHAOQING" xml:space="preserve">
+    <value>Hi! Please</value>
+    <comment>你好！请</comment>
+  </data>
+  <data name="HOME_CEBIANLAN_TIJIAOZIXUN" xml:space="preserve">
+    <value>Submit</value>
+    <comment>提交咨询</comment>
+  </data>
+  <data name="HOME_CEBIANLAN_YINSITIAOKUAI" xml:space="preserve">
+    <value>Privacy Policy</value>
+    <comment>隐私条款</comment>
+  </data>
+  <data name="HOME_CEBIANLAN_ZHUCE" xml:space="preserve">
+    <value>Register</value>
+    <comment>注册</comment>
+  </data>
+  <data name="HOME_CEBIANLAN_ZI" xml:space="preserve">
+    <value>words</value>
+    <comment>字</comment>
+  </data>
+  <data name="HOME_EMAILL" xml:space="preserve">
+    <value>E-mail</value>
+    <comment>邮箱</comment>
+  </data>
+  <data name="HOME_FOOTER_ABOUT" xml:space="preserve">
+    <value>About </value>
+    <comment>关于</comment>
+  </data>
+  <data name="HOME_FOOTER_AGREEMENT" xml:space="preserve">
+    <value>Service Protocol </value>
+    <comment>服务协议</comment>
+  </data>
+  <data name="HOME_FOOTER_ALLTITLE" xml:space="preserve">
+    <value>Huika Mall - Bring fortunes to all human beings</value>
+    <comment>惠卡商城一让天下人富起来</comment>
+  </data>
+  <data name="HOME_FOOTER_CLIENT_SERVICES" xml:space="preserve">
+    <value>Customer Service </value>
+    <comment>客户服务</comment>
+  </data>
+  <data name="HOME_FOOTER_CONSOLIDATION_SERVICES" xml:space="preserve">
+    <value>Delivery </value>
+    <comment>配送服务</comment>
+  </data>
+  <data name="HOME_FOOTER_CUSTOMER_SERVICES" xml:space="preserve">
+    <value>Customer Service</value>
+    <comment>客服服务</comment>
+  </data>
+  <data name="HOME_FOOTER_DISTRIBUTION" xml:space="preserve">
+    <value>Delivery notes </value>
+    <comment>配送说明</comment>
+  </data>
+  <data name="HOME_FOOTER_HFPROFITMODEL" xml:space="preserve">
+    <value>Profit Pattern</value>
+    <comment>盈利模式</comment>
+  </data>
+  <data name="HOME_FOOTER_LOGISTICS_SERVICES" xml:space="preserve">
+    <value>Shipping &amp; Delivery</value>
+    <comment>物流配送</comment>
+  </data>
+  <data name="HOME_FOOTER_NEWHAND_GUIDE" xml:space="preserve">
+    <value>Guide</value>
+    <comment>新手指南</comment>
+  </data>
+  <data name="HOME_FOOTER_PAY" xml:space="preserve">
+    <value>Payment Method </value>
+    <comment>支付方式</comment>
+  </data>
+  <data name="HOME_FOOTER_QUESTION" xml:space="preserve">
+    <value>FAQ</value>
+    <comment>常见问题</comment>
+  </data>
+  <data name="HOME_FOOTER_RECEIVE" xml:space="preserve">
+    <value>Sign-off &amp; Inspection </value>
+    <comment>签收验货</comment>
+  </data>
+  <data name="HOME_FOOTER_REGISTER" xml:space="preserve">
+    <value>Register </value>
+    <comment>免费注册</comment>
+  </data>
+  <data name="HOME_FOOTER_RETURN_POLICY" xml:space="preserve">
+    <value>Return Policy </value>
+    <comment>退换货政策</comment>
+  </data>
+  <data name="HOME_FOOTER_RETURN_PROCESS" xml:space="preserve">
+    <value>How to Return &amp; Replace An Item</value>
+    <comment>退换货流程</comment>
+  </data>
+  <data name="HOME_FOOTER_SAFEPAY" xml:space="preserve">
+    <value>Safe Pay</value>
+    <comment>安全支付</comment>
+  </data>
+  <data name="HOME_FOOTER_SHOPPING" xml:space="preserve">
+    <value>How to Buy</value>
+    <comment>购物流程</comment>
+  </data>
+  <data name="HOME_FOOTER_SHOPPING_GUIDE" xml:space="preserve">
+    <value>Shopping Guides </value>
+    <comment>购物指南</comment>
+  </data>
+  <data name="HOME_INDEX_ABOUTHUIPOWDER" xml:space="preserve">
+    <value>About Huifen </value>
+    <comment>关于惠粉</comment>
+  </data>
+  <data name="HOME_INDEX_ACTIVITYPRICE" xml:space="preserve">
+    <value>Sale price</value>
+    <comment>活动价</comment>
+  </data>
+  <data name="HOME_INDEX_AGENT" xml:space="preserve">
+    <value>About agent</value>
+    <comment>关于代理</comment>
+  </data>
+  <data name="HOME_INDEX_CHECKINFORMATION" xml:space="preserve">
+    <value>Check order info</value>
+    <comment>核对订单信息</comment>
+  </data>
+  <data name="HOME_INDEX_COMMONPROBLEMS" xml:space="preserve">
+    <value>FAQ</value>
+    <comment>常见问题</comment>
+  </data>
+  <data name="HOME_INDEX_CONTACTSERVICE" xml:space="preserve">
+    <value>Contact Us</value>
+    <comment>联系客服</comment>
+  </data>
+  <data name="HOME_INDEX_CREDITCARDPAYMENT" xml:space="preserve">
+    <value>Credit Card </value>
+    <comment>信用卡支付</comment>
+  </data>
+  <data name="HOME_INDEX_ENDOFACTIVITY" xml:space="preserve">
+    <value>Sales ends in</value>
+    <comment>距活动结束还剩</comment>
+  </data>
+  <data name="HOME_INDEX_EXIT" xml:space="preserve">
+    <value>Log out</value>
+    <comment>退出</comment>
+  </data>
+  <data name="HOME_INDEX_FOOTER_GOODSERVICE" xml:space="preserve">
+    <value>Genuine products &amp; Delicate services</value>
+    <comment>正品行货  精致服务</comment>
+  </data>
+  <data name="HOME_INDEX_FOOTER_LOWERPRICE" xml:space="preserve">
+    <value>Everyday low price &amp; Free to choose</value>
+    <comment>天天低价  畅选无忧</comment>
+  </data>
+  <data name="HOME_INDEX_FOOTER_MARKET" xml:space="preserve">
+    <value>Online Fair-price Supermarket</value>
+    <comment>全网平价超市</comment>
+  </data>
+  <data name="HOME_INDEX_FOOTER_ONEHUNDRED" xml:space="preserve">
+    <value>100% Quality Guarantee</value>
+    <comment>100%品质保障</comment>
+  </data>
+  <data name="HOME_INDEX_FREEREGIST" xml:space="preserve">
+    <value>Register </value>
+    <comment>免费注册</comment>
+  </data>
+  <data name="HOME_INDEX_HELPCENTER" xml:space="preserve">
+    <value>Help Center</value>
+    <comment>帮助中心</comment>
+  </data>
+  <data name="HOME_INDEX_HIQING" xml:space="preserve">
+    <value>Hi~ Please</value>
+    <comment>HI~ 请</comment>
+  </data>
+  <data name="HOME_INDEX_HOMEPAGE" xml:space="preserve">
+    <value>Home</value>
+    <comment>首页</comment>
+  </data>
+  <data name="HOME_INDEX_HOWMONEYMALL" xml:space="preserve">
+    <value>How to make money in Huika Mall</value>
+    <comment>如何在商城赚钱</comment>
+  </data>
+  <data name="HOME_INDEX_LANGUAGE" xml:space="preserve">
+    <value>Language </value>
+    <comment>语言选择</comment>
+  </data>
+  <data name="HOME_INDEX_LANGUAGE_CH" xml:space="preserve">
+    <value>CN</value>
+    <comment>中文</comment>
+  </data>
+  <data name="HOME_INDEX_LANGUAGE_EN" xml:space="preserve">
+    <value>EN</value>
+    <comment>英语</comment>
+  </data>
+  <data name="HOME_INDEX_LANGUAGE_TH" xml:space="preserve">
+    <value>Thai</value>
+    <comment>泰文</comment>
+  </data>
+  <data name="HOME_INDEX_LOGIN" xml:space="preserve">
+    <value>Log In </value>
+    <comment>请登录</comment>
+  </data>
+  <data name="HOME_INDEX_MYCOLLECTION" xml:space="preserve">
+    <value>My Collections </value>
+    <comment>我的收藏</comment>
+  </data>
+  <data name="HOME_INDEX_MYCREDITCARD" xml:space="preserve">
+    <value>My Huika</value>
+    <comment>我的惠卡</comment>
+  </data>
+  <data name="HOME_INDEX_MYORDER" xml:space="preserve">
+    <value>My Orders </value>
+    <comment>我的订单</comment>
+  </data>
+  <data name="HOME_INDEX_MYSHOPPINGCART" xml:space="preserve">
+    <value>Shopping cart</value>
+    <comment>我的购物车</comment>
+  </data>
+  <data name="HOME_INDEX_NOWIMMEDIATELY" xml:space="preserve">
+    <value>Buy It Now</value>
+    <comment>立即抢购</comment>
+  </data>
+  <data name="HOME_INDEX_ORDERSUBMITSUCCESS" xml:space="preserve">
+    <value>Order successfully submitted  </value>
+    <comment>成功提交订单</comment>
+  </data>
+  <data name="HOME_INDEX_ORIGINALPRICE" xml:space="preserve">
+    <value>List price</value>
+    <comment>原价</comment>
+  </data>
+  <data name="HOME_INDEX_PAYPALPAYMENT" xml:space="preserve">
+    <value>Paypal </value>
+    <comment>paypal支付</comment>
+  </data>
+  <data name="HOME_INDEX_QINGDAN" xml:space="preserve">
+    <value>List</value>
+    <comment>清单</comment>
+  </data>
+  <data name="HOME_INDEX_RECOMMENDS" xml:space="preserve">
+    <value>Hot picks</value>
+    <comment>爆款推荐</comment>
+  </data>
+  <data name="HOME_INDEX_SHENGYU" xml:space="preserve">
+    <value>Ends in</value>
+    <comment>剩余</comment>
+  </data>
+  <data name="HOME_INDEX_SHIPINSTRUCTIONS" xml:space="preserve">
+    <value>Delivery notes</value>
+    <comment>配送说明</comment>
+  </data>
+  <data name="HOME_INDEX_SHOPPINGPROCESS" xml:space="preserve">
+    <value>How to Buy </value>
+    <comment>购物流程</comment>
+  </data>
+  <data name="HOME_INDEX_SIGNINSPECTION" xml:space="preserve">
+    <value>Sign-off &amp; Inspection</value>
+    <comment>签收验货</comment>
+  </data>
+  <data name="HOME_INDEX_TITEL" xml:space="preserve">
+    <value>Huika Thailand</value>
+    <comment>泰国商城</comment>
+  </data>
+  <data name="HOME_INDEX_WELCOMECARD" xml:space="preserve">
+    <value>Welcome to Huika </value>
+    <comment>欢迎来惠卡</comment>
+  </data>
+  <data name="HOME_INDEX_XIAZAISHOUJIBAN" xml:space="preserve">
+    <value>Download Mobile App</value>
+    <comment>下载手机版</comment>
+  </data>
+  <data name="HOME_INDEXFIRST_ATOTALACOM" xml:space="preserve">
+    <value>{0} items in total</value>
+    <comment>共{0}个商品</comment>
+  </data>
+  <data name="HOME_INDEXFIRST_COMPRSORT" xml:space="preserve">
+    <value>Overall ranking</value>
+    <comment>综合排序</comment>
+  </data>
+  <data name="HOME_INDEXFIRST_GUESSYOULIKE" xml:space="preserve">
+    <value>You may like </value>
+    <comment>猜你喜欢</comment>
+  </data>
+  <data name="HOME_INDEXFIRST_PRICEHIGHTOLOW" xml:space="preserve">
+    <value>Price High to Low</value>
+    <comment>价格从高到低</comment>
+  </data>
+  <data name="HOME_INDEXFIRST_PRICELOWTOHIGH" xml:space="preserve">
+    <value>Price Low to High</value>
+    <comment>价格从低到高</comment>
+  </data>
+  <data name="HOME_INDEXFIRST_SALES" xml:space="preserve">
+    <value>Sales </value>
+    <comment>销量</comment>
+  </data>
+  <data name="HOME_INDEXFIRST_SEARCHL" xml:space="preserve">
+    <value>Huika Mall</value>
+    <comment>搜索集合列表页-惠卡商城</comment>
+  </data>
+  <data name="HOME_SEARCH_ADJUSTKEYWORDS" xml:space="preserve">
+    <value>Adjust key words.</value>
+    <comment>调整关键字</comment>
+  </data>
+  <data name="HOME_SEARCH_COMMFAILED" xml:space="preserve">
+    <value>Item Invalid/ Huika Mall  </value>
+    <comment>商品已经失效 惠卡商城</comment>
+  </data>
+  <data name="HOME_SEARCH_COMMODI" xml:space="preserve">
+    <value>Please choose an item </value>
+    <comment>请选择商品</comment>
+  </data>
+  <data name="HOME_SEARCH_GOODSSHELVES" xml:space="preserve">
+    <value>Sorry, the item you view doesn’t exist, probably sold out or transferred. </value>
+    <comment>很抱歉，您查看的商品不存在，可能已下架或者被转移。</comment>
+  </data>
+  <data name="HOME_SEARCH_JUMPIN" xml:space="preserve">
+    <value>View the recommended items you may like, redirecting in {0} seconds </value>
+    <comment>为你推荐一些你可能喜欢的内容，将在{0}秒后自动跳转</comment>
+  </data>
+  <data name="HOME_SEARCH_KEYWORDS" xml:space="preserve">
+    <value>Please enter key words </value>
+    <comment>请输入关键字</comment>
+  </data>
+  <data name="HOME_SEARCH_KEYWORDSEARCH" xml:space="preserve">
+    <value>Re-type key words in the search box at the top.</value>
+    <comment>在顶部搜索框重新输入关键词搜索。</comment>
+  </data>
+  <data name="HOME_SEARCH_NOTFINDGOODS" xml:space="preserve">
+    <value>Sorry, your search "{0}" didn’t match any products</value>
+    <comment>很抱歉，没有找到与{0}有关的商品</comment>
+  </data>
+  <data name="HOME_SEARCH_RECOMMENDED" xml:space="preserve">
+    <value>We suggest you:</value>
+    <comment>建议您：</comment>
+  </data>
+  <data name="HOME_SEARCH_REMOVEWORDS" xml:space="preserve">
+    <value>Get rid of possibly unnecessary words, like “of”, etc.;</value>
+    <comment>去掉可能不必要的字词，如“的”、”什么”等</comment>
+  </data>
+  <data name="HOME_SEARCH_RESULTRECOM" xml:space="preserve">
+    <value>Any result below that you’re interested in? (recommended)</value>
+    <comment>以下是否有您想要看到的结果？（推荐）</comment>
+  </data>
+  <data name="HOME_SEARCH_SEARCH" xml:space="preserve">
+    <value>Search </value>
+    <comment>搜索</comment>
+  </data>
+  <data name="HOME_SEARCH_SEARCHMESSAGE" xml:space="preserve">
+    <value>{1} results for your search "{0}"</value>
+    <comment>您搜索的{0}共找到 {1}条信息</comment>
+  </data>
+  <data name="HOME_SEARCH_SERVICEFORGOODS" xml:space="preserve">
+    <value>Contact Customer Service to find it</value>
+    <comment>该商品可能已经下架，您可以联系客服找找商品</comment>
+  </data>
+  <data name="HOME_SEARCH_TEXTWRONG" xml:space="preserve">
+    <value>Check if there is a mistake in the words you entered;</value>
+    <comment>看看输入的文字是否有误</comment>
+  </data>
+  <data name="HOME_SEARCH_YOUCAN" xml:space="preserve">
+    <value>You can </value>
+    <comment>您可以</comment>
+  </data>
+  <data name="HOME_SHOPPING_ADDRESS" xml:space="preserve">
+    <value>Address </value>
+    <comment>地址</comment>
+  </data>
+  <data name="HOME_SHOPPING_ADDTOCART" xml:space="preserve">
+    <value>Add to Cart</value>
+    <comment>加入购物车</comment>
+  </data>
+  <data name="HOME_SHOPPING_ALCOLLECTED" xml:space="preserve">
+    <value>Collected </value>
+    <comment>已收藏</comment>
+  </data>
+  <data name="HOME_SHOPPING_BADREVIEW" xml:space="preserve">
+    <value>Poor </value>
+    <comment>差评</comment>
+  </data>
+  <data name="HOME_SHOPPING_BUYNOW" xml:space="preserve">
+    <value>Buy It Now </value>
+    <comment>立即购买</comment>
+  </data>
+  <data name="HOME_SHOPPING_CHONGXINTIANXIE" xml:space="preserve">
+    <value>Rewrite</value>
+    <comment>重新填写</comment>
+  </data>
+  <data name="HOME_SHOPPING_COLLECTPRODUCT" xml:space="preserve">
+    <value>Add to collections </value>
+    <comment>收藏该产品    </comment>
+  </data>
+  <data name="HOME_SHOPPING_COMMDESCR" xml:space="preserve">
+    <value>Product Description </value>
+    <comment>商品描述</comment>
+  </data>
+  <data name="HOME_SHOPPING_CONTACT" xml:space="preserve">
+    <value>Contact </value>
+    <comment>联系</comment>
+  </data>
+  <data name="HOME_SHOPPING_CONTACTME" xml:space="preserve">
+    <value>Contact us </value>
+    <comment>和我联系</comment>
+  </data>
+  <data name="HOME_SHOPPING_CURRSTOCK" xml:space="preserve">
+    <value>Current inventory: {0} pcs </value>
+    <comment>当前库存：{0}件</comment>
+  </data>
+  <data name="HOME_SHOPPING_CUSEVAL" xml:space="preserve">
+    <value>Customer Reviews</value>
+    <comment>顾客评价</comment>
+  </data>
+  <data name="HOME_SHOPPING_DISTRIBUTION" xml:space="preserve">
+    <value>Delivery </value>
+    <comment>配送</comment>
+  </data>
+  <data name="HOME_SHOPPING_DISTRIBUTIONANDSERVICE" xml:space="preserve">
+    <value>{0} is in charge of delivering this product and providing after-sale service </value>
+    <comment>本商品由{0}负责发货，并提供售后服务</comment>
+  </data>
+  <data name="HOME_SHOPPING_ERROR" xml:space="preserve">
+    <value>Wrong </value>
+    <comment>错误</comment>
+  </data>
+  <data name="HOME_SHOPPING_EVALUATION" xml:space="preserve">
+    <value>Average </value>
+    <comment>中评</comment>
+  </data>
+  <data name="HOME_SHOPPING_FABIAOJINGXI" xml:space="preserve">
+    <value>Submit your review to get a surprise~</value>
+    <comment>发表评论有意外惊喜~</comment>
+  </data>
+  <data name="HOME_SHOPPING_FABIAOPINGLUN" xml:space="preserve">
+    <value>Write a review</value>
+    <comment>发表评论</comment>
+  </data>
+  <data name="HOME_SHOPPING_FEN" xml:space="preserve">
+    <value>mins</value>
+    <comment>分</comment>
+  </data>
+  <data name="HOME_SHOPPING_FUWUTAIDU" xml:space="preserve">
+    <value>Services</value>
+    <comment>服务态度</comment>
+  </data>
+  <data name="HOME_SHOPPING_HAOPINGDU" xml:space="preserve">
+    <value>Rating</value>
+    <comment>好评度</comment>
+  </data>
+  <data name="HOME_SHOPPING_HIGHPRAISE" xml:space="preserve">
+    <value>Good </value>
+    <comment>好评</comment>
+  </data>
+  <data name="HOME_SHOPPING_HKPRICE" xml:space="preserve">
+    <value>Price</value>
+    <comment>惠卡价</comment>
+  </data>
+  <data name="HOME_SHOPPING_JINXINGPINGJIA" xml:space="preserve">
+    <value>You can make a comment on purchased item</value>
+    <comment>您可对已购商品进行评价</comment>
+  </data>
+  <data name="HOME_SHOPPING_KEFU" xml:space="preserve">
+    <value>Customer Service</value>
+    <comment>客服</comment>
+  </data>
+  <data name="HOME_SHOPPING_LIKEALL" xml:space="preserve">
+    <value>Popular on Huika</value>
+    <comment>大家都在看</comment>
+  </data>
+  <data name="HOME_SHOPPING_MARKETPRICE" xml:space="preserve">
+    <value>List price</value>
+    <comment>市场价</comment>
+  </data>
+  <data name="HOME_SHOPPING_MIAO" xml:space="preserve">
+    <value>secs</value>
+    <comment>秒</comment>
+  </data>
+  <data name="HOME_SHOPPING_NIMING" xml:space="preserve">
+    <value>Anonymous</value>
+    <comment>匿名</comment>
+  </data>
+  <data name="HOME_SHOPPING_NUMBER" xml:space="preserve">
+    <value>Qty</value>
+    <comment>数量</comment>
+  </data>
+  <data name="HOME_SHOPPING_ORIGINALPRICE" xml:space="preserve">
+    <value>List price </value>
+    <comment>原价</comment>
+  </data>
+  <data name="HOME_SHOPPING_PRICE" xml:space="preserve">
+    <value>Price </value>
+    <comment>价格</comment>
+  </data>
+  <data name="HOME_SHOPPING_PROMOTIONPRICE" xml:space="preserve">
+    <value>Sale price</value>
+    <comment>促销价</comment>
+  </data>
+  <data name="HOME_SHOPPING_QA" xml:space="preserve">
+    <value>Q &amp; A</value>
+    <comment>Q &amp; A</comment>
+  </data>
+  <data name="HOME_SHOPPING_QUANTITY" xml:space="preserve">
+    <value>Please add a purchase quantity</value>
+    <comment>请添加购买数量</comment>
+  </data>
+  <data name="HOME_SHOPPING_SHANDIANFAHUO" xml:space="preserve">
+    <value>Speedy Delivery</value>
+    <comment>闪电发货</comment>
+  </data>
+  <data name="HOME_SHOPPING_SHANGPINPINGFEN" xml:space="preserve">
+    <value>Item rating</value>
+    <comment>商品评分</comment>
+  </data>
+  <data name="HOME_SHOPPING_SHANPINGPINGJIA" xml:space="preserve">
+    <value>Customer Reviews</value>
+    <comment>商品评价</comment>
+  </data>
+  <data name="HOME_SHOPPING_SHI" xml:space="preserve">
+    <value>hrs</value>
+    <comment>时</comment>
+  </data>
+  <data name="HOME_SHOPPING_SHOUHOUWUYOU" xml:space="preserve">
+    <value>Worry-free After-sale Service</value>
+    <comment>售后无忧</comment>
+  </data>
+  <data name="HOME_SHOPPING_SPECIFICATION" xml:space="preserve">
+    <value>Specifications </value>
+    <comment>规格参数</comment>
+  </data>
+  <data name="HOME_SHOPPING_SUOHUIBU" xml:space="preserve">
+    <value>All reviews are from Huika customers and under strict management by Huika; negative feedback will absolutely not be hidden.</value>
+  </data>
+  <data name="HOME_SHOPPING_SURE" xml:space="preserve">
+    <value>Confirm </value>
+    <comment>确定</comment>
+  </data>
+  <data name="HOME_SHOPPING_THEEND" xml:space="preserve">
+    <value>This Sale ends in </value>
+    <comment>距本次爆款结束还有</comment>
+  </data>
+  <data name="HOME_SHOPPING_TIAN" xml:space="preserve">
+    <value>days</value>
+    <comment>天</comment>
+  </data>
+  <data name="HOME_SHOPPING_TICHUWENTI" xml:space="preserve">
+    <value>Answer to your question will be given in 5 minutes</value>
+    <comment>提出您的问题，5分钟就有解答</comment>
+  </data>
+  <data name="HOME_SHOPPING_TIJIAOWENTI" xml:space="preserve">
+    <value>Submit</value>
+    <comment>提交问题</comment>
+  </data>
+  <data name="HOME_SHOPPING_WENXINTISHI" xml:space="preserve">
+    <value>*Tips: 7-day hassle-free returns supported</value>
+  </data>
+  <data name="HOME_SHOPPING_WULIUSUDU" xml:space="preserve">
+    <value>Logistics </value>
+    <comment>物流速度</comment>
+  </data>
+  <data name="HOME_SHOPPING_ZHENGPINBAOZHANG" xml:space="preserve">
+    <value>Genuine Product Guarantee</value>
+    <comment>正品保障</comment>
+  </data>
+  <data name="HOME_TEL" xml:space="preserve">
+    <value>Tel </value>
+    <comment>电话</comment>
+  </data>
+  <data name="HOME_TIME" xml:space="preserve">
+    <value>Time </value>
+    <comment>时间</comment>
+  </data>
+  <data name="HOME_TOP_KEFUREXIAN" xml:space="preserve">
+    <value>Service hotline</value>
+    <comment>客服热线</comment>
+  </data>
+  <data name="HUIKA_PROMISE" xml:space="preserve">
+    <value>Huika’s Commitment</value>
+    <comment>惠卡承诺</comment>
+  </data>
+  <data name="LOGIN_ACCOUNT_FREEZE" xml:space="preserve">
+    <value>This account has been suspended! Please contact system administrator to re-enable it</value>
+    <comment>该账号已被冻结！请联系系统管理员解冻</comment>
+  </data>
+  <data name="LOGIN_ACCOUNT_LOCKED" xml:space="preserve">
+    <value>The account you entered has been locked.</value>
+    <comment>您输入的账号已经被锁定!</comment>
+  </data>
+  <data name="LOGIN_ACCOUNT_LOCKED_PLS" xml:space="preserve">
+    <value>This account has been locked </value>
+    <comment>账号已被锁定,请于</comment>
+  </data>
+  <data name="LOGIN_ACCOUNT_LOCKED_PLS_ASK_UNLOCK" xml:space="preserve">
+    <value>This account has been locked, please try again after 1 minute.</value>
+    <comment>账号已被锁定,请于1分钟解锁后再试!</comment>
+  </data>
+  <data name="LOGIN_ACCOUNT_LOCKED_PLS_MINUTES_TRY_AGAIN" xml:space="preserve">
+    <value>Please try again after {0} minutes</value>
+    <comment>{0}分钟解锁后再试!</comment>
+  </data>
+  <data name="LOGIN_ACCOUNT_LOCKEDAFTERTWO" xml:space="preserve">
+    <value>This account has been locked, please log in after two hours.</value>
+    <comment>账号已被锁定-请在两个小时以后再登录!</comment>
+  </data>
+  <data name="LOGIN_ACCOUNT_NOT_EXIST" xml:space="preserve">
+    <value>The account you entered doesn’t exist; please check and re-enter.</value>
+    <comment>您输入的账号不存在，请核对后重新输入!</comment>
+  </data>
+  <data name="LOGIN_ACCOUNTBEENLOCKED" xml:space="preserve">
+    <value>The account you entered has been locked.</value>
+    <comment>您输入的账号已经被锁定</comment>
+  </data>
+  <data name="LOGIN_ACCOUNTERROR" xml:space="preserve">
+    <value>Wrong login account! Please re-enter!</value>
+    <comment>登录账号错误！请重新输入!</comment>
+  </data>
+  <data name="LOGIN_ACCOUNTFROZEN" xml:space="preserve">
+    <value>This account has been suspended! Please contact system administrator to re-enable it   </value>
+    <comment>该账号已被冻结！请联系系统管理员解冻</comment>
+  </data>
+  <data name="LOGIN_ACCOUNTLOCKED" xml:space="preserve">
+    <value>This account has been locked; please try again after {0} minutes.</value>
+    <comment>账号已被锁定,请于{0}分钟解锁后再试</comment>
+  </data>
+  <data name="LOGIN_ACCOUNTNOTEXIST" xml:space="preserve">
+    <value>The account you entered doesn’t exist</value>
+    <comment>您输入的账号不存在</comment>
+  </data>
+  <data name="LOGIN_ACCOUNTNOTEXISTCHECK" xml:space="preserve">
+    <value>The account you entered doesn’t exist; please check and re-enter.</value>
+    <comment>您输入的账号不存在，请核对后重新输入</comment>
+  </data>
+  <data name="LOGIN_ACCOUNTUNLOCK" xml:space="preserve">
+    <value>This account has been locked; please try again after 1 minute.</value>
+    <comment>账号已被锁定,请于1分钟解锁后再试</comment>
+  </data>
+  <data name="LOGIN_ADD_LOGGING_FAILURE" xml:space="preserve">
+    <value>Failed to add user logging </value>
+    <comment>新增用户登录日志失败!</comment>
+  </data>
+  <data name="LOGIN_CREDITCARDLOGIN" xml:space="preserve">
+    <value>Huika Member Login</value>
+    <comment>惠卡会员登录</comment>
+  </data>
+  <data name="LOGIN_ENTERCORRECTPHONE" xml:space="preserve">
+    <value>Please enter the correct mobile number </value>
+    <comment>请输入正确的手机号码</comment>
+  </data>
+  <data name="LOGIN_ENTERNAMEPASSWORD" xml:space="preserve">
+    <value>Please enter user name and password </value>
+    <comment>请输入用户名和密码</comment>
+  </data>
+  <data name="LOGIN_ENTERNUMBER" xml:space="preserve">
+    <value>Please enter mobile number </value>
+    <comment>请输入手机号</comment>
+  </data>
+  <data name="LOGIN_ENTERPASSWORD" xml:space="preserve">
+    <value>Please enter password</value>
+    <comment>请输入密码</comment>
+  </data>
+  <data name="LOGIN_ENTERUSERNAME" xml:space="preserve">
+    <value>Please enter user name </value>
+    <comment>请输入用户名</comment>
+  </data>
+  <data name="LOGIN_FREEREGISTRATION" xml:space="preserve">
+    <value>Register </value>
+    <comment>免费注册</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_AGREEAGREEMENT" xml:space="preserve">
+    <value>Please accept the Registration Agreement for Huika Users</value>
+    <comment>请同意惠卡用户注册协议</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_AGREEMENT" xml:space="preserve">
+    <value>Registration Agreement for Huika Users</value>
+    <comment>惠卡用户注册协议</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_BONUS" xml:space="preserve">
+    <value>Acquire Huifen followers to get gross profit share</value>
+    <comment>发展惠粉，获惠粉毛利分红</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_CHANGE" xml:space="preserve">
+    <value>Change Now </value>
+    <comment>立即修改</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_CODEERROR" xml:space="preserve">
+    <value>Wrong verification code</value>
+    <comment>输入的验证码错误</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_CONFIRMPASSWORD" xml:space="preserve">
+    <value>Confirm password</value>
+    <comment>确认密码</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_CONTACTUS" xml:space="preserve">
+    <value>If you have any questions during process of registration, please </value>
+    <comment>如果您在注册过程中遇到任何问题，请联系我们</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_CORRECTCODE" xml:space="preserve">
+    <value>Please enter the correct verification code</value>
+    <comment>请输入正确的手机验证码</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_EMAILADDRESS" xml:space="preserve">
+    <value>Email address</value>
+    <comment>邮箱地址</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_ENTERCONFIRMPASSWORD" xml:space="preserve">
+    <value>Please enter password again</value>
+    <comment>请输入确认密码</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_ENTEREMAILADDRESS" xml:space="preserve">
+    <value>Please enter email address</value>
+    <comment>请输入邮箱地址</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_ENTERNEWPASSWORD" xml:space="preserve">
+    <value>Please enter new password</value>
+    <comment>请输入新密码</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_ENTERNEWPASSWORDAGAIN" xml:space="preserve">
+    <value>Please enter new password again</value>
+    <comment>请重新输入新密码</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_ENTERNEWPASSWORDFIRST" xml:space="preserve">
+    <value>Please enter new password</value>
+    <comment>请输入新密码</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_ENTERPHONENUMBER" xml:space="preserve">
+    <value>Please enter your mobile number </value>
+    <comment>请输入手机号码</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_ENTERPHONEVERICODE" xml:space="preserve">
+    <value>Please enter the verification code from your phone</value>
+    <comment>请输入手机验证码</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_HASREGISTERED" xml:space="preserve">
+    <value>Account registered with this mobile number already exists.</value>
+    <comment>该手机号码已注册</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_HAVEREGISTERED" xml:space="preserve">
+    <value>Already have an account, {0}now  </value>
+    <comment>我已经注册，现在就{0}</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_IMPROVEINFO" xml:space="preserve">
+    <value>complete your personal information first</value>
+    <comment>完善您的个人信息</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_INVITERNOTEXIST" xml:space="preserve">
+    <value>Inviter doesn’t exist</value>
+    <comment>邀请人不存在</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_JUMP" xml:space="preserve">
+    <value>Auto skipping in</value>
+    <comment>后自动跳转</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_LOGINPASSWORD" xml:space="preserve">
+    <value>Password</value>
+    <comment>密码</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_MOBILENOTCORRECT" xml:space="preserve">
+    <value>Wrong mobile number format</value>
+    <comment>手机号码格式不正确</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_MOBILENUMBER" xml:space="preserve">
+    <value>Mobile number </value>
+    <comment>手机号码</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_NEWPASSWORD" xml:space="preserve">
+    <value>New password </value>
+    <comment>新 密 码</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_NOTCONSISTENTPWD" xml:space="preserve">
+    <value>New password cannot be same as the original</value>
+    <comment>新密码不能与旧密码一致</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_NOTREGISTERED" xml:space="preserve">
+    <value>There is no account registered with this mobile number</value>
+    <comment>该手机号码没有注册</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_NOTSAMEPWD" xml:space="preserve">
+    <value>Passwords do not match</value>
+    <comment>二次密码不相同</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_NUMBERNOTCORRECT" xml:space="preserve">
+    <value>Referral’s mobile number is incorrect</value>
+    <comment>推荐人手机号不正确</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_PASSWORD" xml:space="preserve">
+    <value>Password is composed of 8-16 characters combining numbers and letters or special characters, case sensitive.</value>
+    <comment>密码由8-16位数字、字母或特殊字符组成，区分大小写</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_PASSWORDFAILURE" xml:space="preserve">
+    <value>Password set failed</value>
+    <comment>密码设置失败</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_PASSWORDNUMBERS" xml:space="preserve">
+    <value>Password contains at least letters and numbers.</value>
+    <comment>密码至少包含字母和数字</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_PASSWORDSUCCESS" xml:space="preserve">
+    <value>Password successfully created</value>
+    <comment>密码设置成功</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_PROMOTIONLINK" xml:space="preserve">
+    <value>Your referral link</value>
+    <comment>您的推广链接</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_PWDAGAIN" xml:space="preserve">
+    <value>Please enter password again </value>
+    <comment>请再次输入密码</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_PWDNOTEMPTY" xml:space="preserve">
+    <value>Password is required </value>
+    <comment>密码不能为空</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_READAGREED" xml:space="preserve">
+    <value>Have read and accepted</value>
+  </data>
+  <data name="LOGIN_GETPASSWORD_RECOMMENDED" xml:space="preserve">
+    <value>In order to protect your account security, we suggest you </value>
+    <comment>为了保障您的账户和资金的安全，建议您可以先去</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_REFEREES" xml:space="preserve">
+    <value>Referral</value>
+    <comment>推荐人</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_REGISTER" xml:space="preserve">
+    <value>Register Now</value>
+    <comment>立即注册</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_REGISTRATION" xml:space="preserve">
+    <value>User registration </value>
+    <comment>用户注册</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_REGSUCCESS" xml:space="preserve">
+    <value>Congratulations, registration succeeded</value>
+    <comment>恭喜您，注册成功</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_RESEND" xml:space="preserve">
+    <value>Re-send </value>
+    <comment>重新发送</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_RETRIEVEPASSWORD" xml:space="preserve">
+    <value>Find password</value>
+    <comment>找回密码</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_SECONDS" xml:space="preserve">
+    <value>seconds</value>
+    <comment>秒</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_SECONDSGetNew" xml:space="preserve">
+    <value>seconds remains to Re-obtain</value>
+    <comment>秒后重新获取</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_SERVICE" xml:space="preserve">
+    <value>Online Service, contact our please!</value>
+    <comment>小时在线客服</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_SETTINGS" xml:space="preserve">
+    <value>Set Now</value>
+    <comment>立即设置</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_SUCCESS_COMPLETERESET" xml:space="preserve">
+    <value>Reset completed</value>
+    <comment>完成重置</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_SUCCESS_RESET" xml:space="preserve">
+    <value>Reset Password</value>
+    <comment>重置密码</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_USERNOTEXIST" xml:space="preserve">
+    <value>User doesn’t exist</value>
+    <comment>用户不存在</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_VERIFICATION" xml:space="preserve">
+    <value>Verification succeeded </value>
+    <comment>验证通过</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_VERIFICATIONCODE" xml:space="preserve">
+    <value>Obtain verification code </value>
+    <comment>获取验证码</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_VERIFICATIONCODE_1" xml:space="preserve">
+    <value>Verification code</value>
+    <comment>验证码</comment>
+  </data>
+  <data name="LOGIN_GETPASSWORD_VERIFICODE" xml:space="preserve">
+    <value>Please enter verification code</value>
+    <comment>请输入验证码</comment>
+  </data>
+  <data name="LOGIN_LOGIN" xml:space="preserve">
+    <value>Log in </value>
+  </data>
+  <data name="LOGIN_LOGIN_ACCOUNT_WRONG" xml:space="preserve">
+    <value>Wrong login account! Please re-enter!</value>
+    <comment>登录账号错误！请重新输入!</comment>
+  </data>
+  <data name="LOGIN_LOGIN_FAILED" xml:space="preserve">
+    <value>Login failed</value>
+    <comment>登录失败</comment>
+  </data>
+  <data name="LOGIN_LOGIN_PWD_WRONG" xml:space="preserve">
+    <value>Password was entered incorrectly</value>
+    <comment>密码输入错误</comment>
+  </data>
+  <data name="LOGIN_LOGIN_PWD_WRONGTRYAGAIN" xml:space="preserve">
+    <value>Wrong password, you can re-enter</value>
+    <comment>密码错误，还可以再输入</comment>
+  </data>
+  <data name="LOGIN_LOGIN_SUCCESS" xml:space="preserve">
+    <value>Login succeeded</value>
+    <comment>登录成功</comment>
+  </data>
+  <data name="LOGIN_LOGINAFTERHOURS" xml:space="preserve">
+    <value>This account has been locked, please log in after two hours.</value>
+    <comment>账号已被锁定-请在两个小时以后再登录</comment>
+  </data>
+  <data name="LOGIN_LOGINLOGFAILURE" xml:space="preserve">
+    <value>Failed to add user logins</value>
+    <comment>新增用户登录日志失败</comment>
+  </data>
+  <data name="LOGIN_LOGINPASSWORD" xml:space="preserve">
+    <value>Forgot your password?</value>
+    <comment>忘记登录密码</comment>
+  </data>
+  <data name="LOGIN_LOGINSUCCESS" xml:space="preserve">
+    <value>Login succeeded </value>
+    <comment>登录成功</comment>
+  </data>
+  <data name="LOGIN_MOBILENOTBIND" xml:space="preserve">
+    <value>You haven’t bound your phone. Please bind   first via Huixin’s other sub-sites and then log in. </value>
+    <comment>手机号未绑定，请先通过其他惠信的子网站进行手机绑定后再登陆</comment>
+  </data>
+  <data name="LOGIN_MODIFYFAILURE" xml:space="preserve">
+    <value>Failed to change </value>
+    <comment>修改失败</comment>
+  </data>
+  <data name="LOGIN_MUCH" xml:space="preserve">
+    <value>Much</value>
+    <comment>多</comment>
+  </data>
+  <data name="LOGIN_NEWPWD_FORMATMESSAGE" xml:space="preserve">
+    <value>Use a combination of numbers and letters to create a password</value>
+    <comment>请使用数字，字母组合设置密码</comment>
+  </data>
+  <data name="LOGIN_NEWPWD_PWDMESSAGE" xml:space="preserve">
+    <value>Password is required! Please re-enter</value>
+    <comment>密码不能为空，请重新输入</comment>
+  </data>
+  <data name="LOGIN_NOW" xml:space="preserve">
+    <value>Log in now</value>
+    <comment>立即登录</comment>
+  </data>
+  <data name="LOGIN_NUM_0" xml:space="preserve">
+    <value>Zero </value>
+    <comment>零</comment>
+  </data>
+  <data name="LOGIN_NUM_1" xml:space="preserve">
+    <value>One </value>
+    <comment>一</comment>
+  </data>
+  <data name="LOGIN_NUM_10" xml:space="preserve">
+    <value>Ten </value>
+    <comment>十</comment>
+  </data>
+  <data name="LOGIN_NUM_2" xml:space="preserve">
+    <value>Two </value>
+    <comment>二</comment>
+  </data>
+  <data name="LOGIN_NUM_3" xml:space="preserve">
+    <value>Three </value>
+    <comment>三</comment>
+  </data>
+  <data name="LOGIN_NUM_4" xml:space="preserve">
+    <value>Four </value>
+    <comment>四</comment>
+  </data>
+  <data name="LOGIN_NUM_5" xml:space="preserve">
+    <value>Five </value>
+    <comment>五</comment>
+  </data>
+  <data name="LOGIN_NUM_6" xml:space="preserve">
+    <value>Six </value>
+    <comment>六</comment>
+  </data>
+  <data name="LOGIN_NUM_7" xml:space="preserve">
+    <value>Seven </value>
+    <comment>七</comment>
+  </data>
+  <data name="LOGIN_NUM_8" xml:space="preserve">
+    <value>Eight </value>
+    <comment>八</comment>
+  </data>
+  <data name="LOGIN_NUM_9" xml:space="preserve">
+    <value>Nine </value>
+    <comment>九</comment>
+  </data>
+  <data name="LOGIN_PHONE" xml:space="preserve">
+    <value>Mobile number</value>
+    <comment>手机号</comment>
+  </data>
+  <data name="LOGIN_PHONE_FORMAT_WRONG" xml:space="preserve">
+    <value>Wrong mobile number format</value>
+    <comment>手机号码格式不正确</comment>
+  </data>
+  <data name="LOGIN_PHONE_HAS_REGISTER" xml:space="preserve">
+    <value>Account registered with this mobile number already exists.</value>
+    <comment>该手机号码已注册！</comment>
+  </data>
+  <data name="LOGIN_PHONE_NOTBIND" xml:space="preserve">
+    <value>You haven’t bound your phone. Please bind   first via Huixin’s other sub-sites and then log in. </value>
+    <comment>手机号未绑定，请先通过其他惠信的子网站进行手机绑定后再登陆！</comment>
+  </data>
+  <data name="LOGIN_PWD_CONFIRM_TWO" xml:space="preserve">
+    <value>Passwords do not match</value>
+    <comment>两次输入的密码不一致！</comment>
+  </data>
+  <data name="LOGIN_PWD_FORMAT" xml:space="preserve">
+    <value>Wrong password format! A combination of 8-16 numbers and letters. Please re-create!</value>
+    <comment>密码格式不正确8-16位字母数字组合，请重新设置！</comment>
+  </data>
+  <data name="LOGIN_PWD_NOTNULL" xml:space="preserve">
+    <value>Please enter password again</value>
+    <comment>请输入确认密码！</comment>
+  </data>
+  <data name="LOGIN_PWD_UPDATE_SUCCESS" xml:space="preserve">
+    <value>Password successfully changed </value>
+    <comment>修改密码成功！</comment>
+  </data>
+  <data name="LOGIN_PWDENTER" xml:space="preserve">
+    <value>Password was entered incorrectly {0} times! Please re-enter</value>
+    <comment>密码输入错误{0}次，请重新输入</comment>
+  </data>
+  <data name="LOGIN_PWDMISTAKE" xml:space="preserve">
+    <value>Wrong password, you have {0} more chances.</value>
+    <comment>密码错误，还可以再输入{0}次</comment>
+  </data>
+  <data name="LOGIN_REMEMBERUSERNAME" xml:space="preserve">
+    <value>Stay logged in </value>
+    <comment>记住用户名</comment>
+  </data>
+  <data name="LOGIN_SEND_FAILURE" xml:space="preserve">
+    <value>Failed to send</value>
+    <comment>发送失败</comment>
+  </data>
+  <data name="LOGIN_SEND_SUCCESS" xml:space="preserve">
+    <value>Successfully sent </value>
+    <comment>发送成功</comment>
+  </data>
+  <data name="LOGIN_SEND_TIMERANGE" xml:space="preserve">
+    <value>Time interval of sending messages shall not less than 120 seconds</value>
+    <comment>两次发送短信时间间隔不得小于120秒</comment>
+  </data>
+  <data name="LOGIN_TIME" xml:space="preserve">
+    <value>Time </value>
+    <comment>时间</comment>
+  </data>
+  <data name="LOGIN_TIME_INPUT_AGAIN" xml:space="preserve">
+    <value>times, please re-enter!</value>
+    <comment>次，请重新输入!</comment>
+  </data>
+  <data name="LOGIN_TIMES" xml:space="preserve">
+    <value>times!</value>
+    <comment>次!</comment>
+  </data>
+  <data name="LOGIN_UPDATE_FAILURE" xml:space="preserve">
+    <value>Failed to change </value>
+    <comment>修改失败!</comment>
+  </data>
+  <data name="LOGIN_UPDATE_PWD_FAILURE" xml:space="preserve">
+    <value>Failed to change password</value>
+    <comment>修改密码失败！</comment>
+  </data>
+  <data name="MONEY_ORDER_ACCOUNT_BALANCE" xml:space="preserve">
+    <value>Account balance</value>
+    <comment>帐号余额</comment>
+  </data>
+  <data name="MONEY_ORDER_NONSETPASSWORD" xml:space="preserve">
+    <value>Transaction password not set yet</value>
+    <comment>还未设置交易密码</comment>
+  </data>
+  <data name="MONEY_ORDER_NSUFFICIENT_BALANCE" xml:space="preserve">
+    <value>Insufficient balance</value>
+    <comment>余额不足</comment>
+  </data>
+  <data name="MONEY_ORDER_ORDERINFO_AMOUNTGOODS" xml:space="preserve">
+    <value>Subtotal of {0} items</value>
+    <comment>{0}件商品，总商品金额</comment>
+  </data>
+  <data name="MONEY_ORDER_ORDERINFO_CONFIRMADDRESS" xml:space="preserve">
+    <value>Confirm address</value>
+    <comment>确认收货地址</comment>
+  </data>
+  <data name="MONEY_ORDER_ORDERINFO_CONSIGNEE" xml:space="preserve">
+    <value>Recipient</value>
+    <comment>收货人</comment>
+  </data>
+  <data name="MONEY_ORDER_ORDERINFO_DELETEITEMS" xml:space="preserve">
+    <value>Delete selected items</value>
+    <comment>删除选中的商品</comment>
+  </data>
+  <data name="MONEY_ORDER_ORDERINFO_FAILPAYMENT" xml:space="preserve">
+    <value>It may be caused by: Too frequent payment/ Network problems  </value>
+    <comment>失败的原因可能是： 　付款太频繁 　　网络有问题</comment>
+  </data>
+  <data name="MONEY_ORDER_ORDERINFO_FINISHANDCHECKORDERS" xml:space="preserve">
+    <value>Fill out and check order information</value>
+    <comment>填写并核对订单信息</comment>
+  </data>
+  <data name="MONEY_ORDER_ORDERINFO_FREIGHT" xml:space="preserve">
+    <value>Shipping fees</value>
+    <comment>运费</comment>
+  </data>
+  <data name="MONEY_ORDER_ORDERINFO_PAYFAIL" xml:space="preserve">
+    <value>Submit Order - Payment failed </value>
+    <comment>提交订单-支付失败</comment>
+  </data>
+  <data name="MONEY_ORDER_ORDERINFO_PAYFAILURE" xml:space="preserve">
+    <value>Sorry, payment failed </value>
+    <comment>抱歉，付款失败</comment>
+  </data>
+  <data name="MONEY_ORDER_ORDERINFO_PAYMENT" xml:space="preserve">
+    <value>Pay with</value>
+    <comment>支付方式</comment>
+  </data>
+  <data name="MONEY_ORDER_ORDERINFO_PAYMENTCOMPLETED" xml:space="preserve">
+    <value>Payment completed </value>
+    <comment>已完成支付</comment>
+  </data>
+  <data name="MONEY_ORDER_ORDERINFO_PAYMENTPLATFORM" xml:space="preserve">
+    <value>Please make payment on new e-bank page and do not close the window before it’s finished.</value>
+    <comment>请您在新打开的支付平台页面进行支付，支付完成前请不要关闭本窗口</comment>
+  </data>
+  <data name="MONEY_ORDER_ORDERINFO_PAYMENTSUCCESS" xml:space="preserve">
+    <value>Congratulations, payment succeeded</value>
+    <comment>恭喜您，付款成功</comment>
+  </data>
+  <data name="MONEY_ORDER_ORDERINFO_PAYPROBLEMS" xml:space="preserve">
+    <value>An error occurred during payment </value>
+    <comment>支付遇到问题</comment>
+  </data>
+  <data name="MONEY_ORDER_ORDERINFO_PLATFORM" xml:space="preserve">
+    <value>Log in to payment platform</value>
+    <comment>登录支付平台</comment>
+  </data>
+  <data name="MONEY_ORDER_ORDERINFO_RECEIVEPAYMENT" xml:space="preserve">
+    <value>We have received your payment of THB {0} and will arrange delivery ASAP. Please be patient.</value>
+    <comment>已经收到您的 {0}泰铢付款了，我们会尽快安排发货，请耐心等待</comment>
+  </data>
+  <data name="MONEY_ORDER_ORDERINFO_RETURNHOME" xml:space="preserve">
+    <value>Back to Home</value>
+    <comment>返回首页</comment>
+  </data>
+  <data name="MONEY_ORDER_ORDERINFO_SEND" xml:space="preserve">
+    <value>Shipping to </value>
+    <comment>寄送至</comment>
+  </data>
+  <data name="MONEY_ORDER_ORDERINFO_SUBMITORDERS" xml:space="preserve">
+    <value>Submit</value>
+    <comment>提交订单</comment>
+  </data>
+  <data name="MONEY_ORDER_ORDERINFO_SUCCESS" xml:space="preserve">
+    <value>Submit Order - Payment succeeded</value>
+    <comment>提交订单-支付成功</comment>
+  </data>
+  <data name="MONEY_ORDER_ORDERINFO_TOTALAMOUNT" xml:space="preserve">
+    <value>Total </value>
+    <comment>应付总额</comment>
+  </data>
+  <data name="MONEY_ORDER_ORDERINFO_VALIDATION" xml:space="preserve">
+    <value>Huika Mall E-mail Verification</value>
+    <comment>惠卡商城邮箱验证</comment>
+  </data>
+  <data name="MONEY_ORDER_PAYMENT_BALANCE" xml:space="preserve">
+    <value>Pay with balance</value>
+    <comment>余额支付</comment>
+  </data>
+  <data name="MONEY_ORDER_PAYPASSWORD_ERROR" xml:space="preserve">
+    <value>Wrong trading password</value>
+    <comment>交易密码错误</comment>
+  </data>
+  <data name="MONEY_ORDER_PAYPASSWORDCOUNT" xml:space="preserve">
+    <value>Incorrect trading password input {0} times, please try after {1} minutes</value>
+    <comment>交易密码错误超过{0}次，请{1}分钟后再试</comment>
+  </data>
+  <data name="MONEY_ORDER_SETPAYPASSWORD" xml:space="preserve">
+    <value>Please set trading password</value>
+    <comment>请设置交易密码</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_ALLTHEGOODS" xml:space="preserve">
+    <value>All items </value>
+    <comment>全部商品</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_COMMODITIESHAVESHELVES" xml:space="preserve">
+    <value>Item unavailable </value>
+    <comment>商品已下架</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_DELETE" xml:space="preserve">
+    <value>Delete </value>
+    <comment>删除</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_DELETESELECTEDITEMS" xml:space="preserve">
+    <value>Delete selected items </value>
+    <comment>删除选中的商品</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_FUTUREGENERATIONS" xml:space="preserve">
+    <value>All </value>
+    <comment>全选</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_GOODS" xml:space="preserve">
+    <value>Items </value>
+    <comment>商品</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_HASBEENOFFSHELVES" xml:space="preserve">
+    <value>Off the sale </value>
+    <comment>已下架</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_INSUFFICIENTINVENTORY" xml:space="preserve">
+    <value>Understock </value>
+    <comment>库存不足</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_INVENTORY" xml:space="preserve">
+    <value>In stock </value>
+    <comment>库存</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_MERCHANTGOODS" xml:space="preserve">
+    <value>Sellers cannot buy their own products  </value>
+    <comment>商家不能购买自己的商品</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_NOTAVAILABLE" xml:space="preserve">
+    <value>Out of stock </value>
+    <comment>无货</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_NUMBER" xml:space="preserve">
+    <value>Qty</value>
+    <comment>数量</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_NUMBERNOTGRE" xml:space="preserve">
+    <value>Number of items cannot exceed inventory.</value>
+    <comment>商品数量不能大于库存</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_NUMNOTGREATERTHAN" xml:space="preserve">
+    <value>Number of items beyond inventory, please modify the quantity.   </value>
+    <comment>商品数量不能大于库存，请修改商品数量</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_OPERATION" xml:space="preserve">
+    <value>Operation </value>
+    <comment>操作</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_PACKAGEMAIL" xml:space="preserve">
+    <value>Free shipping </value>
+    <comment>包邮</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_QUANTITYCANNOTCHOOSE" xml:space="preserve">
+    <value>The quantity cannot be 0.</value>
+    <comment>选择的商品数量不能为0</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_SELECCOMMATTRIBUTE" xml:space="preserve">
+    <value>Please select item attribute</value>
+    <comment>请选择商品属性</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_SELECTEDGOODS" xml:space="preserve">
+    <value>{0} items selected (Excluding freight)</value>
+    <comment>已选{0}件商品（不含运费）</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_SELECTLEASTONECOMMODITY" xml:space="preserve">
+    <value>Please choose at least one item.</value>
+    <comment>请至少选择一个商品</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_SHOPPINGCART" xml:space="preserve">
+    <value>Cart </value>
+    <comment>购物车</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_SPECIFICATIONS" xml:space="preserve">
+    <value>Spec. </value>
+    <comment>规格</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_SUBTOTAL" xml:space="preserve">
+    <value>Subtotal </value>
+    <comment>小计</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_THEUNITPRICE" xml:space="preserve">
+    <value>Unit price </value>
+    <comment>单价</comment>
+  </data>
+  <data name="MONEY_SHOPPINGCART_TOSETTLE" xml:space="preserve">
+    <value>Proceed to Checkout</value>
+    <comment>去结算</comment>
+  </data>
+  <data name="MY_ACCOUNT_IS_EMPTY" xml:space="preserve">
+    <value>Vacant account number </value>
+    <comment>账户是空号</comment>
+  </data>
+  <data name="MY_ADVANCED" xml:space="preserve">
+    <value>Strong</value>
+    <comment>高级</comment>
+  </data>
+  <data name="MY_APPLICATION_HAS_BEEN_SUBMITTED" xml:space="preserve">
+    <value>Application successfully submitted</value>
+    <comment>申请已提交</comment>
+  </data>
+  <data name="MY_INTERMEDIATE" xml:space="preserve">
+    <value>Medium </value>
+    <comment>中级</comment>
+  </data>
+  <data name="MY_ORDER_NO_EXCEPTION" xml:space="preserve">
+    <value>Wrong order number</value>
+    <comment>订单号异常</comment>
+  </data>
+  <data name="MY_ORDER_NUMBER_NOT_EXIST" xml:space="preserve">
+    <value>Order number doesn’t exist </value>
+    <comment>订单号不存在</comment>
+  </data>
+  <data name="MY_ORDERS_HAVE_BEEN_COMPLAINTS" xml:space="preserve">
+    <value>Complaint about this order has been made</value>
+    <comment>该订单已经进行过投诉</comment>
+  </data>
+  <data name="MY_PRIMARY" xml:space="preserve">
+    <value>Weak</value>
+    <comment>初级</comment>
+  </data>
+  <data name="MY_WITHDRAW_APPLY_SUCCESS" xml:space="preserve">
+    <value>Withdrawal successfully applied</value>
+    <comment>提现申请成功</comment>
+  </data>
+  <data name="NO_DATA" xml:space="preserve">
+    <value>NO DATA</value>
+    <comment>暂无数据</comment>
+  </data>
+  <data name="NOT_ADDRESS" xml:space="preserve">
+    <value>NO DELIVERY ADDRESS</value>
+    <comment>没有收货地址</comment>
+  </data>
+  <data name="ORDER_ADDRESS_ADDADDRESS" xml:space="preserve">
+    <value>Add an address </value>
+    <comment>新增收货地址</comment>
+  </data>
+  <data name="ORDER_ADDRESS_CONFIRMADDRESS" xml:space="preserve">
+    <value>Confirm address</value>
+    <comment>确认收货地址</comment>
+  </data>
+  <data name="ORDER_ADDRESS_EDITADDRESS" xml:space="preserve">
+    <value>Change this address</value>
+    <comment>修改本地址</comment>
+  </data>
+  <data name="ORDER_ADDRESS_REVEIVER" xml:space="preserve">
+    <value>Recipient</value>
+    <comment>收</comment>
+  </data>
+  <data name="ORDER_ADDRESS_REVEIVER_DEFAULTADDRESS" xml:space="preserve">
+    <value>Set as default address</value>
+    <comment>设为默认地址</comment>
+  </data>
+  <data name="ORDER_ADDRESS_SENDADDRESS" xml:space="preserve">
+    <value>Shipping to</value>
+    <comment>寄送至</comment>
+  </data>
+  <data name="ORDER_DETAILS_BUYERINFO" xml:space="preserve">
+    <value>Buyer’s info</value>
+    <comment>买家信息</comment>
+  </data>
+  <data name="ORDER_DETAILS_CITY" xml:space="preserve">
+    <value>City </value>
+    <comment>城市</comment>
+  </data>
+  <data name="ORDER_DETAILS_CREATETIME" xml:space="preserve">
+    <value>Creation time </value>
+    <comment>创建时间</comment>
+  </data>
+  <data name="ORDER_DETAILS_ORDERINFO" xml:space="preserve">
+    <value>Order info</value>
+    <comment>订单信息</comment>
+  </data>
+  <data name="ORDER_DETAILS_PAYTIME" xml:space="preserve">
+    <value>Payment time</value>
+    <comment>付款时间</comment>
+  </data>
+  <data name="ORDER_DETAILS_SELLERINFO" xml:space="preserve">
+    <value>Seller’s info</value>
+    <comment>商家信息</comment>
+  </data>
+  <data name="ORDER_DETAILS_SELLERNAME" xml:space="preserve">
+    <value>Name of seller</value>
+    <comment>商家名称</comment>
+  </data>
+  <data name="ORDER_DETAILS_SERVICECALL" xml:space="preserve">
+    <value>Service tel</value>
+    <comment>服务电话</comment>
+  </data>
+  <data name="ORDER_FREIGHT" xml:space="preserve">
+    <value>Shipping fees</value>
+    <comment>运费</comment>
+  </data>
+  <data name="ORDER_LIST_ALL" xml:space="preserve">
+    <value>All </value>
+    <comment>全部</comment>
+  </data>
+  <data name="ORDER_LIST_AMOUNTOFREALPAY" xml:space="preserve">
+    <value>Amount paid </value>
+    <comment>实付金额</comment>
+  </data>
+  <data name="ORDER_LIST_EARLIER" xml:space="preserve">
+    <value>Earlier </value>
+    <comment>更早</comment>
+  </data>
+  <data name="ORDER_LIST_GOODS" xml:space="preserve">
+    <value>Items</value>
+    <comment>商品</comment>
+  </data>
+  <data name="ORDER_LIST_HASBEENCANCELLED" xml:space="preserve">
+    <value>Canceled </value>
+    <comment>已取消</comment>
+  </data>
+  <data name="ORDER_LIST_HASBEENCOMPLETED" xml:space="preserve">
+    <value>Completed </value>
+    <comment>已完成</comment>
+  </data>
+  <data name="ORDER_LIST_HAVEGOODS" xml:space="preserve">
+    <value>Signed off</value>
+    <comment>已收货</comment>
+  </data>
+  <data name="ORDER_LIST_INVALIDORDERS" xml:space="preserve">
+    <value>Invalid order</value>
+    <comment>无效订单</comment>
+  </data>
+  <data name="ORDER_LIST_JUMPTO" xml:space="preserve">
+    <value>Go to </value>
+    <comment>跳转到</comment>
+  </data>
+  <data name="ORDER_LIST_MERCHANT" xml:space="preserve">
+    <value>Seller </value>
+    <comment>商家</comment>
+  </data>
+  <data name="ORDER_LIST_NEARLYHALFAMONTH" xml:space="preserve">
+    <value>Within half a month </value>
+    <comment>近半个月</comment>
+  </data>
+  <data name="ORDER_LIST_NEARLYTHREEMONTHS" xml:space="preserve">
+    <value>Within three months</value>
+    <comment>近三个月</comment>
+  </data>
+  <data name="ORDER_LIST_NEXTPAGE" xml:space="preserve">
+    <value>Next page </value>
+    <comment>下一页</comment>
+  </data>
+  <data name="ORDER_LIST_NUMBER" xml:space="preserve">
+    <value>Qty </value>
+    <comment>数量</comment>
+  </data>
+  <data name="ORDER_LIST_OPERATE" xml:space="preserve">
+    <value>Operation </value>
+    <comment>操作</comment>
+  </data>
+  <data name="ORDER_LIST_ORDERINFO" xml:space="preserve">
+    <value>Order No.</value>
+    <comment>订单编号</comment>
+  </data>
+  <data name="ORDER_LIST_ORDERSTATUS" xml:space="preserve">
+    <value>Order status </value>
+    <comment>订单状态</comment>
+  </data>
+  <data name="ORDER_LIST_PAGE" xml:space="preserve">
+    <value>Pages </value>
+    <comment>页</comment>
+  </data>
+  <data name="ORDER_LIST_PREVIOUSPAGE" xml:space="preserve">
+    <value>Previous page</value>
+    <comment>上一页</comment>
+  </data>
+  <data name="ORDER_LIST_PRICE" xml:space="preserve">
+    <value>Unit price </value>
+    <comment>单价</comment>
+  </data>
+  <data name="ORDER_LIST_SERVICE" xml:space="preserve">
+    <value>Service </value>
+    <comment>服务</comment>
+  </data>
+  <data name="ORDER_LIST_STATE" xml:space="preserve">
+    <value>Status</value>
+    <comment>状态</comment>
+  </data>
+  <data name="ORDER_LIST_STATE_ALL" xml:space="preserve">
+    <value>All </value>
+    <comment>全部</comment>
+  </data>
+  <data name="ORDER_LIST_SURE" xml:space="preserve">
+    <value>Go</value>
+    <comment>确定</comment>
+  </data>
+  <data name="ORDER_LIST_TIME" xml:space="preserve">
+    <value>Time </value>
+    <comment>时间</comment>
+  </data>
+  <data name="ORDER_LIST_TOPAGE" xml:space="preserve">
+    <value>Page {0}</value>
+    <comment>到{0}页</comment>
+  </data>
+  <data name="ORDER_LIST_TOPAGENUM" xml:space="preserve">
+    <value>Go to Page</value>
+    <comment>到第</comment>
+  </data>
+  <data name="ORDER_LIST_TOSENDGOODS" xml:space="preserve">
+    <value>Await shipment </value>
+    <comment>待发货</comment>
+  </data>
+  <data name="ORDER_LIST_TOTAL" xml:space="preserve">
+    <value>In total</value>
+    <comment>共</comment>
+  </data>
+  <data name="ORDER_LIST_WAIT_PAY" xml:space="preserve">
+    <value>Await payment </value>
+    <comment>待付款</comment>
+  </data>
+  <data name="ORDER_LIST_WAIT_TAKE_DELIVERY" xml:space="preserve">
+    <value>Await sign-off</value>
+    <comment>待收货</comment>
+  </data>
+  <data name="ORDER_NUMBERANDMONEY" xml:space="preserve">
+    <value>Subtotal of {0} items:{1}</value>
+    <comment>{0}件商品，总商品金额：{1}</comment>
+  </data>
+  <data name="ORDER_PAY" xml:space="preserve">
+    <value>Pay with</value>
+    <comment>支付方式</comment>
+  </data>
+  <data name="ORDER_RECEIVER" xml:space="preserve">
+    <value>Recipient </value>
+    <comment>收货人</comment>
+  </data>
+  <data name="ORDER_RETURNPRODUCT_APPLY" xml:space="preserve">
+    <value>Apply for return / refund</value>
+    <comment>退货/款申请</comment>
+  </data>
+  <data name="ORDER_RETURNPRODUCT_ATMOSTINPUTWORDS" xml:space="preserve">
+    <value>You can enter 200 words at most </value>
+    <comment>最多可以输入200个字</comment>
+  </data>
+  <data name="ORDER_RETURNPRODUCT_BADQUALITY" xml:space="preserve">
+    <value>Quality problems </value>
+    <comment>质量有问题</comment>
+  </data>
+  <data name="ORDER_RETURNPRODUCT_DELIVERYDELAY" xml:space="preserve">
+    <value>Delayed delivery </value>
+    <comment>延迟发货</comment>
+  </data>
+  <data name="ORDER_RETURNPRODUCT_NOTWANT" xml:space="preserve">
+    <value>Not what I want </value>
+    <comment>不是自己想要的</comment>
+  </data>
+  <data name="ORDER_RETURNPRODUCT_OTHERREASON" xml:space="preserve">
+    <value>Others </value>
+    <comment>其他原因</comment>
+  </data>
+  <data name="ORDER_RETURNPRODUCT_PRICE" xml:space="preserve">
+    <value>Unit price </value>
+    <comment>单    价</comment>
+  </data>
+  <data name="ORDER_RETURNPRODUCT_PRODUCTDAMAGE" xml:space="preserve">
+    <value>Damaged goods</value>
+    <comment>商品破损了</comment>
+  </data>
+  <data name="ORDER_RETURNPRODUCT_RETURNMONEY" xml:space="preserve">
+    <value>Refund amount </value>
+    <comment>退货金额</comment>
+  </data>
+  <data name="ORDER_RETURNPRODUCT_RETURNNUMBER" xml:space="preserve">
+    <value>Qty of return</value>
+    <comment>退货数量</comment>
+  </data>
+  <data name="ORDER_RETURNPRODUCT_RETURNREASON" xml:space="preserve">
+    <value>Reasons for return / refund </value>
+    <comment>退货/款原因</comment>
+  </data>
+  <data name="ORDER_RETURNPRODUCT_SELECTRETURNREASON" xml:space="preserve">
+    <value>Please select a reason for return / refund</value>
+    <comment>请选择退货/款原因</comment>
+  </data>
+  <data name="ORDER_RETURNPRODUCT_SELLER" xml:space="preserve">
+    <value>Seller </value>
+    <comment>商    家</comment>
+  </data>
+  <data name="ORDER_RETURNPRODUCT_XIAOJI" xml:space="preserve">
+    <value>Subtotal </value>
+    <comment>小    计</comment>
+  </data>
+  <data name="ORDER_SUMPAYABLE" xml:space="preserve">
+    <value>Total </value>
+    <comment>应付总额</comment>
+  </data>
+  <data name="PARAMETER_ERROR" xml:space="preserve">
+    <value>PARAMETER ERROR</value>
+    <comment>参数错误</comment>
+  </data>
+  <data name="PARAMETER_NOT_EMPTY" xml:space="preserve">
+    <value>PARAMETER CANNOT BE EMPTY</value>
+    <comment>参数不能为空</comment>
+  </data>
+  <data name="PAY" xml:space="preserve">
+    <value>Pay </value>
+    <comment>支付</comment>
+  </data>
+  <data name="PAY_FAIL_MESSAGE" xml:space="preserve">
+    <value>Sorry, payment failed!</value>
+    <comment>抱歉，付款失败！</comment>
+  </data>
+  <data name="PAY_FAIL_MESSAGE_CAUSE" xml:space="preserve">
+    <value>It may be caused by: Too frequent payment/ Network problems  </value>
+    <comment>失败的原因可能是： 　付款太频繁 　　网络有问题</comment>
+  </data>
+  <data name="PAY_SUCCESS_MESSAGE" xml:space="preserve">
+    <value>Congratulations, payment succeeded</value>
+    <comment>恭喜您，付款成功!</comment>
+  </data>
+  <data name="PAY_SUCCESS_MESSAGE_CAUSE" xml:space="preserve">
+    <value>We have received your {0} ฿ payment, we will arrange the shipment as soon as possible, please be patient ......</value>
+    <comment>已经收到您的{0}฿ 付款了，我们会尽快安排发货，请耐心等待......</comment>
+  </data>
+  <data name="PAYMENT_ENTER" xml:space="preserve">
+    <value>Enter</value>
+    <comment>进入</comment>
+  </data>
+  <data name="PAYMENT_GET_TOKEN_NORMAL" xml:space="preserve">
+    <value>Token successfully acquired, billing No.:</value>
+    <comment>获取Token正常,支付单号为</comment>
+  </data>
+  <data name="PAYMENT_GET_TRANS_DETAILS_NORMAL" xml:space="preserve">
+    <value>Transaction details successfully acquired, billing No.:</value>
+    <comment>获取交易详情正常,支付单号为:</comment>
+  </data>
+  <data name="PAYMENT_PAY_SUCCESS" xml:space="preserve">
+    <value>Payment succeeded</value>
+    <comment>支付成功</comment>
+  </data>
+  <data name="PAYMENT_PAY_SUCCESS_AND_UPDATE_DB_FAILURE" xml:space="preserve">
+    <value>Payment succeeded, failed to update database</value>
+    <comment>支付成功，更新数据库失败</comment>
+  </data>
+  <data name="PAYMENT_PAY_SUCCESS_AND_UPDATE_DB_SUCCESS" xml:space="preserve">
+    <value>Payment succeeded, database successfully updated </value>
+    <comment>支付成功，更新数据库成功</comment>
+  </data>
+  <data name="PAYMENT_TRANSATION_FAILURE" xml:space="preserve">
+    <value>Transaction processing failed</value>
+    <comment>进行交易处理失败</comment>
+  </data>
+  <data name="PAYMENT_VALIDATION_FAILURE" xml:space="preserve">
+    <value>Message notification does not pass validation</value>
+    <comment>消息通知没有通过验证</comment>
+  </data>
+  <data name="PRODUCT_LIST_COLLECT" xml:space="preserve">
+    <value>collect</value>
+    <comment>收藏</comment>
+  </data>
+  <data name="PRODUCT_PLS_CHOOSE_PRODUCTS" xml:space="preserve">
+    <value>Please select items</value>
+    <comment>请选择商品</comment>
+  </data>
+  <data name="PURCHASE_QUANTITY_IllEGAL" xml:space="preserve">
+    <value>INVALID PURCHASE QUANTITY</value>
+    <comment>购买数量不合法</comment>
+  </data>
+  <data name="REGISETR_HADREGISTER" xml:space="preserve">
+    <value>Account registered with this mobile number already exists</value>
+    <comment>您输入的手机号码已注册</comment>
+  </data>
+  <data name="REGISETR_USERREGISTERFAIL" xml:space="preserve">
+    <value>Member registration failed</value>
+    <comment>会员注册失败</comment>
+  </data>
+  <data name="REGISETR_USERREGISTERSUCCESS" xml:space="preserve">
+    <value>Member registration succeeded</value>
+    <comment>会员注册成功</comment>
+  </data>
+  <data name="REGISTER_EMAIL_HAS_BEEN_BOUND_TO_CHANGE" xml:space="preserve">
+    <value>Email has been bound; please alter</value>
+    <comment>邮箱已经被绑定，请更改</comment>
+  </data>
+  <data name="REGISTER_EMAIL_MUST" xml:space="preserve">
+    <value>Please enter email address</value>
+    <comment>请输入邮箱</comment>
+  </data>
+  <data name="REGISTER_EMAIL_VALIDATION_SUCCESS" xml:space="preserve">
+    <value>Email approved</value>
+    <comment>邮箱通过</comment>
+  </data>
+  <data name="REGISTER_INVITER_EXIST" xml:space="preserve">
+    <value>Inviter does exist!</value>
+    <comment>邀请人存在！</comment>
+  </data>
+  <data name="REGISTER_INVITER_NOT_EXIST" xml:space="preserve">
+    <value>Inviter doesn’t exist!</value>
+    <comment>邀请人不存在！</comment>
+  </data>
+  <data name="REGISTER_PHONE" xml:space="preserve">
+    <value>Mobile number </value>
+    <comment>手机号</comment>
+  </data>
+  <data name="REGISTER_PHONE_DELETED" xml:space="preserve">
+    <value>This mobile number has been deleted</value>
+    <comment>该手机号码已删除</comment>
+  </data>
+  <data name="REGISTER_PHONE_FORMAT_INCORRECT" xml:space="preserve">
+    <value>Wrong mobile number format</value>
+    <comment>手机号码格式不正确</comment>
+  </data>
+  <data name="REGISTER_PHONE_LOCKED" xml:space="preserve">
+    <value>This mobile number has been locked</value>
+    <comment>该手机号码已锁定</comment>
+  </data>
+  <data name="REGISTER_PHONE_REGISTER" xml:space="preserve">
+    <value>Account registered with this mobile number already exists.</value>
+    <comment>该手机号码已注册！</comment>
+  </data>
+  <data name="REGISTER_PWD_FORMAT_INCORRECT" xml:space="preserve">
+    <value>Wrong password format</value>
+    <comment>输入的密码格式不正确！</comment>
+  </data>
+  <data name="REGISTER_TIME" xml:space="preserve">
+    <value>Time </value>
+    <comment>时间</comment>
+  </data>
+  <data name="SCAN_DOWNLOAD_APP" xml:space="preserve">
+    <value>Scan to download HuikaMall International APP</value>
+    <comment>扫描下载HuikaMall国际APP</comment>
+  </data>
+  <data name="SEND_CODE_NOTE" xml:space="preserve">
+    <value>send verification message</value>
+    <comment>发送了验证短信</comment>
+  </data>
+  <data name="SENDPHONEMSG_CLOSED" xml:space="preserve">
+    <value>SMS switch off, unable to send message</value>
+    <comment>短信总开关关闭，无法发送短信</comment>
+  </data>
+  <data name="SETPAYPASSWORD_FAIL" xml:space="preserve">
+    <value>Failed to create</value>
+    <comment>设置失败</comment>
+  </data>
+  <data name="SETPAYPASSWORD_SUCCESS" xml:space="preserve">
+    <value>Successfully created</value>
+    <comment>设置成功</comment>
+  </data>
+  <data name="SETPAYPSSWORD_NOW" xml:space="preserve">
+    <value>Create now</value>
+    <comment>立即设置</comment>
+  </data>
+  <data name="SHARE_DOWMLOAD_MSG" xml:space="preserve">
+    <value>Scan/Click QR code to download Huika APP</value>
+    <comment>扫描/点击二维码 下载惠卡APP</comment>
+  </data>
+  <data name="SHARE_HUIFEN_MSG1" xml:space="preserve">
+    <value>The More Huifen Followers, The More Benefits</value>
+    <comment>您的惠粉越多，收益就会越多</comment>
+  </data>
+  <data name="SHARE_HUIFEN_MSG2" xml:space="preserve">
+    <value>Download APP now and invite your friends </value>
+    <comment>赶紧下载APP邀请他们吧</comment>
+  </data>
+  <data name="SHARE_HUIFEN_MSG3" xml:space="preserve">
+    <value>To Achieve Greatness Together</value>
+    <comment>共同成就财富和事业梦想</comment>
+  </data>
+  <data name="SHARE_LOGINACCOUNT" xml:space="preserve">
+    <value>Your login account</value>
+    <comment>您的登录帐号</comment>
+  </data>
+  <data name="SHARE_MY_LUCKYCODE" xml:space="preserve">
+    <value>My QR code </value>
+    <comment>我的幸运二维码</comment>
+  </data>
+  <data name="SHARE_MY_LUCKYCODE_MSG" xml:space="preserve">
+    <value>A golden key to open the door of your wealth and career dreams. Join Huifen to start your business with Huika now! </value>
+    <comment>开启财富金钥匙，成就事业梦想，加入惠粉，建立自己的事业团队，开始您的惠卡事业</comment>
+  </data>
+  <data name="SHARE_SHOUYI_MSG1" xml:space="preserve">
+    <value>Your income=</value>
+    <comment>您的收益=</comment>
+  </data>
+  <data name="SHARE_SHOUYI_MSG2" xml:space="preserve">
+    <value>No. of Grateful Huifen * purchase profits *30%</value>
+    <comment>感恩惠粉数量*购物利润*30%</comment>
+  </data>
+  <data name="SHARE_SHOUYI_MSG3" xml:space="preserve">
+    <value>No. of Inspiring Huifen * purchase profits *20%</value>
+    <comment>感动惠粉数量*购物利润*20%</comment>
+  </data>
+  <data name="SHARE_SHOUYI_MSG4" xml:space="preserve">
+    <value>No. of Thankful Huifen * purchase profits *30%</value>
+    <comment>感谢惠粉数量*购物利润*30%</comment>
+  </data>
+  <data name="SHOPPINGCART_ID_IllEGAL" xml:space="preserve">
+    <value>INVALID CART ID</value>
+    <comment>购物车ID不合法</comment>
+  </data>
+  <data name="SHOPPINGCART_PLS_CHOOSE_PRODUCTS_ATTRIBUTE" xml:space="preserve">
+    <value>Please select item attribute</value>
+    <comment>请选择商品属性</comment>
+  </data>
+  <data name="SHOPPINGCART_PRODUCTOR_CAN_NOT_BUY_SELF_PRODUCT" xml:space="preserve">
+    <value>Sellers cannot buy their own products </value>
+    <comment>商家不能购买自己的商品</comment>
+  </data>
+  <data name="SMS_CLIENTCONTENT" xml:space="preserve">
+    <value>Register verification code:{0}, please enter in within 15 minutes.Welcome to Huika Mall</value>
+    <comment>惠卡注册验证码：{0}，15分钟后失效，请尽快填写。欢迎您的加入【惠卡商际】</comment>
+  </data>
+  <data name="SUBMIT_ORDER" xml:space="preserve">
+    <value>Submit </value>
+    <comment>提交订单</comment>
+  </data>
+  <data name="SUCCESS" xml:space="preserve">
+    <value>SUCCESS</value>
+    <comment>成功</comment>
+  </data>
+  <data name="SYSTEM_ERROR" xml:space="preserve">
+    <value>System exception, please try again later</value>
+    <comment>系统异常，请稍后再试</comment>
+  </data>
+  <data name="SYSTEM_INNERERROR" xml:space="preserve">
+    <value>SYSTEM ERROR</value>
+    <comment>系统内部错误</comment>
+  </data>
+  <data name="UPDATE_Failure" xml:space="preserve">
+    <value>UPDATE FAILURE</value>
+    <comment>更新失败</comment>
+  </data>
+  <data name="UPDATE_SUCCESS" xml:space="preserve">
+    <value>UPDATE SUCCESS</value>
+    <comment>更新成功</comment>
+  </data>
+  <data name="UPLOAD_TIP_ONE" xml:space="preserve">
+    <value>Jpg/png/gif/jpeg pictures within 2M</value>
+    <comment>2M以内的jpg,png,gif,jpeg格式的图片</comment>
+  </data>
+  <data name="UPLOAD_TIP_TWO" xml:space="preserve">
+    <value>300*300 pixels preferred</value>
+    <comment>推荐尺寸300*300像素</comment>
+  </data>
+  <data name="USER_ADDFAVORITES_COLLSUCCESS" xml:space="preserve">
+    <value>Add to collections successfully </value>
+    <comment>收藏成功</comment>
+  </data>
+  <data name="USER_ADDFAVORITES_COMMODILLEGAL" xml:space="preserve">
+    <value>Illegal Item ID</value>
+    <comment>商品ID不合法</comment>
+  </data>
+  <data name="USER_ADDFAVORITES_OLLEGOODS" xml:space="preserve">
+    <value>Already added to collections </value>
+    <comment>已经收藏过这商品，不能再收藏</comment>
+  </data>
+  <data name="USER_ADDFAVORITES_PARAMETERS" xml:space="preserve">
+    <value>Parameter is required </value>
+    <comment>参数不能为空</comment>
+  </data>
+  <data name="USER_ADDFAVORITES_USERVALID" xml:space="preserve">
+    <value>Illegal User ID</value>
+    <comment>用户ID不合法</comment>
+  </data>
+  <data name="USER_ADDFEEBDACKFAILURE" xml:space="preserve">
+    <value>Feedback failed</value>
+    <comment>反馈失败</comment>
+  </data>
+  <data name="USER_ADDFEEBDACKSUCCESS" xml:space="preserve">
+    <value>Feedback success</value>
+    <comment>反馈成功</comment>
+  </data>
+  <data name="USER_ID_IllEGAL" xml:space="preserve">
+    <value>INVALID USER ID</value>
+    <comment>用户ID不合法</comment>
+  </data>
+  <data name="USER_PHONE_ALREADY" xml:space="preserve">
+    <value>We have sent to you</value>
+    <comment>我们已经给您</comment>
+  </data>
+  <data name="USER_SEARCH_FAILED" xml:space="preserve">
+    <value>QUERY FAILURE</value>
+    <comment>查询失败</comment>
+  </data>
+  <data name="USER_SEARCH_SUCCESS" xml:space="preserve">
+    <value>QUERY SUCCESS</value>
+    <comment>查询成功</comment>
+  </data>
+  <data name="USER_UPDATEPERSON_NOT" xml:space="preserve">
+    <value>Mobile number is not matched with modifier's number</value>
+    <comment>手机号与修改人不是同一个</comment>
+  </data>
+  <data name="USERBALANCE_CONTAIN_TOTALREVENUE" xml:space="preserve">
+    <value>BALANCE INCLUDED HUI FUN REVENUE </value>
+    <comment>余额包括惠粉总收益</comment>
+  </data>
+  <data name="USERINFO_ADVANCED" xml:space="preserve">
+    <value>Strong</value>
+    <comment>高级</comment>
+  </data>
+  <data name="USERINFO_BIND_FAILURE" xml:space="preserve">
+    <value>Failed to bind </value>
+    <comment>绑定失败</comment>
+  </data>
+  <data name="USERINFO_BIND_SUCCESS" xml:space="preserve">
+    <value>Bind successfully</value>
+    <comment>绑定成功</comment>
+  </data>
+  <data name="USERINFO_BIRTHDAY_NOT_GREATER_THAN_CURRENT_DATETIME" xml:space="preserve">
+    <value>Birthday cannot greater than current date</value>
+    <comment>生日不能大于当前时期</comment>
+  </data>
+  <data name="USERINFO_E-MAIL_NOT_EMPTY" xml:space="preserve">
+    <value>Email address is required </value>
+    <comment>邮箱不能为空</comment>
+  </data>
+  <data name="USERINFO_INTERMEDIATE" xml:space="preserve">
+    <value>Medium </value>
+    <comment>中级</comment>
+  </data>
+  <data name="USERINFO_LOGINPWD_NOT_EQUAL_TRANSPASSWORD" xml:space="preserve">
+    <value>Login password and Transaction password cannot be the same.</value>
+    <comment>登录密码不能与交易密码一致</comment>
+  </data>
+  <data name="USERINFO_NOT_LOGGING" xml:space="preserve">
+    <value>You haven’t logged in</value>
+    <comment>没有登录</comment>
+  </data>
+  <data name="USERINFO_NOT_UPLOAD_ANY_FILE" xml:space="preserve">
+    <value>No file uploaded</value>
+    <comment>没有上传任何文件</comment>
+  </data>
+  <data name="USERINFO_OP_FAILURE" xml:space="preserve">
+    <value>Operation failed, abnormal shipping address ID</value>
+    <comment>操作失败，收货地址ID异常.</comment>
+  </data>
+  <data name="USERINFO_OP_SUCCESS" xml:space="preserve">
+    <value>Operation succeeded</value>
+    <comment>操作成功</comment>
+  </data>
+  <data name="USERINFO_ORIGINAL_PASSWORD_CORRECT" xml:space="preserve">
+    <value>Original password is correct</value>
+    <comment>原始密码正确</comment>
+  </data>
+  <data name="USERINFO_ORIGINAL_PASSWORD_INCORRECT" xml:space="preserve">
+    <value>Original password is incorrect</value>
+    <comment>原始密码不正确</comment>
+  </data>
+  <data name="USERINFO_PASSWORD_NOT_BE_BLANK" xml:space="preserve">
+    <value>Password is required </value>
+    <comment>密码不能为空</comment>
+  </data>
+  <data name="USERINFO_PERSONAL_INFORMATION_OPERATIONS" xml:space="preserve">
+    <value>Personal info operation</value>
+    <comment>个人信息操作</comment>
+  </data>
+  <data name="USERINFO_PRIMARY" xml:space="preserve">
+    <value>Weak</value>
+    <comment>初级</comment>
+  </data>
+  <data name="USERINFO_SAVE_FAILURE" xml:space="preserve">
+    <value>Failed to save</value>
+    <comment>保存失败</comment>
+  </data>
+  <data name="USERINFO_SAVE_SUCCESS" xml:space="preserve">
+    <value>Successfully saved</value>
+    <comment>保存成功</comment>
+  </data>
+  <data name="USERINFO_SEND_FAILURE" xml:space="preserve">
+    <value>Failed to send</value>
+    <comment>发送失败</comment>
+  </data>
+  <data name="USERINFO_SEND_SUCCESS" xml:space="preserve">
+    <value>Successfully sent </value>
+    <comment>发送成功</comment>
+  </data>
+  <data name="USERINFO_SMSCODE_ERROR" xml:space="preserve">
+    <value>Wrong verification code  </value>
+    <comment>短信校验码错误</comment>
+  </data>
+  <data name="USERINFO_SMSCODE_NOT_EMPTY" xml:space="preserve">
+    <value>Verification code on phone is required   </value>
+    <comment>短信校验码不能为空</comment>
+  </data>
+  <data name="USERINFO_TRANSACTION_PASSWORD_LOGIN_PASSWOER_AUTHENTICATION" xml:space="preserve">
+    <value>Transaction password/Login password verification</value>
+    <comment>交易密码、登陆密码验证</comment>
+  </data>
+  <data name="USERINFO_TRANSACTION_PASSWORD_NOT_EMPTY" xml:space="preserve">
+    <value>Transaction password is required</value>
+    <comment>交易密码不能为空</comment>
+  </data>
+  <data name="USERINFO_TRANSPASSWORD_NOT_EQUAL_LOGINPWD" xml:space="preserve">
+    <value>Transaction password and login password cannot be the same. </value>
+    <comment>交易密码不能与登录密码一致</comment>
+  </data>
+  <data name="USERINFO_TWO_PASSWORD_CAN_NOT_SAME" xml:space="preserve">
+    <value>Passwords do not match; please confirm and try again!</value>
+    <comment>两次密码不能相同，请确认后操作！</comment>
+  </data>
+  <data name="USERINFO_TWO_PASSWORD_NOT_SAME" xml:space="preserve">
+    <value>Passwords do not match</value>
+    <comment>两次密码不一致，请确认后操作！</comment>
+  </data>
+  <data name="USERINFO_UPDATE_FAILURE" xml:space="preserve">
+    <value>Failed to change </value>
+    <comment>修改失败</comment>
+  </data>
+  <data name="USERINFO_UPDATE_SUCCESS" xml:space="preserve">
+    <value>Successfully changed</value>
+    <comment>修改成功</comment>
+  </data>
+  <data name="USERINFO_UPLOAD_FILE_TYPE_ERROR" xml:space="preserve">
+    <value>Wrong file type </value>
+    <comment>上传文件类型错误</comment>
+  </data>
+  <data name="USERINFO_UPLOAD_PICTUR_TOO_MANY" xml:space="preserve">
+    <value>Too many pictures uploaded </value>
+    <comment>上传图片过多</comment>
+  </data>
+  <data name="USERINFO_USER_NOT_EXIST" xml:space="preserve">
+    <value>User doesn’t exist</value>
+    <comment>用户不存在</comment>
+  </data>
+  <data name="USERINFO_VALIDATION_SUCCESS" xml:space="preserve">
+    <value>Verification succeeded</value>
+    <comment>验证成功</comment>
+  </data>
+  <data name="VERIFYCODE_PWD_INCORRECT" xml:space="preserve">
+    <value>Please enter password again</value>
+    <comment>请输入确认密码！</comment>
+  </data>
+  <data name="VERIFYCODE_PWD_LENGTH_BETWEEN_8_AND_16" xml:space="preserve">
+    <value>Password length of 8 to 16 characters!</value>
+    <comment>密码长度请在8-16位之间！</comment>
+  </data>
+  <data name="VERIFYCODE_SEND_PHONE_FAILURE" xml:space="preserve">
+    <value>Forgot your password pass the first step in the mobile phone number failed!</value>
+    <comment>找回密码的第一步传手机号码失败！</comment>
+  </data>
+  <data name="VERIFYCODE_TWO_PWD_NOT_SAME" xml:space="preserve">
+    <value>Passwords do not match</value>
+    <comment>两次输入的密码不一致！</comment>
+  </data>
+  <data name="VERIFYCODE_UPDATE_PWD_FAILURE" xml:space="preserve">
+    <value>Failed to change password</value>
+    <comment>修改密码失败！</comment>
+  </data>
+  <data name="VERIFYCODE_UPDATE_PWD_SUCCESS" xml:space="preserve">
+    <value>Password successfully changed </value>
+    <comment>修改密码成功！</comment>
+  </data>
+  <data name="VERSION_NOT" xml:space="preserve">
+    <value>NO UPDATE</value>
+    <comment>无最新版本</comment>
+  </data>
+  <data name="WEBSITE_ABOUT" xml:space="preserve">
+    <value>About Site</value>
+    <comment>网站简介</comment>
+  </data>
+  <data name="WITHOUT_HUIKAMALL" xml:space="preserve">
+    <value>Don’t have a HuikaMall account</value>
+    <comment>没有HuikaMall帐号</comment>
+  </data>
+  <data name="WORKING_TIME" xml:space="preserve">
+    <value>Mon to Sun</value>
+    <comment>周一到周日</comment>
+  </data>
+</root>

@@ -1,0 +1,226 @@
+﻿@model bool
+
+@using HKTHMall.Services.Common.MultiLangKeys;
+@{
+    //var isDialogLoginController = ViewContext.RouteData.Values["controller"].ToString() == ("Login||Register") ? true : false;
+    var isLogin = Request.IsAuthenticated;
+}
+@if (!isLogin)
+{
+    if (Model)
+    {
+        <div class="dialogCover">
+            @*<div class="dialogMain loginDialogFix zoomIn" id="desdialog">*@
+            <div class="dialogMain">
+                <div class="m_login_left">
+                    @*<div class="ds_dialog_close" id="xxxclose">X</div>*@
+                    <div class="m_login_erro"><span id="errorStr" style="display:none;">@CultureHelper.GetLangString("HK_CXSF")</span></div><!--错误提示位置-->
+                    <div class="m_login_nr">
+                        <h1>LOGIN</h1>
+                        <ul>
+                            <li><input type="text" name="" id="txtemail" class="m_login_text" value="@ViewBag.email" onchange="CheckEmail()" placeholder="@CultureHelper.GetLangString("HK_DZYX")"></li>
+                            <li><input type="password" name="" maxlength="16" id="txtpwd" onblur="CheckPwd()" class="m_login_text" placeholder="@CultureHelper.GetLangString("ACCOUNT_USERINFO_UPDATELOGINPASSWORD_LOGINPASSWORD")"></li>
+                            <li class="m_login_remb"><span><a href="@Url.Action("GetPassword")" title="">@CultureHelper.GetLangString("HK_FORGOTPASSWORD")</a></span><label for="m_login_rad" class="m_login_check"><input type="checkbox" id="m_login_rad"><i>@CultureHelper.GetLangString("HK_REMEMBERACCOUNT")</i></label></li>
+                            <li><input type="submit" name="" id="login" class="m_login_submit" value="@CultureHelper.GetLangString("ACCOUNT_LOGIN")"></li>
+                        </ul>
+                        <h3>@CultureHelper.GetLangString("HK_WELCOMEIN")<br>@CultureHelper.GetLangString("HK_FAMELIY")</h3>
+                        <dl><a href="@Url.Action("Index", "Register")" title=""><b></b>@CultureHelper.GetLangString("DETAILSREGISTERNOW")</a></dl>
+                    </div>
+                    <div class="m_login_other">
+                        <srtong><b>@CultureHelper.GetLangString("HK_OTHERLOGIN")</b></srtong>
+                        <ul>
+                            <a href="javascript:;" title="" class="m_login_face"><i></i><span id="sFaceBook">Facebook</span></a>
+                            @*<a href="#" title="" class="m_login_twit"><i></i><span>Twitter</span></a>*@
+                            <span class="clearfix"></span>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="main_about">
+            <div class="m_login">
+                <div class="m_login_left">
+                    <div class="m_login_erro"><span id="errorStr" style="display:none;">@CultureHelper.GetLangString("HK_CXSF")</span></div><!--错误提示位置-->
+                    <div class="m_login_nr">
+                        <h1>LOGIN</h1>
+                        <ul>
+                            <li><input type="text" name="" id="txtemail" class="m_login_text" onblur="CheckEmail()" placeholder="@CultureHelper.GetLangString("HK_DZYX")"></li>
+                            <li><input type="password" name="" maxlength="16" id="txtpwd" onblur="CheckPwd()" class="m_login_text" placeholder="@CultureHelper.GetLangString("ACCOUNT_USERINFO_UPDATELOGINPASSWORD_LOGINPASSWORD")"></li>
+                            <li class="m_login_remb"><span><a href="@Url.Action("GetPassword")" title="">@CultureHelper.GetLangString("HK_FORGOTPASSWORD")</a></span><label for="m_login_rad" class="m_login_check"><input type="checkbox" id="m_login_rad"><i>@CultureHelper.GetLangString("HK_REMEMBERACCOUNT")</i></label></li>
+                            <li><input type="button" name="" id="login" class="m_login_submit" value="@CultureHelper.GetLangString("ACCOUNT_LOGIN")"></li>
+                        </ul>
+                        <h3>@CultureHelper.GetLangString("HK_WELCOMEIN")<br>@CultureHelper.GetLangString("HK_FAMELIY")</h3>
+                        <dl><a href="@Url.Action("Index", "Register")" title=""><b></b>@CultureHelper.GetLangString("DETAILSREGISTERNOW")</a></dl>
+                    </div>
+                    <div class="m_login_other">
+                        <srtong><b>@CultureHelper.GetLangString("HK_OTHERLOGIN")</b></srtong>
+                        <ul>
+                            <a href="javascript:;" title="" class="m_login_face"><i></i><span id="sFaceBook">Facebook</span></a>
+                            @*<a href="#" title="" class="m_login_twit"><i></i><span>Twitter</span></a>*@
+                            <span class="clearfix"></span>
+                        </ul>
+                    </div>
+                </div>
+                <div class="m_login_right">
+                    <ul>
+                        <li><b>@CultureHelper.GetLangString("HK_SELFBUY")</b><span>@CultureHelper.GetLangString("HK_GUWY")</span><i class="m_login_r1"></i></li>
+                        <li><b>@CultureHelper.GetLangString("HK_QUANFAN")</b><span>@CultureHelper.GetLangString("HK_ZEROBUY")</span><i class="m_login_r2"></i></li>
+                        <li><b>@CultureHelper.GetLangString("HK_CCFUBAOZHANG")</b><span>@CultureHelper.GetLangString("HK_KUAIFA")</span><i class="m_login_r3"></i></li>
+                        <li><b>@CultureHelper.GetLangString("HK_WLYTUIHUO")</b><span>@CultureHelper.GetLangString("HK_SELFWUYOU")</span><i class="m_login_r4"></i></li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    }
+}
+
+<script src="~/Scripts/jquery.cookie.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#txtemail").val("@ViewBag.email");
+        //$("#xxxclose").on('click', function () {
+        //    $("#desdialog").remove();
+        //    $(".mask2016").remove();
+        //});
+    });
+    //验证邮箱
+    function CheckEmail() {
+        var email = $("#txtemail").val();
+        if (email == '') {
+            $("#errorStr").html("@CultureHelper.GetLangString("LOGIN_GETPASSWORD_ENTEREMAILADDRESS")")
+            $("#errorStr").css("display", "block");
+            return false;
+        }
+        if (/^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/.test(email) == false) {
+            $("#errorStr").html("@CultureHelper.GetLangString("HOME_REGISTER_INDEX_CORRECTEMAIL")");
+            $("#errorStr").css("display", "block");
+            return false;
+        } else {
+            $("#errorStr").css("display", "none");
+            return true;
+        }
+    }
+
+    //验证密码
+    function CheckPwd() {
+        /*验证登录密码*/
+
+        var pwds = $("#txtpwd").val();
+        if ("" == pwds) {
+            $("#errorStr").html("@CultureHelper.GetLangString("ACCOUNT_USERINFO_UPDATELOGINPASSWORD_LOGINPASSWORD")")
+            $("#errorStr").css("display", "block");
+            //$("#txtpwd").focus();
+            return false;
+        } else if (pwds.length < 8 || pwds.length > 16) {
+            $("#errorStr").html("@CultureHelper.GetLangString("VERIFYCODE_PWD_LENGTH_BETWEEN_8_AND_16")")
+            $("#errorStr").css("display", "block");
+            return false;
+        } else {
+            $("#errorStr").css("display", "none");
+            return true;
+        }
+    }
+
+    $("#login").click(function () {
+        var email = $("#txtemail").val();
+        var pwd = $("#txtpwd").val();
+        if (CheckEmail() && CheckPwd()) {
+            $.ajax({
+                url: "@Url.Action("Index")",
+                type: "Post",
+                data: {
+                    account: email,
+                    passWord: pwd,
+                    IsJz: $("#m_login_rad").is(":checked")
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == 1) {
+                        $("#errorStr").css("display", "none");
+                        //登陆成功
+                        var retUrl = window.location.href;
+                        if ($("#hidredirect").val() != "" && $("#hidredirect").val() != undefined) {
+                            window.location.href = $("#hidredirect").val();
+                        } else {
+                            var returnUrl = $.getUrlParam('ReturnUrl');
+                            if (retUrl.toLowerCase().indexOf("register") != -1 || (retUrl.toLowerCase().indexOf("login") != -1 && returnUrl == null)) {
+                                //登陆成功
+                                window.location.href = "@Url.Action("Index","Home")";
+                            } else {
+                                if (returnUrl)
+                                    window.location.href = returnUrl;
+                                else
+                                    window.location.href = retUrl;
+                            }
+
+                        }
+                    } else {
+                        $("#errorStr").html(data.message);
+                        $("#errorStr").css("display", "block");
+                        flag = false;
+                    }
+      
+                    //cookie商品写入购物车
+                    createShoppingProducts();
+                }
+            })
+        }
+    })
+    document.onkeydown = function (e) {
+        var theEvent = window.event || e;
+        var code = theEvent.keyCode || theEvent.which;
+        if (code == 13) {
+            $("#login").click();
+        }
+    }
+
+    //获取url参数
+    $.getUrlParam = function (name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+
+    //用户登录成功后写入cookie商品到购物车
+    function createShoppingProducts() {
+        // cookie 名称
+        var cookieName = "8hkhk.com.myshoppingcart.allgoods";
+        var shoppinggoods = $.cookie(cookieName);
+        var pids = [];
+        var skus = [];
+        var count = [];
+        if (shoppinggoods != undefined && shoppinggoods.length > 0) {
+            var jsondata = myCommonHelper.asToJsonObj(shoppinggoods);
+            $(jsondata).each(function (idx, item) {
+                pids.push(item.GoodsId);
+                skus.push(item.SkuNumber);
+                count.push(item.Count);
+            });
+
+            // 添加商品
+            var ret_json = jQuery.parseJSON(myCommonHelper.getAjaxStringSync("/money/ShoppingCart/addToShoppingCart", "POST",
+                {
+                    strGoodsIds: myCommonHelper.jsonObjToString(pids),
+                    strSkuNumber: myCommonHelper.jsonObjToString(skus),
+                    strCount: myCommonHelper.jsonObjToString(count)
+                }));
+            if (ret_json.Msg != "") {
+                //alert(ret_json.Msg);
+                //mallbox.alert({ message: ret_json.Msg });
+                return false;
+            }
+            $.removeCookie(cookieName, { path: '/' }); //清除站点下的cookie
+            return true;
+
+        }
+    }
+
+
+</script>
+
+

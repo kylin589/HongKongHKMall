@@ -1,0 +1,92 @@
+﻿@using HKTHMall.Domain.Models.banner
+@using HKTHMall.Domain.AdminModel.Models.New
+@using HKTHMall.Core.Extensions
+@using HKTHMall.Services.Common.MultiLangKeys;
+@{
+    //获取首页广告的
+    var listbanner = ViewBag.BannerData;
+    var news = ViewBag.NewsData;
+    bannerModel Ad = ViewBag.Advertisement;
+}
+<div class="layoutBanner">
+    <div class="bannerFocus">
+        <div class="bannerSlider">
+            <ul class="bannerMain swiper-wrapper">
+                @{
+                    if (listbanner != null)
+                    {
+                        foreach (bannerModel item in listbanner)
+                        {
+                            <li class="swiper-slide"><a href="@(item.bannerUrl)"><img src="@Html.GetImagesUrl(item.bannerPic)" alt="" width="748" height="408"></a></li>
+                        }
+                    }
+                }
+            </ul>
+            <div class="pagination"></div>
+            <!-- 如果需要导航按钮 -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div><!-- 广告轮播 -->
+        <div class="focusExtra">
+            <h3>
+                <b>@CultureHelper.GetLangString("HK_NewsReport")</b>
+                <a href="@Url.Action("Index","News")">@CultureHelper.GetLangString("HK_NewsReport_More")<i class="fa fa-angle-right"></i></a>
+            </h3>
+            <ul>
+                @foreach (NewInfoModel item in news)
+                {
+                    <li><b>@(item.NewType == 0 ? "[" + CultureHelper.GetLangString("HK_NewsReort_Notice") + "]" : "[" + CultureHelper.GetLangString("HK_NewsReport_Privilege") + "]")</b><a href="@Url.Action("Details", "News", new { id = item.NewInfoId })">@item.NewTitle</a></li>
+                }
+            </ul>
+            <a href="@Ad.bannerUrl" title=""><img src="@Html.GetImagesUrl(Ad.bannerPic)" alt="" width="250" height="192"></a>
+        </div>
+        <span class="clear"></span>
+    </div>
+</div>
+<script>
+    $(function () {
+        /*banner*/
+        var banner = new Swiper('.bannerSlider', {
+            spaceBetween: 0,
+            autoplay: 5000,
+            speed: 1000,
+            simulateTouch: false,
+            direction: 'horizontal',
+            loop: true,
+            paginationClickable: true,
+            pagination: '.pagination',
+        });
+        $('.swiper-button-prev').on('click', function (e) {
+            e.preventDefault()
+            banner.swipePrev()
+        });
+        $('.swiper-button-next').on('click', function (e) {
+            e.preventDefault()
+            banner.swipeNext()
+        });
+
+        $(".m_infool_midd").each(function () {
+            $(this).data('floor');
+            var addClassName = 'mContianer' + $(this).data('floor');
+            $(this).addClass(addClassName);
+            var floor = new Swiper('.' + addClassName, {
+                spaceBetween: 0,
+                speed: 1000,
+                simulateTouch: false,
+                direction: 'horizontal',
+                loop: true
+            });
+
+            $('.' + addClassName).find("div.swiper-button-prev").on('click', function (e) {
+                e.preventDefault()
+                floor.swipePrev()
+            });
+            $('.' + addClassName).find("div.swiper-button-next").on('click', function (e) {
+                e.preventDefault()
+                floor.swipeNext()
+            });
+
+
+        });
+    });
+</script>

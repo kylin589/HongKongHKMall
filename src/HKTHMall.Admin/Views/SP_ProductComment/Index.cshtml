@@ -1,0 +1,287 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@model HKTHMall.Domain.Models.Categoreis.SearchSP_ProductCommentModel
+@{
+    ViewBag.Title = "Goods comments";
+
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Edit = _Authority.CheckAction(88);
+    _Authority.Delete = _Authority.CheckAction(89);
+    
+}
+
+<div id="user-toolbar">
+    
+        <div class="form-inline" role="form">
+
+            <div class="form-group">
+                <span>Product SN: </span>&nbsp;&nbsp;
+                @Html.TextBoxFor(x => x.ProductId, new { @class = "form-control w70", @placeholder = "Please enter product number" })
+            </div>
+            &nbsp;&nbsp;
+            <div class="form-group">
+                <span>Order SN: </span>&nbsp;&nbsp;
+                @Html.TextBoxFor(x => x.OrderId, new { @class = "form-control w70", @placeholder = "Please enter Order number" })
+            </div>
+            &nbsp;&nbsp;
+            <div class="form-group">
+                <span>Email: </span>&nbsp;&nbsp;
+                @Html.TextBoxFor(x => x.Email, new { @class = "form-control w70", @placeholder = "Please enter Mobile number" })
+            </div>
+            @*&nbsp;&nbsp;
+            <div class="form-group">
+                <span>用户ID: </span>&nbsp;&nbsp;
+                @Html.TextBoxFor(x => x.UserID, new { @class = "form-control w70", @placeholder = "请输入用户ID" })
+            </div>*@
+            &nbsp;&nbsp;
+            <div class="form-group" style=" display:none">
+                <span>Review status: </span>&nbsp;&nbsp;
+                <select class="form-control" id="selectCheckStatus">
+                    <option value="0">--Select--</option>
+                    <option value="1">Review Pending</option>
+                    <option value="2">Approved</option>
+                    <option value="3">Reject</option>
+                </select>
+            </div>
+            &nbsp;
+            <button type="button" class="btn btn-success js-search">
+                <span class="glyphicon glyphicon-search"></span> Search
+            </button>
+            <button class="btn btn-danger js_reset" type="button">
+                <span class="glyphicon glyphicon-bullhorn"></span>
+                Clear
+            </button>
+        </div>
+   
+
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/javascript">
+        var EditCheck = eval("@(_Authority.Edit.ToString().ToLower())");
+        var deleterCheck = eval("@(_Authority.Delete.ToString().ToLower())");
+        
+        var Operation = "";
+        
+        if (EditCheck) {
+
+            Operation += '<a class="edit ml10" href="javascript:void(0)" title="Review">';
+            Operation += '<i class="glyphicon glyphicon-edit"></i>';
+            Operation += '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+        }
+        if (deleterCheck) {
+
+            Operation += '<a class="remove ml10" href="javascript:void(0)" title="Remove">';
+            Operation += '<i class="glyphicon glyphicon-remove"></i>';
+            Operation += '</a>';
+
+        }
+        if (Operation == "") {
+            Operation = "-";
+        }
+
+        $(function () {
+
+            var columns = [
+
+                //列表行
+                {
+                    field: 'ProductCommentId',
+                    title: 'Operation',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (val) {
+                        return [
+                           
+                           Operation
+                        ].join('');
+                    },
+                    events: {
+                        
+                        'click .edit': function (e, value, row, index) {
+                            console.log(1);
+                            Tool.ShowModal('@Url.Action("Create")', { id: value, identityStatus: $('#dentityStatus').val(),time: new Date().getTime() }, 'Review product comment');
+                        },
+                        'click .remove': function (e, value, row, index) {
+                            Tool.DeleteRecord('@Url.Action("DeleteSP_ProductComment")', { ProductCommentId: value, time: new Date().getTime() }, $('#u_grid'));
+                            //DeleteOperateLog(value);
+                        }
+                    }
+                },
+                { field: 'ProductId', title: 'Product SN', align: 'center', valign: 'middle', sortable: false },
+                { field: 'ProductName', title: 'Product name', align: 'center', valign: 'middle', sortable: false },
+                { field: 'OrderId', title: 'Order SN', align: 'center', valign: 'middle', sortable: false },
+                //{ field: 'UserID', title: '用户ID', align: 'center', valign: 'middle', sortable: false },
+                { field: 'NickName', title: 'User Nickname', align: 'center', valign: 'middle', sortable: false },
+                { field: 'Email', title: 'Email', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'CommentLevel', title: 'Rate', align: 'center', valign: 'middle', sortable: false
+                },
+                
+                { field: 'CommentContent', title: 'Comment content', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'IsAnonymous', title: 'Anonymous enable or Not', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        if (val == 0) {
+                            return "Not";
+                        }
+                        else { return "Yes"}
+                    }
+                },
+               
+                {
+                    field: 'ReplyBy', title: 'Reply', align: 'center', valign: 'middle', sortable: false
+                },
+                {
+                    field: 'ReplyDT', title: 'Reply time', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        if (val != null && val != "") {
+                            return val.formatterString(true)/*true 日期格式2015-5-5*/
+                        }
+                        return "-";
+                    }
+                },
+                {
+                    field: 'ReplyContent', title: 'Reply content', align: 'center', valign: 'middle', sortable: false
+                },
+                { field: 'CheckBy', title: 'Create by', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'CheckStatus', title: 'Review status', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var ms = "Review Pending";
+                        if (val != null && val != "") {
+
+                            switch (val) {
+                                case 1:
+                                    ms = "Review Pending";
+                                    break;
+                                case 2:
+                                    ms = "Approved";
+                                    break;
+                                case 3:
+                                    ms = "Reject";
+                                    break;
+                                default:
+
+                            }
+                        }
+                        return ms;
+                    }
+                },
+                {
+                    field: 'CheckDT', title: 'Create time', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        if (val != null && val != "") {
+                            return val.formatterString(true)/*true 日期格式2015-5-5*/
+                        }
+                        return "-";
+                    }
+                }
+                 
+                
+            ];
+
+            //绑定列表
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+
+                queryParams: function (params) {
+                    return {
+                        OrderId: $('#OrderId').val(),
+                        UserID: $('#UserID').val(),
+                        ProductId: $('#ProductId').val(),
+                        CheckStatus: $('#selectCheckStatus').val(),
+                        Email: $('#Email').val(),
+                        PagedIndex: this.pageNumber - 1,//params.pageNumber - 1  params.offset
+                        PagedSize: this.pageSize       //params.pageSize  params.limit
+                    };
+                },
+                sortOrder: 'desc',
+                pagination: true,
+                sortName: 'bannerId',
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns
+
+            });
+
+            //删除
+            function DeleteOperateLog(ProductCommentId) {
+                $.ajax({
+                    url: '@Url.Action("DeleteSP_ProductComment")' + "?ProductCommentId=" + ProductCommentId + "&time=" + new Date().getTime(),
+                    dataType: "json",
+                    success: function (data, status) {
+
+                        Tool.Alert(data.Messages[0], 1500);
+                        Tool.ReloadDataTable($('#u_grid'));
+                    },
+                    error: function (data, status, e) {
+                        Tool.Alert("Delete failed!", 1500);
+
+                        //alert(e);
+                    }
+
+                });
+            }
+
+            
+
+            //刷新列表
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+
+            //日期控件 开始
+            //$('#BeginLoginTime').datepicker({
+            //    language: "en",
+            //    autoclose: true
+            //});
+
+            //日期控件 结束
+            //$('#EndLoginTime').datepicker({
+            //    language: "en",
+            //    autoclose: true
+            //});
+
+            //添加
+            @*$('.js_create').click(function () {
+                var actionUrl = "@Url.Action("Create")" + "?identityStatus=" + $("#dentityStatus").val();
+                var param = {};
+                Tool.ShowModal(actionUrl, param, "添加" + titlename);
+            });*@
+
+            //清除
+            $('.js_reset').click(function () {
+               
+                $('#selectCheckStatus').val("0");
+                $('#OrderId').val("");
+                $('#ProductId').val("");
+                $('#Phone').val("");
+                
+
+
+            });
+
+        });
+        //保存
+        function Save() {
+            if ($("#CheckStatus").val() == "" || $("#CheckStatus").val() == 0 || $("#CheckStatus").val() == 1) {
+                $("#CheckStatus").val("2");
+            }
+            
+
+            Tool.SaveModal($('#u_grid'));
+        }
+
+
+
+        
+
+    </script>
+}
+
+

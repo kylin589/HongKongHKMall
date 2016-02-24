@@ -1,0 +1,136 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var now = DateTime.Now;
+    var publicKey = HKTHMall.Core.Config.GetConfig.OmisePublicKey();
+}
+<script src="https://cdn.omise.co/omise.js"></script>
+<div style="width:100%;height:30px;background-color:#e6e5e6;"></div>
+<div class="main_a">
+    <div class="c_xingyongka">
+        <div class="c_xyk">
+            <form action="@Url.Action("OmisePayment")" method="post" id="checkout">
+                <div class="c_xyk_menu1">Credit  card  information</div>
+                <div class="c_xyk_menu2">This is  a secure 128 bit ssl  encrypted payment. you are safe!</div>
+                <div class="c_xyk_nr">
+                    <div class="c_xyk_nr_left">
+                        <div class="c_xyk_left_bt">Payment Amount <span>@ViewBag.ProductAmount.ToString("0.00")港元</span></div>
+                        <div class="c_xyk_left_nr">
+                            <ul>
+                                <li>
+                                    <span>Full Name on a card</span>
+                                    <input name="uid" type="text" id="c_phone" class="c_text1" maxlength="100" placeholder="" data-omise="holder_name">
+                                    <input type="hidden" name="paymentOrderId" value="@ViewBag.PaymentOrderId" />
+                                    <input type="hidden" name="omise_token">
+                                    <input type="hidden" name="amount" value="@ViewBag.ProductAmount.ToString("0.00")">
+                                </li>
+                                <li>
+                                    <span>Credit  card  nummber</span>
+                                    <input name="uid" type="text" id="c_phone" class="c_text1" placeholder="" data-omise="number">
+                                </li>
+                                <li>
+                                    <span>Expiration date</span>
+                                    <select name="" id="" class="c_sel" data-omise="expiration_month">
+                                        @for (int i = 1; i <= 12; i++)
+                                        {
+                                            if (now.Month != 0 && now.Month == i)
+                                            {
+                                                <option value="@i" selected="selected">@i</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@i">@i</option>
+                                            }
+                                        }
+                                    </select>
+                                    <b class="c_sel_b">/</b>
+                                    <select name="" id="" class="c_sel" data-omise="expiration_year">
+                                        @for (int i = now.Year + 10; i > now.Year - 1; i--)
+                                        {
+                                            if (now.Year != 0 && now.Year == i)
+                                            {
+                                                <option value="@i" selected="selected">@i</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@i">@i</option>
+                                            }
+                                        }
+                                    </select>
+                                    <div class="clear"></div>
+                                </li>
+                                <li>
+                                    <span>Security Code</span>
+                                    <input name="uid" type="text" id="c_phone" class="c_text1" maxlength="10" placeholder="" data-omise="security_code" size="8">
+                                </li>
+                            </ul>
+                            <dl><button type="submit" class="c_log_button" id="create_token">Submit</button></dl>
+                        </div>
+
+                    </div>
+                    <div class="c_xyk_nr_right">
+                        <div class="c_xyk_right_bt">Verification of bank card is required for payment with <span>Omise</span>.<br />Please follow prompts to complete the verification and payment.</div>
+                        <div class="c_xyk_right_nr">
+                            <img src="~/Content/images/c_xyk_nr_right.jpg" />
+                            <div class="c_xyk_right_nr1"><i></i><span>Expiry date (Month/Year)</span></div>
+                            <div class="c_xyk_right_nr2"><i></i><span>Verification code</span></div>
+                        </div>
+                    </div>
+                    <div class="clear" style="height:40px;"></div>
+                </div>
+            </form>
+        </div><!--c_xyk-->
+        <div class="c_public_bottom"></div>
+    </div><!--c_xingyongka-->
+</div>
+<script type="text/javascript">
+    Omise.setPublicKey("@publicKey");
+    $(function () {
+        $('.js-text-amount').on("focus", function () {
+            this.blur();
+        });
+    });
+    $("#checkout").submit(function () {
+
+        var form = $(this);
+        // Disable the submit button to avoid repeated click.
+        form.find("input[type=submit]").prop("disabled", true);
+        // Serialize the form fields into a valid card object.
+        var card = {
+            "livemode": false,
+            "name": form.find("[data-omise=holder_name]").val(),
+            "number": form.find("[data-omise=number]").val(),
+            "expiration_month": form.find("[data-omise=expiration_month]").val(),
+            "expiration_year": form.find("[data-omise=expiration_year]").val(),
+            "security_code": form.find("[data-omise=security_code]").val()
+        };
+
+        // Send a request to create a token then trigger the callback function once
+        // a response is received from Omise.
+        //
+        // Note that the response could be an error and this needs to be handled within
+        // the callback.
+
+        Omise.createToken("card", card, function (statusCode, response) {
+
+            if (response.object == "error") {
+                // Display an error message.
+                mallbox.alert({ message: response.message, modal: true });
+                $("#token_errors").html(response.message);
+
+                // Re-enable the submit button.
+                form.find("input[type=submit]").prop("disabled", false);
+            } else {
+                // Then fill the omise_token.
+                form.find("[name=omise_token]").val(response.id);
+                $('#create_token').attr('disabled', 'disabled').css({ 'opacity': '.5', 'cursor': 'no-drop' });
+                // And submit the form.
+                form.get(0).submit();
+            };
+        });
+
+        // Prevent the form from being submitted;
+        return false;
+
+    });
+</script>
+

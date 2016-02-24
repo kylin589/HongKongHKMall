@@ -1,0 +1,82 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <div class="main_about">
+        <div class="ls_member">
+
+
+            <!--left-->
+            @Html.Partial("_userLeft")
+            <!--right-->
+            <div class="ls_member_rg">
+
+
+                <!--右侧会员信息展示-->
+                <div class="ls_member_info">
+                    <div class="ownerComplain_2016">
+                        <h3>@*退货/款申请*@@CultureHelper.GetLangString("ORDER_SHOPING_BACKAPPLY")</h3>
+                        <span class="clearfix"></span>
+                    </div>
+
+                    <div class="waitingResult">
+                        <p><i></i>@CultureHelper.GetLangString("ACCOUNT_SHOP_BACKTIP_PLEASEWAIT")...</p>
+                        <div><span></span><b>@CultureHelper.GetLangString("ACCOUNT_SHOP_BACKTIP_ALERADYSUBMIT")@*您的退货/款信息已经提交了*@</b></div>
+                        <div class="resultButton">
+                            <a href="@Url.Action("ContactUs", "Help", new{area="" })">@CultureHelper.GetLangString("HOME_INDEX_CONTACTSERVICE")@*联系客服*@</a>
+                            <a href="javascript:;" id="cancel_refund">@CultureHelper.GetLangString("ACCOUNT_SHOP_BACKTIP_UNDOAPPLY")@*撤销申请*@</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+<div class="dialogCover"><div class="dialogMain"></div></div>
+<script src="~/Content/newcss/js/dsdialog.js"></script>
+<script>
+    var id = 2;
+    var _id = 2;
+    var rid = 3;
+    $(function () {
+        $("#cancel_refund").click(function () {
+            $.ajax({
+                url: "@Url.Action("CancelRefund")",
+                type: "post",
+                data: {
+                    rid: "@ViewBag.ReturnId",
+
+                    id: "@ViewBag.OrderId",
+
+                    _id: "@ViewBag.DetailsId"
+                },
+                dataType: "text",
+                success: function (data, status) {
+                    data = JSON.parse(data);
+                    mallbox.alert({ message: data.Messages });
+                    if (data.IsValid) {
+                        msgalert("@CultureHelper.GetLangString("ACCOUNT_SHOP_BACKTIP_CANCLESUCC")", true);
+                    }
+                    else {
+                        msgalert("@CultureHelper.GetLangString("ACCOUNT_SHOP_BACKTIP_SUBMITFAIL")", false);
+                    }
+                },
+                error: function (data, status, e) {
+                    msgalert("@CultureHelper.GetLangString("ACCOUNT_SHOP_BACKTIP_NETWORTERROR")", false);
+                }
+            })
+        });
+    })
+    function msgalert(str, isredirect) {
+        ds.dialog({
+            content: str, yesText: "@CultureHelper.GetLangString("HOME_SHOPPING_SURE")", onyes: function () {
+                this.close();
+                if (isredirect) {
+                    document.location.href = "@Url.Action("Order")";
+                }
+            },
+        });
+    }
+</script>

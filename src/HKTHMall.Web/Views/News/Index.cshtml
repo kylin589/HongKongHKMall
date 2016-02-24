@@ -1,0 +1,93 @@
+﻿@using HKTHMall.Domain.AdminModel.Models.New
+@using HKTHMall.Services.Common.MultiLangKeys;
+@{
+    var news = ViewBag.NewsData;
+    var sales = ViewBag.SalesData;
+    //var salesCount = ViewBag.SalesCount;
+    //var newsCount = ViewBag.NewsCount;
+}
+<div class="main_about">
+
+    <div class="m_news">
+        <div class="m_news_bt">
+            <ul>
+                <li class="active">@CultureHelper.GetLangString("HK_News_Activity")</li>
+                <li>@CultureHelper.GetLangString("HK_NewsReort_Notice")</li>
+            </ul>
+            <dl>@CultureHelper.GetLangString("HOME_NEWS_FABIAOSHIJIAN")</dl>
+        </div>
+
+        <div class="m_news_nr">
+            <div class="m_news_nr_2" data-time="8000">
+                <!--公告 -->
+                <div class="m_news_nr_list">
+                </div>        
+                <div class="ls_news_empty" style="display:none">
+                    <p><i></i>@CultureHelper.GetLangString("HONE_NEWS_MEIYOUGONGGAO") @*暂无公告*@</p>
+                </div>        
+                <div id="pager2" class="sectionPaging">
+                </div>
+            </div>
+            <div class="m_news_nr_1" data-time="9000">
+                <!-- 活动 -->
+                <div class="m_news_nr_list">
+                </div>
+                <div class="ls_news_empty" style="display:none">
+                    <p><i></i>@CultureHelper.GetLangString("ORDER_NEWS_MEIYOUHUODONG") @*暂无活动*@</p>
+                </div>
+                <div id="pager1" class="sectionPaging">
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <script src="~/Content/js/pager.js"></script>
+    <script type="text/javascript">
+
+    $('.m_news_bt li').bind('click',function(){
+        $(this).addClass('active').siblings().removeClass('active');
+        if($(this).index()==0){
+            $('.m_news_nr_1').show().each(function(){
+                $('.m_news_nr_1 ul li').addClass('flipInX');
+            });
+            $('.m_news_nr_2').hide().each(function(){
+                $('.m_news_nr_2 ul li').removeClass('flipInX');
+            });
+        }else if($(this).index()==1){
+            $('.m_news_nr_1').hide().each(function(){
+                $('.m_news_nr_1 ul li').removeClass('flipInX');
+            });
+            $('.m_news_nr_2').show().each(function(){
+                $('.m_news_nr_2 ul li').addClass('flipInX');
+
+            });
+        }
+    });
+    var _pagesize = 8;
+    $(document).ready(function () {
+        LoadNews(1, 2);
+        LoadNews(1, 1);
+
+    });
+    //newsType:1、Notice   2、Sales
+    function LoadNews(pageIndex,newsType)
+    {
+        if (newsType != 1 && newsType != 2)
+            return;
+        var listContent = $(".m_news_nr_" + newsType + " div.m_news_nr_list");
+
+        listContent.load("@Url.Action("_NewsList", "News")", { PageIndex: pageIndex, PageSize: _pagesize, Type: newsType }, function () {
+            UpdatePager(pageIndex, (newsType == 1 ?  @news.TotalPages +"" :@sales.TotalPages +""), $("#pager" + newsType), "LoadNews",  newsType);
+        });
+        
+        if (newsType == 1 && parseInt(@(news.TotalPages)) == 0) {
+            $(".m_news_nr_1 div.ls_news_empty").show();
+        }
+        if (newsType == 2 && parseInt(@(sales.TotalPages)) == 0) {
+            $(".m_news_nr_2 div.ls_news_empty").show();
+        }
+
+    }
+
+    </script>
+</div>

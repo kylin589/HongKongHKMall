@@ -1,0 +1,72 @@
+
+ 
+记录时间：2015-08-01 16:21:24,353 
+线程ID:[35] 
+日志级别：  ERROR 
+出错类：HKTHMall.Services.Products.ProductService property: [(null)] - 
+错误描述：类名：HKTHMall.Services.Products.ProductService	 方法：Search	 错误信息：无法将类型“Simple.Data.SimpleRecord”隐式转换为“int”
+ 
+
+ 
+记录时间：2015-08-01 17:16:45,197 
+线程ID:[7] 
+日志级别：  ERROR 
+出错类：HKTHMall.Services.Products.ProductService property: [(null)] - 
+错误描述：类名：HKTHMall.Services.Products.ProductService	 方法：Search	 错误信息：Cannot assign values to table columns.
+ 
+
+ 
+记录时间：2015-08-01 17:20:39,598 
+线程ID:[15] 
+日志级别：  ERROR 
+出错类：HKTHMall.Services.Products.ProductService property: [(null)] - 
+错误描述：类名：HKTHMall.Services.Products.ProductService	 方法：Search	 错误信息：Cannot assign values to table columns.
+ 
+
+ 
+记录时间：2015-08-01 17:37:38,574 
+线程ID:[12] 
+日志级别：  ERROR 
+出错类：HKTHMall.Services.Products.ProductService property: [(null)] - 
+错误描述：类名：HKTHMall.Services.Products.ProductService	 方法：Search	 错误信息：Cannot assign values to table columns.
+ 
+
+ 
+记录时间：2015-08-01 17:38:03,933 
+线程ID:[12] 
+日志级别：  ERROR 
+出错类：HKTHMall.Services.Products.ProductService property: [(null)] - 
+错误描述：类名：HKTHMall.Services.Products.ProductService	 方法：Search	 错误信息：Cannot assign values to table columns.
+ 
+
+ 
+记录时间：2015-08-01 17:39:11,399 
+线程ID:[7] 
+日志级别：  ERROR 
+出错类：HKTHMall.Services.Products.ProductService property: [(null)] - 
+错误描述：类名：HKTHMall.Services.Products.ProductService	 方法：Search	 错误信息：Cannot assign values to table columns.
+ 
+
+ 
+记录时间：2015-08-01 17:40:01,796 
+线程ID:[7] 
+日志级别：  ERROR 
+出错类：HKTHMall.Services.Products.ProductService property: [(null)] - 
+错误描述：类名：HKTHMall.Services.Products.ProductService	 方法：Search	 错误信息：Cannot assign values to table columns.
+ 
+
+ 
+记录时间：2015-08-01 17:40:11,200 
+线程ID:[14] 
+日志级别：  ERROR 
+出错类：HKTHMall.Services.Products.ProductService property: [(null)] - 
+错误描述：类名：HKTHMall.Services.Products.ProductService	 方法：Search	 错误信息：Cannot assign values to table columns.
+ 
+
+ 
+记录时间：2015-08-01 17:40:50,558 
+线程ID:[14] 
+日志级别：  ERROR 
+出错类：HKTHMall.Services.Products.ProductService property: [(null)] - 
+错误描述：类名：HKTHMall.Services.Products.ProductService	 方法：Search	 错误信息：Cannot assign values to table columns.
+ 

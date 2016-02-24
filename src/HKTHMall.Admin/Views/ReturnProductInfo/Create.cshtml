@@ -1,0 +1,226 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.Orders.ReturnProductInfoModel
+@{
+    ViewBag.Title = "Return Record";
+}
+
+@*<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>用户ID :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            @Html.HiddenFor(t => t.ReturnOrderID)
+            <input type="text" class="form-control" placeholder="@Model.UserID" disabled="" />
+        </div>
+    </div>
+</div>*@
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Order SN :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            @Html.HiddenFor(t => t.ReturnOrderID)
+            @Html.HiddenFor(t => t.OrderID)
+            @Html.HiddenFor(t => t.ProductId)
+            @Html.HiddenFor(t => t.OrderDetailsID)
+            <input type="text" class="form-control" placeholder="@Model.OrderID" disabled="" />
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>User Name :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+
+            <input type="text" class="form-control" placeholder="@Model.Account" disabled="" />
+        </div>
+    </div>
+</div>
+@*<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>商品ID :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+           
+            <input type="text" class="form-control" placeholder="@Model.ProductId" disabled="" />
+        </div>
+    </div>
+</div>*@
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Product name :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+
+            <input type="text" class="form-control" placeholder="@Model.ProductName" disabled="" />
+        </div>
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Deal amount :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            <div style=" display:none">@Html.TextBoxFor(t => t.TradeAmount, new { @class = "form-control" })</div>
+            <input type="text" class="form-control" placeholder="@Model.TradeAmount" disabled="" />
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Refund amount :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            @*<input type="text" class="form-control" placeholder="@Model.RefundAmount"  />*@
+            @Html.TextBoxFor(t => t.RefundAmount, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.RefundAmount)
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Returnt Number :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            <input type="text"  class="form-control" placeholder="@Model.ReturntNumber" disabled="" />
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form" >
+        <label class="red"></label>Review status :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            <div style="display:none;">@Html.TextBoxFor(t => t.ReturnStatus, new { @class = "form-control" })</div>
+            <select class="form-control" onchange="GetCheckStatus(this.value)" id="selectReturnStatus1">
+                <option value="2">Approved</option>
+                <option value="3">Reject</option>
+            </select>
+            </div>
+        </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Customer receipt :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+           
+            @Html.TextAreaFor(t => t.ReturnText, new { @class = "form-control",@maxlength="200" })
+        </div>
+    </div>
+</div>
+@*<div class="control-group">
+            <label class="control-label-form">
+                <label class="red"></label>退换货类型 :
+            </label>
+            <div class="controls">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="@Model.ReturnType" disabled="" />
+                    @{
+                        var ms = "-";
+                        switch (@Model.ReturnType)
+                        {
+                            case 1:
+                                ms = "换货";
+                                break;
+                            case 2:
+                                ms = "退货";
+                                break;
+                            case 3:
+                                ms = "返修";
+                                break;
+                            default:
+                                ms = "-"; break;
+                        }
+
+                    }
+                    <input type="text" class="form-control" placeholder="@ms" disabled="" />
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label-form">
+                <label class="red"></label>退换货说明 :
+            </label>
+            <div class="controls">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="@Model.Remark" disabled="" />
+                </div>
+            </div>
+        </div>
+    <div class="control-group">
+        <label class="control-label-form">
+            <label class="red"></label>状态 :
+        </label>
+        <div class="controls">
+            <div class="form-group">
+
+                @{
+                    var ms1 = "-";
+                    switch (@Model.ReturnStatus)
+                    {
+                        case 1:
+                            ms = "申请中";
+                            break;
+                        case 2:
+                            ms = "审核通过";
+                            break;
+                        case 3:
+                            ms = "申请已驳回";
+                            break;
+                        case 4:
+                            ms = "确认收货";
+                            break;
+                        case 5:
+                            ms = "退款完成";
+                            break;
+                        case 6:
+                            ms = "申请已撤销";
+                            break;
+                        default:
+                            ms = "-"; break;
+                    }
+                }
+                <input type="text" class="form-control" placeholder="@ms1" disabled="" />
+            </div>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label-form">
+            <label class="red"></label>处理时间 :
+        </label>
+        <div class="controls">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="@Model.handleDate" disabled="" />
+            </div>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label-form">
+            <label class="red"></label>申请时间 :
+        </label>
+        <div class="controls">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="@Model.ReturnDate" disabled="" />
+            </div>
+        </div>
+    </div>
+*@
+    <script type="text/javascript">
+        function GetCheckStatus(val) {
+            $("#ReturnStatus").val(val);
+        }
+
+    </script>
+

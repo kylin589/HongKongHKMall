@@ -1,0 +1,43 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <title>การประกาศ huifen</title>
+    <link href="~/Areas/Content/css/base.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="main_a">
+        @if (Model != null)
+        {
+            HKTHMall.Domain.AdminModel.Models.New.BD_NewsInfoModel model = Model as HKTHMall.Domain.AdminModel.Models.New.BD_NewsInfoModel;
+            <div class="cb_8_26">
+                <div class="cb_8_26_bt">@(model.Title)</div>
+                <div class="cb_8_26_bt1">@(model.ReleaseDT.Value)</div>
+
+                <div class="cb_8_26_nr">
+                    @if (!string.IsNullOrEmpty(model.PicPath))
+                    {
+                        var imgPath = model.imagePicth + model.PicPath;
+                        <img src="@(imgPath)" alt="" /><br>
+                    }
+                    <div class="cb_8_26_ss">
+                       @Html.Raw(model.NewsContent);
+                    </div>
+                </div>
+            </div>
+        }
+       
+
+
+
+    </div><!--main_a-->
+    <div style="height:20px; clear:both;"></div>
+
+
+</body>
+</html>

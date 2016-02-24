@@ -1,0 +1,83 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title id="cb_title"></title>
+
+    <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta charset="utf-8" />
+
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script>
+        //js获取url传递参数
+        function GetRequest() {
+            var url = location.search;
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+        var Request = new Object();
+        Request = GetRequest();
+        var cb_userId = Request['userId'];
+        var cb_lang = Request['lang'];
+
+        //语言判断
+        $(function () {
+            if (cb_lang == "1") {
+                $("#cb_title").html("惠卡欢迎你！");
+            }
+            if (cb_lang == "2") {
+                $("#cb_title").html("Welcome to Huika!");
+            }
+            if (cb_lang == "3") {
+                $("#cb_title").html("huika  ยินดีต้อนรับคุณ ！");
+            }
+        });
+        //获取分享二维码
+        $(function () {
+            $.ajax({
+                type: "Post",//要用post方式
+                url: "/User/GeneratedVisitingCard",
+                dataType: "json",
+                data: {//参数
+                    lang: cb_lang,
+                    userId: cb_userId+"="
+                },
+                success: function (JsonData) {//返回成功
+                    //alert(JsonData.msg);
+                    var html = "<img src='" + JsonData.rs.imgUrl + "'/>";
+                    $("#hkfx").html(html);
+
+                },
+                error: function (err) {//失败
+                    alert(err);
+                }
+
+            });
+        });
+
+    </script>
+</head>
+
+<body>
+    <div class="main_a">
+
+        <div style="clear:both; text-align:center;" id="hkfx">
+        </div>
+
+
+    </div>
+
+</body>
+</html>

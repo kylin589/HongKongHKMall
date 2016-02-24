@@ -1,0 +1,349 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@model HKTHMall.Domain.AdminModel.Models.New.SearchBD_NewsInfoModel
+@{
+    ViewBag.Title = "News information list";
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(118);
+    _Authority.Delete = _Authority.CheckAction(119);
+    _Authority.Audit = _Authority.CheckAction(120);
+
+    var typeIDList = ViewData["TypeID"] as List<SelectListItem>;
+}
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>News type: </span>
+            <select class="form-control text-center" id="TypeID" name="TypeID">
+                <option value="">--All--</option>
+                @foreach (var item in typeIDList)
+                {
+                    <option value="@(item.Value)" selected="@(item.Selected)">@(item.Text)</option>
+                }
+            </select>
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Title: </span>
+            @Html.TextBoxFor(x => x.Title, new { @class = "form-control w70", @placeholder = "Please enter title" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Publisher: </span>
+            @Html.TextBoxFor(x => x.Releaser, new { @class = "form-control w70", @placeholder = "Please enter publisher" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Guide: </span>
+            <select class="form-control text-center" id="IsHasNaviContent" name="IsHasNaviContent">
+                <option value="">--All--</option>
+                <option value="1">Yes</option>
+                <option value="0">Not</option>
+            </select>
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Review status: </span>
+            <select class="form-control text-center" id="IsCheck" name="IsCheck">
+                <option value="">--All--</option>
+                <option value="1">Approved</option>
+                <option value="2">Review Pending</option>
+                <option value="3">Refused</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <span>News photo: </span>
+            <select class="form-control text-center" id="IsPic" name="IsPic">
+                <option value="">--All--</option>
+                <option value="1">Yes</option>
+                <option value="0">Not</option>
+            </select>
+        </div>
+        &nbsp;<br />
+        <div class="form-group">
+            <span>Publish time: </span>
+            @Html.TextBoxFor(x => x.BeginDate, new { @class = "form-control w70", @placeholder = "Please select start time" })
+            &nbsp;--&nbsp;
+            @Html.TextBoxFor(x => x.EndDate, new { @class = "form-control w70", @placeholder = "Please select end time" })
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-danger js_reset" onclick="Tool.ClearForm($('#user-toolbar'))">
+            <span class="glyphicon glyphicon-bullhorn"></span> Clear
+        </button>
+        &nbsp;
+        @if (_Authority.Add)
+        {
+            <button type="button" class="btn btn-primary js_create">
+                <span class="glyphicon glyphicon-plus"></span> Add
+            </button>
+        }
+    </div>
+</div>
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts{
+    <script type="text/javascript">
+        //权限
+        var $addCheck = eval("@(_Authority.Add.ToString().ToLower())");
+        var $deleteCheck = eval("@(_Authority.Delete.ToString().ToLower())");
+        var $Audit = eval("@(_Authority.Audit.ToString().ToLower())");
+        var $time = null;//时间计时器
+        //加载数据
+        $(function () {
+            var columns = [
+            { field: "ID", title: "ID", align: 'center', valign: 'middle', sortable: false },
+            { field: "Title", title: "Title", align: 'center', valign: 'middle', sortable: false },
+            {
+                field: "TypeID", title: "News type", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                    if (arguments && arguments[1]) {
+                        //1.惠卡动态,2惠粉公告,3惠粉消息
+                        var typeName = "-";
+                        switch (arguments[1].TypeID) {
+                            case 1:
+                                typeName = "State of Huika";
+                                break;
+                            case 2:
+                                typeName = "Huifen public notice";
+                                break;
+                            case 3:
+                                typeName = "Huifen Message";
+                                break;
+                            default:
+                                break;
+
+                        }
+                        return typeName;
+                    }
+                }
+            },
+            {
+                field: "IsHasNaviContent", title: "Guide ", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                    if (arguments && arguments[1]) {
+                        //是否有导读(0:否,1:是)
+                        var hasNavName = "-";
+                        switch (arguments[1].IsHasNaviContent) {
+                            case 0:
+                                hasNavName = "Not";
+                                break;
+                            case 1:
+                                hasNavName = "Yes";
+                                break;
+                            default:
+                                break;
+
+                        }
+                        return hasNavName;
+                    }
+                }
+            },
+            {
+                field: "IsPic", title: "Photo news? ", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                    if (arguments && arguments[1]) {
+                        //是否图片新闻(0:否,1:是)
+                        var picName = "-";
+                        switch (arguments[1].IsPic) {
+                            case 0:
+                                picName = "Not";
+                                break;
+                            case 1:
+                                picName = "Yes";
+                                break;
+                            default:
+                                break;
+
+                        }
+                        return picName;
+                    }
+                }
+            },
+            { field: "Releaser", title: "Publisher", align: 'center', valign: 'middle', sortable: false },
+            {
+                field: "ReleaseDT", title: "Publish time", align: 'center', valign: 'middle', sortable: false, formatter:
+                  function (val) {
+                      return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                  }
+            },
+            {
+                field: "IsCheck", title: "Review status ", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                    if (arguments && arguments[1]) {
+                        //是否已经审核(1:审核通过,2:待审核,3.拒审)
+                        var checkName = "-";
+                        switch (arguments[1].IsCheck) {
+                            case 1:
+                                checkName = "Approved";
+                                break;
+                            case 2:
+                                checkName = "Review Pending";
+                                break;
+                            case 3:
+                                checkName = "Refused";
+                                break;
+                            default:
+                                break;
+
+                        }
+                        return checkName;
+                    }
+                }
+            },
+            {
+                field: "SendStatus", title: "Push state ", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                    if (arguments && arguments[1]) {
+                        //推送状态 1 推送成功 2 推送失败 3 未推送
+                        var checkName = "-";
+                        switch (arguments[1].SendStatus) {
+                            case 1:
+                                checkName = "Push to succeed";
+                                break;
+                            case 2:
+                                checkName = "Push failure";
+                                break;
+                            case 3:
+                                checkName = "Not Push";
+                                break;
+                            default:
+                                break;
+
+                        }
+                        return checkName;
+                    }
+                }
+            },
+            {
+                field: "IDs", title: "Operation", align: 'center', valign: 'middle',
+                formatter: function (val) {
+                    var operation = '';
+                    if ($Audit) {
+                        if (arguments[1].IsCheck == 2) {
+                            operation += '<a class="check ml10" href="javascript:void(0)" title="Review"><i class="glyphicon glyphicon-check"></i>Review</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                        }
+                    }
+                    if ($addCheck) {
+                        if (arguments[1].IsCheck == 2) {
+                            operation += '<a class="edit ml10" href="javascript:void(0)" title="Update"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                        }
+                    }
+                    if ($deleteCheck) {
+                        operation += '<a class="remove ml10" href="javascript:void(0)" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>';
+                    }
+                    if (operation == '') {
+                        operation = '-';
+                    }
+                    return [
+                          operation
+                    ].join('');
+                },
+                events: {
+                    //审核
+                    'click .check': function (e, value, row, index) {
+                        var $dialog = $('<div/>').hkdialog({
+                            title: 'News audit information',
+                            url: '@Url.Action("NewsInfoCheck")',
+                            form: '#check_form',
+                            type: 'post',
+                            data: { id: row.ID },
+                            success: function (result) {
+                                if (result.IsValid) {
+                                    $('#u_grid').bootstrapTable('refresh');
+                                    $dialog.dialog("destroy");
+                                    if (result.Data == 1)
+                                        $time = setInterval("Refresh()", 2000);
+                                } else {
+                                    $.messager.alert('Wrong information', result.Messages.join('<br/>'));
+                                }
+                            }
+                        });
+                    },
+                    //编辑
+                    'click .edit': function (e, value, row, index) {
+                        window.location.href = "@Url.Action("Create")?id=" + row.ID;
+                    },
+                    //删除
+                    'click .remove': function (e, value, row, index) {
+                        Tool.DeleteRecord('@Url.Action("Delete")', { ID: row.ID }, $('#u_grid'));
+                    }
+                }
+            }];
+
+            //加载列表数据
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+                queryParams: function (params) {
+                    return {
+                        TypeID: $('#TypeID').val().trim(),
+                        Title: $('#Title').val().trim(),
+                        Releaser: $('#Releaser').val().trim(),
+                        IsHasNaviContent: $('#IsHasNaviContent').val().trim(),
+                        IsCheck: $('#IsCheck').val().trim(),
+                        IsPic: $('#IsPic').val().trim(),
+                        BeginDate: $('#BeginDate').val().trim(),
+                        EndDate: $('#EndDate').val().trim(),
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        Time: new Date().getTime()
+                    };
+                },
+                sortOrder: 'desc',
+                sortName: 'CreateDT',
+                pagination: true,
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns
+            });
+            //搜索事件
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+            //按Enter键回车搜索
+            $('#Title').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#Releaser').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            //添加新闻信息
+            $('.js_create').click(function () {
+                //Tool.ShowModal("@Url.Action("Create")", {}, "添加新闻信息");
+                window.location.href = "@Url.Action("Create")";
+            });
+
+            //日期控件 开始
+            $('#BeginDate').datepicker({
+                language: "en",
+                autoclose: true
+            }).on("changeDate", function (e) {
+                $('#EndDate').datepicker('setStartDate', e.date);
+            });
+
+            //日期控件 结束
+            $('#EndDate').datepicker({
+                language: "en",
+                autoclose: true
+            }).on("changeDate", function (e) {
+                $('#BeginDate').datepicker('setEndDate', e.date);
+            });
+        })
+        //保存
+        function Save() {
+            Tool.SaveModal($('#u_grid'));
+        }
+        //刷新
+        function Refresh() {
+            $('#u_grid').bootstrapTable('refresh');
+            if ($time != null)
+                clearInterval($time);
+        }
+    </script>
+}

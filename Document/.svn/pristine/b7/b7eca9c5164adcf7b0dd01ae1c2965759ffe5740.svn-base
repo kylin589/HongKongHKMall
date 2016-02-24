@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="Keywords" content="">
+		<title>香港商城</title>
+		<link rel="stylesheet" type="text/css" href="newcss/css/css.css" />
+		<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+	</head>
+
+<body>
+<div class="header">
+	<div class="clear" style="background: #ccc; height: 175px;"></div>
+</div><!--公共头部-->
+
+
+<div class="main_a">
+	
+	<div class="main_about">
+		<div class="specLayout">
+			<div class="specMain_2016">
+				<ul>
+					<li><a href="javascript:void();">首页</a></li>
+					<li class="spector"><i class="fa fa-angle-right"></i></li>
+					<li><a href="javascript:void();">首页</a></li>
+					<span class="clear"></span>
+				</ul>
+			</div>
+
+			<div class="specCart">
+				<div class="cartStep">
+                	<div class="cartStepImg2"></div>
+                	<ul>
+                		<li class="stepOnlink">我的购物车</li>
+                		<li class="stepOnlink">填写核对订单信息</li>
+                		<li>成功提交订单</li>
+                		<span class="clearfix"></span>
+                	</ul>
+                </div>
+                <h3 class="carterDingdan">填写订单并核对订单信息</h3> 
+
+                <div class="orderCover">
+                	<h3>确认收货地址 <a href="###">新增收货地址</a><span class="clearfix"></span></h3>
+					<div class="signInCover">
+						<ul>
+							<li class="listSignIn">
+								<a href="###" class="addDefaultOn">王建国 收 <i></i></a>
+								<dl class="signInAddress">
+									<dd>上海</dd>
+									<dd>虹口区</dd>
+									<dd>比四环少一环的三环</dd>
+									<dd>上海</dd>
+									<dd>137****8624</dd>
+									<dd class="defaultAddress">默认地址</dd><!--有默认地址的话就增加这个-->
+								</dl>
+								<dl class="signInSetting">
+									<dd><a href="###">设为默认地址</a></dd><!--非默认地址就增加这个-->
+									<dd><a href="###">编辑</a></dd>
+									<dd><a href="###">删除</a></dd>
+								</dl>
+								<span class="clearfix"></span>
+							</li>
+							<li class="listSignIn">
+								<a href="###">王建国 收</a>
+								<dl class="signInAddress">
+									<dd>上海</dd>
+									<dd>虹口区</dd>
+									<dd>比四环少一环的三环</dd>
+									<dd>上海</dd>
+									<dd>137****8624</dd>
+								</dl>
+								<dl class="signInSetting">
+									<dd><a href="###">设为默认地址</a></dd><!--非默认地址就增加这个-->
+									<dd><a href="###">编辑</a></dd>
+									<dd><a href="###">删除</a></dd>
+								</dl>
+								<span class="clearfix"></span>
+							</li>
+							<li class="listSignIn">
+								<a href="###">王建国 收 </a>
+								<dl class="signInAddress">
+									<dd>上海</dd>
+									<dd>虹口区</dd>
+									<dd>比四环少一环的三环</dd>
+									<dd>上海</dd>
+									<dd>137****8624</dd>
+								</dl>
+								<dl class="signInSetting">
+									<dd><a href="###">设为默认地址</a></dd><!--非默认地址就增加这个-->
+									<dd><a href="###">编辑</a></dd>
+									<dd><a href="###">删除</a></dd>
+								</dl>
+								<span class="clearfix"></span>
+							</li>
+							<span class="clearfix"></span>
+						</ul>
+					</div>
+					<h3>全部商品（<b>2</b>）</h3>
+					<ul class="orderTitle">
+						<li>商品</li>
+						<li>规格</li>
+						<li>单价</li>
+						<li>数量</li>
+						<li>小计</li>
+						<span class="clearfix"></span>
+					</ul>
+					<ul class="orderMainSpec">
+						<li>
+							<a href="###"><img src="" alt="" width="74" height="74"></a>
+							<a href="###" class="orderlimited">索尼（SONY）Xperia T2（XM50t）Ultra 4G索尼手机</a>
+						</li>
+						<li>
+							<dl>
+								<dd><span>颜色：</span><span>白色（现货送胶水备用钻）</span></dd>
+								<dd><span>颜色：</span><span>白色（现货送胶水备用钻）</span></dd>
+								<dd><span>颜色：</span><span>白色（现货送胶水备用钻）</span></dd>
+								<dd><span>颜色：</span><span>白色（现货送胶水备用钻）</span></dd>
+								<dd><span>颜色：</span><span>白色（现货送胶水备用钻）</span></dd>
+							</dl>
+						</li>
+						<li>$<span>1,000,000</span></li>
+						<li><i class="fa fa-times"></i><span>1</span></li>
+						<li>$<span>1,000,000</span></li>
+					</ul>
+
+					<div class="orderOwner">
+						<ul>
+							<li><span>寄送至：</span><span>上海</span><span>虹口区</span><span>内环中环之间</span><span>上海</span></li>
+							<li><span>收货人：</span><span>黄兴亚</span><span>151****4610</span></li>
+						</ul>
+						<dl>
+							<dd>
+								<dl>
+									<dt><b>3件</b>商品，总商品金额：</dt>
+									<dd>$2000.00</dd>
+								</dl>
+							</dd>
+							<dd>
+								<dl>
+									<dt>运费：</dt>
+									<dd>$2000.00</dd>
+								</dl>
+							</dd>
+							<dd>
+								<dl>
+									<dt>应付总额：</dt>
+									<dd>$<b>1006.00</b></dd>
+								</dl>
+							</dd>
+							<dd>
+								<span>专享福利：购买订单商品返利$1006到余额</span>
+							</dd>
+						</dl>
+						<span class="clearfix"></span>
+					</div>
+
+					<div class="orderSubmit_2016">
+						<a href="####">提交订单</a>
+					</div>
+                </div>
+			</div>
+
+		</div>
+	</div>
+
+</div><!--主体部分-->
+
+
+
+<div class="footer"></div><!--公共底部-->
+
+
+
+</body>
+
+</html>

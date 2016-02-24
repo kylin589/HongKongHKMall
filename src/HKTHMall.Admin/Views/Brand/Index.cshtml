@@ -1,0 +1,230 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@model HKTHMall.Domain.Models.Bra.SearchBrandModel
+@{
+    ViewBag.Title = "Commodity brand list page";
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(39);
+    _Authority.Enable = _Authority.CheckAction(40);
+    _Authority.BrandAssociation = _Authority.CheckAction(53);
+}
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>Brand: </span>
+            @Html.TextBoxFor(x => x.BrandName, new { @class = "form-control w70", @placeholder = "Please entert brand name" })
+        </div>
+        &nbsp;
+        <select class="form-control text-center" id="BrandState" name="BrandState">
+            <option value="">--Select--</option>
+            <option value="1">Enable</option>
+            <option value="2">Disable</option>
+        </select>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-danger js_reset" onclick="Tool.ClearForm($('#user-toolbar'))">
+            <span class="glyphicon glyphicon-bullhorn"></span> Clear
+        </button>
+        &nbsp;
+        @if (_Authority.Add)
+        {
+            <button type="button" class="btn btn-primary js_create">
+                <span class="glyphicon glyphicon-plus"></span> Add
+            </button>
+        }
+
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts{
+    <script type="text/javascript">
+        //权限
+        var $addCheck = eval("@(_Authority.Add.ToString().ToLower())");
+        var $enableCheck = eval("@(_Authority.Enable.ToString().ToLower())");
+        var $brandAssociationCheck = eval("@(_Authority.BrandAssociation.ToString().ToLower())");
+        //加载数据
+        $(function () {
+            var columns = [
+                  { field: "BrandID", title: "SN", align: 'center', valign: 'middle', sortable: false },
+                  {
+                      field: "BrandName", title: "Brand Name", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                          if (arguments && arguments[1] && arguments[1].Brand_Lang && arguments[1].Brand_Lang[0]) {
+                              return arguments[1].Brand_Lang[0].BrandName;
+                          }
+                      }
+                  },
+                  {
+                      field: "BrandUrl", title: "Brand picture", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                          if (arguments && arguments[1]) {
+                              var img = '<a class="screenshot" href="' + Tool.RootImage + arguments[1].BrandUrl + '" target="_blank" title="' + Tool.RootImage + arguments[1].BrandUrl + '" rel="' + Tool.RootImage + arguments[1].BrandUrl + '"> ';
+                              img += '<img  src="' + Tool.RootImage + arguments[1].BrandUrl + '"  "width="60px" height="60px"/>';
+                              img += '</a>';
+                              return img;
+                          }
+                      }
+                  },
+                 { field: "Remark", title: "Brand Info", align: 'center', valign: 'middle', sortable: false },
+                 {
+                     field: "BrandState", title: "Status", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+
+                         if (arguments && arguments[1]) {
+                             return arguments[1].BrandState == 1 ? "Enable" : "Disable";
+                         }
+                     }
+                 },
+                 { field: "AddUsers", title: "Creater", align: 'center', valign: 'middle', sortable: false },
+                 {
+                     field: "AddTime", title: "Create time", align: 'center', valign: 'middle', sortable: false, formatter:
+                       function (val) {
+                           return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                       }
+                 },
+                 {
+                     field: "BrandIDs", title: "Operation", align: 'center', valign: 'middle',
+                     formatter: function (val) {
+                         var operation = '';
+                         if ($enableCheck) {
+                             if (arguments[1].BrandState == 1) {
+                                 operation += "<a class=\"disable ml10\" href=\"javascript:void(0)\" title=\"Disable\">Disable</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+                             } else {
+                                 operation += "<a class=\"enable ml10\" href=\"javascript:void(0)\" title=\"Enable\">Enable</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+                             }
+                         }
+                         if ($addCheck) {
+                             operation += '<a class="edit ml10" href="javascript:void(0)" title="Update"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                         }
+                         if ($brandAssociationCheck) {
+                             operation += '<a class="reset ml10" href="javascript:void(0)" title="Relevant Brand ">Relevant Brand </a>';
+                         }
+                         if (operation == '') {
+                             operation = '-';
+                         }
+                         return [operation].join('');
+                     },
+                     events: {
+                         //启用
+                         'click .enable': function (e, value, row, index) {
+                             UpdateState(row.BrandID, row.BrandState, 1, 1);
+                         },
+                         //禁用
+                         'click .disable': function (e, value, row, index) {
+                             UpdateState(row.BrandID, row.BrandState, 2, 2);
+                         },
+                         //编辑
+                         'click .edit': function (e, value, row, index) {
+                             Tool.ShowModal('@Url.Action("Create")', { id: row.BrandID, time: new Date().getTime() }, 'Edit product brand');
+                         },
+                         //删除
+                         'click .remove': function (e, value, row, index) {
+                             Tool.DeleteRecord('@Url.Action("Delete")', { brandId: row.BrandID }, $('#u_grid'));
+                             //   DelBrand(value);
+                         },
+                         'click .reset': function (e, value, row, index) {
+                             var url = "/Brand_Category/Index?languageId=1&brandID=" + row.BrandID + "&brandName=" + row.Brand_Lang[0].BrandName;
+                             parent.addTab(row.BrandID, "Relevant Brand", url);
+                         }
+                     }
+                 }];
+            //加载列表数据
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+                queryParams: function (params) {
+                    return {
+                        BrandName: $('#BrandName').val().trim(),
+                        BrandState: $("#BrandState").val(),
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        time: new Date().getTime()
+                    };
+                },
+                sortOrder: 'desc',
+                sortName: 'CreateDT',
+                pagination: true,
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns,
+                onLoadSuccess: function () {
+                    screenshotPreview();
+                }
+            });
+            //搜索事件
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+            //按Enter键回车搜索
+            $('#BrandName').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            //添加商品品牌设置
+            $('.js_create').click(function () {
+                Tool.ShowModal("@Url.Action("Create")", {}, "Add product brand");
+            });
+            //语言选择事件
+            $('#BrandState').change(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+            //删除商品品牌信息
+            function DelBrand(brandId) {
+                var url = "/Brand/Delete?brandId=" + brandId;
+                $.ajax({
+                    url: url,
+                    dataType: "text",
+                    success: function (data, status) {
+                        data = JSON.parse(data);
+                        Tool.ReloadDataTable($('#u_grid'));
+                        Tool.Alert(data.Messages, 1500);
+                    },
+                    error: function (data, status, e) {
+                        Tool.Alert("Delete failed！", 1500);
+                    }
+                });
+            };
+        })
+        //保存
+        function Save() {
+            var $languageId = $("#BrandState");
+            var $selectValue = "";
+            $languageId.find('option[value=' + $selectValue + ']').attr("selected", true);
+            $("#BrandState").val($selectValue);
+
+            Tool.SaveModal($('#u_grid'));
+        }
+
+        //更新品牌状态
+        function UpdateState(brandID, BrandState, type, brandState) {
+            if (BrandState == type && type == 1) {
+                Tool.Alert("Now it is enable mode ", 1500);
+                return;
+            }
+            if (BrandState == type && type == 2) {
+                Tool.Alert("Now it is disable mode", 1500);
+                return;
+            }
+            $.ajax({
+                url: '@Url.Action("UpdateState")' + "?brandID=" + brandID + "&type=" + type + "&brandState=" + brandState,
+                dataType: "text",
+                success: function (data, status) {
+                    data = JSON.parse(data);
+                    if (data.IsValid) {
+                        Tool.ReloadDataTable($('#u_grid'));
+                    }
+                    Tool.Alert(data.Messages, 1500);
+                },
+                error: function (data, status, e) {
+                    Tool.Alert("Failed!", 1500);
+                }
+            });
+        }
+    </script>
+}

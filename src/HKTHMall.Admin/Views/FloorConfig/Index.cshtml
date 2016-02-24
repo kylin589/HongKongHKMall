@@ -1,0 +1,118 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@{
+    ViewBag.Title = "Floor configuration table";
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(79);
+}
+@model HKTHMall.Domain.AdminModel.Models.banner.SearchFloorConfigModel
+<div id="user-toolbar">
+
+
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/javascript">
+        var addCheck = eval("@(_Authority.Add.ToString().ToLower())");
+        var Operation = "";
+        if (addCheck) {
+
+            Operation += '<a class="edit ml10" href="javascript:void(0)" title="Update">';
+            Operation += '<i class="glyphicon glyphicon-edit"></i>';
+            Operation += '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+        }
+        if (Operation == "") {
+            Operation = "-";
+        }
+
+        $(function () {
+
+            var columns = [
+                //{ field: 'FloorConfigId', title: '订单编号', align: 'center', valign: 'middle', sortable: false },
+                { field: 'FloorConfigName', title: 'Config name', align: 'center', valign: 'middle', sortable: false },
+                { field: 'CateIdStr', title: 'Category', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'FloorConfigId',
+                    title: 'Operation',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (val) {
+                        return [
+                            Operation
+
+                        ].join('');
+                    },
+                    events: {
+                        'click .edit': function (e, value, row, index) {
+                            console.log(1);
+                            Tool.ShowModal('@Url.Action("Create")', { id: value }, 'Floor Configuration');
+                        },
+
+                    }
+                }
+            ];
+                
+            //初始列表内容
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+
+                queryParams: function (params) {
+                    return {
+                        OrderSource: $('#OrderSource').val(),
+                        RechargeChannel: $('#RechargeChannel').val(),
+                        RechargeResult: $('#RechargeResult').val(),
+                        BeginCreateDT: $('#BeginCreateDT').val(),
+                        EedCreateDT: $('#EedCreateDT').val(),
+                        OrderNO: $('#OrderNO').val(),
+                        BeginRechargeDT: $('#BeginRechargeDT').val(),
+                        EndRechargeDT: $('#EndRechargeDT').val(),
+
+                        Account: $('#Account').val(),
+                        RealName: $('#RealName').val(),
+
+                        PagedIndex: this.pageNumber - 1,//params.pageNumber - 1  params.offset
+                        PagedSize: this.pageSize       //params.pageSize  params.limit
+                    };
+                },
+                sortOrder: 'desc',
+                pagination: true,
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns
+
+            });
+            //查询 刷新
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+
+
+            
+
+        });
+        //保存
+        function Save() {
+
+            var chk_value = [];
+            $('input[name="PlaceCodeName"]:checked').each(function () {
+                chk_value.push($(this).val());
+            });
+            
+            if (chk_value.length < 2) {
+                Tool.Alert("At least select 2 items"); return;
+            }
+            //alert(chk_value);
+            
+            $("#CateIdStr").val(chk_value);
+            Tool.SaveModal($('#u_grid'));
+        }
+
+    </script>
+}

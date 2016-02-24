@@ -1,0 +1,59 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+<tr>
+    <td scope="col" width="170">@CultureHelper.GetLangString("HOME_TIME")</td>
+    <td scope="col" width="100">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_EVENT")</td>
+    <td scope="col" width="180">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_COLLECTBRANCH")</td>
+    <td scope="col" width="100">@CultureHelper.GetLangString("ORDER_LIST_STATE")</td>
+    <td scope="col" width="100">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_DETAILS")</td>
+</tr>
+@foreach(var item in Model)
+{ 
+<tr>
+    <td width="170">@item.CreateDT.ToString("yyyy-MM-dd HH:mm:ss")</td>
+    @{
+    string typeName = string.Empty;
+    string typeAmount = string.Empty;
+    switch ((int)item.AddOrCutType)
+    {
+        case 1: typeName = CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_TOPUP");//充值
+            typeAmount = CultureHelper.GetLangString("ACCOUNT_MY_ACCOUNTRECHARGE_REGEAMOUNT"); break;//充值金额
+        case 2: typeName = CultureHelper.GetLangString("ACCOUNT_SHOPPING_CONSUMPTION");//购物消费 
+            typeAmount=CultureHelper.GetLangString("ACCOUNT_Rights_index_TradeAmount"); break;//交易金额
+        case 3: typeName = CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_WITHDRAWAL");//提现
+            typeAmount = CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_WITHDRAWALAMOUNT"); break;//提现金额
+        case 4: typeName = CultureHelper.GetLangString("ACCOUNT_MY_ORDERPRODUCTLISTT2_RETURNMONEY");//退款
+            typeAmount = CultureHelper.GetLangString("ACCOUNT_Rights_index_RefundAmount"); break;//退款金额
+        case 5: typeName = CultureHelper.GetLangString("ADDORCUTTYPE_DINGDANJIESUAN"); //订单结算货款
+            typeAmount = CultureHelper.GetLangString("ACCOUNT_ORDER_SETTLEMENT_AMOUNT"); break;//订单结算金额
+        case 15: typeName = CultureHelper.GetLangString("ADDORCUTTYPE_HOUTAICHONGZHI");//后台充值
+            typeAmount = CultureHelper.GetLangString("ACCOUNT_MY_ACCOUNTRECHARGE_REGEAMOUNT"); break;//充值金额
+        case 16: typeName = CultureHelper.GetLangString("ADDORCUTTYPE_HOUTAICHONGZHIKOUKUAN");//后台充值扣款
+            typeAmount = CultureHelper.GetLangString("ACCOUNT_DEBIT_AMOUNT"); break;//扣款金额
+        case 17: typeName = CultureHelper.GetLangString("ACCOUNT_CASH_BACK");//返现
+            typeAmount = CultureHelper.GetLangString("PRODUCT_FANXIANJINER"); break;//返现金额
+        default: typeName = CultureHelper.GetLangString("ACCOUNT_Rights_index_STATUSUnknown");//未知 
+            typeAmount = CultureHelper.GetLangString("ACCOUNT_Rights_index_TradeAmount"); break;//交易金额    
+    }
+    }
+    <td width="100">@typeName </td>
+    <td width="180">@(item.AddOrCutAmount > 0 ? "+" + item.AddOrCutAmount.ToString("0.00") : item.AddOrCutAmount.ToString("0.00"))</td>
+    <td width="100">@CultureHelper.GetLangString("SUCCESS")</td><!--成功-->
+    <td width="100">
+        <a href="javascript:;">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_DETAILS")</a>
+        <div class="ls_hsq_hidden">
+            <ul>
+                <li>@CultureHelper.GetLangString("HOME_TIME")</li><!--时间-->
+                <li>@item.CreateDT.ToString("yyyy-MM-dd HH:mm:ss")</li>
+                <li>@typeAmount</li><!--金额-->
+                <li>@(item.AddOrCutAmount > 0 ? "+" + item.AddOrCutAmount.ToString("0.00") : item.AddOrCutAmount.ToString("0.00"))</li>
+                <li>@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_SERIALNUMBER")</li><!--流水号-->
+                <li>@item.ID</li>
+                <li>@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_ORDERNUMBER")</li><!--订单号-->
+                <li>@item.OrderNo</li>
+                <li>@CultureHelper.GetLangString("ACCOUNT_COMMON_REMARK")</li><!--备注-->
+                <li>@item.Remark</li>
+            </ul>
+        </div>
+    </td>
+</tr>
+}

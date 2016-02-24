@@ -1,0 +1,61 @@
+﻿@using Autofac;
+@using HKTHMall.Services.AC;
+@model HKTHMall.Domain.Models.AC.AC_ModuleModel
+@{
+    IAC_ModuleService acModelService = BrCms.Framework.Infrastructure.BrEngineContext.Current.Resolve<IAC_ModuleService>();
+    var ac_Module = acModelService.GetAC_ModuleList(0).Data;
+}
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Module name :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.ModuleID)
+        @Html.TextBoxFor(t => t.ModuleName, new { @class = "form-control",maxlength=15 })
+        @Html.ValidationMessageFor(m => m.ModuleName)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        Parant ID :
+    </label>
+    <div class="controls">
+        <select id="ParentID" name="ParentID" class="form-control">
+            <option value="0">-Select-</option>
+            @if (ac_Module != null)
+            {
+                foreach (var item in ac_Module)
+                {
+                    <option value="@item.ModuleID" @(Model.ParentID == item.ModuleID ? "selected='selected'" : "")>@item.ModuleName</option>
+                }
+            }
+        </select>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        Contro :
+    </label>
+    <div class="controls">
+        @Html.TextBoxFor(t => t.Controller, new { @class = "form-control", maxlength = 30 })
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        Contril method :
+    </label>
+    <div class="controls">
+        @Html.TextBoxFor(t => t.Action, new { @class = "form-control", maxlength = 30 })
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        icon :
+    </label>
+    <div class="controls">
+        @Html.TextBoxFor(t => t.Icon, new { @class = "form-control", maxlength = 15 })
+    </div>
+</div>
+
+
+

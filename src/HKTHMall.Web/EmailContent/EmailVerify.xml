@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MAIL>
+  <TITILE>香港商城邮箱认证</TITILE>
+  <BODY>
+    <![CDATA[       
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="width: 678px; height: auto; overflow: hidden; margin: 0 auto; border: 1px solid #dfdfdf; box-shadow: 0 0 10px #dadada; margin-top: 20px;">
+ <tr >
+  <td align="left" valign="top" bgcolor="#FFFFFF" style="padding: 0px 40px;">
+  <h2 style=" font-size: 19px; font-weight: bold; padding-top:20px;">เรียน สมาชิก Huika<span style="color: #e4393c;">$USERNAME$</span> ,สวัสดีค่ะ！</h2>
+   <p style="color: #474747;line-height:15px;">Email ที่ใช้ลงทะเบียนของท่านคือ: $Email$  </p>
+   <p style="color: #474747;line-height:15px;">ขอขอบพระคุณที่ท่านให้ความไว้วางใจสมัครสมาชิก เพื่อใช้บริการฝากเรซูเม่ และความปลอดภัยของบัญชี กรุณาคลิกหรือคัดลอก Link ด้านล่าง และนำไปวางที่เว็บเบราเซอร์ของท่าน เพื่อยืนยันการสมัครสมาชิก: </p>
+   <p style="line-height:18px;"><a href="$URL$" style="color: #0f88dd; text-decoration: underline;">$URL$</a></p>
+  </td>
+ </tr>
+ <tr >
+  <td align="right" valign="middle" bgcolor="#FFFFFF" style="padding:0px 40px 40px 40px;"><p style="font-size:16px;color:#666;">ฮุ่ยขะอินเตอร์เนชั่นแนล<br/>
+    <span style="font-size:14px;color:#666;padding-top:5px;display:block;"> 2010-2015 huikamall.com สงวนลิขสิทธิ์@ทีมงาน Huika</span></p></td>
+ </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="width: 678px; height: auto; overflow: hidden; margin: 0 auto; border: 1px solid #dfdfdf; box-shadow: 0 0 10px #dadada;">
+ <tr >
+  <td align="left" valign="top" bgcolor="#FFFFFF" style="padding: 0px 40px;">
+  <h2 style=" font-size: 19px; font-weight: bold; padding-top:20px;">Dear User<span style="color: #e4393c;">$USERNAME$</span>, </h2>
+   <p style="color: #474747;line-height:15px;">The email you registered with is: $Email$  </p>
+   <p style="color: #474747;line-height:15px;">For the security of your account assets, please click the link below to activate your mailbox: </p>
+   <p style="line-height:18px;"><a href="$URL$" style="color: #0f88dd; text-decoration: underline;">$URL$</a></p>
+  </td>
+ </tr>
+ <tr >
+  <td align="right" valign="middle" bgcolor="#FFFFFF" style="padding:0px 40px 40px 40px;"><p style="font-size:16px;color:#666;"> Huika International <br/>
+    <span style="font-size:14px;color:#666;padding-top:5px;display:block;"> 2010-2015 huikamall.com Copyright reserved</span></p></td>
+ </tr>
+</table>
+      ]]>
+  </BODY>
+</MAIL>

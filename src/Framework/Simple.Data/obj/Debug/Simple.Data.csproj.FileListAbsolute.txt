@@ -1,0 +1,6 @@
+F:\WorkSpace\src\Framework\Simple.Data\bin\Debug\Simple.Data.dll.config
+F:\WorkSpace\src\Framework\Simple.Data\bin\Debug\Simple.Data.dll
+F:\WorkSpace\src\Framework\Simple.Data\bin\Debug\Simple.Data.pdb
+F:\WorkSpace\src\Framework\Simple.Data\obj\Debug\Simple.Data.dll
+F:\WorkSpace\src\Framework\Simple.Data\obj\Debug\Simple.Data.pdb
+F:\WorkSpace\src\Framework\Simple.Data\obj\Debug\Simple.Data.csprojResolveAssemblyReference.cache

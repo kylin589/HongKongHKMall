@@ -1,0 +1,20 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+<ul class="orderMainSpec" member='uiCartItem' style="visibility:hidden">
+    <li>
+        <a member='GoodsHref' target='_blank'><img alt="" member='Pic' width="74" height="74"></a>
+        <a member='GoodsHref' class="orderlimited" target='_blank'><span member='GoodsName'></span></a>
+        <input type="hidden" member="skuNum" />
+        <input type="hidden" member="GoodsId" />
+    </li>
+    <li>
+        <dl member='Sku'></dl>
+    </li>
+    <li>$<span member="GoodsUnits"></span></li>
+    <li>
+        <i class="fa fa-times"></i><span member='ShowGoodsCount'></span>
+        <span style="line-height:20px;color:#ff0000;" member="StockQuantity-msg" style="display:none;">@CultureHelper.GetLangString("MONEY_SHOPPINGCART_INSUFFICIENTINVENTORY")</span>
+    </li>
+    <li>$<span member="GoodsTotalPrice"></span></li>
+</ul>
+
+

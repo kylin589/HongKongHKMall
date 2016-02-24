@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+您 Web 项目的发布/打包进程将使用此文件。您可以通过编辑此 MSBuild 文件
+来自定义该进程的行为。若要了解与此相关的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkID=208121。
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>\\192.168.16.172\HKTHMall.WebApi</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>08/11/2015 09:02:43</publishTime>
+    </File>
+    <File Include="bin/Apache.NMS.ActiveMQ.dll">
+      <publishTime>08/07/2015 13:43:47</publishTime>
+    </File>
+    <File Include="bin/Apache.NMS.dll">
+      <publishTime>08/07/2015 13:43:47</publishTime>
+    </File>
+    <File Include="bin/Autofac.dll">
+      <publishTime>08/11/2015 09:02:34</publishTime>
+    </File>
+    <File Include="bin/Autofac.Extras.DynamicProxy2.dll">
+      <publishTime>08/07/2015 13:43:47</publishTime>
+    </File>
+    <File Include="bin/Autofac.Integration.Mvc.dll">
+      <publishTime>08/07/2015 13:43:47</publishTime>
+    </File>
+    <File Include="bin/Autofac.Integration.WebApi.dll">
+      <publishTime>08/11/2015 09:02:54</publishTime>
+    </File>
+    <File Include="bin/AutoMapper.dll">
+      <publishTime>08/07/2015 13:43:47</publishTime>
+    </File>
+    <File Include="bin/BrCms.Framework.dll">
+      <publishTime>08/11/2015 14:42:16</publishTime>
+    </File>
+    <File Include="bin/BrCms.Framework.Mvc.dll">
+      <publishTime>08/12/2015 13:56:19</publishTime>
+    </File>
+    <File Include="bin/BrCms.Framework.WebApi2.dll">
+      <publishTime>08/11/2015 14:42:16</publishTime>
+    </File>
+    <File Include="bin/Castle.Core.dll">
+      <publishTime>08/07/2015 13:43:47</publishTime>
+    </File>
+    <File Include="bin/Couchbase.dll">
+      <publishTime>08/07/2015 13:43:47</publishTime>
+    </File>
+    <File Include="bin/em_cs_interface.dll">
+      <publishTime>08/07/2015 13:43:47</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>08/11/2015 09:02:42</publishTime>
+    </File>
+    <File Include="bin/Enyim.Caching.dll">
+      <publishTime>08/07/2015 13:43:47</publishTime>
+    </File>
+    <File Include="bin/FluentValidation.dll">
+      <publishTime>08/07/2015 13:43:47</publishTime>
+    </File>
+    <File Include="bin/HKSJ.Common.dll">
+      <publishTime>08/07/2015 13:43:47</publishTime>
+    </File>
+    <File Include="bin/HKSJ.MidMessage.dll">
+      <publishTime>08/07/2015 13:43:47</publishTime>
+    </File>
+    <File Include="bin/HKTHMall.Core.dll">
+      <publishTime>08/13/2015 14:15:44</publishTime>
+    </File>
+    <File Include="bin/HKTHMall.Domain.dll">
+      <publishTime>08/13/2015 14:15:43</publishTime>
+    </File>
+    <File Include="bin/HKTHMall.Services.dll">
+      <publishTime>08/13/2015 14:15:44</publishTime>
+    </File>
+    <File Include="bin/HKTHMall.WebApi.Common.dll">
+      <publishTime>08/13/2015 14:15:24</publishTime>
+    </File>
+    <File Include="bin/HKTHMall.WebApi.dll">
+      <publishTime>08/13/2015 14:15:45</publishTime>
+    </File>
+    <File Include="bin/log4net.dll">
+      <publishTime>08/07/2015 13:43:47</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>08/11/2015 09:02:34</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>08/11/2015 09:02:35</publishTime>
+    </File>
+    <File Include="bin/NLog.dll">
+      <publishTime>08/11/2015 09:02:37</publishTime>
+    </File>
+    <File Include="bin/Omise.Net.dll">
+      <publishTime>08/13/2015 10:17:14</publishTime>
+    </File>
+    <File Include="bin/PayPalCoreSDK.dll">
+      <publishTime>08/07/2015 13:43:47</publishTime>
+    </File>
+    <File Include="bin/PayPalMerchantSDK.dll">
+      <publishTime>08/07/2015 13:43:47</publishTime>
+    </File>
+    <File Include="bin/Resources.dll">
+      <publishTime>08/11/2015 14:42:15</publishTime>
+    </File>
+    <File Include="bin/Resources/Resource.en-US.resx">
+      <publishTime>08/13/2015 13:46:27</publishTime>
+    </File>
+    <File Include="bin/Resources/Resource.th-TH.resx">
+      <publishTime>08/13/2015 13:46:27</publishTime>
+    </File>
+    <File Include="bin/Resources/Resource.zh-CN.resx">
+      <publishTime>08/13/2015 13:46:27</publishTime>
+    </File>
+    <File Include="bin/ServiceStack.Text.dll">
+      <publishTime>08/07/2015 13:43:47</publishTime>
+    </File>
+    <File Include="bin/Simple.Data.Ado.dll">
+      <publishTime>08/11/2015 14:42:15</publishTime>
+    </File>
+    <File Include="bin/Simple.Data.dll">
+      <publishTime>08/11/2015 14:42:15</publishTime>
+    </File>
+    <File Include="bin/Simple.Data.RawSql.dll">
+      <publishTime>08/11/2015 14:42:16</publishTime>
+    </File>
+    <File Include="bin/Simple.Data.SqlServer.dll">
+      <publishTime>08/11/2015 14:42:16</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>08/11/2015 09:02:51</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>08/11/2015 09:02:34</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>08/11/2015 09:02:52</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>08/11/2015 09:02:52</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>08/07/2015 13:43:47</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>08/07/2015 13:43:47</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>08/11/2015 09:02:34</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>08/11/2015 09:02:34</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>08/07/2015 13:43:47</publishTime>
+    </File>
+    <File Include="bin/ThoughtWorks.QRCode.dll">
+      <publishTime>08/10/2015 15:20:10</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>08/11/2015 09:02:51</publishTime>
+    </File>
+    <File Include="Config/log4net.config">
+      <publishTime>08/11/2015 08:57:55</publishTime>
+    </File>
+    <File Include="Config/site.config">
+      <publishTime>08/11/2015 08:57:55</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>08/11/2015 08:57:55</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>08/11/2015 08:57:54</publishTime>
+    </File>
+    <File Include="VisitingCard/default.png">
+      <publishTime>08/12/2015 09:06:53</publishTime>
+    </File>
+    <File Include="VisitingCard/moban.jpg">
+      <publishTime>08/12/2015 09:06:53</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>08/13/2015 13:49:56</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

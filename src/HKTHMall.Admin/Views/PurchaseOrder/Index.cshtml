@@ -1,0 +1,195 @@
+﻿
+@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@model HKTHMall.Domain.AdminModel.Models.Orders.SearchPurchaseOrderModel
+@{
+    ViewBag.Title = "PurchaseOrder list page";
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(138);
+    _Authority.PurchaseOrderDetails = _Authority.CheckAction(139);
+}
+<script src="~/Content/js/home.index.js" type="text/javascript"></script>
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>PurchaseOrderId: </span>
+            @Html.TextBoxFor(x => x.PurchaseOrderId, new { @class = "form-control w70", @placeholder = "Please enter PurchaseOrderId" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>OrderID: </span>
+            @Html.TextBoxFor(x => x.OrderID, new { @class = "form-control w70", @placeholder = "Please enter OrderID" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>SupplierName: </span>
+            @Html.TextBoxFor(x => x.SupplierName, new { @class = "form-control w70", @placeholder = "Please enter SupplierName" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Mobile: </span>
+            @Html.TextBoxFor(x => x.Mobile, new { @class = "form-control w70", @placeholder = "Please enter Mobile" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>status: </span>
+            <select class="form-control text-center" id="status" name="status">
+                <option value="">--All--</option>
+                <option value="1">Ordered</option>
+                <option value="3">Received</option>
+                <option value="5">Canceled</option>
+            </select>
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-danger js_reset" onclick="Tool.ClearForm($('#user-toolbar'))">
+            <span class="glyphicon glyphicon-bullhorn"></span> Clear
+        </button>
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts{
+    <script type="text/javascript">
+        var $addCheck = eval("@(_Authority.Add.ToString().ToLower())");
+        var $PurchaseOrderDetails = eval("@(_Authority.PurchaseOrderDetails.ToString().ToLower())");
+        //加载数据
+        $(function () {
+            var columns = [
+            { field: "PurchaseOrderId", title: "PurchaseOrderId", align: 'center', valign: 'middle', sortable: false },
+            { field: "OrderID", title: "OrderID", align: 'center', valign: 'middle', sortable: false },
+            { field: "SupplierName", title: "SupplierName", align: 'center', valign: 'middle', sortable: false },
+            { field: 'Mobile', title: 'Mobile', align: 'center', valign: 'middle', sortable: false },
+            {
+                field: "status", title: "status", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                    if (arguments && arguments[1]) {
+                        //1 未结算（已下单），2已发货（供应商发货），3已收货，4已结算,5已取消
+                        var statusName = "-";
+                        switch (arguments[1].status) {
+                            case 1:
+                                statusName = "Ordered";
+                                break;
+                            case 3:
+                                statusName = "Received";
+                                break;
+                            case 5:
+                                statusName = "Canceled";
+                                break;
+                            default:
+                                break;
+
+                        }
+                        return statusName;
+                    }
+                }
+            },
+            { field: "PurchaseAmount", title: "PurchaseAmount", align: 'center', valign: 'middle', sortable: false },
+            { field: "RealPurchaseAmount", title: "RealPurchaseAmount", align: 'center', valign: 'middle', sortable: false},
+            //{ field: "CreateBy", title: "CreateBy", align: 'center', valign: 'middle', sortable: false },
+            {
+                field: "CreateTime", title: "CreateTime", align: 'center', valign: 'middle', sortable: false, formatter:
+                  function (val) {
+                      return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                  }
+            },
+            { field: "Deliveryer", title: "Deliveryer", align: 'center', valign: 'middle', sortable: false },
+            {
+                field: "DeliveryDate", title: "DeliveryDate", align: 'center', valign: 'middle', sortable: false, formatter:
+                  function (val) {
+                      return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                  }
+             },
+            {
+                field: "PurchaseOrderIds", title: "Operation", align: 'center', valign: 'middle',
+                formatter: function (val) {
+                    var operation = '';
+                    if ($addCheck) {
+                        if (arguments[1].status == 1)
+                            operation += '<a class="edit ml10" href="javascript:void(0)" title="Update"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                    }
+                    if ($PurchaseOrderDetails) {
+                        operation += '<a class="detail ml10" href="javascript:void(0)" title="PurchaseOrder Details ">PurchaseOrder Details</a>';
+                    }
+                    if (operation == '') {
+                        operation = '-';
+                    }
+                    return [operation
+                    ].join('');
+                },
+                events: {
+                    //编辑
+                    'click .edit': function (e, value, row, index) {
+                        Tool.ShowModal('@Url.Action("Create")', { id: row.PurchaseOrderId, time: new Date().getTime() }, 'Handle purchaseOrder');
+                    },
+                    'click .detail': function (e, value, row, index) {
+                        var url = "/PurchaseOrder/PurchaseOrderDetails?purchaseOrderId=" + row.PurchaseOrderId;
+                        parent.addTab(row.PurchaseOrderId, "PurchaseOrder Details", url);
+                    }
+                }
+            }
+            ];
+            //加载列表数据
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+                queryParams: function (params) {
+                    return {
+                        PurchaseOrderId: $('#PurchaseOrderId').val().trim(),
+                        OrderID: $('#OrderID').val().trim(),
+                        SupplierName: $('#SupplierName').val().trim(),
+                        Mobile: $('#Mobile').val().trim(),
+                        status: $('#status').val().trim(),
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        time: new Date().getTime()
+                    };
+                },
+                pagination: true,
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns
+            });
+            //搜索事件
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+            //按Enter键回车搜索
+            $('#SupplierName').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#Mobile').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#OrderID').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#ProductName').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+
+            $('.js_create').click(function () {
+                Tool.ShowModal("@Url.Action("Create")", {}, "Handle PurchaseOrder");
+            });
+          
+        });
+        //保存
+        function Save() {
+            Tool.SaveModal($('#u_grid'));
+        }
+    </script>
+}

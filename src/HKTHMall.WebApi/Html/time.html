@@ -1,0 +1,256 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title id="cb_title"></title>
+
+    <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta charset="utf-8" />
+
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <style>
+        .ads {
+            display: none;
+        }
+    </style>
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script>
+        //js获取url传递参数
+        function GetRequest() {
+            var url = location.search;
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+        var Request = new Object();
+        Request = GetRequest();
+        var cb_lang = Request['lang'];
+        var varPageNo = 1;
+
+        //语言判断
+        $(function () {
+            if (cb_lang == "1") {
+                $("#cb_title").html("限时爆款");
+                $("#sh_loading").html("数据加载中...");
+            }
+            if (cb_lang == "2") {
+                $("#cb_title").html("Limited hot sale");
+                $("#sh_loading").html("Loading data...");
+            }
+            if (cb_lang == "3") {
+                $("#cb_title").html("สินค้าไฮไลท์");
+                $("#sh_loading").html("โหลดข้อมูลอยู่...");
+            }
+        });
+
+
+        function time_c() {
+            $(function () {
+                $("#loading").ajaxStart(function () {
+                    $(this).show();
+                });
+                $.ajax({
+                    type: "Post",//要用post方式
+                    url: "/Other/GetExplosiveGoods",//爆款列表
+                    dataType: "json",
+                    data: {
+                        lang: cb_lang,
+                        isFirstPage: 1,
+                        bannerSize: 5,
+                        pageNo: varPageNo,
+                        pageSize: 20
+                    },
+                    success: function (JsonData) {//返回成功
+                        var totalSize = JsonData.totalSize;
+                        var html = "";
+                        for (var i = 0; i < JsonData.rs.length; i++) {
+                            var productId = JsonData.rs[i].productId;
+                            var productName = JsonData.rs[i].productName;
+                            var picAddress = JsonData.rs[i].picAddress;
+                            var activityPrice = parseFloat(JsonData.rs[i].activityPrice).toFixed(2);
+                            var hKPrice = parseFloat(JsonData.rs[i].hKPrice).toFixed(2);
+                            var endDate = JsonData.rs[i].endDate;
+                            var serverDt = JsonData.rs[i].serverDt;
+
+
+                            var time_a = endDate - serverDt;       //时间差
+
+                            html += "<div class='pr_list' id='tis" + i + "'><a href='?method=productDetail&id=" + productId + "'><span><img src='" + picAddress + "' alt='" + productName + "'/></span><strong>" + productName + "</strong><p><i class='pr1'>฿ " + activityPrice + "</i><i class='pr2'> ฿ " + hKPrice + "</i><i class='pr3' das='" + time_a + "'></i></p></a></div>";
+
+                        }
+                        $("#product").append(html);
+
+                        $(function () {
+                            var winH = $(window).height(); //页面可视区域高度
+                            $(window).scroll(function () {
+                                var pageH = $(document.body).height();
+                                var scrollT = $(window).scrollTop(); //滚动条top
+                                var aa = (pageH - winH - scrollT) / winH;
+                                if (aa < 0.02) {
+                                    if (varPageNo < Math.ceil(totalSize / 20)) {
+                                        varPageNo += 1;
+                                        time_c();
+                                    } else { }
+                                }
+                            });
+                        });
+
+                        $(function () {
+                            $(".pr_list").each(function () {
+                                var cb = $(this).find(".pr3").attr("das");
+                                var qq = $(this).attr("id");
+                                tim(cb, qq);
+                            });
+                        });
+
+                        function tim(bs, qq) {
+                            ts = bs - 1000;
+
+                            if (ts <= 0) {
+                                $("#" + qq).addClass("ads");
+                            } else {
+                                $("#" + qq).show();
+                            }
+
+                            var dd = parseInt(ts / 1000 / 60 / 60 / 24, 10);//计算剩余的天数
+                            var hh = parseInt(ts / 1000 / 60 / 60 % 24, 10);//计算剩余的小时数
+                            var mm = parseInt(ts / 1000 / 60 % 60, 10);//计算剩余的分钟数
+                            var ss = parseInt(ts / 1000 % 60, 10);//计算剩余的秒数
+
+                            if (hh < 10) { hh = "0" + hh; }
+                            if (mm < 10) { mm = "0" + mm; }
+                            if (ss < 10) { ss = "0" + ss; }
+
+                            $(function () {
+                                if (cb_lang == "1") {
+                                    if (dd < 1) {
+                                        $("#" + qq).find(".pr3").html("剩 " + hh + ":" + mm + ":" + ss);
+                                    }
+                                    else {
+                                        $("#" + qq).find(".pr3").html("剩 " + dd + "天" + hh + ":" + mm + ":" + ss);
+                                    }
+                                }
+                                if (cb_lang == "2") {
+                                    if (dd < 1) {
+                                        $("#" + qq).find(".pr3").html("Ends in " + hh + ":" + mm + ":" + ss);
+                                    }
+                                    else {
+                                        $("#" + qq).find(".pr3").html("Ends in " + dd + "days" + hh + ":" + mm + ":" + ss);
+                                    }
+                                }
+                                if (cb_lang == "3") {
+                                    if (dd < 1) {
+                                        $("#" + qq).find(".pr3").html("เหลือ " + hh + ":" + mm + ":" + ss);
+                                    }
+                                    else {
+                                        $("#" + qq).find(".pr3").html("เหลือ " + dd + "วัน" + hh + ":" + mm + ":" + ss);
+                                    }
+                                }
+                            });
+                            setTimeout("tim('" + ts + "','" + qq + "')", 1000);
+                        }
+                        $("#loading").ajaxStop(function () {
+                            $(this).hide();
+                        });
+
+                    },
+                    error: function (err) {//失败
+                        //alert(err);
+                    }
+
+                });
+
+
+            });
+        }
+
+
+        time_c();
+
+
+
+
+    </script>
+</head>
+
+<body>
+    <div class="main_a">
+        <div class="main_loading" id="loading"><span><img src="images/loading.gif" /></span><p id="sh_loading"></p></div>
+
+
+
+        <div class="product">
+            <div class="clear" id="product">
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        $(function () {
+            $(".pr_list").each(function () {
+                var cb = $(this).find(".pr3").attr("das");
+                var qq = $(this).attr("id");
+                tim(cb, qq);
+            });
+        });
+
+        function tim(bs, qq) {
+            ts = bs - 1000;
+
+            if (ts <= 0) {
+                $("#" + qq).addClass("ads");
+            } else {
+                $("#" + qq).show();
+            }
+
+            var dd = parseInt(ts / 1000 / 60 / 60 / 24, 10);//计算剩余的天数
+            var hh = parseInt(ts / 1000 / 60 / 60 % 24, 10);//计算剩余的小时数
+            var mm = parseInt(ts / 1000 / 60 % 60, 10);//计算剩余的分钟数
+            var ss = parseInt(ts / 1000 % 60, 10);//计算剩余的秒数
+
+            if (hh < 10) { hh = "0" + hh; }
+            if (mm < 10) { mm = "0" + mm; }
+            if (ss < 10) { ss = "0" + ss; }
+
+            $(function () {
+                if (cb_lang == "1") {
+                    if (dd < 1) {
+                        $("#" + qq).find(".pr3").html("剩 " + hh + ":" + mm + ":" + ss);
+                    }
+                    else {
+                        $("#" + qq).find(".pr3").html("剩 " + dd + "天" + hh + ":" + mm + ":" + ss);
+                    }
+                }
+                if (cb_lang == "2") {
+                    if (dd < 1) {
+                        $("#" + qq).find(".pr3").html("Ends in " + hh + ":" + mm + ":" + ss);
+                    }
+                    else {
+                        $("#" + qq).find(".pr3").html("Ends in " + dd + "days" + hh + ":" + mm + ":" + ss);
+                    }
+                }
+                if (cb_lang == "3") {
+                    if (dd < 1) {
+                        $("#" + qq).find(".pr3").html("เหลือ " + hh + ":" + mm + ":" + ss);
+                    }
+                    else {
+                        $("#" + qq).find(".pr3").html("เหลือ " + dd + "วัน" + hh + ":" + mm + ":" + ss);
+                    }
+                }
+            });
+            setTimeout("tim('" + ts + "','" + qq + "')", 1000);
+        }
+    </script>
+
+</body>
+</html>

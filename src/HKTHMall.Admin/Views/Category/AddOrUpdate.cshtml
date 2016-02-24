@@ -1,0 +1,210 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.Categoreis.CategoryModel
+@{
+    System.Data.DataTable langlist = HKTHMall.Admin.common.ACultureHelper.GetLanguageTable();
+}
+<form action="@Url.Action(!Model.CategoryId.HasValue?"Add":"Update")" id="category_from" method="POST" class="form-inline content" role="form">
+    @Html.ValidationSummary(false)
+
+    @Html.HiddenFor(m => m.CategoryId, new { id = "categoryId" })
+    @Html.HiddenFor(m => m.parentId)
+    @Html.HiddenFor(m => m.Grade)
+    @Html.HiddenFor(m => m.ParentGrade)
+    <ul class="nav nav-tabs" role="tablist">
+        @*@for (int i = 0; i < langlist.Rows.Count;i++ )
+        {
+            <li @(i == 0 ? "class=active" : "") role="presentation">
+                <a aria-controls="@langlist.Rows[i]["LanguageName"].ToString()" data-toggle="tab" href="#lan_@(i+1)" role="tab">@langlist.Rows[i]["LanguageName"].ToString()</a>
+                </li>
+        }*@
+        @*<li style="display:none;" role="presentation">
+            <a aria-controls="home" data-toggle="tab" href="#lan_1" role="tab">Thai</a>
+        </li>*@
+        <li class="active" role="presentation">
+            <a aria-controls="profile" data-toggle="tab" href="#lan_0" role="tab">Chinese</a>
+        </li>
+        <li role="presentation">
+            <a aria-controls="messages" data-toggle="tab" href="#lan_1" role="tab">English</a>
+        </li>
+        <li role="presentation">
+            <a aria-controls="hongkong" data-toggle="tab" href="#lan_2" role="tab">Chinese(HK)</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes 多语言 -->
+    <div class="tab-content language-content form-inline">
+        @*@for (int i = 0; i < langlist.Rows.Count; i++)
+        {
+            <div @(i == 0 ? "class=tab-pane active" : "") id="lan_@(i+1)" role="tabpanel">
+                @lang_template(Model.Category_Lang.Count > i ? Model.Category_Lang[i] : new HKTHMall.Domain.AdminModel.Models.Categoreis.CategoryLanguageModel(), i, Convert.ToInt32(langlist.Rows[i]["LanguageId"]))
+            </div>
+        }*@
+        @*<div style="display:none;" id="lan_1" role="tabpanel">
+            @lang_template(Model.GetCategoryLanguageModel(3), 0, 3)
+        </div>*@
+        <div class="tab-pane active" class="tab-pane" id="lan_0" role="tabpanel">
+            @lang_template(Model.GetCategoryLanguageModel(1), 0, 1)
+        </div>
+        <div class="tab-pane" id="lan_1" role="tabpanel">
+            @lang_template(Model.GetCategoryLanguageModel(2), 1, 2)
+        </div>
+        <div class="tab-pane" id="lan_2" role="tabpanel">
+            @lang_template(Model.GetCategoryLanguageModel(4), 2, 4)
+        </div>
+    </div>
+    @*update by liujc*@
+    @if ((Model.CategoryId.HasValue && Model.Grade == 3) || (!Model.CategoryId.HasValue && Model.ParentGrade == 2))
+    {
+        @Html.HiddenFor(m => m.SKU_ProductTypesModel.SkuTypeId)
+        <div class="row" id="cate_type_row">
+            <div class="col-md-3 title-row">Product Types:</div>
+            <div class="col-md-8">
+                <button class="btn btn-primary" id="select_category_type"
+                        @if (Model.SKU_ProductTypesModel != null && Model.SKU_ProductTypesModel.SkuTypeId != 0) { <text> disabled="disabled" </text>                }
+                        type="button">
+                    Select Type
+                </button>
+                <div id="sct_con">@Html.DisplayTextFor(m => m.SKU_ProductTypesModel.Name)</div>
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-md-3 title-row">Icon:</div>
+        <div class="col-md-8">
+            @Html.TextBoxFor(m => m.IconCode, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.IconCode)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 title-row">Sort:</div>
+        <div class="col-md-8">
+            <div class="input-group spinner number-input" data-trigger="spinner">
+                @Html.TextBoxFor(m => m.Place, new Dictionary<string, object>
+                        {
+                            {"class", "form-control"},
+                            {"data-rule", "quantity"}
+                        })
+                <div class="input-group-addon">
+                    <a class="spin-up" data-spin="up" href="javascript:;">
+                        <i class="icon-sort-up"></i>
+                    </a>
+                    <a class="spin-down" data-spin="down" href="javascript:;">
+                        <i class="icon-sort-down"></i>
+                    </a>
+                </div>
+            </div>@Html.ValidationMessageFor(m => m.Place)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 title-row">Enable:</div>
+        <div class="col-md-8">
+            @Html.CheckBoxFor(m => m.AuditState, new { id = "AuditState", tabindex = "1" })
+            @Html.ValidationMessageFor(m => m.IconCode)
+        </div>
+    </div>
+</form>
+
+@helper lang_template(HKTHMall.Domain.AdminModel.Models.Categoreis.CategoryLanguageModel clangModel, int count, int langId)
+{
+    <div class="row">
+        <input name="Category_Lang[@count].Id" type="hidden" value="@clangModel.Id">
+        <input name="Category_Lang[@count].LanguageID" type="hidden" value="@langId">
+        <div class="col-md-3 title-row">Category name: </div>
+        <div class="col-md-8">
+            <input name="Category_Lang[@count].CategoryName" class="form-control text-name" value="@clangModel.CategoryName" style="width:350px;" langid="@langId" />
+            @Html.ValidationMessage("Category_Lang[" + count + "].CategoryName")
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(function () {
+
+        $('#select_category_type').click(function () {
+            var ctyp_row;
+
+            bootbox.dialog({
+                title: "Choose Spec",
+                message: '<table id="category_type_grid"></table>',
+                buttons: {
+                    success: {
+                        label: "Choose",
+                        className: "btn-default",
+                        callback: function () {
+                            var rows = $('#category_type_grid').bootstrapTable('getSelections');
+                            if (rows.length !== 0) {
+                                ctyp_row = rows[0];
+                                $('#sct_con').text(rows[0].Name);
+                                $('#SKU_ProductTypesModel_SkuTypeId').val(ctyp_row.SkuTypeId);
+                                $(this).dialog("close");
+                            }
+                        }
+                    }
+                }
+            });
+
+            $('#category_type_grid').bootstrapTable({
+                url: '/SKU_ProductTypes/List',
+                queryParams: function (params) {
+                    return {
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        Name: $('#Name').val()
+                    };
+                },
+                sortOrder: 'desc',
+                cache: false,
+                height: '100%',
+                striped: true,
+                pagination: true,
+                pageSize: 5,
+                pageList: [5],
+                //search: true,
+                showColumns: false,
+                showRefresh: false,
+                singleSelect: true,
+                minimumCountColumns: 2,
+                clickToSelect: true,
+                sidePagination: 'server',
+                columns: [
+                    {
+                        field: 'state',
+                        checkbox: true,
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                    },
+                    { field: 'Name', title: 'Type Name', align: 'center', valign: 'middle', sortable: false },
+                    {
+                        field: 'UseExtend',
+                        title: 'Extended attributes',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: false,
+                        formatter: function (val) {
+                            return val === 1 ? 'Yes' : 'No';
+                        }
+
+                    },
+                    {
+                        field: 'UseParameter',
+                        title: 'Detailed parameter',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: false,
+                        formatter: function (val) {
+                            return val === 1 ? 'Yes' : 'No';
+                        }
+
+                    }
+                ]
+            });
+        });
+
+        ///是否启用
+        $('#AuditState').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%'
+        });
+    });
+</script>

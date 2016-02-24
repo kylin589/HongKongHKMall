@@ -1,0 +1,207 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>@CultureHelper.GetAPPLangSgring("HOME_FOOTER_REGISTER",ViewBag.Lang)</title>
+
+    <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta charset="utf-8" />
+    <link href="@Url.Content("~/Areas/Content/css/style.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Areas/Content/js/jquery-1.9.1.min.js")"></script>
+    <script src='@Url.Content("~/Areas/Content/js/lang/" + CultureHelper.GetLanguage(ViewBag.Lang) + ".js")'></script>
+    <script type="text/javascript">
+        var cdt=120;
+        var outTime = 120;
+        $(function ()
+        {
+            $("#phone").val("");
+            $("#password").val("");
+            $("#verification").val("");
+        });
+        /*注册*/
+        function zc() {
+            var tegNum = /^\d{8,20}$/;
+            var tegLetter = /^[a-zA-Z]{8,20}$/;
+            var pwd=$("#password").val();
+            var cb_phone = "@ViewBag.RealPhone";
+            if (!$("#verification").val())
+            {
+                $("#login_bg_bt").html("<div id='login_bg_nr'>" + $commonLang.LOGIN_GETPASSWORD_WRONGCODE + "</div>");
+                return;
+            }
+            if (!$("#phone").val() || $("#phone").val()=="")
+            {
+                $("#login_bg_bt").html("<div id='login_bg_nr'>" + $commonLang.LOGIN_INDEX_CORRECTACCOUNT + "</div>");
+                return;
+            }
+            if (!pwd ||  pwd== "")
+            {
+                $("#login_bg_bt").html("<div id='login_bg_nr'>" + $commonLang.LOGIN_INDEX_CORRECTPWD + "</div>");
+                return;
+            }          //
+            
+            if (pwd.length < 8 || pwd.length > 20 || new RegExp(/[^\x00-\xff]|\s/).test(pwd))
+            {
+                $("#login_bg_bt").html("<div id='login_bg_nr'>" + $commonLang.LOGIN_GETPASSWORD_PWDFORMAT + "</div>");
+                return;
+            }else if (tegNum.test(pwd) || tegLetter.test(pwd)) {
+                $("#login_bg_bt").html("<div id='login_bg_nr'>" + $commonLang.LOGIN_GETPASSWORD_PWDATLEASTINCLUDE + "</div>");;
+                return;
+            } else {
+                $("#login_bg_bt").html("");
+            }
+             
+            $.ajax({
+                type: "Post",/*要用post方式*/
+                url: "/Register/User/RegisterUser",/*方法所在页面和方法名*/
+                dataType: "json",
+                data: {
+                    inviatePhone: cb_phone,
+                    phone: $("#phone").val(),
+                    code: $("#verification").val(),
+                    email: "",
+                    pwd: $("#password").val(),
+                    lang:"@ViewBag.Lang"
+                },
+                beforeSend: function (XMLHttpRequest) {
+                    $("#submit").attr("disabled", "disabled"); /*使按钮不能被点击*/
+                },
+                success: function (data) {
+                    /*alert(JsonData.flag);*/
+                    if (data.status == 1) {
+                        window.location.href = "/Register/User/Success/"+data.message+"?lang="+"@ViewBag.Lang";
+                        $("#submit").attr("disabled", "disabled"); /*使按钮不能被点击*/
+                    }
+                    else {
+                        $("#login_bg_bt").html("<div id='login_bg_nr'>" + data.message + "</div>");
+                        /*mallbox.alert({ message: data.message, modal: true });*/
+                        $("#submit").removeAttr("disabled"); /*使按钮能够被点击*/
+                    }
+                },
+                error: function (err) {
+                    $("#login_bg_bt").html("<div id='login_bg_nr'>" + $commonLang.ACCOUNT_MY_ORDERRETURNPRODUCT_FAIL + "</div>");
+                    $("#submit").removeAttr("disabled"); //使按钮能够被点击
+                }
+            });
+        }
+        /*验证手机号*/
+        function checkPhone() {
+            var phones = $("#phone").val();
+            if ("" == phones || !new RegExp(/^[0][6||8-9][0-9]{8}$/).test(phones)) {
+                $("#login_bg_bt").html("<div id='login_bg_nr'>" + $commonLang.LOGIN_INDEX_CORRECTPHONE + "</div>");
+                return false;
+            }
+            return true;
+        }
+        /*获取验证码*/
+        function yzm() {
+            if (!checkPhone())
+            {
+                return;
+            }
+            $("#yz").attr("disabled", "disabled");
+            $("#yz").css({ "color": "#a0a0a0", "cursor": "default" });
+            var yz_phone = $("#phone").val();
+            $.ajax({
+                type: "Post",/*要用post方式*/
+                url: "/Register/User/SendCode",/*方法所在页面和方法名*/
+                dataType: "json",
+                data: {
+                    phone: yz_phone,
+                    lang:@ViewBag.Lang+0
+                    /*registerSource:1,
+                    type: 1,
+                    lang: 1*/
+
+                    },
+                success: function (JsonData) {
+                    var html = "";
+                    if (!JsonData.IsMessage) {/*发送失败*/
+                        html = "<div id='login_bg_nr'>" + JsonData.Msg + "</div>";
+                        $("#yz").removeAttr("disabled");
+                        $("#yz").css({ "color": "#FF6533", "cursor": "pointer" });
+                    }
+                    else {/*发送成功开始倒计时*/
+                        cd();
+                    }
+                    $("#login_bg_bt").html(html);
+
+                },
+                error: function (err) {
+                    $("#login_bg_bt").html("<div id='login_bg_nr'>" + "@CultureHelper.GetAPPLangSgring("ACCOUNT_MY_ORDERRETURNPRODUCT_FAIL",ViewBag.Lang)" + "</div>");
+                    $("#yz").removeAttr("disabled");
+                    $("#yz").css({ "color": "#FF6533", "cursor": "pointer" });
+                }
+            });
+        }
+
+        /*密码明文密文*/
+        function pas() {
+            if ($("#cb1").is(':checked')) {
+                $("#password").attr("type", "text");
+            }
+            else {
+                $("#password").attr("type", "password");
+            }
+        }
+
+
+        function cd()
+        {
+            if (cdt <= 0) {
+                cdt = outTime;
+                $("#yz").val('@CultureHelper.GetAPPLangSgring("LOGIN_GETPASSWORD_VERIFICATIONCODE", ViewBag.Lang)');
+                $("#yz").css({ "color": "#FF6533", "cursor": "pointer" });
+                $("#yz").removeAttr("disabled");
+                return;
+            }
+            else {
+                $("#yz").css({ "color": "#a0a0a0", "cursor": "default" });
+                $("#yz").val(cdt + '@CultureHelper.GetAPPLangSgring("LOGIN_GETPASSWORD_SECONDS", ViewBag.Lang)');
+                setTimeout(cd, 1000);
+                cdt--;
+            }
+        }
+    </script>
+
+</head>
+
+
+<body style="background:#ffd200;">
+    <div class="main_a">
+        <div class="login">
+            <div class="login1"><img src="@Url.Content("~/Areas/Content/images/login1_1.png")" style="display:block;margin:0px auto" /></div>
+            <div class="login_nr">
+                <div class="login1"><img src="@Url.Content("~/Areas/Content/images/login1_2.png")" style="display:block" /></div>
+                <div class="login2">
+                    <form id="form">
+                        <div class="login_form">
+                            <div id="login_bg_bt"></div>
+                            <ul>
+                                <li>@CultureHelper.GetAPPLangSgring("LOGIN_GETPASSWORD_REFEREES", ViewBag.Lang):<span id="hkfx">@ViewBag.Refer</span></li>
+                                <li><input type="text" name="phone" id="phone" placeholder="@CultureHelper.GetAPPLangSgring("LOGIN_GETPASSWORD_ENTERPHONENUMBER", ViewBag.Lang)" /></li>
+                                <li><input type="text" name="verification" maxlength="6" id="verification" placeholder="@CultureHelper.GetAPPLangSgring("LOGIN_GETPASSWORD_VERIFICATIONCODE_1", ViewBag.Lang)" /><input type="button" id="yz" class="login_yz" onclick="yzm()" style="cursor:pointer" value='@CultureHelper.GetAPPLangSgring("LOGIN_GETPASSWORD_VERIFICATIONCODE_1", ViewBag.Lang)' /></li>
+                                <li><i id="sp1"><input type="password" name="password" id="password" maxlength="16" placeholder="@CultureHelper.GetAPPLangSgring("LOGIN_ENTERPASSWORD", ViewBag.Lang)" /></i><input id="cb1" class="cb1" type="checkbox" onclick="pas()" style="cursor:pointer"/><label for="cb1" class="login_pass" style="cursor:pointer"></label></li>
+                            </ul>
+                        </div>
+                        <div class="login_button"><button type="button" id="submit" onclick="javascript:zc();" style="cursor:pointer">@CultureHelper.GetAPPLangSgring("LOGIN_GETPASSWORD_REGISTER", ViewBag.Lang)</button></div>
+                        <div class="login_bot">@CultureHelper.GetAPPLangSgring("LOGIN_GETPASSWORD_READAGREED", ViewBag.Lang)<a href="@Url.Content("~/Html/"+((int)ViewBag.Lang==1?"help":((int)ViewBag.Lang==3?"help_t":"help_en"))+"/help6.html")" target="_blank">@CultureHelper.GetAPPLangSgring("LOGIN_GETPASSWORD_AGREEMENT", ViewBag.Lang)</a></div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.User.ZJ_UserBalanceModel
+@{
+    Layout = null;
+}
+@Html.HiddenFor(t => t.UserID)
+@*<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>User Name :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+           
+            <input type="text" class="form-control" placeholder="@Model.Account" disabled="" />
+        </div>
+    </div>
+</div>*@
+@*<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Real Name :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+           
+            <input type="text" class="form-control" placeholder="@Model.RealName" disabled="" />
+        </div>
+    </div>
+</div>*@
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Mobile phone :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+
+            <input type="text" class="form-control" placeholder="@Model.Phone" disabled="" />
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Balance :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            @{ Model.ConsumeBalance = decimal.Round(Model.ConsumeBalance, 2);}
+            <input type="text" class="form-control" placeholder="@Model.ConsumeBalance" disabled="" />
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Recharge Amount :
+    </label>
+    <div class="controls" >
+        <div class="form-group">
+            @Html.TextBoxFor(t => t.AddOrCutAmount, new { @class = "form-control", maxlength = "12" })
+            @Html.ValidationMessageFor(m => m.AddOrCutAmount)
+            <br />
+            <label class="red">@*充值金额带有小数点,充值金额大于0小于9999999999.99*@ Amount of money Recharge 0~999999999999</label>
+           
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Remark :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+
+            @Html.TextAreaFor(t => t.Remark, new { @class = "form-control", @maxlength = "200", @style = "width:206px !important;height:100px;" })
+        </div>
+    </div>
+</div>

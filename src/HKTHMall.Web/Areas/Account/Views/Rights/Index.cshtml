@@ -1,0 +1,247 @@
+﻿@using HKTHMall.Domain.AdminModel.Models.Orders;
+@using HKTHMall.Core.Extensions
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<ReturnProductInfoModel> complaintsModelList = ViewData["ProductInfo"] as List<ReturnProductInfoModel>;
+}
+<script src="~/Content/extensions/jquery.fn.extensions.custom.js"></script>
+<script src="~/Scripts/mypage.js"></script>
+
+
+<div class="main_about">
+    <div class="ls_member">
+
+
+        @Html.Partial("_userLeft")
+
+
+        <!--right-->
+        <div class="ls_member_rg">
+
+
+            <!--右侧会员信息展示-->
+            <div class="m_user_pubtitle">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_REFUNDMANAGEMENT")</div>
+            <div class="m_user_tkgl">
+                <div class="m_user_tkgl_nr">
+                    <dl>
+                        <span class="m_u_tkgl_bt1">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_REFUNDNUMBER")</span>
+                        <span class="m_u_tkgl_bt2">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_ORDERNOINFORMATION")</span>
+                        <span class="m_u_tkgl_bt3">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_TRANAMOUNT")</span>
+                        <span class="m_u_tkgl_bt4">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_REFUNDMONEY")</span>
+                        <span class="m_u_tkgl_bt5">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_APPLYTIME")</span>
+                        <span class="m_u_tkgl_bt6">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_REFUNDTIME")</span>
+                        <span class="m_u_tkgl_bt7">@CultureHelper.GetLangString("ORDER_LIST_STATE")</span>
+                    </dl>
+                    <ul>
+
+
+                        @foreach (ReturnProductInfoModel pro in complaintsModelList)
+                        {
+                            string returnStatus = "";
+                            string returnColor = "";
+                            switch (pro.ReturnStatus)
+                            {
+                                case 1:
+                                    returnStatus = CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_INAPPLICATION");
+                                    returnColor = "1";
+                                    break;
+                                case 2:
+                                    returnStatus = CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_APPROVED");
+                                    returnColor = "4";
+                                    break;
+                                case 3:
+                                    returnStatus = CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_APPLICATIONREJECTED");
+                                    returnColor = "3";
+                                    break;
+                                case 4:
+                                    returnStatus = CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_CONFIRMGOODS");
+                                    returnColor = "3";
+                                    break;
+                                case 5:
+                                    returnStatus = CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_REFUNDCOMPLETE");
+                                    returnColor = "2";
+                                    break;
+                                case 6:
+                                    returnStatus = CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_APPLICATIONWITHDRAW");
+                                    returnColor = "3";
+                                    break;
+                                default:
+                                    returnStatus = CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_UNKNOWN");
+                                    returnColor = "2";
+                                    break;
+                            }
+                            <li>
+                                <span class="m_u_tkgl_1">@pro.ReturnOrderID</span>
+                                <span class="m_u_tkgl_2"><a href="/home/shopping/@(pro.ProductId).html" title=""><i>@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_ORDERNUMBER")：@(pro.OrderID)</i><br>@(pro.ProductName)  @pro.SkuName</a></span>
+                                <span class="m_u_tkgl_3">$@pro.TradeAmount</span>
+                                <span class="m_u_tkgl_4">$@pro.RefundAmount</span>
+                                <span class="m_u_tkgl_5">@(pro.CreateTime != null ? Convert.ToDateTime(DateTimeExtensions.DateTimeToString(pro.CreateTime)).ToString("yyyy-MM-dd") : "")<br>@(pro.CreateTime != null ? Convert.ToDateTime(DateTimeExtensions.DateTimeToString(pro.CreateTime)).ToString("HH:mm") : "")</span>
+                                <span class="m_u_tkgl_6">@(pro.RefundDate != null ? Convert.ToDateTime(DateTimeExtensions.DateTimeToString(Convert.ToDateTime(pro.RefundDate))).ToString("yyyy-MM-dd") : "")<br>@(pro.RefundDate != null ? Convert.ToDateTime(DateTimeExtensions.DateTimeToString(Convert.ToDateTime(pro.RefundDate))).ToString("HH:mm") : "")</span>
+                                <span class="m_u_tkgl_7"><b class="m_u_tkgl_zt@(returnColor)">@returnStatus</b></span><!--b标签的class不同代表不同状态的颜色也不同 m_u_tkgl_zt1是退款申请中  m_u_tkgl_zt2是已退款   m_u_tkgl_zt3是申请已撤销    m_u_tkgl_zt4是审核通过-->
+                            </li>
+                        }
+                        <!--后面的状态有不同的颜色，m_u_tkgl_zt1是退款申请中  m_u_tkgl_zt2是已退款   m_u_tkgl_zt3是申请已撤销    m_u_tkgl_zt4是审核通过-->
+                        <!--<li>
+                            <span class="m_u_tkgl_1">42320529737550</span>
+                            <span class="m_u_tkgl_2"><a href="#" title=""><i>订单号：968924665784545</i><br>正品正品飘柔焗油护理洗发水洗发露750ml优惠装 头发护理 多省包邮</a></span>
+                            <span class="m_u_tkgl_3">$39.80</span>
+                            <span class="m_u_tkgl_4">$39.80</span>
+                            <span class="m_u_tkgl_5">2014-11-18<br>18:00</span>
+                            <span class="m_u_tkgl_6">2014-11-18<br>18:00</span>
+                            <span class="m_u_tkgl_7"><b class="m_u_tkgl_zt1">退款申请中</b></span>--><!--b标签的class不同代表不同状态的颜色也不同 m_u_tkgl_zt1是退款申请中  m_u_tkgl_zt2是已退款   m_u_tkgl_zt3是申请已撤销    m_u_tkgl_zt4是审核通过-->
+                        <!--</li>-->
+                    </ul>
+                </div>
+
+                <div class="sectionPaging">
+                    @if (complaintsModelList == null || complaintsModelList.Count == 0)
+                    {
+                        <p style="font-size: 16px;color: #666;margin: 200px 340px;">@CultureHelper.GetLangString("NO_DATA")！</p>
+                    }
+                    @Html.Raw(Html.ToPageHtmlNew((int)ViewBag.Page, 10, (int)ViewBag.Count))
+                </div>
+            </div>
+            <div class="clear"></div>
+
+
+        </div>
+        <div class="clear"></div>
+
+    </div>
+</div>
+
+
+@*<div class="main_a">
+    <div class="z_personal">
+        <div class="PersonMain">
+            @Html.Partial("_userLeft")
+            <!--右边的写在这里-->
+            <div class="PmainRight" id="PmainRight">
+                <div class="l_tkgl">
+                    <div class="l_PersonInfomation clr">
+                        <span class="l_b">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_REFUNDMANAGEMENT")</span>
+                        <table width="960" class="l_shouhuoAddress">
+                            <tbody>
+                                <tr>
+                                    <td class="l_tk_1" align="left" valign="middle" bgcolor="#f2f2f2">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_REFUNDNUMBER")</td>
+                                    <td class="l_tk_2" align="left" valign="middle" bgcolor="#f2f2f2">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_ORDERNOINFORMATION")</td>
+                                    <td class="l_tk_3" align="left" valign="middle" bgcolor="#f2f2f2">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_MERCHANTS")</td>
+                                    <td class="l_tk_4" align="left" valign="middle" bgcolor="#f2f2f2">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_TRANAMOUNT")</td>
+                                    <td class="l_tk_5" align="left" valign="middle" bgcolor="#f2f2f2">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_REFUNDMONEY")</td>
+                                    <td class="l_tk_6" align="left" valign="middle" bgcolor="#f2f2f2">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_APPLYTIME")</td>
+                                    <td class="l_tk_7" align="left" valign="middle" bgcolor="#f2f2f2">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_REFUNDTIME")</td>
+                                    <td class="l_tk_8" align="right" valign="middle" bgcolor="#f2f2f2" style="padding-right:10px;">@CultureHelper.GetLangString("ORDER_LIST_STATE")</td>
+                                </tr>
+                                @foreach (ReturnProductInfoModel pro in complaintsModelList)
+                                {
+                                    string returnStatus = "";
+                                    string returnColor = "";
+                                    switch (pro.ReturnStatus)
+                                    {
+                                        case 1:
+                                            returnStatus = CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_INAPPLICATION");
+                                            returnColor = "1";
+                                            break;
+                                        case 2:
+                                            returnStatus = CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_APPROVED");
+                                            returnColor = "4";
+                                            break;
+                                        case 3:
+                                            returnStatus = CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_APPLICATIONREJECTED");
+                                            returnColor = "3";
+                                            break;
+                                        case 4:
+                                            returnStatus = CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_CONFIRMGOODS");
+                                            returnColor = "3";
+                                            break;
+                                        case 5:
+                                            returnStatus = CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_REFUNDCOMPLETE");
+                                            returnColor = "2";
+                                            break;
+                                        case 6:
+                                            returnStatus = CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_APPLICATIONWITHDRAW");
+                                            returnColor = "3";
+                                            break;
+                                        default:
+                                            returnStatus = CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_UNKNOWN");
+                                            returnColor = "2";
+                                            break;
+                                    }
+                                    <tr class="l_bbc">
+                                        <td class="l_tk_nr_1" align="left" valign="top">@pro.ReturnOrderID</td>
+                                        <td class="l_tk_nr_2" align="left" valign="top">
+                                            <a href="/home/shopping/@(pro.ProductId).html">
+                                                <p class="l_bbc_1">@(pro.OrderID)</p>
+                                                <p>@(pro.ProductName)</p>
+                                                <p>@pro.SkuName</p>
+                                                </a>
+</td>
+                                        <td class="l_tk_nr_3" align="left" valign="top">@pro.ShopName</td>
+                                        <td class="l_tk_nr_4" align="left" valign="top">@pro.TradeAmount</td>
+                                        <td class="l_tk_nr_5" align="left" valign="top">@pro.RefundAmount</td>
+                                        <td class="l_tk_nr_6" align="left" valign="top">@(pro.CreateTime != null ? Convert.ToDateTime(DateTimeExtensions.DateTimeToString(pro.CreateTime)).ToString("yyyy-MM-dd") : "")<br />@(pro.CreateTime != null ? Convert.ToDateTime(DateTimeExtensions.DateTimeToString(pro.CreateTime)).ToString("HH:mm") : "")</td>
+                                        <td class="l_tk_nr_7" align="left" valign="top">@(pro.RefundDate != null ? Convert.ToDateTime(DateTimeExtensions.DateTimeToString(Convert.ToDateTime(pro.RefundDate))).ToString("yyyy-MM-dd") : "")<br />@(pro.RefundDate != null ? Convert.ToDateTime(DateTimeExtensions.DateTimeToString(Convert.ToDateTime(pro.RefundDate))).ToString("HH:mm") : "")</td>
+                                        <td class="l_tk_nr_8" align="right" valign="top"><a href='javascript:;' class="l_bbc_@(returnColor)">@returnStatus</a>
+                                        @if (pro.ReturnStatus == 1 || pro.ReturnStatus == 3)
+                                        {
+                                            <br /><a href='javascript:;' onclick='UndoOrder(@pro.ReturnOrderID)' class='f409 f13'>@CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_UNDO")</a>
+                                        }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        @if (complaintsModelList == null || complaintsModelList.Count == 0)
+                        {
+                            <p style="font-size: 16px;color: #666;margin: 200px 340px;">@CultureHelper.GetLangString("NO_DATA")！</p>
+                        }
+                        @Html.Raw(Html.ToPageHtml((int)ViewBag.Page, 10, (int)ViewBag.Count))
+                        <script>jQuery('.tunepage>li>a').Page({ type: 0 })</script>
+                    </div>
+                </div>
+            </div><!--右边结束-->
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="c_public_bottom"></div>
+</div>*@
+
+<script>
+    //Load Style
+    $(document).ready(function () {
+        $("div.PmainLeft .tuikuan").parent().addClass("Checked");
+        $("div.PmainLeft .tuikuan").removeClass("tuikuan").addClass("Rtuikuan");
+    });
+
+    function UndoOrder(returnOrderID) {
+        mallbox.confirm({
+            message: $commonLang.ACCOUNT_MY_ORDERPRODUCTLISTT2_CONFIMREFUND,
+            modal: true,
+            callback: function () {
+                $.ajax({
+                    url: "/Rights/UndoOrder",
+                    data: {
+                        returnOrderID: returnOrderID,
+                    },
+                    dataType: "text",
+                    success: function (data, status) {
+                        data = JSON.parse(data);
+                        if (data.IsValid) {
+                            mallbox.alert({
+                                message: data.Messages,
+                                modal: true,
+                                callback: function () {
+                                    document.location.href = document.location.href;
+                                }
+                            });
+                        } else {
+                            mallbox.alert({ message: data.Messages });
+                        }
+                    }
+                });
+            }
+        });
+    }
+</script>
+

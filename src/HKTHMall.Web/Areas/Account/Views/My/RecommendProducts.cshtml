@@ -1,0 +1,54 @@
+﻿@using HKTHMall.Core.Extensions
+@using HKTHMall.Services.Common.MultiLangKeys
+@model List<HKTHMall.Domain.WebModel.Models.Product.ProductInfo>
+
+
+<div class="z_tuijian">
+    <div class="z_tjname">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_CARDRECOMMENDED")</div>
+    <div class="z_tjmain">
+        @foreach (var product in Model)
+        {
+            <div class="z_tjgoods_098">
+                <a target="_blank" href="@Url.Action("shopping", "home" , new { area="" , id=product.ProductId })" title="@product.ProductName" class="z_tjgoods">
+                    <img src="@Html.GetImagesUrl(product.PicUrl, 206, 208)" width="206" height="208" class="z_images" style="background:#f60;"> <!--img标签里面style的内容是占位符-->
+                    <label class="z_nameprice">
+                        <p class="z_goodsname">@product.ProductName</p>
+                        <p class="z_price1">@product.HKPrice.ToString("F2")<em>@CultureHelper.GetLangString("WEBSITE_DOLLARS")</em></p>
+                        <p class="z_price2">@CultureHelper.GetLangString("HOME_INDEX_ORIGINALPRICE")：@product.MarketPrice.ToString("F2") @CultureHelper.GetLangString("WEBSITE_DOLLARS")</p>
+                    </label>
+                </a>
+                <div class="@(product.UserID == 0 ? "z_tjcollect1" : "z_tjcollect2") zm_tjcollect" name="@product.ProductId">@(product.UserID == 0 ? CultureHelper.GetLangString("PRODUCT_LIST_COLLECT") : CultureHelper.GetLangString("HOME_SHOPPING_ALCOLLECTED"))</div>
+            </div>
+        }
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () { 
+        var countbar = $(".z_goodsname").length;
+        for (var i = 0; i < countbar; i++) {
+            $(".z_goodsname").eq(i).displayPart();
+        }
+
+        $(".zm_tjcollect").click(function () {
+            if ($(this).hasClass("z_tjcollect1")) {
+                addCollection($(this).attr("name"));
+            }
+        });
+    });
+    function addCollection(productId) {
+        jQuery.post("/Product/AddToCollection", { key: productId }, function (data) {
+            if (data.Data == undefined) {
+                //window.location = '/Login/Index';
+                window.location = '/Login/Index?ReturnUrl=' + encodeURIComponent(window.location.href);
+            } else if (data.Data) {
+                $("div.zm_tjcollect[name=" + productId + "]").removeClass('z_tjcollect1').addClass('z_tjcollect2');
+                $("div.zm_tjcollect[name=" + productId + "]").html($commonLang.HOME_SHOPPING_COLLECT);
+                //$(this).removeClass('z_tjcollect1').addClass('z_tjcollect2');
+                //$(this).html($commonLang.HOME_SHOPPING_COLLECT);
+                var collectCount = parseInt($(".z_count2").text());
+                collectCount += 1;
+                $(".z_count2").empty().text(collectCount);
+            }
+        });
+    }
+</script>

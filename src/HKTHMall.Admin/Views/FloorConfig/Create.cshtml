@@ -1,0 +1,132 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.banner.FloorConfigModel
+
+@{
+    //位置（分类）
+    var BannerPlaceCodeModellist1 = ViewData["BannerPlaceCodeModel1"] as List<HKTHMall.Admin.Models.BannerPlaceCodeModel>;
+    //string[] CateIds = ViewBag.CateIds;
+    string CateIds = ViewBag.CateIds;
+    var bl = false;
+
+}
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Config name :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.FloorConfigId)
+        @*@Html.TextBoxFor(t => t.FloorConfigName, new { @class = "form-control", maxlength = "50" })
+        @Html.ValidationMessageFor(m => m.FloorConfigName)*@
+        <input type="text" class="form-control" placeholder="@Model.FloorConfigName" disabled="" />
+    </div>
+</div>
+
+@if (BannerPlaceCodeModellist1 != null)
+{
+    <div class="control-group">
+        <label class="control-label-form">
+            <label class="red">*</label>Category :
+        </label>
+        <div class="controls">
+            <div style="display:none">
+                @Html.TextBoxFor(t => t.CateIdStr, new { @class = "form-control" })
+            </div>
+
+            @if (Model.FloorConfigId > 0)
+            {
+                if (CateIds != null)
+                {
+                    for (int i = 0; i < BannerPlaceCodeModellist1.Count; i++)
+                    {
+                        //for (int J = 0; J < CateIds.Length; J++)
+                        //{
+                        if (CateIds.Contains(BannerPlaceCodeModellist1[i].PlaceCode.ToString().Trim()))
+                        {
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="PlaceCodeName" checked="checked" value="@BannerPlaceCodeModellist1[i].PlaceCode">
+                                    @BannerPlaceCodeModellist1[i].PlaceCodeName
+                                </label>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="PlaceCodeName" value="@BannerPlaceCodeModellist1[i].PlaceCode">
+                                    @BannerPlaceCodeModellist1[i].PlaceCodeName
+                                </label>
+                            </div>
+
+                        }
+                        //}
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < BannerPlaceCodeModellist1.Count; i++)
+                    {
+                        if (i < 2)
+                        {
+                            //默认选择2个
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="PlaceCodeName" checked="checked" value="@BannerPlaceCodeModellist1[i].PlaceCode">
+                                    @BannerPlaceCodeModellist1[i].PlaceCodeName
+                                </label>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="PlaceCodeName" value="@BannerPlaceCodeModellist1[i].PlaceCode">
+                                    @BannerPlaceCodeModellist1[i].PlaceCodeName
+                                </label>
+                            </div>
+                        }//if
+                    }//for
+                }//if
+
+
+            }
+            else
+            {
+                for (int i = 0; i < BannerPlaceCodeModellist1.Count; i++)
+                {
+                    if (i < 2)
+                    {
+                        //默认选择2个
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="PlaceCodeName" checked="checked" value="@BannerPlaceCodeModellist1[i].PlaceCode">
+                                @BannerPlaceCodeModellist1[i].PlaceCodeName
+                            </label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="PlaceCodeName" value="@BannerPlaceCodeModellist1[i].PlaceCode">
+                                @BannerPlaceCodeModellist1[i].PlaceCodeName
+                            </label>
+                        </div>
+                    }//if
+                }
+            }
+
+
+
+            @*<div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="PlaceCodeName" checked="checked" value="@BannerPlaceCodeModellist1[i].PlaceCode">
+                        @BannerPlaceCodeModellist1[i].PlaceCodeName
+                    </label>
+                </div>*@
+        </div>
+    </div>
+}
+
+
+

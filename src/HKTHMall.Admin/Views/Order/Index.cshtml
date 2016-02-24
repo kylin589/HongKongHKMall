@@ -1,0 +1,278 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys;
+@using HKTHMall.Admin.common;
+@using HKTHMall.Domain.Enum;
+@model HKTHMall.Domain.AdminModel.Models.Orders.SearchOrderModel
+@{
+    ViewBag.Title = "Order list page";
+   
+}
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>Email: </span>&nbsp;
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control w70" })
+        </div>
+        &nbsp;&nbsp;&nbsp;
+        <div class="form-group">
+            <span>Order SN: </span>&nbsp;
+            @Html.TextBoxFor(x => x.OrderID, new { @class = "form-control w70" })
+        </div>
+        &nbsp;&nbsp;&nbsp;
+        <div class="form-group">
+            <span>Shop name: </span>&nbsp;
+            @Html.TextBoxFor(x => x.ShopName, new { @class = "form-control w70" })
+        </div>
+        &nbsp;&nbsp;&nbsp;
+        <div class="form-group">
+            <span>Buyer name: </span>&nbsp;
+            @Html.TextBoxFor(x => x.NickName, new { @class = "form-control w70" })
+        </div><br /><br />
+        <div class="form-group">
+            <span>Order status: </span>&nbsp;
+            <select id="OrderStatus" class="form-control text-center" name="OrderStatus">
+                <option value="0">-Select-</option>
+                <option value="2">Await payment</option>
+                <option value="3">Await delivery</option>
+                <option value="4">Await sign-off</option>
+                <option value="5">Signed off</option>
+                <option value="6">Completed</option>
+                <option value="7">Canceled</option>
+                <option value="8">Trading closed</option>
+            </select>
+        </div>
+        &nbsp;&nbsp;&nbsp;
+        <div class="form-group">
+            <span>Order time: </span>
+            @Html.TextBoxFor(x => x.StartPaidDate, new { @class = "form-control w70" })
+            &nbsp;-&nbsp;
+            @Html.TextBoxFor(x => x.EndPaidDate, new { @class = "form-control w70" })
+        </div>
+        &nbsp;&nbsp;&nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+    </div>
+</div>
+<table id="u_grid" data-toolbar="#user-toolbar" class="table"></table>
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+
+            
+
+            var columns = [
+                { field: 'OrderID', id: 'OrderID', title: 'Order SN', align: 'center', valign: 'middle', width: "25%", sortable: false },
+                { field: 'Email', title: 'Email', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'OrderStatus',
+                    title: 'Order status',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: false,
+                    formatter: function (val) {
+                        return GetOrderStatus(val);
+                    }
+                },
+                { field: 'TotalAmount', title: 'Total amount', align: 'center', valign: 'middle', sortable: false },
+                { field: 'ExpressMoney', title: 'express money', align: 'center', valign: 'middle', sortable: false },
+                { field: 'ShopName', title: 'Shop name', align: 'center', valign: 'middle', sortable: false },
+                { field: 'Tel', title: 'Shop phone', align: 'center', valign: 'middle', sortable: false },
+                { field: 'NickName', title: 'Buyer name', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'OrderDate', title: 'Order time', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        return val.formatterString(false)/*true 日期格式2015-5-5*/
+                    }
+                },
+                {
+                    field: 'OrderID', title: 'Operation', align: 'center', valign: 'middle',
+                    formatter: function (val, row) {
+                        var result = "&nbsp;&nbsp;<a class=\"details ml10\" onclick=\"OpenOrderDetails(" + val + ")\" title=\"Order detail\">Detail</a>";
+
+                        result += "&nbsp;&nbsp;<a class=\"print ml10\" href=\"/Order/DaYins?orderId=" + val + " \" target=\"_blank\"  title=\"Print\">Print</a>";
+                        if (row.OrderStatus ==2) {
+                            result += "&nbsp;&nbsp;&nbsp;&nbsp;<a class=\"status ml10\" onclick=\"ModifyExpressFee(" + val + ")\" title=\"Deliver goods\">ModifyExpressFee</a>";                           
+                        }
+
+                        if (row.OrderStatus == 3) {
+                            result += "&nbsp;&nbsp;&nbsp;&nbsp;<a class=\"status ml10\" onclick=\"UpdateOrderStatus(" + val + ")\" title=\"Deliver goods\">Deliver goods</a>";
+                        }
+                        if ((row.OrderStatus == 3 || row.OrderStatus == 2 || row.OrderStatus == 4) && row.PayChannel == 5) {
+                            result += "&nbsp;&nbsp;&nbsp;&nbsp;<a class=\"status ml10\" onclick=\"CancelOrder(" + val + ")\" title=\"Deliver goods\">Cancel</a>";
+                        }
+                        if (row.OrderStatus == 4 && row.PayChannel == 5) {
+                            result += "&nbsp;&nbsp;&nbsp;&nbsp;<a class=\"status ml10\" onclick=\"ConfirmReceipt(" + val + ")\" title=\"Deliver goods\">Confirm receipt</a>";
+                        }
+                        return result;
+                    }
+
+                }
+            ];
+
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+                queryParams: function (params) {
+                    return {
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        OrderID: $('#OrderID').val(),
+                        ShopName: $("#ShopName").val(),
+                        NickName: $("#NickName").val(),
+                        OrderStatus: $("#OrderStatus").val(),
+                        StartPaidDate: $("#StartPaidDate").val(),
+                        EndPaidDate: $("#EndPaidDate").val(),
+                        Email: $("#Email").val(),
+                        Time: new Date().getTime()
+                    };
+                },
+                sortOrder: 'desc',
+                sortName: 'PaidDate',
+                columns: columns
+            });
+
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+
+
+        });
+
+        function SelectPrint(orderIds) {
+            Tool.ShowPrint("@Url.Action("SelectDaYin")", { orderId: orderIds, time: new Date().getTime() }, "Print");
+        }
+
+        function UpdateOrderStatus(orderId) {
+            Tool.ShowModal('@Url.Action("OrderPurchase")', {
+                orderId: orderId, time: new Date().getTime()
+            }, 'Deliver goods');
+        };
+
+        function OpenOrderDetails(orderId) {
+            var url = "/Order/OrderDetails?orderId=" + orderId;
+            parent.addTab(orderId, orderId + "Order detail", url);
+        }
+
+        function GetOrderStatus(orderStatus) {
+            var result = "";
+            switch (orderStatus) {
+                case 2:
+                    result = "Await payment";
+                    break;
+                case 3:
+                    result = "Await delivery";
+                    break;
+                case 4:
+                    result = "Await sign-off";
+                    break;
+                case 5:
+                    result = "Signed off";
+                    break;
+                case 6:
+                    result = "Completed";
+                    break;
+                case 7:
+                    result = "Canceled";
+                    break;
+                case 8:
+                    result = "Trading closed";
+                    break;
+                default:
+                    result = "Unknown";
+                    break;
+            }
+            return result;
+        }
+
+        //日期控件 开始
+        $('#StartPaidDate').datepicker({
+            format: 'yyyy-mm-dd',
+            language: "en",
+            autoclose: true
+        }).on("changeDate", function (e) {
+
+            $('#EndPaidDate').datepicker('setStartDate', e.date);
+        });
+
+        //日期控件 结束
+        $('#EndPaidDate').datepicker({
+            format: 'yyyy-mm-dd',
+            language: "en",
+            autoclose: true
+        }).on("changeDate", function (e) {
+            $('#StartPaidDate').datepicker('setEndDate', e.date);
+        });
+
+        function CancelOrder(orderId) {
+            bootbox.setLocale("en");
+            //bootbox.setLocale("zh_CN");
+            bootbox.confirm("Confirm the Cancel for the Order？", function (result) {
+                if (result) {
+                    var url = "/Order/CancelOrder?orderId=" + orderId;
+                    $.ajax({
+                        url: url,
+                        dataType: "text",
+                        success: function (data, status) {
+                            data = JSON.parse(data);
+                            if (data.IsValid) {
+                                Tool.CloseModal();
+                                Tool.ReloadDataTable($('#u_grid'));
+                            }
+                            Tool.Alert(data.Messages, 3000);
+                        },
+                        error: function (data, status, e) {
+                            Tool.Alert("Failed.", 3000);
+                        }
+                    });
+                }
+            });
+        }
+        function ModifyExpressFee(orderId) {
+            bootbox.setLocale("en");
+            bootbox.prompt("Modify ExpressFee for the Order？", function (result) {
+                if (result) {
+                    var url = "/Order/ModifyExpressFee?orderId=" + orderId + "&ExpressFee=" + result;
+                    $.ajax({
+                        url: url,
+                        dataType: "text",
+                        success: function (data, status) {
+                            data = JSON.parse(data);
+                            if (data.IsValid) {
+                                Tool.CloseModal();
+                                Tool.ReloadDataTable($('#u_grid'));
+                            }
+                            //Tool.Alert(data.Messages, 3000);
+                        },
+                        error: function (data, status, e) {
+                            Tool.Alert("Failed.", 3000);
+                        }
+                    });
+                }
+            });
+        }
+        function ConfirmReceipt(orderId) {
+            bootbox.setLocale("en");
+            //bootbox.setLocale("zh_CN");
+            bootbox.confirm("Confirm receipt for the Order？", function (result) {
+                if (result) {
+                    var url = "/Order/ConfirmReceipt?orderId=" + orderId;
+                    $.ajax({
+                        url: url,
+                        dataType: "text",
+                        success: function (data, status) {
+                            data = JSON.parse(data);
+                            if (data.IsValid) {
+                                Tool.CloseModal();
+                                Tool.ReloadDataTable($('#u_grid'));
+                            }
+                            Tool.Alert(data.Messages, 3000);
+                        },
+                        error: function (data, status, e) {
+                            Tool.Alert("Failed.", 3000);
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}

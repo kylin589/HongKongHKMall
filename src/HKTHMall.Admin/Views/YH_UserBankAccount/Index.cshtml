@@ -1,0 +1,135 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.User.SearchYH_UserBankAccountModel
+@{
+    ViewBag.Title = "The user list of bank account information page";
+}
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        @*<div class="form-group">
+            <span>User Name: </span>
+            @Html.TextBoxFor(x => x.Account, new { @class = "form-control w70", @placeholder = "Please enter user's name" })
+        </div>*@
+        &nbsp; &nbsp; &nbsp;
+        <div class="form-group">
+            <span>Email: </span>
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control w70", @placeholder = "Please enter user's Email " })
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-danger js_reset" onclick="Tool.ClearForm($('#user-toolbar'))">
+            <span class="glyphicon glyphicon-bullhorn"></span> Clear
+        </button>
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts{
+    <script type="text/javascript">
+        //加载数据
+        $(function () {
+            var columns = [
+            //{ field: "Account", title: "User Name", align: 'center', valign: 'middle', sortable: false },
+            //  { field: 'RealName', title: 'True name', align: 'center', valign: 'middle', sortable: false },
+                  { field: 'Email', title: 'Email', align: 'center', valign: 'middle', sortable: false },
+              {
+                  field: "IsDefault", title: "Default or Not", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                      if (arguments && arguments[1]) {
+                          //1中文,2英语,3泰语（默认）
+                          var isDefaultName = "Not";
+                          switch (arguments[1].IsDefault) {
+                              case 0:
+                                  isDefaultName = "Not";
+                                  break;
+                              case 1:
+                                  isDefaultName = "Yes";
+                                  break;
+                              default:
+                                  break;
+
+                          }
+                          return isDefaultName;
+                      }
+                  }
+              },
+                { field: "BankAccount", title: "Bank account", align: 'center', valign: 'middle', sortable: false },
+                 { field: "BankSubbranch", title: "Bank branch", align: 'center', valign: 'middle', sortable: false },
+                  { field: "BankUserName", title: "Bank account name", align: 'center', valign: 'middle', sortable: false },
+                      {
+                          field: "IsUse", title: "Enable or Not", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                              if (arguments && arguments[1]) {
+                                  //1中文,2英语,3泰语（默认）
+                                  var isUseName = "Not";
+                                  switch (arguments[1].IsUse) {
+                                      case 0:
+                                          isUseName = "Not";
+                                          break;
+                                      case 1:
+                                          isUseName = "Yes";
+                                          break;
+                                      default:
+                                          break;
+
+                                  }
+                                  return isUseName;
+                              }
+                          }
+                      },
+                { field: "CreateBy", title: "Creater", align: 'center', valign: 'middle', sortable: false },
+                  {
+                      field: "CreateDT", title: "Create time", align: 'center', valign: 'middle', sortable: false,
+                      formatter: function (val)
+                      {
+                          return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                      }
+                  }
+            ];
+            //加载列表数据
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+                queryParams: function (params) {
+                    return {
+                        //Account: $('#Account').val().trim(),
+                        Email: $('#Email').val().trim(),
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        time: new Date().getTime()
+                    };
+                },
+                sortOrder: 'desc',
+                sortName: 'CreateDT',
+                pagination: true,
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns
+            });
+            //搜索事件
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+            //按Enter键回车搜索
+            $('#Account').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#Phone').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            //添加用户银行帐户信息
+            $('.js_create').click(function () {
+                Tool.ShowModal("@Url.Action("Create")", {}, "Add bank account information");
+            });
+        });
+        //保存
+        function Save() {
+            Tool.SaveModal($('#u_grid'));
+        }
+    </script>
+}

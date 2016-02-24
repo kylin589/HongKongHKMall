@@ -1,0 +1,24 @@
+﻿@{  Layout = "~/Views/Shared/_Layout.cshtml";}
+
+<div class="main_about">
+    <div class="m_hint">
+        <div class="m_hint_bt">
+            <div class="m_hint_search">
+                <ul><i></i>很抱歉，您查看的<ins>商品不存在</ins></ul>
+                <dl><b>——  商品可能已下架或者被转移  ——</b></dl>
+            </div>
+        </div>
+        <div class="m_hint_nr">
+            <span>建议您：</span>
+            <i>
+                1.您可以联系客服找找商品<br>
+                2.在顶部搜索框重新输入关键词搜索<br>
+                3.查看为您推荐的商品内容<br>
+            </i>
+            <div class="clear"></div>
+        </div>     
+    </div>
+    <div class="m_hktj">
+        @Html.Action("HuikaRecommend", "Home", new { area = "" })
+    </div>
+</div>

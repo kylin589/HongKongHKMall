@@ -1,0 +1,290 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@model HKTHMall.Domain.Models.banner.SearchbannerProductModel
+
+@{
+    var dentityStatus = ViewBag.dentityStatus;
+
+    var titlename = ViewBag.titleName;
+    ViewBag.Title = titlename;
+    var BannerPlaceCodeModellist = ViewData["BannerPlaceCodeModel1"] as List<HKTHMall.Admin.Models.BannerPlaceCodeModel>;
+    var ImagePath11 = ViewBag.ImagePath;
+
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(74);
+    _Authority.Delete = _Authority.CheckAction(76);
+    _Authority.Move = _Authority.CheckAction(77);
+}
+<input type="hidden" id="dentityStatus" value="@dentityStatus" />
+<div id="user-toolbar">
+    @if (dentityStatus == 2 && BannerPlaceCodeModellist != null)
+    {
+        <div class="form-inline" role="form">
+
+            <div class="form-group">
+                <span>Home floor Goods: </span>&nbsp;&nbsp;
+                <select id="selBannerPlaceCode" class="form-control">
+                    @*<option value="0" selected="selected">所有</option>*@
+                    @foreach (var item in BannerPlaceCodeModellist)
+                    {
+                        <option value="@item.PlaceCode">@item.PlaceCodeName</option>
+                    }
+
+
+                </select>
+            </div>
+
+            &nbsp;
+            <button type="button" class="btn btn-success js-search">
+                <span class="glyphicon glyphicon-search"></span> Search
+            </button>
+            @if (_Authority.Add)
+            {
+                <button type="button" class="btn btn-primary js_create">
+                    <span class="glyphicon glyphicon-plus"></span> Add
+                </button>
+            }
+
+        </div>
+    }
+    else
+    {
+          if (_Authority.Add)
+            {
+                <button type="button" class="btn btn-primary js_create">
+                    <span class="glyphicon glyphicon-plus"></span> Add
+                </button>
+            }
+    }
+
+</div>
+<script type="text/javascript">var imgeurl = " @ImagePath11"; var titlename = "@titlename";</script>
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/javascript">
+        var addCheck = eval("@(_Authority.Add.ToString().ToLower())");
+        var deleterCheck = eval("@(_Authority.Delete.ToString().ToLower())");
+        var moveCheck = eval("@(_Authority.Move.ToString().ToLower())");
+        var Operation = "";
+        if (moveCheck) {
+
+            Operation += '<a class="ssorts ml10" href="javascript:void(0)" title="move up">';
+            Operation += '<i class="glyphicon glyphicon-arrow-up"></i>';
+            Operation += '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+            Operation += '<a class="xsorts ml10" href="javascript:void(0)" title="Down">';
+            Operation += '<i class="glyphicon glyphicon-arrow-down"></i>';
+            Operation += '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+        }
+        if (addCheck) {
+
+            Operation += '<a class="edit ml10" href="javascript:void(0)" title="Update">';
+            Operation += '<i class="glyphicon glyphicon-edit"></i>';
+            Operation += '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+        }
+        if (deleterCheck) {
+
+            Operation += '<a class="remove ml10" href="javascript:void(0)" title="Delete">';
+            Operation += '<i class="glyphicon glyphicon-remove"></i>';
+            Operation += '</a>';
+
+        }
+        if (Operation == "") {
+            Operation = "-";
+        }
+
+        $(function () {
+
+            var columns = [
+
+                //列表行
+
+                { field: 'productId', title: 'Product ID', align: 'center', valign: 'middle', sortable: false },
+                { field: 'ProductName', title: 'Product name', align: 'center', valign: 'middle', sortable: false },
+                { field: 'HKPrice', title: 'Commodity price', align: 'center', valign: 'middle', sortable: false },
+
+                {
+                    field: 'PicAddress', title: 'Product picture', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var img = "<img src='" + imgeurl + val + "' style='height:60px;width:60px;' />";
+                        var m = '<a class="screenshot" href="' + imgeurl + val + '" target="_blank" title="' + imgeurl + val + ' " rel=" ' + imgeurl + val + '"> ' + img + '</a>';
+                        return m;
+
+                    }
+                },
+
+                { field: 'Sorts', title: 'Sort', align: 'center', valign: 'middle', sortable: false },
+                { field: 'CreateBy', title: 'Creater', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'CreateDT', title: 'Create time', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        if (val != null && val != "") {
+                            return val.formatterString(true)/*true 日期格式2015-5-5*/
+                        }
+                        return "-";
+                    }
+                },
+                { field: 'UpdateBy', title: 'Update By', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'UpdateDT', title: 'Change time', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        if (val != null && val != "") {
+                            return val.formatterString(true)/*true 日期格式2015-5-5*/
+                        }
+                        return "-";
+                    }
+                },
+
+                {
+                    field: 'bannerProductId',
+                    title: 'Operation',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (val) {
+                        return [
+                            Operation
+                        ].join('');
+                    },
+                    events: {
+                        'click .ssorts': function (e, value, row, index) {
+                            //alert("上移动");
+                            //alert(row.Sorts);
+                            UpdateSorts(value, 1, row.Sorts);
+                        },
+                        'click .xsorts': function (e, value, row, index) {
+                            //下移动
+                            UpdateSorts(value, 2, row.Sorts);
+                        },
+                        'click .edit': function (e, value, row, index) {
+                            console.log(1);
+                            Tool.ShowModal('@Url.Action("Create")', { id: value, identityStatus: $('#dentityStatus').val(), time: new Date().getTime() }, 'Edit Home banner image');
+                        },
+                        'click .remove': function (e, value, row, index) {
+
+                            DeleteOperateLog(value);
+                        }
+                    }
+                }
+            ];
+
+            //绑定列表
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+
+                queryParams: function (params) {
+                    return {
+
+                        IdentityStatus: $('#dentityStatus').val(),
+                        PlaceCode: $('#selBannerPlaceCode').val(),
+                        PagedIndex: this.pageNumber - 1,//params.pageNumber - 1  params.offset
+                        PagedSize: this.pageSize       //params.pageSize  params.limit
+                    };
+                },
+                sortOrder: 'desc',
+                pagination: true,
+                sortName: 'bannerId',
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns,
+                onLoadSuccess: function () {
+                    screenshotPreview();
+                }
+
+            });
+
+            //删除
+            function DeleteOperateLog(bannerId) {
+                $.ajax({
+                    url: '@Url.Action("DeleteBanner")' + "?bannerId=" + bannerId,
+                    dataType: "text",
+                    success: function (data, status) {
+
+                        Tool.Alert(data, 1500);
+                        Tool.ReloadDataTable($('#u_grid'));
+                    },
+                    error: function (data, status, e) {
+                        Tool.Alert("Delete failed!", 1500);
+
+
+                    }
+
+                });
+            }
+
+            function UpdateSorts(bannerId, sx, sorts) {
+                var selBannerPlaceCode = 0;//有楼层,才起作用
+                var IdentityStatus = $('#dentityStatus').val();
+                if (IdentityStatus > 1) {
+                    selBannerPlaceCode = $('#selBannerPlaceCode').val();
+                }
+                $.ajax({
+                    url: '@Url.Action("UpdateSorts")' + "?bannerId=" + bannerId + "&sx=" + sx + "&sorts=" + sorts + "&IdentityStatus=" + IdentityStatus + "&BannerPlaceCode=" + selBannerPlaceCode + "&time="+ new Date().getTime(),
+                    dataType: "text",
+                    success: function (data, status) {
+
+                        Tool.Alert(data, 1500);
+                        Tool.ReloadDataTable($('#u_grid'));
+                    },
+                    error: function (data, status, e) {
+                        Tool.Alert("Move failed!", 1500);
+
+                        //alert(e);
+                    }
+
+                });
+            }
+
+            //刷新列表
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+
+            //日期控件 开始
+            $('#BeginLoginTime').datepicker({
+                language: "en",
+                autoclose: true
+            });
+
+            //日期控件 结束
+            $('#EndLoginTime').datepicker({
+                language: "en",
+                autoclose: true
+            });
+
+            //添加
+            $('.js_create').click(function () {
+                var actionUrl = "@Url.Action("Create")" + "?identityStatus=" + $("#dentityStatus").val() + "& time="+ new Date().getTime();
+                var param = {};
+                Tool.ShowModal(actionUrl, param, "Add " + titlename);
+            });
+
+        });
+        //保存
+        function Save() {
+
+            //这是防止修改时,没有修改图片地址
+            if ($("#ImgUrl").val() != "") {
+                $("#PicAddress").val($("#ImgUrl").val());
+            }
+
+            $("#IdentityStatus").val($('#dentityStatus').val());
+
+            if ($('#dentityStatus').val() == "2" && $("#PlaceCode").val() == "0") {
+                $("#PlaceCode").val($("#selBannerPlaceCode").val());
+            }
+
+            Tool.SaveModal($('#u_grid'));
+        }
+
+
+
+        function GetUrl(urlimg) {
+            $("#PicAddress").val(urlimg);
+            //$("#PicAddress").focus().select();
+        }
+
+    </script>
+}

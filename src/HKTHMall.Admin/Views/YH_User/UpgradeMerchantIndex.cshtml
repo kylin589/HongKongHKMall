@@ -1,0 +1,339 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model HKTHMall.Domain.AdminModel.Models.YHUser.YH_MerchantInfoModel
+@using HKTHMall.Admin.common
+@using BrCms.Framework.Infrastructure
+@using Autofac;
+@{
+    List<HKTHMall.Domain.Models.THArea_lang> thArea_langList = ViewData["thArea"] as List<HKTHMall.Domain.Models.THArea_lang>;
+    List<HKTHMall.Domain.Models.THArea_lang> thArea_langListShi = ViewData["thAreaShi"] as List<HKTHMall.Domain.Models.THArea_lang>;
+    List<HKTHMall.Domain.Models.THArea_lang> thArea_langListQu = ViewData["thAreaQu"] as List<HKTHMall.Domain.Models.THArea_lang>;
+
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Audit = _Authority.CheckAction(168);
+}
+<form action='@Url.Action("UpgradeMerchantIndex")' id="product_form" method="POST" class="form-inline" role="form">
+    @Html.HiddenFor(m => m.MerchantID, new { @Value = ViewBag.UserId })
+    <input type="hidden" id="opType" value="@ViewBag.Type" name="opType" />
+    <input type="hidden" id="hidMessage" value="@ViewBag.Message" />
+    <div class="form-inline">
+        <div class="form-group">
+            @if (ViewBag.Type == "3" && _Authority.Audit)
+            {
+                <button class="btn btn-primary" id="btnAudit" type="button" onclick="ShowAudit('@Model.MerchantID')">Audit</button>
+            }
+            else
+            {
+                <button class="btn btn-primary" id="p_f_submit" type="button">Save</button>
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 title-row"><font color="red">*&nbsp;</font>Shop Name:</div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.ShopName, new Dictionary<string, object>
+        {
+            {"class", "form-control"}, {"style", "width:300px;"},{"maxlength",100}
+        })
+            @Html.ValidationMessageFor(m => m.ShopName)
+        </div>
+    </div>
+    <!--商家介绍-->
+    <div class="row" style="padding-top:6px;">
+        <div class="col-md-1 title-row">Business Introduction:</div>
+        <div class="col-md-2">
+            @Html.TextAreaFor(m => m.Introduction, new Dictionary<string, object>
+        {
+            {"class", "form-control"}, {"style", "width:300px;height:100px;"}
+        })
+        </div>
+    </div>
+    <!--商家所在地区-->
+    <div class="row" style="padding-top:6px;">
+        <div class="col-md-1 title-row"><font color="red">*&nbsp;</font>Area:</div>
+        <div class="col-md-2" style="width:600px">
+            <select id="slSheng" class="form-control text-center">
+                <option value="-1">-Select-</option>
+                @if (thArea_langList != null)
+                {
+                    foreach (HKTHMall.Domain.Models.THArea_lang lang in thArea_langList)
+                    {
+                        if (ViewBag.Type == "2" && lang.THAreaID == Model.ShengTHAreaID)
+                        {
+                            <option value="@lang.THAreaID" selected="selected">@lang.AreaName</option>
+                        }
+                        else
+                        {
+                            <option value="@lang.THAreaID">@lang.AreaName</option>
+                        }
+                    }
+                }
+            </select>
+            <select id="slShi" class="form-control text-cente">
+                <option value="-1">-Select-</option>
+                @if (thArea_langListShi != null)
+                {
+                    foreach (HKTHMall.Domain.Models.THArea_lang lang in thArea_langListShi)
+                    {
+                        <option value="@lang.THAreaID" selected="@(Model.ShiTHAreaID == lang.THAreaID ? "selected" : "")">@lang.AreaName</option>
+                    }
+                }
+            </select>
+            <select id="AreaID" name="AreaID" class="form-control text-cente">
+                <option value="-1">-Select-</option>
+                @if (thArea_langListQu != null)
+                {
+                    foreach (HKTHMall.Domain.Models.THArea_lang lang in thArea_langListQu)
+                    {
+                        <option value="@lang.THAreaID" selected="@(Model.AreaID == lang.THAreaID ? "selected" : "")">@lang.AreaName</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+    <!--商家地址-->
+    <div class="row" style="padding-top:6px;">
+        <div class="col-md-1 title-row"><font color="red">*&nbsp;</font>Address:</div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.ShopAddress, new Dictionary<string, object>
+        {
+            {"class", "form-control"}, {"style", "width:300px;"},{"maxlength",200}
+        })
+            @Html.ValidationMessageFor(m => m.ShopAddress)
+        </div>
+
+    </div>
+    <!--商家电话-->
+    <div class="row" style="padding-top:6px;">
+        <div class="col-md-1 title-row">Tel:</div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.Tel, new Dictionary<string, object>
+        {
+            {"class", "form-control"}, {"style", "width:300px;"},{"maxlength",20}
+        })
+        </div>
+    </div>
+    <!--商家手机-->
+    <div class="row" style="padding-top:6px;">
+        <div class="col-md-1 title-row">Phone:</div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.Phone, new Dictionary<string, object>
+        {
+            {"class", "form-control"}, {"style", "width:300px;"},{"maxlength",20}
+        })
+        </div>
+    </div>
+    <!--业务联系人-->
+    <div class="row" style="padding-top:6px;">
+        <div class="col-md-1 title-row">Contacter:</div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.BusinessContacter, new Dictionary<string, object>
+        {
+            {"class", "form-control"}, {"style", "width:300px;"},{"maxlength",50}
+        })
+        </div>
+    </div>
+    <!--业务联系人电话-->
+    <div class="row" style="padding-top:6px;">
+        <div class="col-md-1 title-row">Contacter tel:</div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.BusinessTel, new Dictionary<string, object>
+        {
+            {"class", "form-control"}, {"style", "width:300px;"},{"maxlength",20}
+        })
+        </div>
+    </div>
+    <!--发货地址-->
+    <div class="row" style="padding-top:6px;">
+        <div class="col-md-1 title-row">Shipper Address:</div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.ShipperAddress, new Dictionary<string, object>
+        {
+            {"class", "form-control"}, {"style", "width:300px;"},{"maxlength",200}
+        })
+        </div>
+    </div>
+    <!--公司名称-->
+    <div class="row" style="padding-top:6px;">
+        <div class="col-md-1 title-row">Company Name:</div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.CompanyName, new Dictionary<string, object>
+        {
+            {"class", "form-control"}, {"style", "width:300px;"},{"maxlength",50}
+        })
+        </div>
+    </div>
+    @*<div class="row" style="padding-top:6px;">
+            <div class="col-md-1 title-row">营业执照号:</div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.BusinessLicense, new Dictionary<string, object>
+            {
+                {"class", "form-control"}, {"style", "width:300px;"},{"maxlength",50}
+            })
+            </div>
+        </div>
+        <div class="row" style="padding-top:6px;">
+            <div class="col-md-1 title-row">税务登记证号:</div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.TaxCode, new Dictionary<string, object>
+            {
+                {"class", "form-control"}, {"style", "width:300px;"},{"maxlength",50}
+            })
+            </div>
+        </div>
+        <div class="row" style="padding-top:6px;">
+            <div class="col-md-1 title-row">法人代表:</div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.LegalPerson, new Dictionary<string, object>
+            {
+                {"class", "form-control"}, {"style", "width:300px;"},{"maxlength",50}
+            })
+            </div>
+        </div>
+        <div class="row" style="padding-top:6px;">
+            <div class="col-md-1 title-row">法人身份证号:</div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.LegalIdentityCard, new Dictionary<string, object>
+            {
+                {"class", "form-control"}, {"style", "width:300px;"},{"maxlength",50}
+            })
+            </div>
+        </div>*@
+    <!--品牌名称-->
+    <div class="row" style="padding-top:6px;">
+        <div class="col-md-1 title-row">Brand Name:</div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.Brand, new Dictionary<string, object>
+        {
+            {"class", "form-control"}, {"style", "width:300px;"},{"maxlength",50}
+        })
+        </div>
+    </div>
+    <!--品牌Logo-->
+    <div class="row" style="padding-top:6px;">
+        <div class="col-md-1 title-row">Brand Logo:</div>
+        <div class="col-md-2" style="width:600px">
+            @Html.EditorFor(x => x.BrandLogoURL, "FileUploadT1", new { RootImage = ViewBag.RootImage })
+        </div>
+    </div>
+    <!--品牌授权书/代理-->
+    <div class="row" style="padding-top:6px;">
+        <div class="col-md-1 title-row">Brand Authorization:</div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.BrandAuthorization, new Dictionary<string, object>
+        {
+            {"class", "form-control"}, {"style", "width:300px;"},{"maxlength",100}
+        })
+        </div>
+    </div>
+    <!--保证金-->
+    <div class="row" style="padding-top:6px;">
+        <div class="col-md-1 title-row">Margin:</div>
+        <div class="col-md-2">
+            <input id="Margin" name="Margin" value="@Model.Margin" class="form-control" style="width:300px;" maxlength="15" />
+        </div>
+    </div>
+    <!--扣点费率-->
+    <div class="row" style="padding-top:6px;">
+        <div class="col-md-1 title-row">Discount rate:</div>
+        <div class="col-md-2">
+            <input id="CommissionRate" name="CommissionRate" value="@Model.CommissionRate" class="form-control" style="width:300px;" maxlength="15" />
+        </div>
+    </div>
+    <!--招商经理姓名-->
+    <div class="row" style="padding-top:6px;">
+        <div class="col-md-1 title-row">Manager's name:</div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.LeasingManager, new Dictionary<string, object>
+        {
+            {"class", "form-control"}, {"style", "width:300px;"},{"maxlength",50}
+        })
+        </div>
+    </div>
+    <!--招商经理电话-->
+    <div class="row" style="padding-top:6px;">
+        <div class="col-md-1 title-row">Manager's phone:</div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.LeasingPhone, new Dictionary<string, object>
+        {
+            {"class", "form-control"}, {"style", "width:300px;"},{"maxlength",20}
+        })
+        </div>
+    </div>
+</form>
+@Html.Partial("_FormModal")
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#slSheng").change(function () {
+            $("#AreaID").html("<option value='-1'>-Select-</option>");
+            SelectChange($(this).val(), "slShi");
+        });
+
+        $("#slShi").change(function () {
+            SelectChange($(this).val(), "AreaID");
+        });
+
+        $("#p_f_submit").click(function () {
+            if (parseInt($("#AreaID").val()) > 0) {
+                $("#product_form").submit();
+            } else {
+                Tool.Alert("Area can not be empty", 4000);
+            }
+        })
+
+        $("#Margin").keyup(function () {
+            $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+        }).bind("paste", function () {  //CTR+V事件处理
+            $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+        }).css("ime-mode", "disabled"); //CSS设置输入法不可用
+
+        $("#CommissionRate").keyup(function () {
+            $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+        }).bind("paste", function () {  //CTR+V事件处理
+            $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+        }).css("ime-mode", "disabled"); //CSS设置输入法不可用
+
+
+        ShowAlert();
+    })
+
+    function SelectChange(parentID, name) {
+        var html = "<option value='-1'>-Select-</option>";
+        $.ajax({
+            url: "/YH_User/GetTHAreaSelect",
+            async: false,
+            data: {
+                parentID: parentID,
+                time: new Date().getTime()
+            },
+            dataType: "text",
+            success: function (data, status) {
+                data = JSON.parse(data);
+                $.each(data, function (i, item) {
+                    html += "<option value='" + item["THAreaID"] + "'>" + item["AreaName"] + "</option>";
+                });
+                $("#" + name).html(html);
+            }
+        });
+    }
+
+    function ShowAlert() {
+        var message = $("#hidMessage").val();
+        if (message != "") {
+            Tool.Alert("@ViewBag.Message", 4000);
+            $("#hidMessage").val("");
+        }
+    }
+
+    function ShowAudit(userId) {
+        Tool.ShowModal('@Url.Action("AuditMerchant")', {
+            userId: userId, time: new Date().getTime()
+        }, 'Business Review');
+    }
+
+    //保存
+    function Save() {
+        Tool.SaveModal($('#product_form'));
+    }
+</script>

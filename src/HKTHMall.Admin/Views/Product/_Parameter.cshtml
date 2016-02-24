@@ -1,0 +1,47 @@
+﻿
+<style>
+    .tab-close{position: absolute;top: 0px;right: 2px;    
+    background: #999 !important;
+    width: 15px;
+    height: 15px;
+    line-height: 12px;
+    font-size: 14px;
+    border: 0 !important;
+    display: block;
+    padding: 0 !important;
+    margin: 0 !important;
+    text-align: center;
+        color: #fff !important;
+        cursor: pointer;
+    }
+    .tab-close:hover {
+        background: #313131 !important;
+    }
+</style>
+
+<div class="form-inline" style="margin-bottom: 5px;">
+    <button type="button" class="btn btn-success" data-bind="click:addParameterGroupName">
+        <i class="glyphicon glyphicon-plus"></i>add parameter
+    </button>
+</div>
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist" data-bind="foreach:groupParameters">
+    <li role="presentation" data-bind="css:{active:$index()==0},click:$root.tabclick.bind($data,$index())">
+        <a role = "tab" data-toggle = "tab" data-bind = "text:GroupName,attr:{'aria-controls':GroupName,'href':'#'+GroupName}" ></a>
+    </li>
+</ul>
+
+<!-- Tab panes -->
+<div class = "tab-content" data-bind = "foreach:groupParameters" >
+    <div role = "tabpanel" data-bind = "attr:{'id':GroupName,'class':$index()==0?'tab-pane active':'tab-pane'}" >
+        <div style="margin-bottom: 2px;">
+            <input type = "text" class = "form-control" placeholder = "key" style = "margin-right: 1px;" data-bind = "value:Key" />
+            <input type = "text" class = "form-control" placeholder = "value" data-bind = "value:Val" />
+            <button type = "button" class = "btn btn-success" data-bind = "click:$root.addparameter.bind($data,$index())" >
+                <i class = "glyphicon glyphicon-plus" ></i>add
+            </button>
+        </div>
+        <table class="parameter-table" data-bind = "attr:{'id':'parameter_grid'+$index()},component:{name:'grid',params:{index:$index(),data:Data}}" ></table>
+    </div>
+</div>

@@ -1,0 +1,109 @@
+﻿@model HKTHMall.Domain.Models.banner.bannerModel
+
+@{
+    //位置（分类） 2015-9-22不用了,都是默认了
+    //var BannerPlaceCodeModellist1 = ViewData["BannerPlaceCodeModel1"] as List<HKTHMall.Admin.Models.BannerPlaceCodeModel>;
+    
+    var sun = 0;
+    Model.bannerUrl = Model.bannerUrl != null ? Model.bannerUrl : "http://";
+}
+<script type="text/javascript">
+    t = 0;//判断多次保存,修改用
+    var cf = "@ViewBag.Ts";
+    if (cf!="") {
+        t = 0;//判断多次保存,修改用
+    }
+</script>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>@*banner名称*@ banner name:
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.bannerId)
+        @Html.TextBoxFor(t => t.bannerName, new { @class = "form-control", maxlength = "50" })
+        @Html.ValidationMessageFor(m => m.bannerName)
+        <div style=" display:none" id="divErrorName" class="red"></div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>@*banner链接*@ banner URL:
+    </label>
+    <div class="controls">
+        @Html.TextBoxFor(t => t.bannerUrl, new { @class = "form-control", maxlength = "200" })
+        @Html.ValidationMessageFor(m => m.bannerUrl)
+        <div style=" display:none" id="divError" class="red"></div>
+    </div>
+    
+        
+    
+</div>
+
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>@*商品编号*@ Product SN:
+    </label>
+    <div class="controls">
+        @Html.TextBoxFor(t => t.ProductId, new { @class = "form-control", maxlength = "200" })
+        @Html.ValidationMessageFor(m => m.ProductId)
+        <div style=" display:none" id="divError" class="red"></div>
+    </div>
+
+
+
+</div>
+
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>@*banner图片地址*@banner picture URL :
+    </label>
+    
+    <div class="controls">
+
+ 
+        @Html.ValidationMessageFor(m => m.bannerPic)
+        @Html.EditorFor(x => x.bannerPic, "FileUploadT1", new { RootImage = ViewBag.RootImage })
+        @*<label class="red">@**轮播图片大小建议  1920x400Broadcast Picture size 1920*324</label>*@
+        
+        <label class="red">@**轮播图片大小建议  1920x400*@Broadcast Picture size 748*408</label>
+    </div>
+    
+</div>
+@*@if (Model.IdentityStatus == 2 && BannerPlaceCodeModellist1 != null && Model.bannerId<=0)
+{
+    <div class="control-group">
+        <label class="control-label-form">
+            <label class="red">*</label>Position (classification) :
+        </label>
+        <div class="controls">
+            <div style="display:none">
+                @Html.TextBoxFor(t => t.PlaceCode, new { @class = "form-control" })
+            </div>
+
+            <select id="selBannerPlaceCode" onchange="onchangeBannerPlaceCode(this.value)" class="form-control">
+                
+                
+                @foreach (var item in BannerPlaceCodeModellist1)
+                {
+                    if (Model.PlaceCode == item.PlaceCode)
+                    {
+                        <option selected="selected" value="@item.PlaceCode">@item.PlaceCodeName</option>
+                    }
+                    else
+                    {
+                        <option value="@item.PlaceCode">@item.PlaceCodeName</option>
+                    }
+
+                }
+
+            </select>
+        </div>
+    </div>
+}*@
+   
+    <!-- 为了给标识赋值 在父页面-->
+    <div style="display:none">
+        @Html.TextBoxFor(t => t.IdentityStatus, new { @class = "form-control" })
+    </div>
+ 
+

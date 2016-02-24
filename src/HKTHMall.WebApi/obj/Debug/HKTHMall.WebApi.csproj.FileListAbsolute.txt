@@ -1,0 +1,1 @@
+F:\WorkSpace\src\HKTHMall.WebApi\obj\Debug\HKTHMall.WebApi.csprojResolveAssemblyReference.cache

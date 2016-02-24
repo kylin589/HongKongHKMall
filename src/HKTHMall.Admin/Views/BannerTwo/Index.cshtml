@@ -1,0 +1,350 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@model HKTHMall.Domain.Models.banner.SearchbannerModel
+
+@{
+    var dentityStatus = ViewBag.dentityStatus;
+
+    var titlename = "Floor banner"; //ViewBag.titleName;
+    ViewBag.Title = titlename;
+    
+    var ImagePath11 = ViewBag.ImagePath;
+
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(42);
+    _Authority.Delete = _Authority.CheckAction(43);
+    _Authority.Move = _Authority.CheckAction(44);
+}
+<input type="hidden" id="dentityStatus" value="@dentityStatus" />
+
+<div id="user-toolbar">
+   
+        <div class="form-inline" role="form">
+
+            <div class="form-group">
+                <span>Home page banner: </span>&nbsp;&nbsp;
+                
+                @Html.DropDownList("selBannerPlaceCode", ViewBag.BannerPlaceCodeModel as System.Web.Mvc.SelectList, new { @class = "form-control" })
+
+            </div>
+            &nbsp;&nbsp;
+            @if (_Authority.Add)
+            {
+                <button type="button" class="btn btn-primary js_create">
+                    <span class="glyphicon glyphicon-plus"></span> Add
+                </button>
+            }
+            &nbsp;
+            
+
+
+        </div>
+    
+
+</div>
+<script type="text/javascript">var imgeurl = " @ImagePath11"; var titlename = "@titlename";</script>
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/javascript">
+        var addCheck = eval("@(_Authority.Add.ToString().ToLower())");
+        var deleterCheck = eval("@(_Authority.Delete.ToString().ToLower())");
+        var moveCheck = eval("@(_Authority.Move.ToString().ToLower())");
+        var Operation = "";
+        if (moveCheck) {
+
+            Operation += '<a class="ssorts ml10" href="javascript:void(0)" title="move up">';
+            Operation += '<i class="glyphicon glyphicon-arrow-up"></i>';
+            Operation += '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+            Operation += '<a class="xsorts ml10" href="javascript:void(0)" title="Down">';
+            Operation += '<i class="glyphicon glyphicon-arrow-down"></i>';
+            Operation += '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+        }
+        if (addCheck) {
+
+            Operation += '<a class="edit ml10" href="javascript:void(0)" title="Update">';
+            Operation += '<i class="glyphicon glyphicon-edit"></i>';
+            Operation += '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+        }
+        if (deleterCheck) {
+
+            Operation += '<a class="remove ml10" href="javascript:void(0)" title="Delete">';
+            Operation += '<i class="glyphicon glyphicon-remove"></i>';
+            Operation += '</a>';
+
+        }
+        if (Operation == "") {
+            Operation = "-";
+        }
+
+        $(function () {
+
+            var columns = [
+
+                //列表行
+
+                {
+                    field: 'bannerName', title: 'banner name', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var m = '<spen  title="' + val + '" > ' + val + '</spen>';
+                        if (val != "" && val.length > 30) {
+                            m = '<spen  title="' + val + '" > ' + val.substring(0, 29) + '...</spen>';
+                            return m;
+                        }
+                        return m;
+                    }
+                },
+                {
+                    field: 'bannerUrl', title: 'banner URL', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var m = '<a href="#" title="' + val + ' " rel=" ' + val + '"> ' + val + '</a>';
+                        if (val != "" && val.length > 30) {
+                            m = '<a href="#" title="' + val + ' " rel=" ' + val + '"> ' + val.substring(0, 29) + "..." + '</a>';
+                            return m;
+                        }
+                        return m;
+                    }
+                },
+                {
+                    field: 'ProductId', title: 'Product SN', align: 'center', valign: 'middle', sortable: false
+                },
+                {
+                    field: 'bannerPic', title: 'banner picture', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var img = "<img src='" + imgeurl + val + "' style='height:60px;width:60px;' />";
+                        var m = '<a class="screenshot" href="' + imgeurl + val + '" target="_blank" title="' + imgeurl + val + ' " rel=" ' + imgeurl + val + '"> ' + img + '</a>';
+                        return m;
+
+                    }
+                },
+
+
+                { field: 'CreateBy', title: 'Creater', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'CreateDT', title: 'Create time', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        if (val != null && val != "") {
+                            return val.formatterString(true)/*true 日期格式2015-5-5*/
+                        }
+                        return "-";
+                    }
+                },
+                { field: 'UpdateBy', title: 'Update By', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'UpdateDT', title: 'Update time', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        if (val != null && val != "") {
+                            return val.formatterString(true)/*true 日期格式2015-5-5*/
+                        }
+                        return "-";
+                    }
+                },
+
+                 //{ field: 'Sorts', title: '排序', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'bannerId',
+                    title: 'Operation',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (val) {
+                        return [
+                            Operation
+                        ].join('');
+                    },
+                    events: {
+                        'click .ssorts': function (e, value, row, index) {
+                            //alert("上移动");
+                            //alert(row.Sorts);
+                            UpdateSorts(value, 2, row.Sorts);
+                        },
+                        'click .xsorts': function (e, value, row, index) {
+                            //下移动
+                            UpdateSorts(value, 1, row.Sorts);
+                        },
+                        'click .edit': function (e, value, row, index) {
+                            //console.log(1);
+                            Tool.ShowModal('@Url.Action("BannerCreate")', { id: value, identityStatus: $('#dentityStatus').val(), time: new Date().getTime() }, 'Edit Floor banner ');
+                        },
+                        'click .remove': function (e, value, row, index) {
+
+                            //DeleteOperateLog(value);
+                            Tool.DeleteRecord('@Url.Action("DeleteBanner")', { bannerId: value, time: new Date().getTime() }, $('#u_grid'));
+                        }
+                    }
+                }
+            ];
+
+           
+                //绑定列表
+                $('#u_grid').bootstrapTable({
+                    url: '@Url.Action("List")',
+
+                    queryParams: function (params) {
+                        return {
+
+                            IdentityStatus: $('#dentityStatus').val(),
+                            PlaceCode: $('#selBannerPlaceCode').val(),
+                            PagedIndex: this.pageNumber - 1,//params.pageNumber - 1  params.offset
+                            PagedSize: this.pageSize       //params.pageSize  params.limit
+                        };
+                    },
+                    sortOrder: 'desc',
+                    pagination: true,
+                    sortName: 'bannerId',
+                    showRefresh: true,
+                    showColumns: true,
+                    striped: true,
+                    sidePagination: 'server',
+                    columns: columns,
+                    onLoadSuccess: function () {
+                        screenshotPreview();
+                    }
+
+                });
+
+           
+            //删除
+            function DeleteOperateLog(bannerId) {
+                $.ajax({
+                    url: '@Url.Action("DeleteBanner")' + "?bannerId=" + bannerId,
+                    dataType: "json",
+                    success: function (data, status) {
+                        //alert(1);
+                        if (!Tool.CheckPermission(data)) {
+                            return;
+                        }
+                        Tool.Alert(data.Messages[0], 1500);
+                        Tool.ReloadDataTable($('#u_grid'));
+                    },
+                    error: function (data, status, e) {
+                        Tool.Alert("Delete failed!", 1500);
+
+                        //alert(e);
+                    }
+
+                });
+            }
+
+            function UpdateSorts(bannerIds, sx1, sorts1) {
+                
+                var selBannerPlaceCode = 0;
+                var dentityStatus = $('#dentityStatus').val();
+                if (dentityStatus > 1) {
+                    selBannerPlaceCode = $('#selBannerPlaceCode').val();
+                }
+                $.ajax({
+                    @*url: '@Url.Action("UpdateSorts")' + "?bannerId=" + bannerId + "&sx=" + sx + "&sorts=" + sorts + "&IdentityStatus=" + IdentityStatus + "&BannerPlaceCode=" + selBannerPlaceCode,
+                    dataType: "json",
+                    success: function (data, status) {
+                        if (!CheckPermissions(data)) {
+                            return;
+                        }
+                        Tool.Alert(data.Messages[0], 1500);
+                        Tool.ReloadDataTable($('#u_grid'));
+                    },
+                    error: function (data, status, e) {
+                        Tool.Alert("移动失败!", 1500);
+
+                    }*@
+
+                    url: '@Url.Action("UpdateSorts")' ,
+                    type: "POST",
+                    data: { bannerId: bannerIds, sx: sx1, sorts: sorts1, IdentityStatus: dentityStatus, BannerPlaceCode: selBannerPlaceCode, time: new Date().getTime() },
+                    dataType: "json",
+                    success: function (data, status) {
+                        if (!CheckPermissions(data)) {
+                            return;
+                        }
+                        Tool.Alert(data.Messages[0], 1500);
+                        Tool.ReloadDataTable($('#u_grid'));
+                    },
+                    error: function (data, status, e) {
+
+                        Tool.Alert("Move failed!", 1500);
+
+                    }
+
+                });
+            }
+
+            //刷新列表
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+
+            //日期控件 开始
+            $('#BeginLoginTime').datepicker({
+                language: "en",
+                autoclose: true
+            });
+
+            //日期控件 结束
+            $('#EndLoginTime').datepicker({
+                language: "en",
+                autoclose: true
+            });
+
+            //Add
+            $('.js_create').click(function () {
+                var actionUrl = "@Url.Action("BannerCreate")" + "?identityStatus=" + $("#dentityStatus").val() + "&time="+ new Date().getTime();
+                var param = {};
+                Tool.ShowModal(actionUrl, param, "Add Floor banner ");
+            });
+
+            $("#selBannerPlaceCode").change(function () {
+                //alert($('#u_grid').bootstrapTable.defaults.pageNumber);
+                //$('#u_grid').bootstrapTable.defaults.pageNumber = $('#u_grid').bootstrapTable.defaults.pageNumber - 1;
+                //Tool.ReloadDataTable($('#u_grid'));
+                
+                Tool.ReloadDataTable($('#u_grid'));
+            })
+
+        });
+        //Save
+        function Save() {
+
+
+            if ($("#PlaceCode").val() == "0") {
+                $("#PlaceCode").val($("#selBannerPlaceCode1").val());//默认的时候赋值的
+            }
+
+            //if ($("#bannerName").val().trim() == "") {
+            //    $("#divErrorName").empty();
+            //    $("#divErrorName").append("请输入banner name");
+            //    $("#divErrorName").attr("style", "display");
+            //    setInterval(function () { $("#divErrorName").attr("style", "display:none"); }, 1500);
+            //    return;
+            //}
+
+            
+
+            
+
+            $("#IdentityStatus").val($('#dentityStatus').val());
+            Tool.SaveModal($('#u_grid'));
+        }
+
+        
+
+        function onchangeBannerPlaceCode(value) {
+            $("#PlaceCode").val(value);//给model赋值
+        }
+
+        function GetUrl(urlimg) {
+            $("#bannerPic").val(urlimg);
+
+        }
+
+        function IsURL(str_url) {
+            var reg = "^[A-Za-z]+://[A-Za-z0-9-_]+\\.[A-Za-z0-9-_%&\?\/.=]+$";
+            var re = new RegExp(reg);
+            //alert(re.test(str_url));
+
+            if (re.test(str_url)) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    </script>
+}

@@ -1,0 +1,138 @@
+﻿@model HKTHMall.Domain.Models.banner.bannerProductModel
+
+@{
+    var BannerPlaceCodeModellist1 = ViewData["BannerPlaceCodeModel1"] as List<HKTHMall.Admin.Models.BannerPlaceCodeModel>;
+    
+    var mg = ViewBag.messges;
+}
+
+<script type="text/javascript"> var mgs = "@mg";
+    function onchangeBannerPlaceCode(value1) {
+        
+        if (value1 == "100001") {
+            $("#PlaceCode").val("");
+        }
+        else {
+            $("#PlaceCode").val(value1);//给model赋值
+        }
+
+        //if (mgs != "" || mgs == "推荐位置（分类）跟商品的分类不相同") {
+            
+        //    $("#lbmg").attr("style","display:none");//
+        //}
+    }
+    </script>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Product ID :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.bannerProductId)
+        @Html.TextBoxFor(t => t.productId, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.productId)
+    </div>
+</div>
+@if (Model.bannerProductId != null && Model.bannerProductId > 0)
+{
+    <div class="control-group">
+        <label class="control-label-form">
+            <label class="red"></label>Product name :
+        </label>
+
+        <div class="controls">
+            <label >@Model.ProductName</label>
+           
+            
+        </div>
+
+    </div>
+    <div class="control-group">
+        <label class="control-label-form">
+            <label class="red"></label>Commodity price :
+        </label>
+
+        <div class="controls">
+            
+            <label>@Model.HKPrice</label>
+        </div>
+
+    </div>
+}
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Picture Address :
+    </label>
+
+    <div class="controls">
+        <div style="display:none">
+            @Html.TextBoxFor(t => t.PicAddress, new { @class = "form-control" })
+        </div>
+        @{
+            var Createimg = "/Content/css/images/default-item.jpg";
+            if (Model.PicAddress != null && !string.IsNullOrEmpty(Model.PicAddress))
+            {
+                Createimg = ViewBag.ImagePath + Model.PicAddress;
+            }
+        }
+
+        <img src="@Createimg" style="max-height:300px;max-width:300px;" />
+        
+        @Html.ValidationMessageFor(m => m.PicAddress)
+        <br />
+        <label class="red">*Image Size :240*170</label>
+        @Html.Partial("~/Views/Shared/ImgUpload.ascx")
+    </div>
+
+</div>
+@if (Model.IdentityStatus == 2 && BannerPlaceCodeModellist1 != null)
+{
+    <div class="control-group">
+        <label class="control-label-form">
+            <label class="red">*</label>Position (classification) :
+        </label>
+        <div class="controls">
+            <div style="display:none">
+                @Html.TextBoxFor(t => t.PlaceCode, new { @class = "form-control" })
+            </div>
+
+
+
+            <select id="selBannerPlaceCode" onchange="onchangeBannerPlaceCode(this.value)" class="form-control">
+                
+                @for (int i = 0; i < BannerPlaceCodeModellist1.Count; i++)
+                {
+                    if (Model.PlaceCode == BannerPlaceCodeModellist1[i].PlaceCode)
+                    {
+                        <option selected="selected" value="@BannerPlaceCodeModellist1[i].PlaceCode">@BannerPlaceCodeModellist1[i].PlaceCodeName</option>
+                    }
+                    else
+                    {
+
+                        <option value="@BannerPlaceCodeModellist1[i].PlaceCode">@BannerPlaceCodeModellist1[i].PlaceCodeName</option>
+
+                    }
+                }
+            </select>
+            @Html.ValidationMessageFor(m => m.PlaceCode)
+            @if (!string.IsNullOrEmpty(mg))
+            {
+                <br />
+                <label class="red" id="lbmg" >@mg</label>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div style="display:none">
+        @Html.TextBoxFor(t => t.PlaceCode, new { @class = "form-control" })
+    </div> @Html.ValidationMessageFor(m => m.PlaceCode)
+}
+
+
+<!-- 为了给标识赋值 在父页面-->
+<div style="display:none">
+    @Html.TextBoxFor(t => t.IdentityStatus, new { @class = "form-control" })
+</div>
+
+

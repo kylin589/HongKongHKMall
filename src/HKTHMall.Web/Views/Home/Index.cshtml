@@ -1,0 +1,56 @@
+﻿@using HKTHMall.Core.Extensions
+@using HKTHMall.Services.Common.MultiLangKeys
+
+
+<!--begin-->
+<div class="main_index">
+
+    @Html.Partial("_BannerAndNews")
+    <div class="lazyWrap">
+        <div class="wrapLeft">
+            <div class="lazyCommend">
+                <h3>@CultureHelper.GetLangString("HOME_INDEX_JINRITUIJIAN")@*今日推荐*@</h3>
+                <div class="lightCover">
+                    <div class="lazyComCover">
+                        @Html.Action("_RecommendList", "Home")
+                        <!-- 如果需要导航按钮 -->
+                    </div>
+                    <div class="lazyCommend_prev"></div>
+                    <div class="lazyCommend_next"></div>
+                </div>
+                
+                @Html.Action("_HotList", "Home", new { languageid = CultureHelper.GetLanguageID() })
+            </div>
+        </div>
+        <div class="wrapRight">
+            <h3>@CultureHelper.GetLangString("HOME_INDEX_TOPSALE")@*热销排行*@</h3>
+            <div class="orderRank">
+                @Html.Action("_SellingList", "Home")
+            </div>
+            @*<div class="rankMore">
+                <a href="javascript:void();">查看更多<i class="fa-angle-right"></i></a>
+            </div>*@
+        </div>
+        <span class="clearfix"></span>
+    </div>
+
+
+    <div class="clear"></div>
+    <div class="m_inbg"></div>
+     @Html.Action("_IndexFloor", "Home", new { Lang = CultureHelper.GetLanguageID()})
+    @*@Html.Partial("_IndexFloor")*@
+</div>
+@*<script>
+        //Load PartialView
+        $(document).ready(function () {
+            $.ajax({
+                url: "@Url.Content("~/Home/_IndexFloor")",
+                type: "GET",
+                dataType: "html",
+                success: function (data) {
+                    $("#floor").html(data);
+                }
+            })
+        });
+    </script>*@
+<!--end-->

@@ -1,0 +1,112 @@
+﻿@using Autofac;
+@using HKTHMall.Services.AC;
+@model HKTHMall.Domain.Models.User.AC_UserModel
+@{
+    IAC_DepartmentService acDepartmentService = BrCms.Framework.Infrastructure.BrEngineContext.Current.Resolve<IAC_DepartmentService>();
+    IAC_RoleService acRoleService = BrCms.Framework.Infrastructure.BrEngineContext.Current.Resolve<IAC_RoleService>();
+    var ac_Department = acDepartmentService.GetAC_DepartmentsBy().Data;
+    var ac_Role = acRoleService.GetAC_RolesBy().Data;
+}
+<div class="control-group" id="divUserName">
+    <label class="control-label-form">
+        <label class="red">*</label>Account :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.UserID)
+        @Html.TextBoxFor(t => t.UserName, new { @class = "form-control", @placeholder = "Please enter account ", maxlength = 20 })
+        @Html.ValidationMessageFor(m => m.UserName)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>True name :
+    </label>
+    <div class="controls">
+        @Html.TextBoxFor(t => t.RealName, new { @class = "form-control", @placeholder = "Please enter real name", maxlength = 20 })
+        @Html.ValidationMessageFor(m => m.RealName)
+    </div>
+</div>
+<div class="control-group" id="divPassword">
+    <label class="control-label-form">
+        <label class="red">*</label>Password:
+    </label>
+    <div class="controls">
+        @Html.EditorFor(t => t.Password, new { @class = "form-control", @placeholder = "Please enter password", maxlength = 20 })
+        @Html.ValidationMessageFor(m => m.Password)
+    </div>
+</div>
+<div class="control-group" id="divPasswordTwo">
+    <label class="control-label-form">
+        <label class="red">*</label>Password Confirm:
+    </label>
+    <div class="controls">
+        @Html.EditorFor(t => t.PasswordTwo, new { @class = "form-control", @placeholder = "Please confirm password", maxlength = 20 })
+        @Html.ValidationMessageFor(m => m.PasswordTwo)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        ID Card No:
+    </label>
+    <div class="controls">
+        @Html.TextBoxFor(t => t.IDNumber, new { @class = "form-control", maxlength = 20 })
+        @Html.ValidationMessageFor(m => m.IDNumber)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        Gender :
+    </label>
+    <div class="controls">
+        <select id="Sex" name="Sex" class="form-control">
+            <option value="false" @(Model.Sex == false ? "selected='selected'" : "")>Male</option>
+            <option value="true" @(Model.Sex == true ? "selected='selected'" : "")>Female</option>
+        </select>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        Status :
+    </label>
+    <div class="controls">
+        <select id="UserMode" name="UserMode" class="form-control">
+            <option value="1" @(Model.UserMode == 1 ? "selected='selected'" : "")>Enable</option>
+            <option value="2" @(Model.UserMode == 2 ? "selected='selected'" : "")>Lock</option>
+        </select>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        Dept :
+    </label>
+    <div class="controls">
+        <select id="ID" name="ID" class="form-control">
+            @if (ac_Department != null)
+            {
+                foreach (var item in ac_Department)
+                {
+                    if (item.IsActive == 1)
+                    {
+                        <option value="@item.ID" @(Model.ID == item.ID ? "selected='selected'" : "")>@item.DeptName</option>
+                    }
+                }
+            }
+        </select>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        Role :
+    </label>
+    <div class="controls">
+        <select id="RoleID" name="RoleID" class="form-control">
+            @if (ac_Role != null)
+            {
+                foreach (var item in ac_Role)
+                {
+                    <option value="@item.RoleID" @(Model.RoleID == item.RoleID ? "selected='selected'" : "")>@item.RoleName</option>
+                }
+            }
+        </select>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+﻿
+@model HKTHMall.Domain.AdminModel.Models.YHUser.YH_AgentModel
+<!--惠信号-->
+<div class="control-group">
+    <label class="control-label-form">
+       Account：
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            @Html.HiddenFor(t => t.AgentID)
+            @Html.HiddenFor(t => t.UserID)
+            @Model.Account
+        </div>
+    </div>
+</div>
+<!--姓名-->
+<div class="control-group">
+    <label class="control-label-form">
+        Full name：
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            @Model.RealName
+        </div>
+    </div>
+</div>
+<!--手机-->
+<div class="control-group">
+    <label class="control-label-form">
+        Phone：
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            @Model.Phone
+        </div>
+    </div>
+</div>
+<!--代理商类型-->
+<div class="control-group">
+    <label class="control-label-form">
+        Agent type：
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            <select id="AgentType" name="AgentType" class="form-control text-center">
+                <option value="1" @(Model.AgentType==1?"selected='selected'":"")>District agency</option>
+                <option value="2" @(Model.AgentType == 2 ? "selected='selected'" : "")>Municipal agency</option>
+                <option value="3" @(Model.AgentType == 3 ? "selected='selected'" : "")>Provincial agency</option>
+                <option value="4" @(Model.AgentType == 4 ? "selected='selected'" : "")>Global agency</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+

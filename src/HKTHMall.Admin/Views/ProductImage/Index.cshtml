@@ -1,0 +1,220 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@model HKTHMall.Domain.AdminModel.Models.Products.SearchProductImageModel
+@{
+    ViewBag.Title = "Product list page";
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(106);
+    _Authority.Delete = _Authority.CheckAction(107);
+    _Authority.Move = _Authority.CheckAction(108);
+}
+<input type="hidden" id="hidPageIndex" value="0" />
+<input type="hidden" id="hidPageSize" value="10" />
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>Product Name: </span>
+            @Html.TextBoxFor(x => x.ProductName, new { @class = "form-control w70", @placeholder = "Please enter product picture name" })
+        </div>
+        &nbsp;
+        <select class="form-control text-center" id="ImageType" name="ImageType">
+            <option value="">--All--</option>
+            <option value="1">Picture</option>
+            <option value="2">Video</option>
+        </select>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-danger js_reset" onclick="Tool.ClearForm($('#user-toolbar'))">
+            <span class="glyphicon glyphicon-bullhorn"></span> Clear
+        </button>
+        &nbsp;
+        @if (_Authority.Add)
+        {
+            <button type="button" class="btn btn-primary js_create">
+                <span class="glyphicon glyphicon-plus"></span> Add
+            </button>
+        }
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts{
+    <script type="text/javascript">
+        //权限
+        var $addCheck = eval("@(_Authority.Add.ToString().ToLower())");
+        var $deleteCheck = eval("@(_Authority.Delete.ToString().ToLower())");
+        var $moveCheck = eval("@(_Authority.Move.ToString().ToLower())");
+        //加载数据
+        $(function () {
+            var columns = [
+            { field: "ProductImageId", title: "SN", align: 'center', valign: 'middle', sortable: false },
+            { field: "ProductName", title: "Product Name", align: 'center', valign: 'middle', sortable: false },
+            {
+                field: "ImageType", title: "Product Category", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+
+                    if (arguments && arguments[1]) {
+                        return arguments[1].ImageType == 1 ? "Picture" : "Video";
+                    }
+                }
+            },
+            {
+                field: "ImageUrl", title: "Product picture", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                    if (arguments && arguments[1]) {
+                        var img = '<a  class="screenshot" href="' + Tool.RootImage + arguments[1].ImageUrl + '" target="_blank" title="' + Tool.RootImage + arguments[1].ImageUrl + '" rel="' + Tool.RootImage + arguments[1].ImageUrl + '"> ';
+                        img += '<img src="' + Tool.RootImage + arguments[1].ImageUrl + '"  "width="60px" height="60px"/>';
+                        img += '</a>';
+                        return img;
+                    }
+                }
+            },
+            { field: "linkUrl", title: "Link Url", align: 'center', valign: 'middle', sortable: false },
+            { field: "CreateBy", title: "Creater", align: 'center', valign: 'middle', sortable: false },
+            {
+                field: "CreateDT", title: "Create time", align: 'center', valign: 'middle', sortable: false, formatter:
+                  function (val) {
+                      return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                  }
+            },
+            { field: "UpdateBy", title: "Update By", align: 'center', valign: 'middle', sortable: false },
+            {
+                field: "ProductImageIds", title: "Operation", align: 'center', valign: 'middle',
+                formatter: function (val) {
+                    var operation = '';
+                    if ($moveCheck) {
+                        operation += '<a class="ssorts ml10" href="javascript:void(0)" title="move up"><i class="glyphicon glyphicon-arrow-up"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;' +
+                        '<a class="xsorts ml10" href="javascript:void(0)" title="Down">' +
+                        '<i class="glyphicon glyphicon-arrow-down"></i>' +
+                        '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                    }
+                    if ($addCheck) {
+                        operation += '<a class="edit ml10" href="javascript:void(0)" title="Update"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                    }
+                    if ($deleteCheck) {
+                        operation += '<a class="remove ml10" href="javascript:void(0)" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>';
+                    }
+                    if (operation == '') {
+                        operation = '-';
+                    }
+                    return [
+                          operation
+                    ].join('');
+                },
+                events: {
+                    //上移
+                    'click .ssorts': function (e, value, row, index) {
+                        UpdateSorts(index, row.ProductImageId, 1, $('#ProductName').val().trim(), $("#ImageType").val() == '' ? "0" : $("#ImageType").val(), $("#hidPageIndex").val(), $("#hidPageSize").val());
+                    },
+                    //下移
+                    'click .xsorts': function (e, value, row, index) {
+                        UpdateSorts(index, row.ProductImageId, 2, $('#ProductName').val().trim(), $("#ImageType").val() == '' ? "0" : $("#ImageType").val(), $("#hidPageIndex").val(), $("#hidPageSize").val());
+                    },
+                    //编辑
+                    'click .edit': function (e, value, row, index) {
+                        Tool.ShowModal('@Url.Action("Create")', { id: row.ProductImageId, time: new Date().getTime() }, 'Picture Editing');
+                    },
+                    //删除
+                    'click .remove': function (e, value, row, index) {
+                        Tool.DeleteRecord('@Url.Action("Delete")', { productImageId: row.ProductImageId }, $('#u_grid'));
+                    }
+                }
+            }];
+            //加载列表数据
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+                queryParams: function (params) {
+                    $("#hidPageIndex").val(this.pageNumber - 1);
+                    $("#hidPageSize").val(this.pageSize);
+                    return {
+                        ProductName: $('#ProductName').val().trim(),
+                        ImageType: $('#ImageType').val().trim(),
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: 1000,
+                        time: new Date().getTime()
+                    };
+                },
+                pagination: false,
+                showRefresh: true,
+                columns: columns,
+                onLoadSuccess: function () {
+                    screenshotPreview();
+                }
+            });
+            //搜索事件
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+            //产品类型选择事件
+            $('#ImageType').change(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+            //按Enter键回车搜索
+            $('#ProductName').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            //添加产品图
+            $('.js_create').click(function () {
+                Tool.ShowModal("@Url.Action("Create")", {}, "Add product graph");
+            });
+        })
+        //验证
+        function Validator() {
+            var $imageType = $('#ImageType', '#modal-form').val();
+            if ($imageType == 2) {
+                var $linkUrl = $('#linkUrl', '#modal-form').val().trim();
+                if ($linkUrl == '' || $linkUrl.length == 0) {
+                    Tool.Alert("Please enter url!", 1500);
+                    return false;
+                }
+                //验证输入的链接地址
+                //var urlRegExp = /^http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?$/i;
+                //if (!urlRegExp.test($linkUrl)) {
+                //    Tool.Alert("请输入正确的链接地址!", 1500);
+                //    return false;
+                //}
+                var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+                var objExp = new RegExp(Expression);
+                if (!objExp.test($linkUrl)) {
+                    Tool.Alert("Please enter correct url!", 1500);
+                    return false;
+                }
+            }
+            return true;
+        }
+        //保存
+        function Save() {
+            if (Validator()) {
+                var $ImageType = $("#ImageType");
+                var $selectValue = $("#ImageType", "#modal-form").val();
+                $ImageType.find('option[value=' + $selectValue + ']').attr("selected", true);
+                $("#ImageType").val($selectValue);
+                Tool.SaveModal($('#u_grid'));
+            }
+
+        }
+        //更新排序位置
+        function UpdateSorts(rowId, productImageId, sortType, productName, ImageType, PagedIndex, PagedSize) {
+            $.ajax({
+                url: '@Url.Action("UpdatePlace")' + "?rowId=" + rowId + "&productImageId=" + productImageId + "&sortType=" + sortType + "&productName=" + productName + "&ImageType=" + ImageType + "&PagedIndex=" + PagedIndex + "&PagedSize=" + PagedSize,
+                dataType: "text",
+                success: function (data, status) {
+                    data = JSON.parse(data);
+                    if (data.IsValid) {
+                        Tool.ReloadDataTable($('#u_grid'));
+                    }
+                    Tool.Alert(data.Messages, 1500);
+                },
+                error: function (data, status, e) {
+                    Tool.Alert("Failed!", 1500);
+                }
+            });
+        }
+    </script>
+}

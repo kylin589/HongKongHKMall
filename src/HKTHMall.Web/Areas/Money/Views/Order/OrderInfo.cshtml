@@ -1,0 +1,149 @@
+﻿@using HKTHMall.Domain.Enum
+@using HKTHMall.Domain.WebModel.Models.Users
+@using HKTHMall.Services.Common.MultiLangKeys
+@model dynamic
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Content/js/animate.js"></script>
+<script src="~/Content/js/jquery-powerSwitch.js"></script>
+<script src="~/Content/js/jquery-ui.min.js"></script>
+<script src="~/Content/js/format.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.cookie.js"></script>
+<script type="text/javascript" src="~/Scripts/common.js"></script>
+<script type="text/javascript" src="~/Scripts/Presenter/HKMall.Utility.js"></script>
+<script type="text/javascript" src="~/Scripts/json2.js"></script>
+<script type="text/javascript" src="~/Content/js/address.js"></script>
+<div class="main_a" id="mainBody">
+    <div class="main_about">
+        <div class="specLayout">
+            <div class="specMain_2016">
+                <ul>
+                    <li><a href="@Url.Action("Index", "Home", new { Area = "" })">@CultureHelper.GetLangString("HOME_INDEX_HOMEPAGE")</a></li>
+                    <li class="spector"><i class="fa fa-angle-right"></i></li>
+                    <li><a href="javascript:void(0);">@CultureHelper.GetLangString("MONEY_ORDER_ORDERINFO_SUBMITORDERS")</a></li>
+                    <span class="clear"></span>
+                </ul>
+            </div>
+            <div class="specCart">
+                <div class="cartStep">
+                    <div class="cartStepImg2"></div>
+                    <ul>
+                        <li class="stepOnlink">@CultureHelper.GetLangString("HOME_INDEX_MYSHOPPINGCART")@*我的购物车*@</li>
+                        <li class="stepOnlink">@CultureHelper.GetLangString("HOME_CHART_HEDUIDINGDAN")@*填写核对订单信息*@</li>
+                        <li>@CultureHelper.GetLangString("HOME_INDEX_ORDERSUBMITSUCCESS")@*成功提交订单*@</li>
+                        <span class="clearfix"></span>
+                    </ul>
+                </div>
+                @******填写并核对订单信息******@
+                <h3 class="carterDingdan">@CultureHelper.GetLangString("MONEY_ORDER_ORDERINFO_FINISHANDCHECKORDERS")</h3>
+                <div class="orderCover">
+                    @Html.Partial("_Address")
+
+                    <h3>@CultureHelper.GetLangString("MONEY_SHOPPINGCART_ALLTHEGOODS")</h3>
+                    <ul class="orderTitle">
+                        <li>@CultureHelper.GetLangString("MONEY_SHOPPINGCART_GOODS")</li>
+                        <li>@CultureHelper.GetLangString("MONEY_SHOPPINGCART_SPECIFICATIONS")</li>
+                        <li>@CultureHelper.GetLangString("MONEY_SHOPPINGCART_THEUNITPRICE")<text>($)</text></li>
+                        <li>@CultureHelper.GetLangString("MONEY_SHOPPINGCART_NUMBER")</li>
+                        <li>@CultureHelper.GetLangString("MONEY_SHOPPINGCART_SUBTOTAL")<text>($)</text></li>
+                        <span class="clearfix"></span>
+                    </ul>
+                    <div member="divCartList"></div>
+                    <input type="hidden" member="ComId"/>
+                    <div class="orderOwner">
+                        <ul id="js-detail-address">
+                            @******寄送至******@
+                            <li><span>@CultureHelper.GetLangString("ORDER_ADDRESS_SENDADDRESS"):</span><span id="js-sure-address"></span></li>
+                            @******收货人******@
+                            <li><span>@CultureHelper.GetLangString("ACCOUNT_USERINFO_ADDRESS_CONSIGNEE"):</span><span id="js-sure-receiverinfo"></span></li>
+                            <input type="hidden" id="addresshidden" value="">
+
+                        </ul>
+                        <dl>
+                            <dd>
+                                <dl>
+                                    <dt>@Html.Raw(string.Format(CultureHelper.GetLangString("ORDER_NUMBERANDMONEY"), "<span style='color: #f00;'><span class='red' member='AllGoodsCount'>0</span></span>", null))</dt>
+                                    <dd>$<span member="AllGoodsPrice">0.00</span></dd>
+                                </dl>
+                            </dd>
+                            <dd>
+                                <dl>
+                                    <dt>@CultureHelper.GetLangString("ORDER_FREIGHT"):</dt>
+                                    <dd>$<span member="AllGoodsPostagePrice">0.00</span></dd>
+                                </dl>
+                            </dd>
+                            <dd>
+                                <dl>
+                                    <dt>@CultureHelper.GetLangString("ORDER_SUMPAYABLE"):</dt>
+                                    <dd>$<b member="AllGoodsCost">0.00</b></dd>
+                                </dl>
+                            </dd>
+                            
+                        </dl>
+                        <div class="zhuanshu">
+                            @Html.Raw(string.Format("<span class=\"redAlert\">" + CultureHelper.GetLangString("HOME_HZ_FULIHUIZEN") + "</span>", "<b id=\"BackNow\" member=\"BackNow\">0.00</b>"))
+                        </div>
+                        <span class="clearfix"></span>
+                    </div>
+                    <div class="orderSubmit_2016">
+                        <a data-issubmit="0" id="btnSOrder" href="javascript:void(0);">@CultureHelper.GetLangString("SUBMIT_ORDER")</a>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="c_public_bottom"></div>
+@*订单详情模板*@
+@Html.Partial("_ProductItemTpl01")
+@*运费模板*@
+@Html.Partial("_EditAddress")
+
+<div class="mask opa3 dn" id="mask"></div>
+<div class="dialogCover">
+    <div class="dialogMain" id="showDialog">
+        <p id=""></p>
+    </div>
+</div>
+<script src="~/Scripts/Presenter/HKMall.Utility.js"></script>
+<script src="~/Scripts/Presenter/MyShoppingCartBll.js"></script>
+<script src="~/Scripts/Presenter/MyShoppingCartPresenter.js"></script>
+<script type="text/javascript">
+    var orderPresenter;
+    $(function () {
+        orderPresenter = new OrderSubmitPresenter($("#mainDiv"), { IsOutrightPurchase: 1 });
+        orderPresenter.pageLoad();
+
+        refreshCart();
+        
+       
+    });
+    var _htmlADD = $("#showDialog");
+    function showDailog(msg,isreload)
+    {
+        $("#showDialog").html(msg);
+        ds.dialog({
+            title : $commonLang.MONEY_ORDER_INFO,
+            content: _htmlADD,
+            yesText: $commonLang.MESSAGEBOX_SURE,
+            onyes: function () {
+                //console.log("你点击了确定！");
+                this.close();               
+            },
+        });
+    }
+   
+    ////刷新购车库存
+    //function refreshCart() {
+    //    var cartCount = new MyShoppingCartBll().getGoodsCount();
+    //    // $(".z_count1").text(cartCount);
+    //}
+
+
+
+
+</script>
+<script src="~/Content/js/address.js"></script>
+<script type="text/javascript" src="~/Scripts/Presenter/OrderSubmitPresenter.js"></script>

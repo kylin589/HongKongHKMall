@@ -1,0 +1,140 @@
+﻿@using HKTHMall.Domain.WebModel.Models.Bank
+@using HKTHMall.Services.Common.MultiLangKeys
+@model HKTHMall.Domain.AdminModel.Models.User.UserBankModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //List<BankModel> banklist = ViewData["Bank"] as List<BankModel>;
+}
+
+<!--start main-->
+<div class="main_a">
+    <div class="z_personal">
+        <div class="PersonMain">
+            <div class="PmainLeft" id="PmainLeft">
+                @Html.Partial("_userLeft")
+            </div>
+            <!--右边的写在这里-->
+            <div class="PmainRight" id="PmainRight">
+                @if (ViewBag.Status == 0)
+                {
+                    <div class="z_bindedyhk">
+                        <div class="z_binded_text">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_BINDINGOFBANK")</div>
+                        <div class="z_binded1">@CultureHelper.GetLangString("ACCOUNT_USERINFO_MYBANKCARD_HAVEBINDBANKCARD")</div>
+                        <div class="z_binded_name">@CultureHelper.GetLangString("ACCOUNT_USERINFO_MYBANKCARD_BANKNAME")</div>
+                        <div class="z_binded_name2">@Model.BankSubbranch</div>
+                        <div class="z_binded_zh">@CultureHelper.GetLangString("ACCOUNT_USERINFO_MYBANKCARD_BANKACCOUNT")</div>
+                        <div class="z_binded_zh2">@Model.BankAccount</div>
+                        <div class="z_binded_dz">@CultureHelper.GetLangString("ACCOUNT_USERINFO_MYBANKCARD_BANKADDRESS")</div>
+                        <div class="z_binded_dz2">@(Model.BankAddress.Length < 15 ? Model.BankAddress : Model.BankAddress.Substring(0, 15) + "...")</div>
+                        <div class="z_binded_zhname">@CultureHelper.GetLangString("ACCOUNT_USERINFO_MYBANKCARD_BANKUSERNAME")</div>
+                        <div class="z_binded_zhname2">@(Model.BankUserName.Length < 15 ? Model.BankUserName : Model.BankUserName.Substring(0, 15) + "...")</div>
+                        <div class="z_binded_cx"><a href="/Account/UserInfo/MyBankCard?type=1" class="z_binded_re trans">@CultureHelper.GetLangString("ACCOUNT_USERINFO_MYBANKCARD_REBIND")</a></div>
+                    </div>
+                }
+                else
+                {
+                    <div class="z_bindyhk">
+                        <div class="z_bindname">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_BINDINGOFBANK")</div>
+                        <div class="z_bind1">@CultureHelper.GetLangString("ACCOUNT_USERINFO_MYBANKCARD_BINDBANK")</div>
+                        <div class="z_bind2">@CultureHelper.GetLangString("ACCOUNT_USERINFO_MYBANKCARD_BANKNAME")</div>
+                        <div class="z_bind_input1">
+                            <input type="text" id="bankname" class="z_bind_input2" value="" />     
+                            <i id="redbankname" style="display:none"><em></em><ins>@CultureHelper.GetLangString("ACCOUNT_USERINFO_MYBANKCARD_CORRECTBANKNAME")</ins></i>            
+                        </div>
+                        <div class="z_bind3">@CultureHelper.GetLangString("ACCOUNT_USERINFO_MYBANKCARD_BANKACCOUNT")</div>
+                        <div class="z_bind_input4 z_bind_input1">
+                            <input type="text" value="" id="bankaccount" class="z_bind_input5" onkeyup="this.value=this.value.replace(/\D/g,'')" maxlength="19" />
+                            <i id="redaccount" style="display:none"><em></em><ins>@CultureHelper.GetLangString("ACCOUNT_USERINFO_MYBANKCARD_CORRECTACCOUNT")</ins></i>
+                        </div>
+                        <div class="z_bind4">@CultureHelper.GetLangString("ACCOUNT_USERINFO_MYBANKCARD_BANKADDRESS")</div>
+                        <div class="z_bind_input4 z_bind_input1">
+                            <input type="text" value="" id="bankaddress" class="z_bind_input5" maxlength="100" />
+                            <i id="redaddress" style="display:none"><em></em><ins>@CultureHelper.GetLangString("ACCOUNT_USERINFO_MYBANKCARD_SELECTACCOUNT")</ins></i>
+                        </div>
+                        <div class="z_bind5">@CultureHelper.GetLangString("ACCOUNT_USERINFO_MYBANKCARD_BANKUSERNAME")</div>
+                        <div class="z_bind_input7 z_bind_input1">
+                            <input type="text" value="" id="username" class="z_bind_input8" />
+                            <i id="redusername" style="display:none"><em></em><ins>@CultureHelper.GetLangString("ACCOUNT_USERINFO_MYBANKCARD_CORRECTUSERNAME")</ins></i>
+                        </div>
+                        <div class="z_bind_input9">
+                            <a href="javascript:void(bind())" class="z_bind_tj trans" id="submit">@CultureHelper.GetLangString("ACCOUNT_USERINFO_MYBANKCARD_IMMEDIATEBIND")</a>
+                        </div>
+                    </div>
+                }             
+            </div>
+            <!--右边结束-->
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="c_public_bottom"></div>
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        $("div.PmainLeft .yinhangka").parent().addClass("Checked");
+        $("div.PmainLeft .yinhangka").removeClass("geren").addClass("Rgeren");
+    })
+
+    $("#bankaccount").blur(function () {
+        if ($.trim($("#bankaccount").val()).length == 0) { return;}
+        if ($.trim($("#bankaccount").val()).length < 10) {
+            $("#redaccount").show();
+        }
+        else {
+            $("#redaccount").hide();
+        }
+    });
+    function bind() {
+        var allThrough = true;
+        if ($.trim($("#bankname").val()) == "") {
+            $("#redbankname").show();
+            allThrough = false;
+        }
+        if ($.trim($("#bankaccount").val()).length < 10) {
+            $("#redaccount").show();
+            allThrough = false;
+        }
+        if ($.trim($("#bankaddress").val()).length < 1) {
+            $("#redaddress").show();
+            allThrough = false;
+        }
+        if ($.trim($("#username").val()).length < 1) {
+            $("#redusername").show();
+            allThrough = false;
+        }
+        if (!allThrough) {
+            return;
+        }
+        var data;
+        if ('@ViewBag.Status' == 0) {
+            data = { "newBankName": $("#bankname").val(), "account": $("#bankaccount").val(), "address": $("#bankaddress").val(), "userAccount": $("#username").val() }
+        }
+        else {
+            data = {"newBankName": $("#bankname").val(),"account": $("#bankaccount").val(),"address": $("#bankaddress").val(),"userAccount": $("#username").val(),
+                "id":'@ViewBag.ID',"bankId":'@ViewBag.BankId'
+            }
+        }
+        $("#submit").removeAttr("href")
+       
+        $.post("/UserInfo/AddBankCard",data,
+             function (data) {
+                 if (data.rs == 1) {
+                     mallbox.alert({
+                         message: data.msg,
+                         modal: true,
+                         callback: function () {
+                             window.location.href = "/Account/UserInfo/MyBankCard";
+                             
+                         }
+                     });                    
+                 }
+                 else {
+                     mallbox.alert({ message: data.msg });
+                     $("#submit").attr("href", "javascript:void(bind())");
+                 }
+             });
+    }
+</script>
+
+

@@ -1,0 +1,466 @@
+﻿@using HKTHMall.Domain.AdminModel.Models.New;
+@using HKTHMall.Domain.AdminModel.Models.Products;
+@using HKTHMall.Core.Extensions;
+@{
+    List<NewInfoModel> newInfoModelOneList = ViewData["NewInfoOne"] as List<NewInfoModel>;
+    List<NewInfoModel> newInfoModelTwoList = ViewData["NewInfoOneTwo"] as List<NewInfoModel>;
+    List<ProductImageModel> productImageOneList = ViewData["ProductImageOne"] as List<ProductImageModel>;
+    List<ProductImageModel> productImageTwoList = ViewData["ProductImageTwo"] as List<ProductImageModel>;
+}
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $(".scroll").click(function (event) {
+            event.preventDefault();
+            $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+        });
+
+        $("#slider3").responsiveSlides({
+            manualControls: '#slider3-pager',
+        });
+
+        $("#btnSend").click(function () {
+            var name = $("#txtName").val();
+            var email = $("#txtEmail").val();
+            var subject = $("#txtSubject").val();
+            var msgContent = $("#txtMsgContent").val();
+            if (name == "Name" || name == "") {
+                alert("MsgPerson 不能为空.");
+            } else if (email == "Email" || email == "") {
+                alert("Email 不能为空.");
+            } else if (!email.match(/^\w+((-\w+)|(\.\w+))*\@@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/))
+            {
+                alert("Email 格式错误.")
+            }
+            else if (subject == "Subject" || subject == "") {
+                alert("Subject 不能为空.");
+            }
+            else if (msgContent == "Your Message here...." || msgContent == "") {
+                alert("Your Message here.... 不能为空.");
+            } else {
+                $.ajax({
+                    url: "/Home/AddMessage",
+                    type: "Post",
+                    data: {
+                        msgPerson: name,
+                        email: email,
+                        subject: subject,
+                        msgContent: msgContent,
+                        time: new Date().getTime()
+                    },
+                    dataType: "text",
+                    success: function (data, status) {
+                        data = JSON.parse(data);
+                        alert(data.Messages);
+                        if (data.IsValid) {
+                            $("#txtName").val("Name");
+                            $("#txtEmail").val("Email");
+                            $("#txtSubject").val("Subject");
+                            $("#txtMsgContent").val("Your Message here....");
+                        }
+                    },
+                    error: function (data, status, e) {
+                        alert("操作失败");
+                    }
+                });
+            }
+        })
+
+        var filterList = {
+            init: function () {
+                // MixItUp plugin
+                // http://mixitup.io
+                $('#portfoliolist').mixitup({
+                    targetSelector: '.portfolio',
+                    filterSelector: '.filter',
+                    effects: ['fade'],
+                    easing: 'snap',
+                    // call the hover effect
+                    onMixEnd: filterList.hoverEffect()
+                });
+
+            },
+            hoverEffect: function () {
+                // Simple parallax effect
+                $('#portfoliolist .portfolio').hover(
+                    function () {
+                        $(this).find('.label').stop().animate({ bottom: 0 }, 200, 'easeOutQuad');
+                        $(this).find('img').stop().animate({ top: -30 }, 500, 'easeOutQuad');
+                    },
+                    function () {
+                        $(this).find('.label').stop().animate({ bottom: -40 }, 200, 'easeInQuad');
+                        $(this).find('img').stop().animate({ top: 0 }, 300, 'easeOutQuad');
+                    }
+                );
+
+            }
+        };
+        filterList.init();
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        var pull = $('#pull');
+        menu = $('nav ul');
+        menuHeight = menu.height();
+        $(pull).on('click', function (e) {
+            e.preventDefault();
+            menu.slideToggle();
+        });
+        $(window).resize(function () {
+            var w = $(window).width();
+            if (w > 320 && menu.is(':hidden')) {
+                menu.removeAttr('style');
+            }
+        });
+    });
+</script>
+<!----start-container------>
+<!-----start-slider---->
+<div class="slider">
+    <!-- Slideshow -->
+    <ul class="rslides" id="slider3">
+        <li>
+            <img src="images/slider-img1.jpg" alt="">
+            <div class="slid-info">
+                <h1>Creative Solutions</h1>
+                <p>Good that Lesser . Starts heaven over set May Gathering , is all land Cant You're after light our darkness, thing isnet.</p>
+                <a class="slid-btn" href="#">Read More</a>
+            </div>
+        </li>
+        <li>
+            <img src="images/slider-img2.jpg" alt="">
+            <div class="slid-info">
+                <h1>Creative Blue agency</h1>
+                <p>Good that Lesser . Starts heaven over set May Gathering , is all land Cant You're after light our darkness, thing isnet.</p>
+                <a class="slid-btn" href="#">Read More</a>
+            </div>
+        </li>
+        <li>
+            <img src="images/slider-img1.jpg" alt="">
+            <div class="slid-info">
+                <h1>Creative Solutions</h1>
+                <p>Good that Lesser . Starts heaven over set May Gathering , is all land Cant You're after light our darkness, thing isnet.</p>
+                <a class="slid-btn" href="#">Read More</a>
+            </div>
+        </li>
+    </ul>
+    <!-- Slideshow -->
+    <ul id="slider3-pager">
+        <li><a href="#"><span> </span></a></li>
+        <li><a href="#"><span> </span></a></li>
+        <li><a href="#"><span> </span></a></li>
+    </ul>
+</div>
+<!-----//End-slider---->
+<!----start-about----->
+<div id="about" class="about">
+    <div class="container">
+        <h2>About</h2>
+        <p class="wellcome-note-head"><label>We are a full Services Digital Agency. </label>We Design and develop <span>Websites,</span><span>Applications,</span><span>Mobile Solutions,</span> and more</p>
+        <p class="wellcome-note-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In luctus velit quis risus eleifend bibendum. Aenean dictum felis in eros ultrices eleifend. Phasellus ultrices congue feugiat. Vestibulum sed pretium sem, sed venenatis nibh. Phasellus nec tincidunt neque. Proin accumsan sagittis lacus ut lobortis.Proin molestie cursus tortor in eleifend. Suspendisse potenti.</p>
+        <!----start-about-grids----->
+        <div class="about-grids">
+            <div class="col-md-3 about-grid">
+                <span class="about-icon"> </span>
+                <h3><a href="#"><label>Reflexion</label> idea</a></h3>
+                <p>velit est, tempus in nulla sed, convallis porttitor lacus. Curabitur sed egestas eros. Donec convallis ligula eu diam elementum, quis tempor sem tincidunt.</p>
+            </div>
+            <div class="col-md-3 about-grid">
+                <span class="about-icon1"> </span>
+                <h3><a href="#"><label>Conception</label> Design</a></h3>
+                <p>velit est, tempus in nulla sed, convallis porttitor lacus. Curabitur sed egestas eros. Donec convallis ligula eu diam elementum, quis tempor sem tincidunt.</p>
+            </div>
+            <div class="col-md-3 about-grid">
+                <span class="about-icon2"> </span>
+                <h3><a href="#"><label>Codage</label> Develop</a></h3>
+                <p>velit est, tempus in nulla sed, convallis porttitor lacus. Curabitur sed egestas eros. Donec convallis ligula eu diam elementum, quis tempor sem tincidunt.</p>
+            </div>
+            <div class="col-md-3 about-grid">
+                <span class="about-icon3"> </span>
+                <h3><a href="#"><label>Efficacite</label> Rapidite</a></h3>
+                <p>velit est, tempus in nulla sed, convallis porttitor lacus. Curabitur sed egestas eros. Donec convallis ligula eu diam elementum, quis tempor sem tincidunt.</p>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <!----//End-about-grids----->
+</div>
+<!----//End-about----->
+<!----start-services---->
+<div id="services" class="services">
+    <div class="container">
+        <h3>Services<label> </label></h3>
+        <!----start-servicves-list---->
+        <div class="services-list text-center">
+            <ul class="list-unstyled list-inline">
+                <li>
+                    <a href="#"><span class="service-icon"> </span><label>Mobile</label></a>
+                </li>
+                <li>
+                    <a href="#"><span class="service-icon1"> </span><label>Design</label></a>
+                </li>
+                <li>
+                    <a href="#"><span class="service-icon2"> </span><label>Social</label></a>
+                </li>
+                <li>
+                    <a href="#"><span class="service-icon3"> </span><label>E-commerce</label></a>
+                </li>
+                <li>
+                    <a href="#"><span class="service-icon4"> </span><label>Database</label></a>
+                </li>
+                <li>
+                    <a href="#"><span class="service-icon5"> </span><label>Communications</label></a>
+                </li>
+                <li>
+                    <a href="#"><span class="service-icon6"> </span><label>Technology</label></a>
+                </li>
+            </ul>
+        </div>
+        <!----//End-servicves-list---->
+    </div>
+</div>
+<!----//End-services---->
+<!----start-portfolio----->
+<div id="port" class="portfolio portfolio-box">
+    <div class="container">
+        <h3>Portfolio<label> </label></h3>
+        <!----start-portfolio---->
+        <div id="port" class="container portfolio-main">
+            <ul id="filters" class="clearfix">
+                <li><span class="filter active" data-filter="app card icon logo web">All</span> /</li>
+                <li><span class="filter" data-filter="web">PHOTOGRAPHY</span> /</li>
+                <li><span class="filter" data-filter="icon">VIDEO</span> /</li>
+            </ul>
+            <div id="portfoliolist">
+                @if (productImageOneList != null && productImageOneList.Count > 0)
+                {
+                    foreach (ProductImageModel imageModelOne in productImageOneList)
+                    {
+                        <div class="portfolio web mix_all" data-cat="web" style="display:none; opacity: 1;">
+                            <div class="portfolio-wrapper">
+                                <a data-toggle="modal" data-target=".bs-example-modal-md" href="#" class="b-link-stripe b-animate-go  thickbox">
+                                    <img class="p-img" src="@Html.GetImagesUrl(imageModelOne.ImageUrl)" /><div class="b-wrapper">
+                                        <h2 class="b-animate b-from-left    b-delay03 "><img src="images/link-ico.png" alt="" /></h2>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="port-info">
+                                <h4><a href="#">@imageModelOne.ProductName</a></h4>
+                            </div>
+                        </div>
+                    }
+                }
+                @if (productImageTwoList != null && productImageTwoList.Count > 0)
+                {
+                    foreach (ProductImageModel imageModelTwo in productImageTwoList)
+                    {
+                        <div class="portfolio icon mix_all" data-cat="icon" style="display: none; opacity: 1;">
+                            <div class="portfolio-wrapper">
+                                <a data-toggle="modal" data-target=".bs-example-modal-md" href="@imageModelTwo.linkUrl" class="b-link-stripe b-animate-go  thickbox">
+                                    <img class="p-img" src="@Html.GetImagesUrl(imageModelTwo.ImageUrl)" /><div class="b-wrapper">
+                                        <h2 class="b-animate b-from-left    b-delay03 "><img src="images/link-ico.png" alt="" /></h2>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="port-info">
+                                <h4><a href="@imageModelTwo.linkUrl">@imageModelTwo.ProductName</a></h4>
+                            </div>
+                        </div>
+                    }
+                }
+                <div class="clearfix"> </div>
+                <a class="more-ports text-center" href="#"><span> </span></a>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"> </div>
+</div>
+<!----//End-portfolio---->
+<!-----start-testmonials---->
+<div class="testmonials">
+    <div class="container">
+        <div class="client-pic col-md-4">
+            <img src="images/client.jpg" title="name" />
+        </div>
+        <div class="client-sys col-md-8">
+            <div class="gallery autoplay items-1">
+                <div id="item-1" class="control-operator"></div>
+                <figure class="item">
+                    <h3>WHAT CLIENTS SAY :</h3>
+                    <p class="client-says"><span class="left-quit"> &#8220;</span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla condimentum feugiat justo, quis ultrices orci. Fusce semper turpis blandit, feugiat diam vitae, lobortis sapien. In nec quam purus. Curabitur malesuada, nisi eu facilisis fringilla, lorem quam fermentum arcu, eu vestibulum orci ligula non erat. Quisque mi justo, ornare quis nunc vitae, semper consectetur augue. Integer mollis ipsum a dui tincidunt varius. Proin laoreet mattis magna <span class="right-quit"> &#8221;</span></p>
+                </figure>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<!-----//End-testmonials---->
+<!----//End-portfolio----->
+<!-----start-team----->
+<div id="team" class="team">
+    <div class="container">
+        <div class="team-members text-center">
+            <div class="col-md-4 team-member">
+                <a class="member-pic" href="#"><img src="images/t1.jpg" title="member-name" /></a>
+                <h3><a href="#">Bruce Wayne</a></h3>
+                <span>Designer</span>
+                <p>vel egestas diam dui nec mauris. Sed tincidunt felis at feugiat euismod. Praesent lacinia posuere massa. Proin quis purus in neque aliquam .</p>
+                <ul class="list-unstyled list-inline social-icons">
+                    <li><a href="#"><i class="fa fa-twitter"> </i></a></li>
+                    <li><a href="#"><i class="fa fa-facebook"> </i></a></li>
+                    <li><a href="#"><i class="fa fa-dribbble"> </i> </a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 team-member">
+                <a class="member-pic" href="#"><img src="images/t2.jpg" title="member-name" /></a>
+                <h3><a href="#">Bruce Wayne</a></h3>
+                <span>Designer</span>
+                <p>vel egestas diam dui nec mauris. Sed tincidunt felis at feugiat euismod. Praesent lacinia posuere massa. Proin quis purus in neque aliquam .</p>
+                <ul class="list-unstyled list-inline social-icons">
+                    <li><a href="#"><i class="fa fa-twitter"> </i></a></li>
+                    <li><a href="#"><i class="fa fa-facebook"> </i></a></li>
+                    <li><a href="#"><i class="fa fa-dribbble"> </i> </a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 team-member">
+                <a class="member-pic" href="#"><img src="images/t3.jpg" title="member-name" /></a>
+                <h3><a href="#">Bruce Wayne</a></h3>
+                <span>Designer</span>
+                <p>vel egestas diam dui nec mauris. Sed tincidunt felis at feugiat euismod. Praesent lacinia posuere massa. Proin quis purus in neque aliquam .</p>
+                <ul class="list-unstyled list-inline social-icons">
+                    <li><a href="#"><i class="fa fa-twitter"> </i></a></li>
+                    <li><a href="#"><i class="fa fa-facebook"> </i></a></li>
+                    <li><a href="#"><i class="fa fa-dribbble"> </i> </a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-----//End-team----->
+<!----start-blog---->
+<div id="blog" class="blog">
+    <div class="container">
+        <h3>Blog<label> </label></h3>
+        <div class="blog-grids">
+            <div class="col-md-4 blog-grid-row frist-row">
+                @if (newInfoModelOneList != null && newInfoModelOneList.Count > 0)
+                {
+                    NewInfoModel modelOne = newInfoModelOneList[0];
+                    <a class="post-pic" href="#"><img src="@Html.GetImagesUrl(modelOne.NewImage)" title="pic-name" /></a>
+                    <div class="artical-info">
+                        <div class="post-head">
+                            <div class="post-head-left">
+                                <h4><a href="#">@modelOne.NewTitle</a></h4>
+                            </div>
+                            <div class="post-head-right">
+                                <span>@(modelOne.CreateDT.ToString("dd"))</span><label>@(modelOne.CreateDT.ToString("MM")) @(modelOne.CreateDT.ToString("yyyy"))</label>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <p class="post-text">@modelOne.NewContent</p>
+                        <div class="post-bottom">
+                            <div class="post-bottom-left">
+                            </div>
+                            <div class="post-bottom-right">
+                                <a class="artbtn" href="#">Read More</a>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            @if (newInfoModelTwoList != null && newInfoModelTwoList.Count > 0)
+            {
+                foreach (NewInfoModel modelTwo in newInfoModelTwoList)
+                {
+                    <div class="col-md-4 artical-row2">
+                        <div class="artical-info">
+                            <div class="post-head post-head1">
+                                <div class="post-head-left">
+                                    <h4><a href="#">@modelTwo.NewTitle</a></h4>
+                                </div>
+                                <div class="post-head-right post-head-right-C">
+                                    <span>@(modelTwo.CreateDT.ToString("dd"))</span><label>@(modelTwo.CreateDT.ToString("MM")) @(modelTwo.CreateDT.ToString("yyyy"))</label>
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+                            <p class="post-text">@modelTwo.NewContent</p>
+                            <div class="post-bottom">
+                                <div class="post-bottom-left">
+                                </div>
+                                <div class="post-bottom-right">
+                                    <a class="artbtn artbtn1" href="#">Read More</a>
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+<!----//End-blog---->
+<!----start-contact---->
+<div id="contact" class="contact">
+    <div class="container">
+        <h3>Contact<label> </label></h3>
+        <div class="contact-grids">
+            <div class="col-md-6 contact-grid-left">
+                <form method="post" action="">
+                    <input type="text" value="Name" id="txtName" onfocus="if (this.value == 'Name') { this.value = ''; }" onblur="    if (this.value == '') { this.value = 'Name'; }">
+                    <input type="text" value="Email" id="txtEmail" onfocus="if (this.value == 'Email') { this.value = ''; }" onblur="    if (this.value == '') { this.value = 'Email'; }">
+                    <input type="text" value="Subject" id="txtSubject" onfocus="if (this.value == 'Subject') { this.value = ''; }" onblur="    if (this.value == '') { this.value = 'Subject'; }">
+                    <textarea id="txtMsgContent" onfocus="if(this.value == 'Your Message here....') this.value='';" onblur="if(this.value == '') this.value='Your Message here....'">Your Message here....</textarea>
+                    <p class="conditions"> <span>*</span>scelerisque sit amet felis sit nunc.</p>
+                    <span class="submit-btn"><input type="button" value="Send" id="btnSend"></span>
+                </form>
+            </div>
+            <!----->
+            <div class="col-md-6 contact-grid-right">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3146627.8634626623!2d-96.59883788421166!3d39.629933318909686!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1399976101005"> </iframe>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus laoreet turpis a nibh feugiat, nec viverra arcu lacinia.</p>
+                <div class="col-md-4">
+                    <h5>Phone</h5>
+                    <span>[81]123456789</span>
+                </div>
+                <div class="col-md-4">
+                    <h5>Address</h5>
+                    <span>2014 Street,</span>
+                    <span>San francisco California,</span>
+                    <span>United States,</span>
+                </div>
+                <div class="col-md-4">
+                    <h5>Email</h5>
+                    <span><a href="#">Hello@Blueagency.com</a></span>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <!-----start-contact-social---->
+        <ul class="list-unstyled list-inline contact-social">
+            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fa fa-skype"></i></a></li>
+        </ul>
+        <!-----//End-contact-social---->
+    </div>
+</div>
+<!----//End-contact---->
+<!----start-copy-right--->
+<div class="copy-right">
+    <div class="container">
+        <p>Copyright &copy; 2014.Company name All rights reserved.</p>
+        <a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+    </div>
+</div>
+<!----//End-copy-right--->
+<!----//End-container------>
+<div style="display:none">
+    <script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script>
+</div>

@@ -1,0 +1,115 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+
+<!--left-->
+<div class="ls_member_lf">
+    <div class="ls_member_lf_top"><h1>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_MYACCOUNT")@*会员中心*@</h1></div>
+    <div class="ls_member_lf_nav js-usermenu">
+        <dl>
+            <dt class="ls_user_on"><i></i>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_MYACCOUNT")@*我的账户*@</dt>
+            <dd>
+                <a id="js-huika" href="~/Account/My/Index" title="">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_HUIKA")@*我的惠卡*@</a>
+            </dd>
+            <dd>
+                <a id="js-order" href="~/Account/My/Order">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_MYORDER")@*我的订单*@</a>
+            </dd>
+            <dd>
+                <a id="js-collection" href="~/Account/My/Collection" title="">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_MYCOLLECTION")@*我的收藏*@</a>
+            </dd>
+            <dd>
+                <a id="js-review" href="~/Account/My/Review" title=" ">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_MYEVALUATION")@*我的评价*@</a>
+            </dd>
+            <dd>
+                <a id="js-balance" href="@Url.Action("Balance", "My", new { area = "Account" })" title=" ">@CultureHelper.GetLangString("ORDER_MONEY_MYHUISHANGQIAN")@*我的惠赏钱*@</a>
+            </dd>
+            <dd>
+                <a id="js-rebate" href="~/Account/My/Rebate" title=" ">@CultureHelper.GetLangString("ACCOUNT_MY_REBATE_TITLE")@*我的回赠*@</a>
+            </dd>
+        </dl>
+        <dl>
+            <dt><i></i>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_ACCOUNTSETTINGS")@*账户设置*@</dt>
+            <dd>
+                <a id="js-uinfo" href="~/Account/UserInfo/Index" title="">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_PERSONALINFORMATION")@*个人信息*@</a>
+            </dd>
+            <dd>
+                <a id="js-address" href="~/Account/UserInfo/Address" title="">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_SHIPPINGADDRESS")@*收货地址*@</a>
+            </dd>
+            <dd>
+                <a id="js-anquan" href="~/Account/UserInfo/Safe" title="">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_ACCOUNTSECURITY")@*账户安全*@</a>
+            </dd>
+        </dl>
+        <dl>
+            <dt><i></i>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_REFUNDRIGHTS")@*退款维权*@</dt>
+            <dd>
+                <a id="js-rights" href="~/Account/Rights/Index" title="">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_REFUNDMANAGEMENT")@*退款管理*@</a>
+            </dd>
+            <dd>
+                <a id="js-complain" href="~/Account/Rights/Complain" title="">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_MYCOMPLAINT")@*我的投诉*@</a>
+            </dd>
+        </dl>
+
+    </div>
+</div>
+<script>
+    function menuLoad() {
+        debugger;
+        var url = "@ViewContext.RouteData.Values["controller"]" + "-" + "@ViewContext.RouteData.Values["action"]";
+        
+        var node = 'huika';
+        //alert(url);
+        switch (url) {
+            case "My-Index": node = 'huika'; break;
+            case "My-Order":
+            case "my-order":
+            case "My-OrderComplaints":
+            case "my-orderdetail":
+            case "my-tradeComment":
+                node = 'order'; break;
+            case "My-Collection": node = 'collection'; break;
+            case "My-Review": node = 'review'; break;
+            case "My-Balance": node = 'balance'; break;
+            case "My-Rebate": node = 'rebate'; break;
+            case "UserInfo-Index": node = 'uinfo'; break;
+            case "UserInfo-Address": node = 'address'; break;
+            case "UserInfo-Safe": node = 'anquan'; break;
+            case "UserInfo-UpdatePass": node = 'anquan'; break;
+            case "UserInfo-UpdatePayPassword": node = "anquan"; break;
+            case "UserInfo-SetPayPassword": node = "anquan"; break;
+            case "Rights-Index":
+            case "my-applyrefund":
+                node = 'rights'; break;
+            case "Rights-Complain":
+                node = 'complain'; break;
+            default: node = 'huika'; break;
+        }
+        $('.js-usermenu>dl>dd').removeClass('ls_user_on');
+        $('.js-usermenu>dl>dt').removeClass('ls_user_on');
+        $('.js-usermenu #js-' + node).parent().addClass('ls_user_on');
+        $('.js-usermenu #js-' + node).parent().siblings("dt").eq(0).addClass('ls_user_on');
+    }
+    $(function () {
+        
+    
+    menuLoad();
+    });
+</script>
+@*<div class="PmainLeft" id="PmainLeft">
+    <div class="z_PmainTitle">
+        <span class="nolink">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_MYACCOUNT")</span>
+        <a href="~/Account/My/Index"><i class="niutou dib v-2 trans"></i>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_HUIKA")</a>
+        <a href="~/order/list.html"><i class="dingdan dib v-2 trans"></i>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_MYORDER")</a>
+        <a href="/trade/comments.html"><i class="pingjia dib v-2 trans"></i>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_MYEVALUATION")</a>
+        <a href="~/Account/My/Collection"><i class="shoucang dib v-2 trans"></i>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_MYCOLLECTION")</a>
+        <a href="~/Account/My/Wealth"><i class="caifu dib v-2 trans"></i>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_MYWEALTH")</a>
+    </div>
+    <div class="z_PmainTitle">
+        <span class="nolink">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_ACCOUNTSETTINGS")</span>
+        <a href="~/Account/UserInfo/Index"><i class="geren dib v-2 trans"></i>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_PERSONALINFORMATION")</a>
+        <a href="~/Account/UserInfo/Address"><i class="dizhi dib v-2 trans"></i>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_SHIPPINGADDRESS")</a>
+        <a href="~/Account/UserInfo/Safe"><i class="anquan dib v-2 trans"></i>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_ACCOUNTSECURITY")</a>
+    </div>
+    <div class="z_PmainTitle">
+
+        <span class="nolink">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_REFUNDRIGHTS")</span>
+        <a href="~/Account/Rights/Index"><i class="tuikuan dib v-2 trans"></i>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_REFUNDMANAGEMENT")</a>
+        <a href="~/Account/Rights/Complain"><i class="tousu dib v-2 trans"></i>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_MYCOMPLAINT")</a>
+    </div></div>*@

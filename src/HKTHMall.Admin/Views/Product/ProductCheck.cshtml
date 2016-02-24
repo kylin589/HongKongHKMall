@@ -1,0 +1,19 @@
+﻿@using System.Web.Mvc.Html
+@using BrCms.Framework.Mvc.Extensions
+@using HKTHMall.Admin.common
+@using HKTHMall.Domain.Enum
+@model HKTHMall.Domain.AdminModel.Models.Products.AddProductModel
+
+<form action="@Url.Action("ProductCheck")" id="check_form" method="POST">
+    @Html.HiddenFor(m => m.ProductId)
+    <div class="row">
+        <div class="col-md-3">Product name:</div>
+        <div class="col-md-8">@Model.Product_LangModels.SingleOrDefault(m => m.LanguageID == ACultureHelper.GetLanguageID).ProductName</div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">Review status:</div>
+        <div class="col-md-4">
+            @Html.DropDownList("ProductStatus", ProductStatus.Submitting.ToSelectList(selected: (int)Model.Status), new Dictionary<string, object>() { { "class", "form-control" } })
+        </div>
+    </div>
+</form>

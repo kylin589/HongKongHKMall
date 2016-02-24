@@ -1,0 +1,27 @@
+﻿.Shangj-Che{width:473px;height:auto;overflow:hidden;border:1px solid #ccc;padding:10px;position:fixed;left:40%;top:20%; border-radius:4px;background: none repeat scroll 0 0 rgba(173, 173, 173, 0.6);background-color:#ccc;}
+.Shangj-cmain{background:#fff;height:auto;overflow:hidden;}
+.Shangj-tit{background:#e12228;height:38px;line-height:38px; border-radius:4px 4px 0px 0px;}
+.Shangj-tit h2{color:#fff;font-size:16px !important; font-weight:bold; margin-left:10px;}
+.Shangj-tit .close{background:url(../images/pro_list.png) no-repeat -65px -157px !important;height:14px;width:14px;display:inline-block; vertical-align:middle;margin-top:12px !important;margin-right:10px !important; position:static !important;}
+.Shangj-re{padding:10px;}
+.Shangj-re h2{font-size:13px;padding:10px 0px 0px 20px;}
+.Shangj-ta {margin-top:10px;margin-bottom:5px;}
+.Shangj-ta tr th{ text-align:right;line-heigth:55px;color:#595959;}
+.Shangj-ta tr td{line-heigth:55px;}
+
+.add-delte{padding:20px 65px;*padding:20px 40px; height:32px; text-align:center; overflow:hidden;zoom:1;}
+.add-delte input.graybutton{ margin-top:0px;}
+.redbutton{ padding:0 15px; display:inline-block; height:28px; line-height:28px; background:#e12228; color:#fff !important; text-decoration:none !important;  
+border-radius:3px; font-size:14px; font-weight:bold; white-space:nowrap;}
+.redbutton:hover{ background:#c40000;}
+.greenbutton{ padding:0 15px; display:inline-block; height:28px; line-height:28px; background:#53b449; color:#fff !important; text-decoration:none !important; 
+border-radius:3px; font-size:14px; font-weight:bold; white-space:nowrap;}
+.greenbutton:hover{ background:#3b9a32;}
+.graybutton,.whitebutton{ padding:0 14px; display:inline-block; height:26px; line-height:26px; border:1px solid #d3caca; background:#f2f2f2; color:#666 !important; text-decoration:none !important; border-radius:3px; font-size:14px; font-weight:bold; white-space:nowrap;}
+.whitebutton:hover,.graybutton:hover{ border:1px solid #e12228; color:#e12228 !important; }
+.input-bd {border:0px;line-height:32px;height:32px; cursor:pointer;}
+.cursor{ cursor:pointer;}
+.redbutton-bk{border:1px solid #f17c91;color:#e72144 !important;padding:0px 20px;height:32px;line-height:29px;display:block;}
+.redbutton-bk:hover{background:#e12228;color:#fff !important;}
+.graybutton2{ background:#ccc;}
+.graybutton2:hover{ background:#b3b3b3;}

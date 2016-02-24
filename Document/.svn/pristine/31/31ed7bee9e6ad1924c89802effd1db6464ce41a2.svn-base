@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="Keywords" content="">
+		<title>香港商城</title>
+		<link rel="stylesheet" type="text/css" href="newcss/css/css.css" />
+        <link rel="stylesheet" type="text/css" href="newcss/css/base.css" />
+		<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="newcss/js/dsdialog.js"></script>
+        <style>
+            .loginButton{
+                width: 300px;
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+                margin: 0 auto;
+                background: #4e4e4e;
+                color: #fff;
+                font-size: 16px;
+                cursor: pointer;
+            }
+            .loginButton:active{
+                background: #ed1c24;
+            }
+        </style>
+	</head>
+
+<body>
+<div class="header">
+	<div class="clear" style="background: #ccc; height: 175px;"></div>
+</div><!--公共头部-->
+
+<div class="dialogCover">
+    <div class="dialogMain">
+        <div class="consultDialog">
+            <ul>
+                <li>
+                    <span>分类：</span>
+                    <select name="" id="">
+                        <option value="">产品咨询</option>
+                        <option value="">产品咨询1</option>
+                        <option value="">产品咨询2</option>
+                        <option value="">产品咨询3</option>
+                        <option value="">产品咨询4</option>
+                        <option value="">产品咨询5</option>
+                    </select>
+                </li>
+                <li>
+                    <span>内容：</span>
+                    <dl>
+                        <dt><textarea name="" id="" placeholder=""></textarea></dt>
+                        <dd>您还可以输入<b>150</b>个字</dd>
+                    </dl>
+                </li>
+                <li>
+                    <span>验证码：</span>
+                    <dl class="yzmConsult">
+                        <dt><label><input type="text" class="test123" value=""></label></dt>
+                        <dd><img src="" alt="" width="102" height="25"></dd>
+                        <dd><a href="###">看不清楚?换一张!</a></dd>
+                    </dl>
+                </li>
+                <li><input type="submit" value="提交" class="dialogSubmit"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="loginButton">这就是咨询窗口的弹窗！</div>
+
+<div class="footer"></div><!--公共底部-->
+
+
+<script>
+    $(function () {
+        var _html = $(".dialogMain");
+    $(".loginButton").click(function(){
+        ds.dialog({
+            title:'向惠卡咨询',
+            content:_html,
+            tijiao:function(){
+                console.log($('.test123').val());/*ajax事件在这里*/
+            }
+        });
+    });
+});
+</script>
+</body>
+
+</html>

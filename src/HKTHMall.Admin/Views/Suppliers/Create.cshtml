@@ -1,0 +1,201 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.Products.SuppliersModel
+@{
+    List<HKTHMall.Domain.Models.THArea_lang> thArea_langList = ViewBag.thArea as List<HKTHMall.Domain.Models.THArea_lang>;
+    List<HKTHMall.Domain.Models.THArea_lang> shiArea_langList = ViewBag.shiArea as List<HKTHMall.Domain.Models.THArea_lang>;
+    //List<HKTHMall.Domain.Models.THArea_lang> xianArea_langList = ViewBag.xianArea as List<HKTHMall.Domain.Models.THArea_lang>;
+    var xianArea_langList = ViewBag.xianArea as List<SelectListItem>;
+}
+<script>
+    function SelectChange(parentID, name) {
+        var html = "<option value='0'>--Select--</option>";
+
+
+        $.ajax({
+            url: "/Suppliers/GetTHAreaSelect",
+            async: false,
+            data: {
+                parentID: parentID,
+                time: new Date().getTime()
+            },
+            dataType: "text",
+            success: function (data, status) {
+                data = JSON.parse(data);
+                $.each(data, function (i, item) {
+                    html += "<option value='" + item["THAreaID"] + "'>" + item["AreaName"] + "</option>";
+                });
+                $("#" + name).html(html);
+
+                if (name == "selectArea1") {
+                    $("#THAreaID").html("<option value='0'>--Select--</option>");
+                }
+                if (name == "selectArea1" && parentID == 0) {
+                    $("#THAreaID").html("<option value='0'>--Select--</option>");
+                    $("#selectArea1").html("<option value='0'>--Select--</option>");
+                }
+                if (name == "THAreaID" && parentID == 0) {
+                    $("#THAreaID").html("<option value='0'>--Select--</option>");
+
+                }
+            }
+        });
+    }
+
+</script>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Mobile :
+    </label>
+    <div class="controls">
+        @if (Model.SupplierId > 0)
+        {
+            @Html.HiddenFor(t => t.Mobile)
+            <input type="text" class="form-control" placeholder="@Model.Mobile" disabled="" />
+        }
+        else
+        {
+            @Html.TextBoxFor(t => t.Mobile, new { @class = "form-control", @placeholder = "Please enter Mobile number", @maxlength = "15" })
+            @Html.ValidationMessageFor(m => m.Mobile)
+        }
+
+    </div>
+</div>
+@if (Model.SupplierId <= 0)
+{
+    <div class="control-group">
+        <label class="control-label-form">
+            <label class="red">*</label>Password :
+        </label>
+        <div class="controls">
+            @Html.HiddenFor(t => t.OldPassWord)
+
+            @*@Html.TextBoxFor(t => t.PassWord, new { @class = "form-control", @placeholder = "Please enter a Password", @maxlength = "16", type = "password", @onKeyDown = "if(event.keyCode==13) return false;", @autocomplete = "off" })*@
+            @Html.TextBoxFor(t => t.PassWord, new { @class = "form-control", @placeholder = "Please enter a Password", @maxlength = "16", type = "password"})
+            @Html.ValidationMessageFor(m => m.PassWord)
+            @*<br />
+            <label class="red">*Password format: 8-16 two or more arbitrary character combinations</label>*@
+            @*密码格式：长度8~16,包含数字、字母和特殊符号*@
+        </div>
+    </div>
+}
+
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>SupplierName :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.SupplierId)
+        @Html.HiddenFor(t => t.ShiTHAreaID)
+        @Html.HiddenFor(t => t.PassWord)
+
+        @Html.TextBoxFor(t => t.SupplierName, new { @class = "form-control", @placeholder = "Please enter a SupplierName name", @maxlength = "200", @onKeyDown = "if(event.keyCode==13) return false;", @autocomplete = "off" })
+        @Html.ValidationMessageFor(m => m.SupplierName)
+    </div>
+</div>
+
+
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label> Area:
+    </label>
+    <div class="controls">
+        <select id="selectArea" class="form-control" onchange="SelectChange(this.value, 'selectArea1')">
+            <option value="0">--Select--</option>
+            @if (thArea_langList != null)
+            {
+                foreach (HKTHMall.Domain.Models.THArea_lang lang in thArea_langList)
+                {
+                    if (Model.ShengTHAreaID != null && Model.ShengTHAreaID == lang.THAreaID)
+                    {
+                        <option value="@lang.THAreaID" selected="selected">@lang.AreaName</option>
+                    }
+                    else
+                    {
+                        <option value="@lang.THAreaID">@lang.AreaName</option>
+                    }
+
+                }
+            }
+        </select>
+        <select id="selectArea1" class="form-control" onchange="SelectChange(this.value, 'THAreaID')">
+            <option value="0">--Select--</option>
+            @if (shiArea_langList != null)
+            {
+                foreach (HKTHMall.Domain.Models.THArea_lang lang in shiArea_langList)
+                {
+                    if (Model.ShiTHAreaID != null && Model.ShiTHAreaID == lang.THAreaID)
+                    {
+                        <option value="@lang.THAreaID" selected="selected">@lang.AreaName</option>
+                    }
+                    else
+                    {
+                        <option value="@lang.THAreaID">@lang.AreaName</option>
+                    }
+
+                }
+            }
+        </select>
+        @Html.DropDownList("THAreaID", xianArea_langList, new { @class = "form-control", @Enlened = "false" })
+        @Html.ValidationMessageFor(m => m.THAreaID)
+        @*<select id="selectTHAreaID" class="form-control">
+                <option value="0">--Select--</option>
+                @if (xianArea_langList != null)
+                {
+                    foreach (HKTHMall.Domain.Models.THArea_lang lang in xianArea_langList)
+                    {
+                        if (Model.THAreaID != null && Model.THAreaID == lang.THAreaID)
+                        {
+                            <option value="@lang.THAreaID" selected="selected">@lang.AreaName</option>
+                        }
+                        else
+                        {
+                            <option value="@lang.THAreaID">@lang.AreaName</option>
+                        }
+
+                    }
+                }
+            </select>
+            <div style="display:none">@Html.TextBoxFor(t => t.THAreaID, new { @class = "form-control" })</div>*@
+
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Address :
+    </label>
+    <div class="controls">
+        @*<input id="Address" name="Address" type="text" value="@(Model.Address)" class="form-control" placeholder="Please enter a Address name" maxlength="500" />*@
+        @Html.TextAreaFor(t => t.Address, new { @class = "form-control", @placeholder = "Please enter Remark", @maxlength = "480", @width = " 206px !important;", @cols = "24" })
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>LinkMan :
+    </label>
+    <div class="controls">
+        <input id="LinkMan" name="LinkMan" type="text" value="@(Model.LinkMan)" class="form-control" placeholder="Please enter a LinkMan name" maxlength="200" />
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Telephone :
+    </label>
+    <div class="controls">
+        @*<input id="Telephone" name="Telephone" type="text" value="@(Model.Telephone)" class="form-control" placeholder="" maxlength="9" />*@
+        @Html.TextBoxFor(t => t.Telephone, new { @class = "form-control", @placeholder = "Please enter  Telephone number", @maxlength = "9" })
+        @Html.ValidationMessageFor(m => m.Telephone)
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Remark :
+    </label>
+    <div class="controls">
+
+        @Html.TextAreaFor(t => t.Remark, new { @class = "form-control", @placeholder = "Please enter Remark", @maxlength = "480", @cols = "24" })
+
+    </div>
+</div>
+
+
+

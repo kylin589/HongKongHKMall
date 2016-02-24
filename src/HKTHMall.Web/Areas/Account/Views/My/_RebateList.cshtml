@@ -1,0 +1,103 @@
+﻿@using HKTHMall.Core.Extensions
+@using HKTHMall.Services.Common.MultiLangKeys
+<tr>
+    <td scope="col" width="170">@CultureHelper.GetLangString("ACCOUNT_MY_REBATE_PROINFO")</td>
+    <td scope="col" width="100">@CultureHelper.GetLangString("PRODUCT_FANXIANJINER")@*回赠金额*@</td>
+    <td scope="col" width="180">@CultureHelper.GetLangString("ACCOUNT_MY_REBATE_EVERYTIMEAMOUNT") @*每天回赠*@</td>
+    <td scope="col" width="100">@CultureHelper.GetLangString("HOME_LIST_FENLEIFANXIANSHIJIAN")@*回赠时间*@</td>
+</tr>
+@foreach (var item in ViewBag.List)
+{
+    string[] NameArry = ((string)item.AttributeName).Split(',');
+    string[] ValueArray = ((string)item.SkuName).Split(',');
+    <tr>
+        <td width="170">
+            <div class="ls_huizeng_pro">
+                <a href="@Url.Action("Shopping", "Home", new { area = "", id = item.ProductID })"><img src="@Html.GetImagesUrl((string)item.PicUrl)" alt="" width="88" height="88"></a>
+                <ul>
+                    <li>
+                        <a href="@Url.Action("Shopping", "Home", new { area = "", id = item.ProductID })" class="contentName_2016">
+                            @item.ProductName
+                        </a>
+                    </li>
+                    <li><span>@CultureHelper.GetLangString("ORDER_LIST_PRICE"):<b>$@Math.Round((decimal)item.SalesPrice, 2)</b></span><h3>X @item.Quantity</h3></li>
+
+                    <li>
+                        @for (int i = 0; i < NameArry.Length; i++)
+                        {
+                            <span>@NameArry[i]:<b>@(ValueArray.Length>i?ValueArray[i]:"")</b></span>
+                            @*<span>颜色分类:<b>1231111</b></span>*@
+                        }
+                    </li>
+                </ul>
+
+            </div>
+        </td>
+        <td width="100">$@Math.Round((decimal)item.TotalMoney, 2)</td>
+        <td width="180">$@Math.Round((decimal)item.TotalMoney / (decimal)item.TotalDay, 2)</td>
+        <td width="170">@item.StartTime.ToString("dd/MM/yyyy") @CultureHelper.GetLangString("ORDER_LIST_TO") @item.StartTime.AddDays(item.TotalDay).ToString("dd/MM/yyyy")</td>
+    </tr>
+}
+@*<tr>
+        <td width="170">
+            <div class="ls_huizeng_pro">
+                <a href="###"><img src="" alt="" width="88" height="88"></a>
+                <ul>
+                    <li>
+                        <a href="###" class="contentName_2016">
+                            进口音箱 水仙家居桌面盆栽水培植物
+                            水 植物 洋仙人球 小球 喇叭
+                        </a>
+                    </li>
+                    <li><span>单价:<b>$350</b></span><h3>X6</h3></li>
+                    <li><span>颜色分类:<b>1231111</b></span><span>颜色分类:<b>1231111</b></span></li>
+                </ul>
+
+            </div>
+        </td>
+        <td width="100">$8888.88 </td>
+        <td width="180">$8.97</td>
+        <td width="170">02/12/2015至02/12/2016</td>
+    </tr>
+    <tr>
+        <td width="170">
+            <div class="ls_huizeng_pro">
+                <a href="###"><img src="" alt="" width="88" height="88"></a>
+                <ul>
+                    <li>
+                        <a href="###" class="contentName_2016">
+                            进口音箱 水仙家居桌面盆栽水培植物
+                            水 植物 洋仙人球 小球 喇叭
+                        </a>
+                    </li>
+                    <li><span>单价:<b>$350</b></span><h3>X6</h3></li>
+                    <li><span>颜色分类:<b>1231111</b></span><span>颜色分类:<b>1231111</b></span></li>
+                </ul>
+
+            </div>
+        </td>
+        <td width="100">$8888.88 </td>
+        <td width="180">$8.97</td>
+        <td width="170">02/12/2015至02/12/2016</td>
+    </tr>
+    <tr>
+        <td width="170">
+            <div class="ls_huizeng_pro">
+                <a href="###"><img src="" alt="" width="88" height="88"></a>
+                <ul>
+                    <li>
+                        <a href="###" class="contentName_2016">
+                            进口音箱 水仙家居桌面盆栽水培植物
+                            水 植物 洋仙人球 小球 喇叭
+                        </a>
+                    </li>
+                    <li><span>单价:<b>$350</b></span><h3>X6</h3></li>
+                    <li><span>颜色分类:<b>1231111</b></span><span>颜色分类:<b>1231111</b></span></li>
+                </ul>
+
+            </div>
+        </td>
+        <td width="100">$8888.88 </td>
+        <td width="180">$8.97</td>
+        <td width="170">02/12/2015至02/12/2016</td>
+    </tr>*@

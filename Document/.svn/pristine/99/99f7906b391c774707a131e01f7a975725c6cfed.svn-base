@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="Keywords" content="">
+		<title>帮助中心</title>
+		<link rel="stylesheet" type="text/css" href="newcss/css/css.css" />
+		<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+	</head>
+
+<body>
+<div class="header">
+	<div class="clear" style="background: #ccc; height: 175px;"></div>
+</div><!--公共头部-->
+
+
+<div class="main_a">
+	
+	<div class="main_about">
+		<div class="ls_help">
+			
+			<!--left-->
+			<div class="ls_help_lf" style="background: #ccc; height: 800px;"></div>
+			
+			<!--right-->
+			<div class="ls_help_rg">
+				<div class="ls_help_rg_tit">
+					<div class="title1">
+						惠卡承诺
+					</div>
+					<div class="title2">
+						
+					</div>
+				</div>
+				<div class="ls_help_rg_nr">
+					<div class="help_bt">正品保障</div>
+					<div class="help_nr">
+						<p>100%正品</p>
+						<p>100%放心购买</p>
+					</div>
+					<div class="help_bt">安全支付</div>
+					<div class="help_nr">
+						<p>担保交易,确保支付</p>
+						<p>双方资金安全</p>
+					</div>
+					<div class="help_bt">7天内退换货</div>
+					<div class="help_nr">
+						<p>确认收货后的7天内可以安排退换货</p>
+						<p>无忧购物</p>
+					</div>
+					<div class="help_bt">全额返回</div>
+					<div class="help_nr">
+						<p>创新消费模式，消费金额全数返回</p>
+						<p>(优惠条款及细则约束，请参阅条款及细则)</p>
+					</div>
+					
+					
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+
+</div><!--主体部分-->
+
+
+
+<div class="footer"></div><!--公共底部-->
+
+
+
+</body>
+
+</html>

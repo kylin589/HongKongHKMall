@@ -1,0 +1,84 @@
+﻿@using HKTHMall.Domain.Models.AC;
+@model AC_RoleModel
+
+<div>
+    <div class="control-group">
+        <label class="control-label-form">
+            <label class="red">*</label>Role name :
+        </label>
+        <div class="controls">
+            @Html.HiddenFor(t => t.RoleID)
+            @Html.TextBoxFor(t => t.RoleName, new { @class = "form-control", @placeholder = "Please enter a name", @maxlength = "50" })
+            @Html.ValidationMessageFor(m => m.RoleName)
+        </div>
+    </div>
+    <table class="table table-border table-bordered table-bg" id="roleManger">
+        <tbody>
+            <tr>
+                <td colspan="2">
+                    <h2 class="panel-title">
+                        <label class="item"><input name="allCheckbox" id="allCheckbox" type="checkbox">select all</label>
+                    </h2>
+                    @Html.ValidationMessageFor(m => m.RoleModuleValue)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" id="role">
+                    @{List<AC_ModuleModel> moduleList = ViewBag.moduleList as List<AC_ModuleModel>;
+                    var oneModeleList = moduleList.Where(p => p.ParentID == 0).OrderBy(p => p.Place).ToList();
+                    List<AC_FunctionModel> funList = ViewBag.funList as List<AC_FunctionModel>;
+                    }
+                    @if (oneModeleList.Count > 0)
+                    {
+                        foreach (var oneItem in oneModeleList)
+                        {
+                            var twoModeleList = moduleList.Where(p => p.ParentID == oneItem.ModuleID).OrderBy(p => p.Place).ToList();
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <label class="item"><input type="checkbox" name="moduleCheck" data-id="@oneItem.ModuleID" value="@oneItem.ModuleID">@oneItem.ModuleName</label>
+                                    </h3>
+                                </div>
+                                <div class="panel-body" id="@oneItem.ModuleID">
+                                    <table class="table table-border table-bordered table-bg">
+                                        @foreach (var twoItem in twoModeleList)
+                                        {
+                                            var tempFunList = funList.Where(p => p.ModuleID == twoItem.ModuleID).ToList();
+                                            <tr>
+                                                <th width="150" class="h4Title"><label class="item"><input type="checkbox" value="@twoItem.ModuleID" name="moduleCheck" data-fid="@twoItem.ParentID">@twoItem.ModuleName</label></th>
+                                                <td id="@twoItem.ModuleID">
+
+                                                    <div class="cl treeDivList">
+                                                        @foreach (var Item in tempFunList)
+                                                        {
+                                                            <label class="item"><input type="checkbox" value="@Item.FunctionID" name="funCheck" data-fid="@Item.ModuleID">@Item.FunctionName</label>
+                                                        }
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </div>
+                            </div>
+                        }
+                    }
+
+
+                </td>
+            </tr>
+            <tr>
+                <th class="text-r va-t">State:</th>
+                <td>
+                    @Html.TextAreaFor(t => t.RoleDescription, new { @class = "form-control", @placeholder = "Description The following roles", @maxlength = "100" })
+                </td>
+            </tr>
+            <tr><td>@Html.HiddenFor(t => t.RoleModuleValue)</td><td>@Html.HiddenFor(t => t.RoleFuctionValue)</td></tr>
+            @*<tr>
+                    <th></th>
+                    <td>
+                        <button type="submit" class="btn btn-success radius" id="admin-role-save" name="admin-role-save"><i class="icon-ok"></i> 确定</button>
+                    </td>
+                </tr>*@
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,17 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.Categoreis.FloorCategoryModel
+@{
+    var dCategoryIds = ViewData["DCategoryIds"] as List<SelectListItem>;
+}
+
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Category :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.FloorCategoryId)
+        <input type="hidden" id="DCategoryId" name="DCategoryId" value="0" />
+        <input type="hidden" id="CategoryIdSecond" name="CategoryIdSecond" value="0" />
+        @Html.DropDownList("CategoryId", dCategoryIds, "--Select--", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.DCategoryId)
+    </div>
+</div>

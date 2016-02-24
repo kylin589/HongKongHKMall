@@ -1,0 +1,1150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4EA27DC4-2015-46E9-8751-F30748DF95B2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HKTHMall.Domain</RootNamespace>
+    <AssemblyName>HKTHMall.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>C:\Users\fengm\AppData\Local\Temp\vs582B.tmp\Debug\</IntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>C:\Users\fengm\AppData\Local\Temp\vs582B.tmp\Release\</IntermediateOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation">
+      <HintPath>..\..\Libraries\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdminModel\Mappers\AC\AC_DepartmentMapper.cs" />
+    <Compile Include="AdminModel\Mappers\AC\AC_FunctionMapper.cs" />
+    <Compile Include="AdminModel\Mappers\AC_OperateLogMapper.cs" />
+    <Compile Include="AdminModel\Mappers\AC_UserMapper.cs" />
+    <Compile Include="AdminModel\Mappers\APP\APP_VersionInfoMapper.cs" />
+    <Compile Include="AdminModel\Mappers\banners\bannerMapper.cs" />
+    <Compile Include="AdminModel\Mappers\banners\bannerProductMapper.cs" />
+    <Compile Include="AdminModel\Mappers\banners\FloorConfigMapper.cs" />
+    <Compile Include="AdminModel\Mappers\Bra\BrandMapper.cs" />
+    <Compile Include="AdminModel\Mappers\Bra\Brand_LangMapper.cs" />
+    <Compile Include="AdminModel\Mappers\CategoryMapper.cs" />
+    <Compile Include="AdminModel\Mappers\CategoryMapper\FloorCategoryMapper.cs" />
+    <Compile Include="AdminModel\Mappers\Converters\DateTimeTypeConverter.cs" />
+    <Compile Include="AdminModel\Mappers\Converters\SP_ProductCommentMappers.cs" />
+    <Compile Include="AdminModel\Mappers\Converters\TypeTypeConverter.cs" />
+    <Compile Include="AdminModel\Mappers\Keywork\FloorKeywordMapper.cs" />
+    <Compile Include="AdminModel\Mappers\MapperInitialize.cs" />
+    <Compile Include="AdminModel\Mappers\New\NewInfoMapper.cs" />
+    <Compile Include="AdminModel\Mappers\Orders\ComplaintsMapper.cs" />
+    <Compile Include="AdminModel\Mappers\Products\ProductRuleMapper.cs" />
+    <Compile Include="AdminModel\Mappers\Products\SalesProductMapper.cs" />
+    <Compile Include="AdminModel\Mappers\Products\SalesRuleMapper.cs" />
+    <Compile Include="AdminModel\Mappers\SKU\SKU_AttributesMapper.cs" />
+    <Compile Include="AdminModel\Mappers\SKU\SKU_AttributeValuesMapper.cs" />
+    <Compile Include="AdminModel\Mappers\SKU\SKU_SKUItemsMapper.cs" />
+    <Compile Include="AdminModel\Mappers\Sys\AC_RoleMapper.cs" />
+    <Compile Include="AdminModel\Mappers\Sys\ParameterSetMapper.cs" />
+    <Compile Include="AdminModel\Mappers\UserLoginLogMapper.cs" />
+    <Compile Include="AdminModel\Mappers\User\YH_UserBankAccountMapper.cs" />
+    <Compile Include="AdminModel\Mappers\User\ZJ_AmountChangeTypeMapper.cs" />
+    <Compile Include="AdminModel\Mappers\User\ZJ_RechargeOrderMapper.cs" />
+    <Compile Include="AdminModel\Mappers\User\ZJ_UserBalanceChangeLogMapper.cs" />
+    <Compile Include="AdminModel\Mappers\User\ZJ_UserBalanceMapper.cs" />
+    <Compile Include="AdminModel\Mappers\YH_UserLoginLogMapper.cs" />
+    <Compile Include="AdminModel\Models\AC\ExceptionLogModel.cs" />
+    <Compile Include="AdminModel\Models\AC\SearchExceptionLogModel.cs" />
+    <Compile Include="AdminModel\Models\AC\THArea_langModel.cs" />
+    <Compile Include="AdminModel\Models\APP\APP_VersionInfoModel.cs" />
+    <Compile Include="AdminModel\Models\APP\SearchAPP_VersionInfoModel.cs" />
+    <Compile Include="AdminModel\Models\banner\bannerMidModel.cs" />
+    <Compile Include="AdminModel\Models\banner\FloorConfigModel.cs" />
+    <Compile Include="AdminModel\Models\banner\SearchFloorConfigModel.cs" />
+    <Compile Include="AdminModel\Models\Categoreis\Brand_CategoryModel.cs" />
+    <Compile Include="AdminModel\Models\Categoreis\FloorCategoryModel.cs" />
+    <Compile Include="AdminModel\Models\Categoreis\SearchCategoryModel.cs" />
+    <Compile Include="AdminModel\Models\Categoreis\SearchFloorCategoryModel.cs" />
+    <Compile Include="AdminModel\Models\Keywork\FloorKeywordModel.cs" />
+    <Compile Include="AdminModel\Models\Keywork\SearchFloorKeywordModel.cs" />
+    <Compile Include="AdminModel\Models\Localization\MultiLanguageModel.cs" />
+    <Compile Include="AdminModel\Models\Merchant\AddMerchantModel.cs" />
+    <Compile Include="AdminModel\Models\Merchant\MerchantModel.cs" />
+    <Compile Include="AdminModel\Models\Merchant\SearchMerchantModel.cs" />
+    <Compile Include="AdminModel\Models\Merchant\UpdateMerchantModel.cs" />
+    <Compile Include="AdminModel\Models\New\APP_NewsInfoModel.cs" />
+    <Compile Include="AdminModel\Models\New\BD_NewsInfoModel.cs" />
+    <Compile Include="AdminModel\Models\New\NewInfoModel.cs" />
+    <Compile Include="AdminModel\Models\New\SearchBD_NewsInfoModel.cs" />
+    <Compile Include="AdminModel\Models\New\SearchNewInfoModel.cs" />
+    <Compile Include="AdminModel\Models\Orders\AfterSaleListModel.cs" />
+    <Compile Include="AdminModel\Models\Orders\OrderDetailsModel.cs" />
+    <Compile Include="AdminModel\Models\Orders\OrderExpressFeeLogModel.cs" />
+    <Compile Include="AdminModel\Models\Orders\OrderModel.cs" />
+    <Compile Include="AdminModel\Models\Orders\OrderTrackingLogModel.cs" />
+    <Compile Include="AdminModel\Models\Orders\PaymentOrderModel.cs" />
+    <Compile Include="AdminModel\Models\Orders\PurchaseOrderDetailsModel.cs" />
+    <Compile Include="AdminModel\Models\Orders\PurchaseOrderModel.cs" />
+    <Compile Include="AdminModel\Models\Orders\ReturnProductInfoModel.cs" />
+    <Compile Include="AdminModel\Models\Orders\SearchOrderModel.cs" />
+    <Compile Include="AdminModel\Models\Orders\SearchPaymentOrderModel.cs" />
+    <Compile Include="AdminModel\Models\Orders\SearchPurchaseOrderDetailsModel.cs" />
+    <Compile Include="AdminModel\Models\Orders\SearchPurchaseOrderModel.cs" />
+    <Compile Include="AdminModel\Models\Orders\SearchReturnProductInfoModel.cs" />
+    <Compile Include="AdminModel\Models\Products\ProductConsultModel.cs" />
+    <Compile Include="AdminModel\Models\Products\ProductImageModel.cs" />
+    <Compile Include="AdminModel\Models\Products\ProductModel.cs" />
+    <Compile Include="AdminModel\Models\Products\ProductRuleModel.cs" />
+    <Compile Include="AdminModel\Models\Products\SalesProductModel.cs" />
+    <Compile Include="AdminModel\Models\Products\SalesRuleModel.cs" />
+    <Compile Include="AdminModel\Models\Products\SalesSuppliersModel.cs" />
+    <Compile Include="AdminModel\Models\Products\SearchProductConsultModel.cs" />
+    <Compile Include="AdminModel\Models\Products\SearchProductImageModel.cs" />
+    <Compile Include="AdminModel\Models\Products\SearchProductRuleModel.cs" />
+    <Compile Include="AdminModel\Models\Products\SearchSalesProductModel.cs" />
+    <Compile Include="AdminModel\Models\Products\SearchSalesRuleModel.cs" />
+    <Compile Include="AdminModel\Models\Products\SuppliersModel.cs" />
+    <Compile Include="AdminModel\Models\Shipment\AddShipmentTemplateModel.cs" />
+    <Compile Include="AdminModel\Models\Shipment\SearchShipmentModel.cs" />
+    <Compile Include="AdminModel\Models\Shipment\ShipmentTemplateModel.cs" />
+    <Compile Include="AdminModel\Models\Shipment\YF_FareTemplateAreaCountryModel.cs" />
+    <Compile Include="AdminModel\Models\Shipment\YF_FareTemplateModel.cs" />
+    <Compile Include="AdminModel\Models\Shipment\YF_FareTempModel.cs" />
+    <Compile Include="AdminModel\Models\SKU\SearchSKU_ProductTypesModel.cs" />
+    <Compile Include="AdminModel\Models\SKU\SKU_ProductSpecificationParameterModel.cs" />
+    <Compile Include="AdminModel\Models\SKU\SKU_ProductTypeAttributeModel.cs" />
+    <Compile Include="AdminModel\Models\SKU\SKU_ProductTypesModel.cs" />
+    <Compile Include="AdminModel\Models\User\AC_UserDepartment.cs" />
+    <Compile Include="AdminModel\Models\User\FeedbackModel.cs" />
+    <Compile Include="AdminModel\Models\User\MessageModel.cs" />
+    <Compile Include="AdminModel\Models\User\SearchFeedbackModel.cs" />
+    <Compile Include="AdminModel\Models\User\SearchMessageModel.cs" />
+    <Compile Include="CashBack\SearchRebate.cs" />
+    <Compile Include="AdminModel\Models\User\SearchYH_UserBankAccountModel.cs" />
+    <Compile Include="AdminModel\Models\User\SearchZJ_AmountChangeTypeModel.cs" />
+    <Compile Include="AdminModel\Models\User\SearchZJ_RechargeOrderModel.cs" />
+    <Compile Include="AdminModel\Models\User\SearchZJ_UserBalanceChangeLogModel.cs" />
+    <Compile Include="AdminModel\Models\User\SearchZJ_UserBalanceModel.cs" />
+    <Compile Include="AdminModel\Models\User\SearchZJ_WithdrawOrderModel.cs" />
+    <Compile Include="AdminModel\Models\User\YH_UserBankAccountModel.cs" />
+    <Compile Include="AdminModel\Models\User\ZJ_AmountChangeTypeModel.cs" />
+    <Compile Include="AdminModel\Models\User\ZJ_RechargeOrderModel.cs" />
+    <Compile Include="AdminModel\Models\User\ZJ_UserBalanceChangeLogModel.cs" />
+    <Compile Include="AdminModel\Models\User\ZJ_UserBalanceModel.cs" />
+    <Compile Include="AdminModel\Models\User\ZJ_WithdrawOrderModel.cs" />
+    <Compile Include="AdminModel\Models\YHUser\ReportModel.cs" />
+    <Compile Include="AdminModel\Models\YHUser\SearchReportModel.cs" />
+    <Compile Include="AdminModel\Models\YHUser\SearchUserBalanceChangeModel.cs" />
+    <Compile Include="AdminModel\Models\YHUser\SearchYHUserModel.cs" />
+    <Compile Include="AdminModel\Models\YHUser\SearchYH_AgentModel.cs" />
+    <Compile Include="AdminModel\Models\YHUser\SearchYH_UserModel.cs" />
+    <Compile Include="AdminModel\Models\YHUser\UserBalanceChange.cs" />
+    <Compile Include="AdminModel\Models\YHUser\YH_AgentModel.cs" />
+    <Compile Include="AdminModel\Models\YHUser\YH_MerchantInfoModel.cs" />
+    <Compile Include="AdminModel\Models\YHUser\YH_UserInfoModel.cs" />
+    <Compile Include="AdminModel\Models\YHUser\YH_UserModel.cs" />
+    <Compile Include="AdminModel\Validators\App\APP_VersionInfoValidator.cs" />
+    <Compile Include="AdminModel\Validators\banner\FloorConfigValidator.cs" />
+    <Compile Include="AdminModel\Validators\Categories\FloorCategoryValidator.cs" />
+    <Compile Include="AdminModel\Validators\Keywork\FloorKeyValidator.cs" />
+    <Compile Include="AdminModel\Models\Categoreis\CategoryModel.cs" />
+    <Compile Include="AdminModel\Validators\Categories\CategoryValidator.cs" />
+    <Compile Include="AdminModel\Validators\New\BD_NewsInfoValidator.cs" />
+    <Compile Include="AdminModel\Validators\New\NewInfoValidator.cs" />
+    <Compile Include="AdminModel\Validators\Orders\ReturnProductInfoValidator.cs" />
+    <Compile Include="AdminModel\Validators\Products\ProductImageValidator.cs" />
+    <Compile Include="AdminModel\Validators\Products\ProductRuleValidator.cs" />
+    <Compile Include="AdminModel\Validators\Products\ProductValidator.cs" />
+    <Compile Include="AdminModel\Validators\Products\SalesRuleValidator.cs" />
+    <Compile Include="AdminModel\Validators\Products\SalesProductValidator.cs" />
+    <Compile Include="AdminModel\Validators\Products\SuppliersValidator.cs" />
+    <Compile Include="AdminModel\Validators\Shipment\ShipmentTemplateValidator.cs" />
+    <Compile Include="AdminModel\Validators\Shipment\ShipmentValidator.cs" />
+    <Compile Include="AdminModel\Validators\SKU\SKU_ProductTypesValidator.cs" />
+    <Compile Include="AdminModel\Validators\User\ReportValidator.cs" />
+    <Compile Include="AdminModel\Validators\User\YH_UserBankAccountValidator.cs" />
+    <Compile Include="AdminModel\Validators\User\ZJ_AmountChangeTypeValidator.cs" />
+    <Compile Include="AdminModel\Validators\User\ZJ_RechargeOrderValidator.cs" />
+    <Compile Include="AdminModel\Validators\User\ZJ_UserBalanceChangeLogValidator.cs" />
+    <Compile Include="AdminModel\Validators\User\ZJ_UserBalanceValidator.cs" />
+    <Compile Include="AdminModel\Validators\User\ZJ_WithdrawOrderValidator.cs" />
+    <Compile Include="AdminModel\Validators\YH_UserLoginLog\YH_MerchantInfoValidator.cs" />
+    <Compile Include="CashBack\OderModel.cs" />
+    <Compile Include="CashBack\OrderDetails.cs" />
+    <Compile Include="CashBack\ZJ_RebateInfo.cs" />
+    <Compile Include="CustomValidation\UrlValidationRule.cs" />
+    <Compile Include="Entities\AC_Department.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\AC_Function.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\AC_Module.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\AC_OperateLog.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\AC_Role.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\AC_User.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\APP_VersionInfo.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\banner.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\bannerProduct.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\BD_Bank.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\BD_NewsInfo.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\BD_NewsType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\BD_NewsTypelang.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Blobs.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Brand.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Brand_Category.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Brand_Lang.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Category.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CategoryType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Category_Lang.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Complaints.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CompoundKeyDetail.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CompoundKeyMaster.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Customers.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DateTimeOffsetTest.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DecimalTest.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DeleteTest.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Employee.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\EnumTest.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ExceptionLog.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Favorites.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Feedback.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\FeedbackType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\FeedbackType_lang.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\FloorCategory.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\FloorConfig.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\FloorKeyword.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\GeographyTest.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\GeometryTest.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\GroupTestDetail.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\GroupTestMaster.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\HierarchyIdTest.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Images.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Items.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\AC_DepartmentMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\AC_FunctionMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\AC_ModuleMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\AC_OperateLogMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\AC_RoleMapp.cs" />
+    <Compile Include="Entities\Mapping\AC_RoleMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\AC_UserMapp.cs" />
+    <Compile Include="Entities\Mapping\AC_UserMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\APP_VersionInfoMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\bannerMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\bannerProductMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\BD_BankMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\BD_NewsInfoMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\BD_NewsTypelangMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\BD_NewsTypeMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\BlobsMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\BrandMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\Brand_CategoryMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\Brand_LangMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\CategoryMapp.cs" />
+    <Compile Include="Entities\Mapping\CategoryMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\CategoryTypeMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\Category_LangMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ComplaintsMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\CompoundKeyDetailMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\CompoundKeyMasterMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\CustomersMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\DateTimeOffsetTestMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\DecimalTestMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\DeleteTestMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\EmployeeMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\EnumTestMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ExceptionLogMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\FavoritesMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\FeedbackMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\FeedbackTypeMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\FeedbackType_langMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\FloorCategoryMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\FloorConfigMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\FloorKeywordMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\GeographyTestMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\GeometryTestMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\GroupTestDetailMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\GroupTestMasterMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\HierarchyIdTestMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ImagesMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ItemsMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\MessageMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\MultiLanguageMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\NewInfoMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\NotesMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\OptionalColumnTestMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\OrderAddressMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\OrderDetailsMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\OrderDetails_langMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\OrderItemsMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\OrderMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\OrdersMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\OrderTrackingLogMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\PagingTestMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ParameterSetMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\PaymentOrderMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\PaymentOrder_OrdersMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ProductConsultMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ProductImageMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ProductMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ProductPicMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ProductRuleMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\Product_LangMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\PurchaseOrderDetailsMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\PurchaseOrderMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\RecommendBonusRecordMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ReportMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ReportTypeMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ReportType_langMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ReturnProductInfoMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\SalesProductMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\SalesRuleMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\SchemaTableMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ShipmentTemplateMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ShoppingCartMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\SKU_AttributesMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\SKU_AttributeValuesMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\SKU_ProductAttributesMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\SKU_ProductMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\SKU_ProductTypeAttributeMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\SKU_ProductTypesMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\SKU_SKUItemsMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\SP_ProductCommentMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\SuppliersMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\T4Mapp.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\THAreaMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\THArea_langMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\TimestampTestMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\UserAddressMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\UserLoginLogMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\UsersMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\UsersWithCharMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\YF_FareTemplateAreaGroupMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\YF_FareTemplateMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\YH_AgentMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\YH_GroupMarkMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\YH_MerchantInfoMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\YH_PasswordErrorMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\YH_UserBankAccountMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\YH_UserFeedBackMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\YH_UserLoginLogMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\YH_UserMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\YH_UserUpdateInfoMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\YH_UserVerifyMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\YH_UserVisitingCardMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\YH_ValidEmailMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ZJ_AmountChangeTypeMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ZJ_AmountChangeType_langMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ZJ_RebateInfoMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ZJ_RechargeOrderMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ZJ_UserBalanceChangeLogMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ZJ_UserBalanceMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Mapping\ZJ_WithdrawOrderMapping.cs">
+      <DependentUpon>T4Mapp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Message.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MultiLanguage.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\NewInfo.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Notes.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\OptionalColumnTest.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Order.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\OrderAddress.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\OrderDetails.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\OrderDetails_lang.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\OrderItems.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Orders.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\OrderTrackingLog.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\PagingTest.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ParameterSet.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\PaymentOrder.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\PaymentOrder_Orders.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Product.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ProductConsult.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ProductImage.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ProductPic.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ProductRule.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Product_Lang.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\PurchaseOrder.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\PurchaseOrderDetails.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\RecommendBonusRecord.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Report.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ReportType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ReportType_lang.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ReturnProductInfo.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SalesProduct.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SalesRule.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SchemaTable.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ShipmentTemplate.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ShoppingCart.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SKU_Attributes.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SKU_AttributeValues.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SKU_Product.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SKU_ProductAttributes.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SKU_ProductTypeAttribute.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SKU_ProductTypes.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SKU_SKUItems.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SP_ProductComment.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Suppliers.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\THArea.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\THArea_lang.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\TimestampTest.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\UserAddress.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\UserLoginLog.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Users.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\UsersWithChar.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\YF_FareTemplate.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\YF_FareTemplateAreaGroup.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\YH_Agent.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\YH_GroupMark.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\YH_MerchantInfo.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\YH_PasswordError.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\YH_User.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\YH_UserBankAccount.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\YH_UserFeedBack.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\YH_UserLoginLog.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\YH_UserUpdateInfo.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\YH_UserVerify.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\YH_UserVisitingCard.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\YH_ValidEmail.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ZJ_AmountChangeType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ZJ_AmountChangeType_lang.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ZJ_RebateInfo.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ZJ_RechargeOrder.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ZJ_UserBalance.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ZJ_UserBalanceChangeLog.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ZJ_WithdrawOrder.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Enum\EBusinessType.cs" />
+    <Compile Include="Enum\EIdentityStatus.cs" />
+    <Compile Include="Enum\EImageType.cs" />
+    <Compile Include="Enum\EIsCheck.cs" />
+    <Compile Include="Enum\EPurchaseOrderStatus.cs" />
+    <Compile Include="Enum\ERechargeOrderPrefix.cs" />
+    <Compile Include="Enum\EReturnStatus.cs" />
+    <Compile Include="Enum\ESalesRule.cs" />
+    <Compile Include="Enum\ESendType.cs" />
+    <Compile Include="Enum\EStatus.cs" />
+    <Compile Include="Enum\EImageVerifyCodeType.cs" />
+    <Compile Include="Enum\IBrandState.cs" />
+    <Compile Include="AdminModel\Models\AC\AC_DepartmentModel.cs" />
+    <Compile Include="AdminModel\Models\AC\AC_FunctionModel.cs" />
+    <Compile Include="AdminModel\Models\AC\SearchAC_DepartmentModel.cs" />
+    <Compile Include="AdminModel\Models\AC\SearchAC_FunctionModel.cs" />
+    <Compile Include="AdminModel\Models\AC\SearchAC_ModuleModel.cs" />
+    <Compile Include="AdminModel\Models\banner\bannerModel.cs" />
+    <Compile Include="AdminModel\Models\banner\bannerProductModel.cs" />
+    <Compile Include="AdminModel\Models\banner\SearchbannerModel.cs" />
+    <Compile Include="AdminModel\Models\banner\SearchbannerProductModel.cs" />
+    <Compile Include="AdminModel\Models\Bra\BrandModel.cs" />
+    <Compile Include="AdminModel\Models\Bra\Brand_LangModel.cs" />
+    <Compile Include="AdminModel\Models\Bra\SearchBrandModel.cs" />
+    <Compile Include="AdminModel\Models\Categoreis\CategoryTreeModel.cs" />
+    <Compile Include="AdminModel\Models\Categoreis\SP_ProductCommentModel.cs" />
+    <Compile Include="AdminModel\Models\Categoreis\SearchSP_ProductCommentModel.cs" />
+    <Compile Include="AdminModel\Models\Categoreis\SearchProductModel.cs" />
+    <Compile Include="AdminModel\Models\Categoreis\UpdateModel.cs" />
+    <Compile Include="AdminModel\Models\Localization\LanguageModel.cs" />
+    <Compile Include="AdminModel\Models\LoginLog\AC_OperateLogModel.cs" />
+    <Compile Include="AdminModel\Models\LoginLog\SearchAC_OperateLogModel.cs" />
+    <Compile Include="AdminModel\Models\LoginLog\SearchUserLoginLogModel.cs" />
+    <Compile Include="AdminModel\Models\LoginLog\SearchYH_UserLoginLogModel.cs" />
+    <Compile Include="AdminModel\Models\LoginLog\UserLoginLogModel.cs" />
+    <Compile Include="AdminModel\Models\LoginLog\YH_UserLoginLogModel.cs" />
+    <Compile Include="AdminModel\Models\Orders\ComplaintsModel.cs" />
+    <Compile Include="AdminModel\Models\Orders\SearchComplaintsModel.cs" />
+    <Compile Include="Enum\MerchantEnum.cs" />
+    <Compile Include="Enum\UserEnums.cs" />
+    <Compile Include="OfficialWeb\Models\Suppliers\SalesSuppliersModel.cs" />
+    <Compile Include="OfficialWeb\Models\Suppliers\SuppliersModel.cs" />
+    <Compile Include="OfficialWeb\Validators\SuppliersValidator.cs" />
+    <Compile Include="ResultModel.cs" />
+    <Compile Include="AdminModel\Models\AC\AC_ModuleModel.cs" />
+    <Compile Include="AdminModel\Models\SKU\SearchSKU_AttributesModel.cs" />
+    <Compile Include="AdminModel\Models\SKU\SKU_AttributesModel.cs" />
+    <Compile Include="AdminModel\Models\SKU\SKU_AttributeValuesModel.cs" />
+    <Compile Include="AdminModel\Models\AC\AC_RoleModel.cs" />
+    <Compile Include="AdminModel\Models\SKU\SKU_SKUItemsModel.cs" />
+    <Compile Include="AdminModel\Models\Sys\ParameterSetModel.cs" />
+    <Compile Include="AdminModel\Models\AC\SearchAC_RoleModel.cs" />
+    <Compile Include="AdminModel\Models\Sys\SearchParaSetModel.cs" />
+    <Compile Include="AdminModel\Models\User\AC_UserModel.cs" />
+    <Compile Include="AdminModel\Models\User\SearchUsersModel.cs" />
+    <Compile Include="Enum\IOrderSource.cs" />
+    <Compile Include="Enum\IWithdrawResult.cs" />
+    <Compile Include="Enum\LangType.cs" />
+    <Compile Include="Enum\OrderEnums.cs" />
+    <Compile Include="Enum\ProductStatus.cs" />
+    <Compile Include="Enum\SearchType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AdminModel\Validators\AC\AC_DepartmentValidator.cs" />
+    <Compile Include="AdminModel\Validators\AC\AC_FunctionValidator.cs" />
+    <Compile Include="AdminModel\Validators\AC\AC_UserValidator.cs" />
+    <Compile Include="AdminModel\Validators\banner\bannerProductValidator.cs" />
+    <Compile Include="AdminModel\Validators\banner\bannerValidator.cs" />
+    <Compile Include="AdminModel\Validators\Bra\BrandValidator.cs" />
+    <Compile Include="AdminModel\Validators\Bra\Brand_LangValidator.cs" />
+    <Compile Include="AdminModel\Validators\AC\AC_ModuleValidator.cs" />
+    <Compile Include="AdminModel\Validators\Orders\ComplaintsValidator.cs" />
+    <Compile Include="AdminModel\Validators\SKU\SKU_AttributesValidator.cs" />
+    <Compile Include="AdminModel\Validators\AC\AC_RoleValidator.cs" />
+    <Compile Include="AdminModel\Validators\Sys\ParameterSetValidator.cs" />
+    <Compile Include="AdminModel\Validators\YH_UserLoginLog\AC_OperateLogValidator.cs" />
+    <Compile Include="AdminModel\Validators\YH_UserLoginLog\UserLoginLogValidator.cs" />
+    <Compile Include="AdminModel\Validators\YH_UserLoginLog\YH_UserLoginLogValidator.cs" />
+    <Compile Include="WebModel\Models\AccountRecharge\AccountRechargeModel.cs" />
+    <Compile Include="AdminModel\Models\Orders\PaymentOrder_OrdersModel.cs" />
+    <Compile Include="WebModel\Models\AccountRecharge\SearchAccountRechargeModel.cs" />
+    <Compile Include="WebModel\Models\Balance\ConsumeDetails.cs" />
+    <Compile Include="WebModel\Models\Balance\JoinAndConsumeList.cs" />
+    <Compile Include="WebModel\Models\Bank\BankModel.cs" />
+    <Compile Include="WebModel\Models\Collection\FavoritesModel.cs" />
+    <Compile Include="WebModel\Models\Collection\MyCollectionModel.cs" />
+    <Compile Include="WebModel\Models\Index\IndexExplosion.cs" />
+    <Compile Include="WebModel\Models\Index\IndexFloorInfo.cs" />
+    <Compile Include="WebModel\Models\Login\LoginModel.cs" />
+    <Compile Include="WebModel\Models\Login\SearchUserAddressModel.cs" />
+    <Compile Include="WebModel\Models\Login\UserAddress.cs" />
+    <Compile Include="WebModel\Models\Login\YH_PasswordErrorModel.cs" />
+    <Compile Include="WebModel\Models\Login\YH_UserModel.cs" />
+    <Compile Include="WebModel\Models\Login\YH_UserUpdateInfoModel.cs" />
+    <Compile Include="WebModel\Models\Login\YH_ValidEmailModel.cs" />
+    <Compile Include="WebModel\Models\Login\ZJ_UserBalanceModel.cs" />
+    <Compile Include="WebModel\Models\Menus\MenusInfo.cs" />
+    <Compile Include="WebModel\Models\Orders\OrderAddressView.cs" />
+    <Compile Include="WebModel\Models\Orders\OrderDetailsForPayResultView.cs" />
+    <Compile Include="WebModel\Models\Orders\OrderDetailsView.cs" />
+    <Compile Include="WebModel\Models\Orders\OrderDetailsViewT1.cs" />
+    <Compile Include="WebModel\Models\Orders\OrderDetails_lang.cs" />
+    <Compile Include="WebModel\Models\Orders\OrderInfoDetailsView.cs" />
+    <Compile Include="WebModel\Models\Orders\AddOrderInfoView.cs" />
+    <Compile Include="WebModel\Models\Orders\OrderTrackingLogView.cs" />
+    <Compile Include="WebModel\Models\Orders\OrderView.cs" />
+    <Compile Include="WebModel\Models\Orders\PaymentActionPageView.cs" />
+    <Compile Include="WebModel\Models\Orders\PaymentActionPostView.cs" />
+    <Compile Include="WebModel\Models\Orders\PaymentOrderView.cs" />
+    <Compile Include="WebModel\Models\Orders\PaymentOrder_OrdersView.cs" />
+    <Compile Include="WebModel\Models\Orders\SearchOrderDetailView.cs" />
+    <Compile Include="WebModel\Models\Orders\SearchOrderView.cs" />
+    <Compile Include="WebModel\Models\Product\CategorysModel.cs" />
+    <Compile Include="WebModel\Models\Product\OrderProductCommentView.cs" />
+    <Compile Include="WebModel\Models\Product\ProductCategoryTypeForSKU_Attributes.cs" />
+    <Compile Include="WebModel\Models\Product\ProductCommentModel.cs" />
+    <Compile Include="WebModel\Models\Product\ProductInfo.cs" />
+    <Compile Include="WebModel\Models\Product\ProductParametersModel.cs" />
+    <Compile Include="WebModel\Models\Product\ProductPicModel.cs" />
+    <Compile Include="WebModel\Models\Product\ProductSkuItem.cs" />
+    <Compile Include="WebModel\Models\Product\ProductView.cs" />
+    <Compile Include="WebModel\Models\Product\Product_LangView.cs" />
+    <Compile Include="WebModel\Models\Product\SearchOrderProductCommentView.cs" />
+    <Compile Include="WebModel\Models\Product\SKU_ProductAttributesAndSKU_AttributeValues.cs" />
+    <Compile Include="WebModel\Models\Product\SKU_ProductModel.cs" />
+    <Compile Include="WebModel\Models\Product\SKU_SKUItemsAndSKU_AttributeValues.cs" />
+    <Compile Include="WebModel\Models\Search\SearchBrandProductModel.cs" />
+    <Compile Include="WebModel\Models\Search\SearchModelBase.cs" />
+    <Compile Include="WebModel\Models\Shipment\YF_FareTemplateView.cs" />
+    <Compile Include="WebModel\Models\ShoppingCart\ComInfo.cs" />
+    <Compile Include="WebModel\Models\ShoppingCart\GoodsInfoEqualityComparer.cs" />
+    <Compile Include="WebModel\Models\ShoppingCart\GoodsInfoModel.cs" />
+    <Compile Include="WebModel\Models\ShoppingCart\ShoppingCartModel.cs" />
+    <Compile Include="WebModel\Models\SKU\SKU_ProductView.cs" />
+    <Compile Include="WebModel\Models\SMS\SMSValidate.cs" />
+    <Compile Include="WebModel\Models\THArea.cs" />
+    <Compile Include="WebModel\Models\THArea_lang.cs" />
+    <Compile Include="WebModel\Models\Users\FeedbackTypeLangView.cs" />
+    <Compile Include="WebModel\Models\Users\FeedbackView.cs" />
+    <Compile Include="WebModel\Models\Users\MailSubscriptionModel.cs" />
+    <Compile Include="WebModel\Models\Users\UserAddressView.cs" />
+    <Compile Include="WebModel\Models\Users\UserBalanceView.cs" />
+    <Compile Include="WebModel\Models\Users\UserInfoViewForPayment.cs" />
+    <Compile Include="WebModel\Models\Version\APP_VersionInfo.cs" />
+    <Compile Include="WebModel\Models\YH\YH_MerchantInfoView.cs" />
+    <Compile Include="WebModel\Models\YH\YH_UserVisitingCard.cs" />
+    <Compile Include="WebModel\Validators\Collection\FavoritesValidator.cs" />
+    <Compile Include="WebModel\Validators\Login\LoginValidator.cs" />
+    <Compile Include="WebModel\Validators\Product\ProductPicValidator.cs" />
+    <Compile Include="WebModel\Validators\ShoppingCart\GoodsInfoValidator.cs" />
+    <Compile Include="WebModel\Validators\ShoppingCart\ShoppingCartValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="Entities\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Entities\Mapping\T4Mapp.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>T4Mapp.cs</LastGenOutput>
+    </None>
+    <None Include="Entities\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Entities\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </None>
+    <None Include="Entities\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Entities\Mapping\Manager.ttinclude" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Framework\BrCms.Framework.Mvc\BrCms.Framework.Mvc.csproj">
+      <Project>{cfe258e4-7b55-45c5-acca-98a0e56953ba}</Project>
+      <Name>BrCms.Framework.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\BrCms.Framework\BrCms.Framework.csproj">
+      <Project>{8b76817c-aa83-4058-99b0-e4eefcae797a}</Project>
+      <Name>BrCms.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="WebModel\Models\Banner\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

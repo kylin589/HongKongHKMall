@@ -1,0 +1,99 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Uid = ViewBag.UserID;
+    var account = ViewBag.Account;
+}
+
+<div class="pct100 Personal tc">
+    <div class="PersonalMain w1202 dib bgf2">
+        <div class="PersonMain dib w1202">
+            @Html.Partial("_userLeft")
+            <!--右边的写在这里-->
+            <form action="/Account/My/PostAccountRecharge" id="iform" method="post">
+
+                <div class="PmainRight l" id="PmainRight">
+                    <div class="PersonInfomation">
+                        <p class="recharge">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_ACCOUNTSPREPAIDPHONE")</p>
+                        <p class="recharge_bg"></p>
+                        <p class="recharge_t1">@CultureHelper.GetLangString("ACCOUNT_MY_ACCOUNTRECHARGE_TOPUPACCOUNT")&nbsp;&nbsp;<em style="color: #333;">@account </em></p>
+                        <p class="recharge_t1">@CultureHelper.GetLangString("ACCOUNT_MY_ACCOUNTRECHARGE_REGEAMOUNT")&nbsp;&nbsp;<input type="text" class="recharge_text" id="RechargeAmount" maxlength="11" onkeyup="value=value.replace(/[^\d\.]/g,'').replace(/([0-9]+\.[0-9]{3})[0-9]*/,value.substring(0,value.length-1))" name="RechargeAmount" placeholder="@CultureHelper.GetLangString("ACCOUNT_MY_ACCOUNTRECHARGE_ENTERTOPAMOUNT")">&nbsp;&nbsp;@CultureHelper.GetLangString("WEBSITE_DOLLARS")</p>
+                        <div class="recharge_t1" style="padding-left: 100px;">
+                            <div class="address_1 address_3 clearfix">
+                                @*<input class="fl" type="radio" checked="checked" value="3" name="Recharge2" style="margin:13px 14px 0;">
+                                    <img class="fl" src="/Content/images/pay_VASA.jpg">*@
+                                <input class="fl" type="radio" checked="checked" value="2" name="Recharge2" style="margin:13px 14px 0;">
+                                <img class="fl" src="/Content/images/PayPal.jpg">
+                            </div>
+                        </div>
+                        <a href="javascript:" class="recharge_t2" onclick="Recharge()">@CultureHelper.GetLangString("ACCOUNT_MY_ACCOUNTRECHARGE_PREPAIDPHONE")</a>
+                        @*<input type="submit" class="recharge_t2" style=" cursor:pointer;" onclick="return Recharge()" value="立即充值" />*@
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@*@Html.Partial("_Footer")*@
+<script>
+    //Load Style
+    $(document).ready(function () {
+        $("div.PmainLeft .chongzhi").parent().addClass("Checked");
+        $("div.PmainLeft .chongzhi").removeClass("chongzhi").addClass("Rchongzhi");
+    });
+    var tj = 0;
+    function Recharge() {
+        if (tj == 1) {
+            mallbox.alert({ message: $commonLang.ACCOUNT_MY_ACCOUNTRECHARGE_SUBMITTED });
+            return;
+        }
+        var rechargeamount = $("#RechargeAmount").val();
+        var bl = true;
+
+        if (rechargeamount == "") {
+            tj = 0;
+            mallbox.alert({ message: $commonLang.ACCOUNT_MY_ACCOUNTRECHARGE_INPUTCORRECTAMOUNT});
+            bl = false;
+            return;
+        }
+        var z = /^(?:[1-9]\d{0,10}|0)(?:\.\d+)?$/;
+        if (!z.test(rechargeamount)) {
+            tj = 0;
+            mallbox.alert({ message: $commonLang.ACCOUNT_MY_ACCOUNTRECHARGE_INPUTCORRECTAMOUNT });
+            bl = false;
+            return;
+        }
+
+        if (rechargeamount.indexOf(".") > -1) {
+            var s = rechargeamount.split(".");
+
+            if (s[1].length > 2) {
+                tj = 0;
+                mallbox.alert({ message: $commonLang.ACCOUNT_MY_ACCOUNTRECHARGE_INPUTCORRECTAMOUNT });
+                bl = false;
+                return;
+            }
+        }
+
+        if (parseFloat(rechargeamount) <= 100 || parseFloat(rechargeamount) > 1000000) {
+            mallbox.alert({ message: $commonLang.ACCOUNT_MY_ACCOUNTRECHARGE_TOPAMOUNT });
+            bl = false;
+            return;
+        }
+
+        var chk_value = [];
+        $('input[name="Recharge2"]:checked').each(function () {
+            chk_value.push($(this).val());
+        });
+        if (chk_value.length < 1) {
+            tj = 0;
+            mallbox.alert({ message: $commonLang.ACCOUNT_MY_ACCOUNTRECHARGE_THIRDPARTY });
+            bl = false;
+            return;
+        }
+        if (bl) {
+            tj = 1;
+            $("#iform").submit();
+        }
+    }
+</script>

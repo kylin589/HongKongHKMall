@@ -1,0 +1,64 @@
+﻿@using HKTHMall.Domain.Models.Orders;
+@using HKTHMall.Core.Extensions
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<ComplaintsModel> complaintsModelList = ViewData["Complain"] as List<ComplaintsModel>;
+    var COMPLAINTSHANDLED = CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_COMPLAINTSHANDLED");
+    var WITHCOMPLAINTS = CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_WITHCOMPLAINTS");
+    var ORDERNUMBER = CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_ORDERNUMBER");
+}
+<script src="~/Content/extensions/jquery.fn.extensions.custom.js"></script>
+<script src="~/Scripts/mypage.js"></script>
+
+<div class="main_a">
+
+    <div class="main_about">
+        <div class="ls_member">
+            @Html.Partial("_userLeft")
+            <!--right-->
+            <div class="ls_member_rg">
+
+
+                <!--右侧会员信息展示-->
+                <div class="m_user_pubtitle">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_MYCOMPLAINT")@*我的投诉*@</div>
+                <div class="m_user_tous">
+                    <div class="m_user_tous_nr">
+                        <dl>
+                            <span class="m_u_tous_bt1">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_COMPLAINTNUMBER")@*投诉编号*@</span>
+                            <span class="m_u_tous_bt2">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_ORDERNO")@*订单编号*@</span>
+                            <span class="m_u_tous_bt3">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_COMPLAINTSREASONS")@*投诉原因*@</span>
+                            <span class="m_u_tous_bt4">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_BYTIME")@*发起时间*@</span>
+                            <span class="m_u_tous_bt5">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_COMPLAINTSTATUS")@*投诉状态*@</span>
+                        </dl>
+                        <ul>
+                            @foreach (ComplaintsModel com in complaintsModelList)
+                            {
+                            <li>
+                                <span class="m_u_tous_1">@com.ComplaintsID</span>
+                                <span class="m_u_tous_2"><i onclick="openorderdetails('@com.OrderID');">@ORDERNUMBER：@com.OrderID</i></span>
+                                <span class="m_u_tous_3">@com.Content</span>
+                                <span class="m_u_tous_4">@(com.ComplaintsDate != null ? DateTimeExtensions.DateTimeToString(com.ComplaintsDate) : "")</span>
+                                <span class="m_u_tous_5"><b class="m_u_tous_zt1">@(com.Flag == 2 ? COMPLAINTSHANDLED : WITHCOMPLAINTS)</b></span><!--b标签的class不同代表不同状态的颜色也不同 m_u_tous_zt1是投诉处理中  m_u_tous_zt2是....后面的待定，目前UI上没有展现-->
+                            </li>
+                            }
+                        </ul>
+                    </div>
+                    @Html.Raw(Html.ToPageHtmlNew((int)ViewBag.Page, 10, (int)ViewBag.Count))
+                </div>
+                <div class="clear"></div>
+
+
+            </div>
+            <div class="clear"></div>
+
+        </div>
+    </div>
+
+</div><!--主体部分-->
+
+<script type="text/javascript">
+    function openorderdetails(src) {
+        window.location.href = '/order/detail.html?orderId' + src;
+    }
+</script>

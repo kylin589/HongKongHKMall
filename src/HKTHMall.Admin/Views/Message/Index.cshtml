@@ -1,0 +1,84 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.User.SearchMessageModel
+@{
+    ViewBag.Title = "Paging message information list";
+}
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>Commenter: </span>
+            @Html.TextBoxFor(x => x.MsgPerson, new { @class = "form-control w70", @placeholder = "Please enter your name" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Subject: </span>
+            @Html.TextBoxFor(x => x.subject, new { @class = "form-control w70", @placeholder = "Please enter your theme" })
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-danger js_reset" onclick="Tool.ClearForm($('#user-toolbar'))">
+            <span class="glyphicon glyphicon-bullhorn"></span> Clear
+        </button>
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts{
+    <script type="text/javascript">
+        //加载数据
+        $(function () {
+            var columns = [
+            { field: "MsgId", title: "SN", align: 'center', valign: 'middle', sortable: false },
+            { field: 'MsgPerson', title: 'Commenter', align: 'center', valign: 'middle', sortable: false },
+            { field: 'Email', title: 'Email', align: 'center', valign: 'middle', sortable: false },
+            { field: "subject", title: "Subject", align: 'center', valign: 'middle', sortable: false },
+            { field: "MsgContent", title: "Content", align: 'center', valign: 'middle', sortable: false },
+            {
+                field: "CreateDT", title: "Create time", align: 'center', valign: 'middle', sortable: false, formatter:
+                  function (val)
+                  {
+                      return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                  }
+            }
+            ];
+
+            //加载列表数据
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+                queryParams: function (params) {
+                    return {
+                        MsgPerson: $('#MsgPerson').val().trim(),
+                        subject: $('#subject').val().trim(),
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        Time: new Date().getTime()
+                    };
+                },
+                pagination: true,
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns
+            });
+            //搜索事件
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+            //按Enter键回车搜索
+            $('#MsgPerson').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#subject').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+        });
+    </script>
+}

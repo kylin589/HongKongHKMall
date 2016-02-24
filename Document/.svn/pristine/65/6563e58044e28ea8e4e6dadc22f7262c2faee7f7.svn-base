@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="Keywords" content="">
+		<title>香港商城</title>
+		<link rel="stylesheet" type="text/css" href="newcss/css/css.css" />
+		<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+	</head>
+
+<body>
+<div class="header">
+	<div class="clear" style="background: #ccc; height: 175px;"></div>
+</div><!--公共头部-->
+
+
+<div class="main_a">
+	<div class="main_about">
+		<div class="m_login">
+			<div class="m_login_left">
+            	<div class="m_login_erro"><span style="display:none;">填写有误，请重新输入</span></div><!--错误提示位置-->
+            	<div class="m_login_nr">
+                	<h1>LOGIN</h1>
+                    <ul>
+                       <li><input type="text" name="" id="" class="m_login_text" placeholder="请输入电子邮箱"></li>
+                       <li><input type="text" name="" id="" class="m_login_text" placeholder="请输入登录密码"></li>
+                       <li class="m_login_remb"><span><a href="#" title="">忘记密码？</a></span><label for="m_login_rad" class="m_login_check"><input type="checkbox" id="m_login_rad"><i>记住账号</i></label></li>
+                       <li><input type="submit" name="" id="" class="m_login_submit" value="登录"></li>
+                    </ul>
+                    <h3>如果你还没有账号，就来加入我们<br>这个大家庭吧！</h3>
+                    <dl><a href="注册.html" title=""><b></b>立即注册</a></dl>
+                </div>
+            	<div class="m_login_other">
+                	<srtong><b>使用以下账号登录</b></srtong>
+                    <ul>
+                    	<a href="#" title="" class="m_login_face"><i></i><span>Facebook</span></a>
+                    	<a href="#" title="" class="m_login_twit"><i></i><span>Twitter</span></a>
+                        <span class="clearfix"></span>
+                    </ul>
+                </div>
+            </div>
+			<div class="m_login_right">
+            	<ul>
+                	<li><b>正品保障放心买</b><span>品质护航 购物无忧</span><i class="m_login_r1"></i></li>
+                	<li><b>会员购买100%返</b><span>全新体验 0元购物</span><i class="m_login_r2"></i></li>
+                	<li><b>仓储服务保障</b><span>仓库直发 快速配送</span><i class="m_login_r3"></i></li>
+                	<li><b>7天无理由退货</b><span>不满意退 售后无忧</span><i class="m_login_r4"></i></li>
+                </ul>
+            </div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div><!--主体部分-->
+
+
+
+<div class="footer"></div><!--公共底部-->
+
+
+
+</body>
+
+</html>

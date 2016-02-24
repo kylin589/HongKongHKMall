@@ -1,0 +1,15 @@
+﻿2015/10/26 13:57:19 : 调用EMLauncherStartUp，开始执行连接到中间件
+2015/10/26 13:57:25 : 调用EMLauncherStartUp函数，结束执行连接到中间件
+2015/10/26 13:58:41 : 接收信息---MsgID：5,Json data：{"acc":"hx.zvl","pwd":"25F9E794323B453885F5181F1B624D0B","mode":1,"sys_id":42,"dev":2}，错误代码：1048777，错误描述：登录账号或密码错误
+2015/10/26 13:59:40 : 调用EMLauncherStartUp，开始执行连接到中间件
+2015/10/26 13:59:40 : 调用EMLauncherStartUp函数，结束执行连接到中间件
+2015/10/26 14:00:32 : 调用EMLauncherStartUp，开始执行连接到中间件
+2015/10/26 14:00:32 : 调用EMLauncherStartUp函数，结束执行连接到中间件
+2015/10/26 14:03:52 : 调用EMLauncherStartUp，开始执行连接到中间件
+2015/10/26 14:03:52 : 调用EMLauncherStartUp函数，结束执行连接到中间件
+2015/10/26 14:05:33 : 调用EMLauncherStartUp，开始执行连接到中间件
+2015/10/26 14:05:33 : 调用EMLauncherStartUp函数，结束执行连接到中间件
+2015/10/26 14:06:41 : 调用EMLauncherStartUp，开始执行连接到中间件
+2015/10/26 14:06:41 : 调用EMLauncherStartUp函数，结束执行连接到中间件
+2015/10/26 14:08:08 : 调用EMLauncherStartUp，开始执行连接到中间件
+2015/10/26 14:08:08 : 调用EMLauncherStartUp函数，结束执行连接到中间件

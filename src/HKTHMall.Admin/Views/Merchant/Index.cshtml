@@ -1,0 +1,234 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using Autofac
+@using BrCms.Framework.Infrastructure
+@using HKTHMall.Admin.common
+@using HKTHMall.Domain.Enum
+@model HKTHMall.Domain.Models.Bra.SearchBrandModel
+@{
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Delete = _Authority.CheckAction(167);
+    _Authority.Edit = _Authority.CheckAction(166);
+    _Authority.Audit = _Authority.CheckAction(168);
+}
+
+<div id="merchant-toolbar" class="form-inline">
+    @if (_Authority.Delete)
+    {
+        <button id="remove" class="btn btn-danger" data-bind="click:remove"><i class="glyphicon glyphicon-remove"></i>删除</button>
+    }
+</div>
+
+<table id="merchant_grid" data-toolbar="#merchant-toolbar"></table>
+
+@section scripts
+{
+    <script type="text/javascript">
+        var $EditCheck = eval("@(_Authority.Edit.ToString().ToLower())");
+        var $AuditCheck = eval("@(_Authority.Audit.ToString().ToLower())");
+
+        $(function() {
+            // grid  Begin
+            var columns = [
+                {
+                    field: 'state',
+                    checkbox: true,
+                    align: 'center',
+                    valign: 'middle',
+                    width: 36,
+                },
+                {
+                    field: 'ShopName',
+                    title: '商家名称',
+                    align: 'center',
+                    valign: 'middle',
+                },
+                {
+                    field: 'MerchantType',
+                    title: '商家类型',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true,
+                    formatter: function(val) {
+                        switch (val) {
+                            case @((int) MerchantEnum.Store):
+                                return "企业商铺";
+                            case @((int) MerchantEnum.Individual):
+                                return "个体商铺";
+                        }
+                    }
+                },
+                {
+                    field: 'LeasingManager',
+                    title: '招商经理',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                },
+                {
+                    field: 'LeasingPhone',
+                    title: '招商电话',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                },
+                {
+                    field: 'AreaName',
+                    title: '商家所在地区',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                },
+                {
+                    field: 'BusinessContacter',
+                    title: '业务联系人',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                },
+                {
+                    field: 'BusinessTel',
+                    title: '业务联系人电话',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                },
+                {
+                    field: 'CreateBy',
+                    title: '创建人',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                },
+                {
+                    field: 'CreateDT',
+                    title: '创建时间',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true,
+                    formatter: function(value) {
+                        return value === 'undefined' || !value ? '' : value.formatterString(false);
+                    }
+                },
+                {
+                    field: 'AuditBy',
+                    title: '审核人',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                },
+                {
+                    field: 'AuditDT',
+                    title: '审核时间',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true,
+                    formatter: function(value) {
+                        return value === 'undefined' || !value ? '' : value.formatterString(false);
+                    }
+                },
+                {
+                    field: 'AuditRemark',
+                    title: '审核备注',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true
+                },
+                {
+                    field: 'IsLock',
+                    title: '锁定状态',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true,
+                    formatter: function(val) {
+                        return val ? '锁定' : '未锁定';
+                    }
+                },
+                     {
+                         field: 'MerchantID',
+                         title: 'Operation',
+                         align: 'center',
+                         valign: 'middle',
+                         width: "8%",
+                         formatter: function (val, row) {
+                             var operation = '';
+                             if ($EditCheck) {
+                                 operation += "&nbsp;&nbsp;<a class=\"details ml10\" href='javascript:void(0)' onclick=\"OpenUpgradeMerchantIndex('" + val + "',2)\" title=\"User account\">Edit</a>";
+                             }
+                             if ($AuditCheck) {
+                                 operation += "&nbsp;&nbsp;<a class=\"details ml10\" href='javascript:void(0)' onclick=\"OpenUpgradeMerchantIndex('" + val + "',3)\" title=\"User account\">Audit</a>";
+                             }
+                             if (operation == '') {
+                                 operation = '-';
+                             }
+                             return operation;
+                         },
+                         events: {
+
+                         }
+                     }
+            ];
+
+            $('#merchant_grid').bootstrapTable({
+                url: '@Url.Action("Search")',
+                queryParams: function(params) {
+                    return {
+                        PagedIndex: this.pageNumber - 1, //params.pageNumber - 1  params.offset
+                        PagedSize: this.pageSize //params.pageSize  params.limit
+                    };
+                },
+                sortOrder: 'desc',
+                sortName: 'CreateBy',
+                cache: false,
+                //height: '100%',
+                striped: true,
+                idField: 'ProductId',
+                pagination: true,
+                //pageSize: 50,
+                //pageList: [10, 25, 50, 100, 200],
+                //search: true,
+                showColumns: true,
+                showRefresh: true,
+                //singleSelect: true,
+                minimumCountColumns: 2,
+                clickToSelect: true,
+                sidePagination: 'server',
+                columns: columns
+            });
+
+            var viewModel = function() {
+                var self = this;
+                self.remove = function() {
+                    var ids = $.map($('#merchant_grid').bootstrapTable('getSelections'), function(row) {
+                        return row.MerchantID;
+                    });
+                    if (!ids && ids.length == 0) {
+                        $.messager.alert('Tips', 'Please select the item to be deleted');
+                        return;
+                    }
+                    $.post("@Url.Action("Delete")", { ids: ids }, function(result) {
+                        if (result && result.IsValid) {
+                            $('#merchant_grid').bootstrapTable('refresh');
+                            $.messager.alert('Tips', 'Deleted');
+                        } else {
+                            $.messager.alert('Wrong information', result.Messages.join('\n'));
+                        }
+                    });
+                }
+            }
+
+            var model = new viewModel();
+
+            ko.applyBindings(model);
+        });
+
+        //升级商家
+        //type 1 添加 2 修改 3 审核
+        function OpenUpgradeMerchantIndex(userID, type) {
+            var url = "/YH_User/UpgradeMerchantIndex?userID=" + userID + "&type=" + type;
+            parent.addTab(userID, "Upgrade Merchant", url);
+        }
+    </script>
+}

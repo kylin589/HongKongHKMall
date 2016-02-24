@@ -1,0 +1,178 @@
+﻿@using HKTHMall.Domain.WebModel.Models.Login
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    List<UserAddress> addressSollection = Model.UserAddresss;
+}
+
+<div id="addressDiv">
+
+    <h3>@CultureHelper.GetLangString("ORDER_ADDRESS_CONFIRMADDRESS") <a class="addPlaceWeb" href="javascript:;">@CultureHelper.GetLangString("ORDER_ADDRESS_ADDADDRESS")</a><span class="clearfix"></span></h3>
+
+
+    @if (addressSollection != null && addressSollection.Count > 0)
+    {
+        //默认收货地址
+        var defaultAddress = addressSollection.FirstOrDefault(x => x.Flag == 1);
+        <div class="signInCover">
+            <ul>
+                @for (int i = 0; i < addressSollection.Count; i++)
+                {
+                    var address = addressSollection[i];
+                    //如果默认收货地址为空，则把第一项收货地址设为收货地址
+                    if (defaultAddress == null)
+                    {
+                        defaultAddress = addressSollection[0];
+                    }
+                    bool isDefault = defaultAddress != null && defaultAddress.UserAddressId == address.UserAddressId;
+
+                    <li class="listSignIn">
+                        <a name="userName" href="javascript:;" @(isDefault ? "class=addDefaultOn" : "")>@address.Receiver&nbsp;&nbsp;<span>(@CultureHelper.GetLangString("ORDER_ADDRESS_REVEIVER"))</span> @Html.Raw(isDefault ? "<i id='si'></i>" : "")</a>
+                        @if (CultureHelper.GetLanguageID() == 2 || CultureHelper.GetLanguageID() == 3)
+                        {
+                            <input type="hidden"
+                                   data-receiverinfo="@string.Format("{0} {1}", address.Receiver, address.Mobile)"
+                                   data-address="@string.Format("{0}{1}{2}{3}{4}", address.DetailsAddress, address.QuAreaName, address.ShiAreaName, address.ShengAreaName, address.CountryTHAreaName)"
+                                   name="userAddress"
+                                   value="@address.UserAddressId" />
+                            <dl class="signInAddress">
+                                <dd>@address.DetailsAddress</dd>
+                                <dd>@address.QuAreaName</dd>
+                                <dd>@address.ShiAreaName</dd>
+                                <dd>@address.ShengAreaName</dd>
+                                <dd>@address.CountryTHAreaName</dd>
+                                <dd>@address.Mobile</dd>
+                                @if (address.Flag == 1)
+                                {
+                                    <dd class="defaultAddress">@CultureHelper.GetLangString("MONEY_ORDER_MORENDIZHI")</dd>
+                                }
+                            </dl>
+                        }
+                        else
+                        {
+                            <input type="hidden"
+                                   data-receiverinfo="@string.Format("{0} {1}", address.Receiver, address.Mobile)"
+                                   data-address="@string.Format("{0}{1}{2}{3}{4}",address.CountryTHAreaName,address.ShengAreaName, address.ShiAreaName, address.QuAreaName, address.DetailsAddress)"
+                                   name="userAddress"
+                                   value="@address.UserAddressId" />
+                            <dl class="signInAddress">
+                                <dd>@address.CountryTHAreaName</dd>
+                                <dd>@address.ShengAreaName</dd>
+                                <dd>@address.ShiAreaName</dd>
+                                <dd>@address.QuAreaName</dd>
+                                <dd>@address.DetailsAddress</dd>
+                                <dd>@address.Mobile</dd>
+                                @if (address.Flag == 1)
+                                {
+                                    <dd class="defaultAddress">@CultureHelper.GetLangString("MONEY_ORDER_MORENDIZHI")</dd>
+                                }
+                            </dl>
+                        }
+                        <dl class="signInSetting">
+                            @if (address.Flag != 1)
+                            {
+                                <dd><a href="javascript:;" onclick="UpdateUserAddressFlagWeb(@address.UserAddressId,@address.UserID)">@CultureHelper.GetLangString("ORDER_ADDRESS_REVEIVER_DEFAULTADDRESS")</a></dd><!--非默认地址就增加这个-->
+                            }
+                            <dd><a onclick="ShowEditAddressById(@address.UserAddressId)" href="javascript:;" id="AmendAddress">@CultureHelper.GetLangString("ORDER_ADDRESS_EDITADDRESS")</a></dd>
+                            @*<dd><a href="javascript:void(0)">删除</a></dd>*@
+                        </dl>
+                        <span class="clearfix"></span>
+                    </li>
+                    <span class="clearfix"></span>
+
+                }
+            </ul>
+
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    //Load Style
+    $(document).ready(function () {
+        var _htmlADDRES = $("#addressDialog");
+
+        $("a[name='userName']").click(function () {
+            //改变收货地址选中样式
+            $(this).addClass('addDefaultOn').append("<i id='si'></i>").parent().siblings(".listSignIn").find("a[name='userName']").removeClass('addDefaultOn').children("#si").remove();
+            orderPresenter.loadOrderData();
+            initAddress($('.addDefaultOn').next());
+        });
+
+
+        $(".addPlaceWeb").click(function () {
+            ResetMessage(_htmlADDRES);
+            $.post("/Money/Order/GetCurrentUserEmail", null, function (data) { $("#txtEmail").val(data.Email); },"json");
+            ds.dialog({
+                title: '@CultureHelper.GetLangString("HOME_SHOPING_ADDADDRESS")',
+                content: _htmlADDRES,
+                tijiao: function () {
+
+                }
+            });
+
+        });
+
+        $("body").on('change', '#slCountry', function () {
+            _htmlADDRES.find("#slSheng").html("<option value='-1'>-" + $commonLang.MONEY_ORDER_SELECTPLEASE + "-</option>");
+            _htmlADDRES.find("#slShi").html("<option value='-1'>-" + $commonLang.MONEY_ORDER_SELECTPLEASE + "-</option>");
+            _htmlADDRES.find("#slQu").html("<option value='-1'>-" + $commonLang.MONEY_ORDER_SELECTPLEASE + "-</option>");
+            SelectChange($(this).val(), "slSheng");
+        })
+
+        $("body").on('change', '#slSheng', function () {
+            _htmlADDRES.find("#slShi").html("<option value='-1'>-" + $commonLang.MONEY_ORDER_SELECTPLEASE + "-</option>");
+            _htmlADDRES.find("#slQu").html("<option value='-1'>-" + $commonLang.MONEY_ORDER_SELECTPLEASE + "-</option>");
+            SelectChange($(this).val(), "slShi");
+        })
+
+        $("body").on('change', '#slShi', function () {
+            _htmlADDRES.find("#slQu").html("<option value='-1'>-" + $commonLang.MONEY_ORDER_SELECTPLEASE + "-</option>");
+            SelectChange($(this).val(), "slQu");
+        })
+
+        $("body").on('change', '#slQu', function () {
+            if ($(this).val() == "-1") {
+                $("#pTHAreaID").show();
+            } else {
+                $("#pTHAreaID").hide();
+            }
+        })
+
+
+        $("#closeBut").click(function () {
+            $("#ShippingAddress").hide().stop();
+            $("#mask").hide().stop();
+        });
+
+        $("body").on('click', '.dialogSubmit', function () {
+            if (ValidateText()) {
+                $(".dialogSubmit").hide();
+                $.ajax({
+                    url: "/UserInfo/CreateAddress",
+                    data: {
+                        userAddressId: $("#txtUserAddressId").val(),
+                        Receiver: $("#txtReceiver").val(),
+                        THAreaID: $("#slQu").val(),
+                        DetailsAddress: $("#txtDetailsAddress").val(),
+                        Mobile: $("#txtMobile").val(),
+                        Phone: $("#txtPhone").val(),
+                        Email: $("#txtEmail").val(),
+                        PostalCode: $("#txtPostalCode").val(),
+                        Time: new Date().getTime()
+                    },
+                    type: "POST",
+                    dataType: "json",
+                    success: function (data, status) {
+                        //data = JSON.parse(data);
+                        if (data.IsValid) {
+                            location.reload();
+                            return false;
+                        } else {
+                            showDailog(data.Messages, false);
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+</script>

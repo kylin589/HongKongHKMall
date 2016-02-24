@@ -1,0 +1,173 @@
+﻿@using HKTHMall.Core.Extensions
+
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main_a">
+    <div class="z_personal">
+        <div class="PersonMain">
+            <div class="PmainLeft" id="PmainLeft">
+             @Html.Partial("_userLeft")
+            </div>
+            <!--右边的写在这里-->
+            <div class="PmainRight" id="PmainRight">
+
+                <div class="c_tuikuan">
+                    <div class="c_tuikuan_nr">
+                        <div class="c_tuikuan_nr_bt"><span>@CultureHelper.GetLangString("HOME_INDEX_MYORDER")><a href="#">@CultureHelper.GetLangString("ORDER_RETURNPRODUCT_APPLY")</a> </span></div>
+                        <div class="c_tuikuan_nr_bt1">@CultureHelper.GetLangString("ORDER_RETURNPRODUCT_APPLY")</div>
+                        @if (Model.Count > 0)
+                        {
+                            string picurl = Model[0].PicUrl;
+                            <div class="c_tuikuan_nr_nr">
+                                <div class="c_tuikuan_nr_nr1">
+                                    <img src="@Html.GetImagesUrl(picurl, 66, 66)" class="fl">
+                                    <p style="color: #000;"><a href="/home/shopping/@(Model[0].ProductId).html">@Model[0].ProductName</a> </p>
+                                    <p>@Model[0].SkuName</p>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+
+                            <div class="c_tuikuan_nr_nr">
+                                <div class="c_tuikuan_nr_nr2">
+                                    <p><span>@CultureHelper.GetLangString("ORDER_RETURNPRODUCT_PRICE")：</span><i>@(Model[0].SalesPrice) @CultureHelper.GetLangString("WEBSITE_DOLLARS")</i><b>×@(Model[0].Quantity)（@CultureHelper.GetLangString("HOME_SHOPPING_NUMBER")）</b></p>
+                                    <p><span>@CultureHelper.GetLangString("ORDER_RETURNPRODUCT_XIAOJI")：</span><i>@Model[0].SubTotal @CultureHelper.GetLangString("WEBSITE_DOLLARS")</i></p>
+                                    <p><span>@CultureHelper.GetLangString("ORDER_RETURNPRODUCT_SELLER")：</span><i>@Model[0].ShopName</i></p>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+
+                            <div class="c_tuikuan_nr_nr">
+                                <div class="c_tuikuan_nr_nr2">
+                                    <p><span>@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_ORDERNO")：</span><i>@Model[0].OrderID</i></p>
+                                    <p><span>@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_POSTAGEFEE")：</span><i>@(Model[0].ExpressMoney) @CultureHelper.GetLangString("WEBSITE_DOLLARS")</i></p>
+                                    <p><span>@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_ALLFEE")：</span><i>@Model[0].TotalAmount @CultureHelper.GetLangString("WEBSITE_DOLLARS")</i></p>
+                                    <p><span>@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_COMPLETETIME")：</span><i>@(DateTimeExtensions.DateTimeToString(Model[0].OrderDate))</i></p>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+
+                            <div class="c_tuikuan_nr_nr3">
+                                <span>@CultureHelper.GetLangString("ORDER_RETURNPRODUCT_RETURNREASON")</span>
+                                <p>
+                                    <select class="c_tuikuan_nr_nr3_select" id="slReasonType">
+                                        <option value="-1">@CultureHelper.GetLangString("ORDER_RETURNPRODUCT_SELECTRETURNREASON")</option>
+                                        <option value="3">@CultureHelper.GetLangString("ORDER_RETURNPRODUCT_NOTWANT")</option>
+                                        <option value="1">@CultureHelper.GetLangString("ORDER_RETURNPRODUCT_PRODUCTDAMAGE")</option>
+                                        <option value="2">@CultureHelper.GetLangString("ORDER_RETURNPRODUCT_DELIVERYDELAY")</option>
+                                        <option value="4">@CultureHelper.GetLangString("ORDER_RETURNPRODUCT_BADQUALITY")</option>
+                                        <option value="5">@CultureHelper.GetLangString("ORDER_RETURNPRODUCT_OTHERREASON")</option>
+                                    </select>
+                                </p>
+
+                                <span>@CultureHelper.GetLangString("ORDER_RETURNPRODUCT_RETURNMONEY")</span>
+                                <p class="c_tuikuan_nr_nr3_p">
+                                    <b>@Model[0].SalesPrice @CultureHelper.GetLangString("WEBSITE_DOLLARS")</b><input type="text" id="txtQuantity" onkeyup="this.value=value.replace(/[^\d]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" class="cb_refund" tel="@Model[0].Quantity" maxlength="3" style="width: 40px;" value="@Model[0].Quantity"><em>&nbsp;&nbsp;@CultureHelper.GetLangString("ACCOUNT_My_OrderReturnProductInfo_ZUIDUO")@(Model[0].SalesPrice * Model[0].Quantity) @CultureHelper.GetLangString("WEBSITE_DOLLARS")</em><div class="clear"></div>
+                                </p>
+
+                                <span>@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_RETURNREASONS")</span>
+                                <p>
+                                    <textarea id="txtDiscription" placeholder="@CultureHelper.GetLangString("ORDER_RETURNPRODUCT_DESCRIBEREFUND")" type="text" class="c_tuikuan_nr_nr3_text" maxlength="200"></textarea>
+                                </p>
+
+                            </div>
+                        }
+
+                    </div>
+
+                    <div class="c_tuikuan_nr_nr4">
+                        <a href="javascript:void(0)" id="btnSave">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_SUBMITAPPLY")</a>
+                    </div>
+                    <input id="hidOrderID" type="hidden" value="@Model[0].OrderID" />
+                    <input id="hidOrderDetailsID" type="hidden" value="@Model[0].OrderDetailsID" />
+                    <input id="hidProductId" type="hidden" value="@Model[0].ProductId" />
+                    <input id="hidSalesPrice" type="hidden" value="@Model[0].SalesPrice" />
+
+                </div>
+            </div>
+        </div><!--右边结束-->
+    </div>
+    <div class="c_public_bottom"></div>
+</div>
+
+@*@Html.Partial("_FooterTitle")*@
+<script src="~/Content/js/format.js"></script>
+<script>
+    //Load Style
+    $(document).ready(function () {
+        $("div.PmainLeft .dingdan").parent().addClass("Checked");
+        $("div.PmainLeft .dingdan").removeClass("dingdan").addClass("Rdingdan");
+
+        $("#btnSave").click(function () {
+            SaveComplaints();
+        })
+
+        $("#txtQuantity").blur(function () {
+            var quantityCount = $("#txtQuantity").attr("tel");
+            var quantity = $("#txtQuantity").val();
+            if (quantity != null && quantity != "") {
+                if (parseInt(quantity) > parseInt(quantityCount)) {
+                    $("#txtQuantity").val(quantityCount);
+                } else {
+                    //$("#emTotal").html($commonLang.ORDERRETURN_ATMOSTMONEY.format(quantity * $("#hidSalesPrice").val()) + "港元");
+                    //$("#emTotal").html("&nbsp;&nbsp;最多" + (quantity * $("#hidSalesPrice").val()) + "港元");
+                }
+            }
+        })
+    });
+
+    function SaveComplaints() {
+        var discription = $("#txtDiscription").val();
+        var reasonType = $("#slReasonType").val();
+        var quantityCount = $("#txtQuantity").attr("tel");
+        var quantity = $("#txtQuantity").val();
+        if (reasonType == "-1") {
+            mallbox.alert({ message: $commonLang.ACCOUNT_MY_ORDERRETURNPRODUCT_REASON });
+        }
+        else if (quantity == null || quantity == "") {
+            mallbox.alert({ message: $commonLang.ACCOUNT_MY_ORDERRETURNPRODUCT_QUANTITY });
+        } else if (parseInt(quantity) > parseInt(quantityCount)) {
+            mallbox.alert({ message: $commonLang.ACCOUNT_MY_ORDERRETURNPRODUCT_WRONGQUANTITY });
+        } else if (parseInt(quantity) < 1)
+        {
+            mallbox.alert({ message: $commonLang.ACCOUNT_My_OrderReturnProductInfo_Quantity });
+        }
+        else if (discription.length > 200) {
+            mallbox.alert({ message: $commonLang.ACCOUNT_MY_ORDERRETURNPRODUCT_OUTOFRANGE.format((discription.length - 200)) });
+        } else {
+            $.ajax({
+                url: "/My/AddReturnProductInfo",
+                type: "Post",
+                data: {
+                    discription: discription,
+                    reasonType: reasonType,
+                    quantity: quantity,
+                    orderID: $("#hidOrderID").val(),
+                    orderDetailsID: $("#hidOrderDetailsID").val(),
+                    productId: $("#hidProductId").val(),
+                    salesPrice: $("#hidSalesPrice").val(),
+                    time: new Date().getTime()
+                },
+                dataType: "text",
+                success: function (data, status) {
+                    data = JSON.parse(data);
+                    mallbox.alert({ message: data.Messages });
+                    if (data.IsValid) {
+                        mallbox.alert({
+                            message: data.Messages,
+                            modal: true,
+                            callback: function () {
+                                document.location = "../../Account/My/Order";
+                            }
+                        });
+                    }
+                },
+                error: function (data, status, e) {
+                    mallbox.alert({ message: $commonLang.ACCOUNT_MY_ORDERRETURNPRODUCT_FAIL });
+                }
+            });
+        }
+    }
+</script>

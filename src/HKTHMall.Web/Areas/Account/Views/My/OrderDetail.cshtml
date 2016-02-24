@@ -1,0 +1,378 @@
+﻿@using HKTHMall.Domain.Enum
+@using HKTHMall.Services.Common.MultiLangKeys
+@using HKTHMall.Core.Extensions
+@model HKTHMall.Domain.WebModel.Models.Orders.OrderView
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="main_a">
+
+    <div class="main_about">
+        <div class="ls_member">
+
+
+            <!--left-->
+            @Html.Partial("_userLeft")
+
+            <!--right-->
+            <div class="ls_member_rg">
+
+
+                <!--右侧会员信息展示-->
+                <div class="m_user_pubtitle"><span>@CultureHelper.GetLangString("HOME_INDEX_MYORDER")@*我的订单*@</span>  > @CultureHelper.GetLangString("ACCOUNT_MY_ORDERPRODUCTLISTT2_ORDERDETAILS") @*订单详情*@ </div>
+                <div class="ls_ddxq">
+                    <div class="ls_ddxq_bt1">
+                        @CultureHelper.GetLangString("ORDER_LIST_ORDERSTATUS")@*订单状态*@:<span>@ML_OrderStatus.GetLocalOrderStatusDescription(CultureHelper.GetLanguageID(), (OrderEnums.OrderStatus)Model.OrderStatus)@*已付款*@</span><!--代付款页面此处显示代付款，添加class="ls_ddxq_dfk"-->
+                    </div>
+                    <dl>
+                        <dt>@CultureHelper.GetLangString("ORDER_DETAILS_BUYERINFO")@*买家信息*@</dt>
+                        <dd>
+                            <span>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_SHIPPINGADDRESS"):@*收货地址：*@</span>
+                            @Model.OrderAddressView.Receiver<text>,</text>
+                            @(Model.OrderAddressView.Mobile)<text>,</text>
+                            @ViewBag.UserAddress
+                            @if (!string.IsNullOrEmpty(Model.OrderAddressView.PostalCode))
+                            {
+                                @("," + Model.OrderAddressView.PostalCode)
+                            }
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>@CultureHelper.GetLangString("ORDER_DETAILS_SELLERINFO")@*商家信息*@</dt>
+                        <dd><span>@CultureHelper.GetLangString("ORDER_DETAILS_SELLERNAME")@*商家名称*@：</span>@Model.YH_MerchantInfoView.ShopName</dd>
+                        <dd><span>@CultureHelper.GetLangString("ORDER_DETAILS_CITY")@*城市*@：</span>@ViewBag.MerchantArea</dd>
+                        <dd><span>@CultureHelper.GetLangString("ORDER_DETAILS_SERVICECALL")@*服务电话*@：</span>@Model.YH_MerchantInfoView.BusinessTel</dd>
+                        <dd><span>@CultureHelper.GetLangString("HOME_EMAILL")@*邮箱*@：</span>@Model.YH_MerchantInfoView.Email</dd>
+                    </dl>
+                    <dl>
+                        <dt>@CultureHelper.GetLangString("ORDER_DETAILS_ORDERINFO")@*订单信息*@</dt>
+                        <dd><span>@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_ORDERNO")@*订单编号*@：</span>@Model.OrderID</dd>
+                        <dd><span>@CultureHelper.GetLangString("ORDER_DETAILS_CREATETIME")@*创建时间*@：</span>@Model.OrderDate.DateTimeToString()</dd>
+                        @if (Model.PaidDate.HasValue)
+                        {
+                            <dd><span>@CultureHelper.GetLangString("ORDER_DETAILS_PAYTIME")@*付款时间*@：</span>@Model.PaidDate.Value.DateTimeToString()</dd>
+                        }
+
+                    </dl>
+                    <div class="ls_ddxq_bt2">
+                        <ul>
+                            <li class="ls_ddxq_1">@CultureHelper.GetLangString("MONEY_SHOPPINGCART_GOODS")@*商品*@</li>
+                            <li class="ls_ddxq_2">@CultureHelper.GetLangString("MONEY_SHOPPINGCART_SPECIFICATIONS")@*规格*@</li>
+                            <li class="ls_ddxq_3">@CultureHelper.GetLangString("ORDER_LIST_STATE")@*状态*@</li>
+                            <li class="ls_ddxq_4">@CultureHelper.GetLangString("ORDER_LIST_PRICE")@*单价*@</li>
+                            <li class="ls_ddxq_5">@CultureHelper.GetLangString("HOME_SHOPPING_NUMBER")@*数量*@</li>
+                            <li class="ls_ddxq_6">@CultureHelper.GetLangString("ACCOUNT_MY_ORDERPRODUCTLISTT1_COMMOPRICE")@*商品总价*@</li>
+                        </ul>
+                    </div>
+                    <div class="ls_ddxq_list">
+                        @foreach (var orderDetail in Model.OrderDetailViews)
+                        {
+                            <ul>
+                                <li class="ls_ddxq_1">
+                                    <a href="@Url.Action("shopping", "home", new { id = orderDetail.ProductId ,area=""})"><img src="@Html.GetImagesUrl(orderDetail.PicUrl, 75, 75)" alt="" /></a>
+                                    <div class="ls_ddxq_title">
+                                        <a href="@Url.Action("shopping", "home", new { id = orderDetail.ProductId ,area=""})" title="">@orderDetail.ProductName</a>
+                                    </div>
+                                </li>
+                                <li class="ls_ddxq_2">
+                                    <span>@orderDetail.SkuName</span>
+                                                                       @* @if (!string.IsNullOrEmpty(orderDetail.SkuName))
+                                        {
+
+                                           var skus = orderDetail.SkuName.Split(',');
+                                            if (!string.IsNullOrEmpty(skus[0]))
+                                            {
+                                                <span>@*颜色：@skus[0]</span>
+                                            }
+                                            if (!string.IsNullOrEmpty(skus[1]))
+                                            {
+                                                <span>@*重量：@skus[1]</span>
+                                            }*@
+
+                                        @*foreach (string sku in orderDetail.SkuName.Split(','))
+                                        {
+                                            <span>颜色：@sku</span>
+                                        } }*@
+                                   
+                                </li>
+                                <li class="ls_ddxq_3">@ML_OrderStatus.GetLocalOrderStatusDescription(CultureHelper.GetLanguageID(), (OrderEnums.OrderStatus)Model.OrderStatus)@*已收货*@</li>
+                                <li class="ls_ddxq_4">$@orderDetail.SalesPrice.ToString("0.00")</li>
+                                <li class="ls_ddxq_5">@orderDetail.Quantity</li>
+                                <li class="ls_ddxq_6">$@orderDetail.TotalPrice.ToString("0.00")</li>
+                            </ul>
+                        }
+                    </div>
+                    <div class="ls_ddxq_fk">
+                        <ul>
+                            @*{0}件商品，总商品金额*@
+                            <li><i>@Html.Raw(string.Format(CultureHelper.GetLangString("MONEY_ORDER_ORDERINFO_AMOUNTGOODS"), Model.OrderDetailViews.Count))</i>：<span>$@Model.OrderAmount.Value.ToString("0.00")</span></li>
+                            <li>@CultureHelper.GetLangString("MONEY_ORDER_ORDERINFO_FREIGHT")@*运费*@：<span>$@Model.ExpressMoney.ToString("0.00")</span></li>
+                            <li>@CultureHelper.GetLangString("ACCOUNT_MY_ORDERPRODUCTLISTT1_REALPAYMENT")@*应付总额*@：<i>$@Model.TotalAmount.Value.ToString("0.00")</i></li>
+
+                        </ul>
+
+                        <div class="ls_ddxq_fk_btn">
+                            @{
+                                var odCount = Model.OrderDetailViews.Where(p => p.Iscomment == 0 && (p.IsReturn == 0 || p.IsReturn == 3)).ToList();
+                             switch ((int)Model.OrderStatus)
+                            {
+                                case 2://待付款
+                                    <a href="@Url.Action("AgainPaymentOrder", "Order", new { area = "Money", orderId = Model.OrderID })" class="lijiPay">@CultureHelper.GetLangString("ACCOUNT_MY_ORDERACTION_IMMPAYMENT")@*立即付款*@</a>
+                                    <a class="js-detailcancel" data-id="@Model.OrderID" href="javascript:;">@CultureHelper.GetLangString("ACCOUNT_MY_ORDERACTION_CANCELORDER")@*取消订单*@</a>                                            break;
+                                case 3://待发货
+
+                                                                                break;
+                                case 4://待收货
+                                <a class="js-detailsure" data-id="@Model.OrderID" href="javascript:;">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_CONFIRMGOODS")@*确认收货*@</a>
+                                                                                break;
+                                case 5://已收货
+                                //var odCount= Model.OrderDetailViews.Where(p=>p.Iscomment==0&&p.IsReturn==0).ToList();
+                                if(odCount!=null&&odCount.Count()>0)
+                                {
+                                    //待评价
+                                     <a href="@Url.Action("TradeComment", "My", new { orderId = Model.OrderID })">@CultureHelper.GetLangString("ACCOUNT_MY_ORDERACTION_EVALUATION")@*评价*@</a>
+                                                                              
+                                }
+                                if(Model.ComplaintStatus==0)
+                                {
+                                    <a href="@Url.Action("OrderComplaints", "My", new { orderId = Model.OrderID })">@CultureHelper.GetLangString("ACCOUNT_MY_ORDERACTION_COMPLAINTS")@*投诉*@</a>
+                                }
+                                break;
+                                case 6:
+                                if (odCount != null && odCount.Count() > 0)
+                                {
+                                    //待评价
+                                    <a href="@Url.Action("TradeComment", "My", new { orderId = Model.OrderID })">@CultureHelper.GetLangString("ACCOUNT_MY_ORDERACTION_EVALUATION")@*评价*@</a>
+
+                                }
+                                break;
+
+                            }
+}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="clear"></div>
+
+        </div>
+    </div>
+
+</div><!--主体部分-->
+@*<script src="~/Content/newcss/js/dsdialog.js"></script>
+    <link href="~/Content/newcss/css/base.css" rel="stylesheet" />*@
+<script type="text/javascript">
+    $(function () {
+        //取消订单
+        $('.js-detailcancel').on('click', function (orderid) {
+            var orderId = $(this).data('id');
+            var ismake = $(this).data('ismake');
+            if (typeof (ismake) != "undefined" && !ismake) {
+                $(this).data('ismake', 1);
+                ds.dialog({
+                    content: $commonLang.ACCOUNT_MY_ORDERACTION_DNOTRESUBMIT,
+                    yesText: $commonLang.MESSAGEBOX_SURE,
+                    onyes: function () { this.close(); },
+                });
+                return;
+            }
+            var _html = document.createElement("DIV");
+            var _t1 = document.createTextNode($commonLang.ACCOUNT_MY_ORDERACTION_SURECANCEL);
+            _html.className = 'dialogMain2';
+
+            ds.dialog({
+                //content: $commonLang.ACCOUNT_MY_ORDERACTION_SURECANCEL,
+                content: _html.appendChild(_t1),
+                yesText: $commonLang.MESSAGEBOX_SURE,
+                onyes: function () {
+
+                    $.post('@Url.Action("CancelOrder")', { orderId: orderId }, function (data) {
+                        if (data && data.IsValid) {
+                            ds.dialog({
+                                content: $commonLang.ACCOUNT_MY_ORDERACTION_CANCELSUCCESS,
+                                yesText: $commonLang.MESSAGEBOX_SURE,
+                                onyes: function () {
+                                    document.location.reload();
+                                },
+                            });
+
+                        } else {
+                            ds.dialog({
+                                content: $commonLang.ACCOUNT_MY_ORDERACTION_SYSTEMBUSY,
+                                yesText: $commonLang.MESSAGEBOX_SURE,
+                                onyes: function () { this.close(); },
+                            });
+
+                        }
+
+                    });
+                },
+               // noText: '取66消',
+                onno: function () {
+                    this.close();
+                }
+            });
+        });
+        //确认收货
+        $('.js-detailsure').on('click', function (orderid) {
+            var orderId = $(this).data('id');
+            var ismake = $(this).data('ismake');
+            if (typeof (ismake) != "undefined" && !ismake) {
+                $(this).data('ismake', 1);
+                ds.dialog({
+                    content: $commonLang.ACCOUNT_MY_ORDERACTION_DNOTRESUBMIT,
+                    yesText: $commonLang.MESSAGEBOX_SURE,
+                    onyes: function () { this.close(); },
+                });
+                return;
+            }
+            ds.dialog({
+                content: $commonLang.ACCOUNT_MY_ORDERACTION_RECEIVING,
+                yesText: $commonLang.MESSAGEBOX_SURE,
+                onyes: function () {
+
+                    $.post('@Url.Action("OutTimeReceivingOrder")', { orderId: orderId }, function (data) {
+                        if (data && data.IsValid) {
+                            ds.dialog({
+                                content: $commonLang.ACCOUNT_MY_ORDERACTION_RECEIVING_SUCCESS,
+                                yesText: $commonLang.MESSAGEBOX_SURE,
+                                onyes: function () {
+                                    document.location.reload();
+                                },
+                            });
+
+                        } else {
+                            ds.dialog({
+                                content: $commonLang.ACCOUNT_MY_ORDERACTION_SYSTEMBUSY,
+                                yesText: $commonLang.MESSAGEBOX_SURE,
+                                onyes: function () { this.close(); },
+                            });
+
+                        }
+                    });
+                },
+                onno: function () {
+                    this.close();
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+@*<div class="main_a">
+        <div class="z_personal">
+            <div class="PersonMain">
+                <div class="PmainLeft" id="PmainLeft">
+                    @Html.Partial("_userLeft")
+                </div>
+                <div class="PmainRight" id="PmainRight">
+                    <div class="z_dettail">
+                        <div class="z_dtname">
+                            *****我的订单*****
+                            <span>@CultureHelper.GetLangString("HOME_INDEX_MYORDER")</span>
+                            <span>></span>
+                            *****订单详情*****
+                            <span><a href="/order/detail.html?orderId=@(Model.OrderID)" style="color: #e12228;">@CultureHelper.GetLangString("ACCOUNT_MY_ORDERPRODUCTLISTT2_ORDERDETAILS")</a></span>
+                        </div>
+                        *****订单状态*****
+                        <div class="z_dtzhuangtai">@CultureHelper.GetLangString("ORDER_LIST_ORDERSTATUS"):@ML_OrderStatus.GetLocalOrderStatusDescription(CultureHelper.GetLanguageID(), (OrderEnums.OrderStatus)Model.OrderStatus)</div>
+                        <div class="z_dttabdet">
+                            <table class="z_dddetail_098">
+                                <thead>
+                                    <tr>
+                                        *****买家信息*****
+                                        <th align="left" class="z_detshangjia" colspan="3">@CultureHelper.GetLangString("ORDER_DETAILS_BUYERINFO")</th>
+                                    </tr>
+                                    <tr>
+                                        *****收货地址*****
+                                        <th align="left" class="z_detshouhuo" colspan="3">
+                                            @CultureHelper.GetLangString("ACCOUNT_MY_INDEX_SHIPPINGADDRESS"):
+                                            <em class="z_dizhiren">
+                                                @Model.OrderAddressView.Receiver<text>,</text>
+                                                @(Model.OrderAddressView.Mobile)<text>,</text>
+
+                                                @ViewBag.UserAddress
+
+                                                @if (!string.IsNullOrEmpty(Model.OrderAddressView.PostalCode))
+                                                {
+                                                    @(","+Model.OrderAddressView.PostalCode)
+                                                }
+                                            </em>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        *****商家信息*****
+                                        <td colspan="3">@CultureHelper.GetLangString("ORDER_DETAILS_SELLERINFO")</td>
+                                    </tr>
+                                    <tr>
+                                        *****商家名称*****
+                                        <td>
+                                            @CultureHelper.GetLangString("ORDER_DETAILS_SELLERNAME"):
+                                            <em class="z_dizhiren1">@Model.YH_MerchantInfoView.ShopName</em>
+                                        </td>
+                                        *****城市*****
+                                        <td class="z_dizhiren3">
+                                            @CultureHelper.GetLangString("ORDER_DETAILS_CITY"):
+                                            <em class="z_dizhiren1">@ViewBag.MerchantArea</em>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        *****服务电话*****
+                                        <td>
+                                            @CultureHelper.GetLangString("ORDER_DETAILS_SERVICECALL"):
+                                            <em class="z_dizhiren1">@Model.YH_MerchantInfoView.BusinessTel</em>
+                                        </td>
+                                        *****邮箱*****
+                                        <td class="z_dizhiren3">
+                                            @CultureHelper.GetLangString("HOME_EMAILL"):
+                                            <em class="z_dizhiren1">@Model.YH_MerchantInfoView.Email</em>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        *****订单信息*****
+                                        <td colspan="3">@CultureHelper.GetLangString("ORDER_DETAILS_ORDERINFO")</td>
+                                    </tr>
+                                    <tr>
+                                        *****订单编号*****
+                                        <td>
+                                            @CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_ORDERNO"):
+                                            <em class="z_dizhiren2">@Model.OrderID</em>
+                                        </td>
+                                        *****创建时间*****
+                                        <td class="z_dizhiren3">
+                                            @CultureHelper.GetLangString("ORDER_DETAILS_CREATETIME"):
+                                            <em class="z_dizhiren2">@Model.OrderDate.DateTimeToString()</em>
+                                        </td>
+                                        <td class="z_dizhiren3">
+                                            @if (Model.PaidDate.HasValue)
+                                            {
+                                                *****付款时间*****
+                                                <text>@CultureHelper.GetLangString("ORDER_DETAILS_PAYTIME"):</text>
+                                                <em class="z_dizhiren2">@Model.PaidDate.Value.DateTimeToString()</em>
+                                            }
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        @Html.Partial("_OrderProductListT1")
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="c_public_bottom"></div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("div.PmainLeft .dingdan").parent().addClass("Checked");
+            $("div.PmainLeft .dingdan").removeClass("dingdan").addClass("Rdingdan");
+        });
+    </script>*@

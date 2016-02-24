@@ -1,0 +1,78 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = null;
+ }
+<script src="~/Content/js/public.js"></script>
+<script src="~/Content/js/pager.js"></script>
+<div class="spectorForce spectorForce_price">
+    <span>@CultureHelper.GetLangString("HOME_SHOPPING_PRICE")@*价格*@：</span>
+    <div class="specselMain">
+        <dl class="priceRank2016">
+            <dd><a href="javascript:GetPrice(0, 0,'d1');" id="d1">@CultureHelper.GetLangString("ORDER_LIST_ALL")@*全部*@</a></dd>
+            <dd><a href="javascript:GetPrice(0, 100,'d2');" id="d2" style="cursor:pointer">0-100</a></dd>
+            <dd><a href="javascript:GetPrice(100,200,'d3')" id="d3" style="cursor:pointer">100-200</a></dd>
+            <dd><a href="javascript:GetPrice(200,300,'d4')" id="d4" style="cursor:pointer">200-300</a></dd>
+            <dd><a href="javascript:GetPrice(300,500,'d5')" id="d5" style="cursor:pointer">300-500</a></dd>
+            <dd><a href="javascript:GetPrice(500,800,'d6')" id="d6" style="cursor:pointer">500-800</a></dd>
+            <dd><a href="javascript:GetPrice(800,1200,'d7')" id="d7" style="cursor:pointer">800-1200</a></dd>
+            <dd><a href="javascript:GetPrice(1200,0,'d8')" id="d8" style="cursor:pointer">@string.Format(CultureHelper.GetLangString("INDEX_SHOPING_PRICECAT"),1200)</a></dd>
+            <span class="clearfix"></span>
+        </dl>
+        <div class="qujianPrice">
+            <form action="">
+                <span><input type="text" id="startPrice"></span><i></i><span><input type="text" id="endPrice"></span>
+                <input type="button" onclick="GetPrice($('#startPrice').val(),$('#endPrice').val())" value="@CultureHelper.GetLangString("HOME_SHOPPING_SURE")" />
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="selectRankMethod">
+    <div class="rankMethod"><a href="javascript:GetSort();">@CultureHelper.GetLangString("HOME_LIST_FENLEIMOREN")@*默认*@</a><span></span></div>
+    <div class="rankMethod"><a href="javascript:GetSort('true', 'false');">@CultureHelper.GetLangString("HOME_INDEXFIRST_SALES")@*销量*@<i id="sellClass" class="fa-long-arrow-down"></i></a><span></span></div>
+    @*<div class="rankMethod"><a href="###" >评价<i class="fa-long-arrow-down"></i></a><span></span></div>*@
+    <div class="rankMethod priceRank up" data-price="v"><a href="javascript:GetSort('false', 'true');">@CultureHelper.GetLangString("HOME_SHOPPING_PRICE")@*价格*@<i id="priceClass" class="fa-arrows-v"></i></a><span></span></div>
+    @*<div class="rankMethod"><a href="###">返现时间<i class="fa-long-arrow-down"></i></a><span></span></div>*@
+    <ul>
+        <li class="goPrevPage"><a href="javascript:PreviousPage($('#pageNo').html())" class="fa-angle-left"></a></li>
+        <li class="rankPageFirst"><span id="pageNo"></span></li>
+        <li class="methodSpacer">/</li>
+        <li class="rankpagerLast"><span id="pageSum"></span></li>
+        <li class="goNextPage"><a href="javascript:GetNext($('#pageNo').html(),$('#pageSum').html())" class="fa-angle-right"></a></li>
+        <span class="clearfix"></span>
+    </ul>
+</div>
+<script type="text/javascript">
+    $("#startPrice").keyup(function () {
+        $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+    }).bind("paste", function () {  //CTR+V事件处理  
+        $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+    })
+    $("#endPrice").keyup(function () {
+        $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+    }).bind("paste", function () {  //CTR+V事件处理  
+        $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+    });
+    $(function () {
+        initRank();
+    });
+    function initRank() {
+        $('.rankMethod').eq(0).children('a').css('color', '#ef5959');
+        $('.rankMethod').eq(0).children('a').children('i').css('color', '#ef5959');
+        $('.rankMethod').eq(0).children('span').addClass('onSelected');
+        $('.rankMethod').click(function () {
+            $('.rankMethod').css('border-right', '0');
+            $(this).children('a').css('color', '#ef5959');
+            $(this).children('a').children('i').css('color', '#ef5959');
+            $(this).children('span').addClass('onSelected');
+            $(this).siblings().children('a').css('color', '#4e4e4e');
+            $(this).siblings().children('a').children('i').css('color', '#a3a3a3');
+            $(this).siblings().children('span').removeClass('onSelected');
+            if ($(this).index() != 3) { priceInit(); }
+            if ($(this).index() == 4) {
+                $(this).css('border-right', '1px solid #eee');
+            }
+        });
+    }
+</script>

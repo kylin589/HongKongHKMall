@@ -1,0 +1,118 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div> 
+        <input type="text" id="txtUserName" class="form-control" placeholder="Please enter user name" />
+        <input type="password" id="txtpassword" class="form-control" placeholder="Please enter the user password" />
+        <button type="submit" id="submit" class="btn btn-success btn-block btn-flat">Login</button>
+    </div>
+
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script>
+        window.onload = function () { if (self != top) window.top.location.href = self.location.href; };
+        $(function () {
+
+            $("#submit").on("click", function () {
+                var username = $("#txtUserName").val();
+                var password = $("#txtpassword").val();
+                if (username == "" || password == "") {
+                    //Tool.Alert("Please enter account and password", 1500);
+                    alert("Please enter account and password");
+                    return;
+                }
+                $.ajax({
+                    url: '@Url.Action("IsLogin")',//'/AC_OperateLog/DeleteAC_OperateLog?OperateID=' + OperateID,
+                    data: {
+                        UserName: username,
+                        PassWord: password
+                    },
+                    type: 'post',
+                    dataType: "Json",
+                    success: function (data, status) {
+
+                        if (data.logintype == "3") {
+                            window.location.href = '/Home/index';
+                        }
+                        else {
+
+                            //Tool.Alert(data.Messages, 1500);
+                            alert(data.Messages);
+                        }
+                    },
+                    error: function (data, status, e) {
+
+                        //Tool.Alert("Login failed", 1500);
+                        alert("Login failed");
+
+                    }
+
+                });
+            });
+
+            //密码框 回车自动登录
+            //$('#txtpassword').keypress(function (event) {
+            //    var keycode = (event.keyCode ? event.keyCode : event.which);
+            //    if (keycode == '13') {
+            //        $("#submit").click();
+            //    }
+            //});
+
+            //其他区域 回车自动登录
+            //$(document).keypress(function (event) {
+            //    var keycode = (event.keyCode ? event.keyCode : event.which);
+            //    if (keycode == '13') {
+            //        $("#submit").click();
+            //    }
+            //});
+
+            //增加拖拽效果
+            //if ($.fn.dragdrop) {
+            //    $('body').delegate('.modal-header', 'mouseenter', function () {
+            //        var $this = $(this);
+            //        if (!$this.data('isbind')) {
+            //            $this.parents('.modal-dialog').dragdrop({ anchor: $this });
+            //            $this.data('isbind', 1);
+            //        }
+
+            //    });
+            //}
+
+            //自适应高度 居中显示
+            //$('body').delegate(".modal", 'shown.bs.modal', function () {
+            //    var $this = $(this);
+            //    $this.find(".modal-body").css({
+            //        "max-height": ($(window).height() - 250) + 'px',
+            //        "overflow-y": "auto"
+            //    });
+
+            //    var marginTop = ($(window).height() - $this.find(".modal-dialog").height()) / 2;
+            //    $this.find(".modal-dialog").css({
+            //        "margin-top": marginTop + 'px'
+            //    });
+            //});
+
+            //窗体隐藏后自动重置位置
+            //$('body').delegate('.modal', 'hidden.bs.modal', function () {
+            //    var $this = $(this);
+
+            //    $this.find(".modal-dialog").css({
+            //        "top": 'auto',
+            //        "left": 'auto'
+            //    });
+            //});
+        });
+
+
+    </script>
+</body>
+</html>

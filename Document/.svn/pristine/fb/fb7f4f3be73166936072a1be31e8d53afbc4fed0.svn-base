@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="Keywords" content="">
+		<title>香港商城</title>
+		<link rel="stylesheet" type="text/css" href="newcss/css/css.css" />
+		<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+	</head>
+
+<body>
+<div class="header">
+	<div class="clear" style="background: #ccc; height: 175px;"></div>
+</div><!--公共头部-->
+
+
+<div class="main_a">
+	
+	<div class="main_about">
+		<div class="ls_member">
+			
+				
+			<!--left-->
+			<div class="ls_member_lf">
+				<div class="ls_member_lf_top"><h1>会员中心</h1></div>
+				<div class="ls_member_lf_nav">
+					<dl>
+						<dt class="ls_user_on"><i></i>我的账户</dt>
+						<dd class="ls_user_on"><a href="#" title="">我的惠卡</a></dd><!--当打开当前页的时候，二级栏目里增加ls_user_on，并且当前的一级栏目也要增加ls_user_on-->
+						<dd><a href="#" title="">我的订单</a></dd>
+						<dd><a href="#" title="">我的收藏</a></dd>
+						<dd><a href="#" title="">我的评价</a></dd>
+					</dl>
+					<dl>	
+						<dt><i></i>账户设置</dt>
+						<dd><a href="#" title="">个人信息</a></dd>
+						<dd><a href="#" title="">收货地址</a></dd>
+						<dd><a href="#" title="">账户安全</a></dd>
+					</dl>
+					<dl>
+						<dt><i></i>退款维权</dt>
+						<dd><a href="#" title="">退款管理</a></dd>
+						<dd><a href="#" title="">我的投诉</a></dd>
+					</dl>
+					
+				</div>
+			</div>
+			
+			
+			<!--right-->
+			<div class="ls_member_rg">
+				
+					
+				<!--右侧会员信息展示-->
+				<div class="ls_member_info">
+					<div class="ownerOrder">
+						<h3>我的订单</h3>
+						<ul>
+							<li>
+								<span>状态</span>
+								<select name="" id="">
+									<option value="">代付款</option>
+									<option value="">代付款1</option>
+									<option value="">代付款2</option>
+									<option value="">代付款3</option>
+									<option value="">代付款4</option>
+								</select>
+							</li>
+							<li>
+								<span>时间</span>
+								<select name="" id="">
+									<option value="">全部</option>
+									<option value="">全部1</option>
+									<option value="">全部2</option>
+									<option value="">全部3</option>
+									<option value="">全部4</option>
+								</select>
+							</li>
+						</ul>
+                        <span class="clearfix"></span>
+					</div>
+					
+					<ul class="orderTitle_2016">
+						<li>商品</li>
+						<li>数量</li>
+						<li>服务</li>
+						<li>实付金额</li>
+						<li>订单状态</li>
+						<li>操作</li>
+						<span class="clearfix"></span>
+					</ul>
+                    	
+                        
+                        
+                        
+                        
+					<div class="m_c_emp">
+						<p><i></i>您的订单为空！</p>
+						<div><span></span><b>您的订单为空，请快去逛逛吧！</b></div>
+						<div class="m_c_emp_Button">
+							<a href="###">返回首页</a>
+						</div>
+					</div>
+                    
+                    
+                    
+			  </div>
+			</div>
+			<div class="clear"></div>
+		
+		</div>
+	</div>
+
+</div><!--主体部分-->
+
+
+
+<div class="footer"></div><!--公共底部-->
+
+
+<script>
+	$('.orderMain_2016').each(function(){
+		var _height = $(this).children('dd').eq(0).innerHeight();
+		$(this).children('dd').css({
+			'height':_height
+		});
+	});
+	// $('.orderMain_2016 > dd').eq(0).innerHeight();
+</script>
+</body>
+
+</html>

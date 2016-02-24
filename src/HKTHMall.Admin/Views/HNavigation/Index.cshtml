@@ -1,0 +1,138 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@model HKTHMall.Domain.AdminModel.Models.Categoreis.SearchFloorCategoryModel
+@{
+    ViewBag.Title = "Home page navigation classification list page";
+
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(34);
+    _Authority.Delete = _Authority.CheckAction(36);
+    _Authority.Move = _Authority.CheckAction(37);
+}
+<input type="hidden" id="hidPageIndex" value="0" />
+<input type="hidden" id="hidPageSize" value="10" />
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        @if (_Authority.Add)
+        {
+            <button type="button" class="btn btn-primary js_create">
+                <span class="glyphicon glyphicon-plus"></span> Add
+            </button>
+        }
+    </div>
+</div>
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@section css{
+    <link href="~/Content/css/category.css" rel="stylesheet" />
+    <link href="~/Content/plugins/iCheck/all.css" rel="stylesheet" />
+}
+@Html.Partial("_FormModal")
+@section scripts{
+    <script type="text/javascript">
+        //权限
+        var $deleteCheck = eval("@(_Authority.Delete.ToString().ToLower())");
+        var $moveCheck = eval("@(_Authority.Move.ToString().ToLower())");
+        //加载数据
+        $(function () {
+            var columns = [
+              { field: "FloorCategoryId", title: "Key Id", align: 'center', valign: 'middle', sortable: false },
+              { field: "navigationName", title: "Name", align: 'center', valign: 'middle', sortable: false },
+              { field: "AddUsers", title: "Creater", align: 'center', valign: 'middle', sortable: false },
+              {
+                  field: "AddTime", title: "Create time", align: 'center', valign: 'middle', sortable: false, formatter:
+                    function (val) {
+                        return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                    }
+              },
+              {
+                  field: "FloorCategoryIds", title: "Operation", align: 'center', valign: 'middle',
+                  formatter: function (val) {
+                      var operation = '';
+                      if ($moveCheck) {
+                          operation += '<a class="ssorts ml10" href="javascript:void(0)" title="move up"><i class="glyphicon glyphicon-arrow-up"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;' +
+                          '<a class="xsorts ml10" href="javascript:void(0)" title="Down">' +
+                          '<i class="glyphicon glyphicon-arrow-down"></i>' +
+                          '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                      }
+                      if ($deleteCheck) {
+                          operation += '<a class="remove ml10" href="javascript:void(0)" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>';
+                      }
+                      if (operation == '') {
+                          operation = '-';
+                      }
+                      return [
+                           operation
+                      ].join('');
+                  },
+                  events: {
+                      //上移
+                      'click .ssorts': function (e, value, row, index) {
+                          UpdateSorts(index, row.FloorCategoryId, 1, $("#hidPageIndex").val(), $("#hidPageSize").val());
+                      },
+                      //下移
+                      'click .xsorts': function (e, value, row, index) {
+                          UpdateSorts(index, row.FloorCategoryId, 2, $("#hidPageIndex").val(), $("#hidPageSize").val());
+                      },
+                      //编辑
+                      'click .edit': function (e, value, row, index) {
+                          Tool.ShowModal('@Url.Action("Create")', { id: row.FloorCategoryId, time: new Date().getTime() }, 'Edit homepage NavInfo category');
+                      },
+                      //删除
+                      'click .remove': function (e, value, row, index) {
+                          Tool.DeleteRecord('@Url.Action("Delete")', { floorCategoryId: row.FloorCategoryId }, $('#u_grid'));
+                      }
+                  }
+              }
+            ];
+
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+                queryParams: function (params) {
+                    $("#hidPageIndex").val(this.pageNumber - 1);
+                    $("#hidPageSize").val(this.pageSize);
+                    return {
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize:1000,
+                        time: new Date().getTime()
+                    };
+                },
+                pagination: false,
+                showRefresh: true,
+                columns: columns
+            });
+
+            //添加楼层显示分类
+            $('.js_create').click(function () {
+                Tool.ShowModal("@Url.Action("Create")", { time: new Date().getTime() }, "Add Home Navigation Categories");
+            });
+
+        })
+        //保存
+        function Save() {
+            if ($("#modal-form #CategoryId").val().trim() == '') {
+                Tool.Alert("Please select homepage NavInfo category", 1500);
+                return;
+            }
+            Tool.SaveModal($('#u_grid'));
+        }
+        //更新排序位置
+        function UpdateSorts(rowId, floorCategoryId, sortType, PagedIndex, PagedSize) {
+            $.ajax({
+                url: '@Url.Action("UpdatePlace")' + "?rowId=" + rowId + "&floorCategoryId=" + floorCategoryId + "&sortType=" + sortType + "&PagedIndex=" + PagedIndex + "&PagedSize=" + PagedSize,
+                dataType: "text",
+                success: function (data, status) {
+                    data = JSON.parse(data);
+                    if (data.IsValid) {
+                        Tool.ReloadDataTable($('#u_grid'));
+                    }
+                    Tool.Alert(data.Messages, 1500);
+                },
+                error: function (data, status, e) {
+                    Tool.Alert("Failed!", 1500);
+                }
+            });
+        }
+    </script>
+}

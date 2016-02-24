@@ -1,0 +1,227 @@
+﻿@{
+    ViewBag.Title = "Record user account changes";
+  
+}
+@model HKTHMall.Domain.AdminModel.Models.User.SearchZJ_UserBalanceChangeLogModel
+<div id="user-toolbar1">
+    <div class="form-inline" role="form">
+        @*<div class="form-group">
+            <span>SN: </span>
+            @Html.TextBoxFor(x => x.ID, new { @class = "form-control w70" })
+        </div>*@
+        <div class="form-group">
+            <span>Email: </span>
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control w70" })
+        </div>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        @*<div class="form-group">
+            <span>User Name: </span>
+            @Html.TextBoxFor(x => x.Account, new { @class = "form-control w70" })
+        </div>
+
+        &nbsp; &nbsp;
+        <div class="form-group">
+            <span>Real Name: </span>
+            @Html.TextBoxFor(x => x.RealName, new { @class = "form-control w70" })
+
+        </div>*@
+        &nbsp;
+        <div class="form-group">
+            <span>Balance statement: </span>
+            @*@Html.TextBoxFor(x => x.IsAddOrCut, new { @class = "form-control w70" })*@
+            <select id="IsAddOrCut" class="form-control">
+                <option value="10">--All--</option>
+                <option value="0">Expenditure</option>
+                <option value="1">Income</option>
+            </select>
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Change Type: </span>
+            @Html.DropDownList("AddOrCutType", ViewBag.list as System.Web.Mvc.SelectList, new { @class = "form-control" })
+            
+        </div>
+        
+
+    </div>
+<br />
+    <div class="form-inline" role="form">
+        @*<div class="form-group">
+        <span>Operator: </span>
+        @Html.TextBoxFor(x => x.CreateBy, new { @class = "form-control w70" })
+    </div>
+    &nbsp; &nbsp; &nbsp;*@
+        <div class="form-group">
+            <span>Order SN: </span>
+            @Html.TextBoxFor(x => x.OrderNo, new { @class = "form-control w70" })
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="form-group">
+            <span>Create time: </span>
+            @Html.TextBoxFor(x => x.BeginCreateDT, new { @class = "form-control w70" })
+            &nbsp;--&nbsp;
+            @Html.TextBoxFor(x => x.EndCreateDT, new { @class = "form-control w70" })
+        </div>
+
+        &nbsp;
+        &nbsp;&nbsp;&nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;&nbsp;&nbsp;
+        <button type="button" class="btn btn-danger js_reset">
+            <span class="glyphicon glyphicon-bullhorn"></span> Clear
+        </button>
+    </div>
+
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar" ></table>
+
+
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+
+            var columns = [
+                //{ field: 'ID', title: 'SN', align: 'center', valign: 'middle', sortable: false },
+                //{ field: 'Account', title: 'User Name', align: 'center', valign: 'middle', sortable: false },
+                //{ field: 'RealName', title: 'Real Name', align: 'center', valign: 'middle', sortable: false },
+                { field: 'Email', title: 'Email', align: 'center', valign: 'middle', sortable: false },
+                { field: 'NickName', title: 'NickName', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'IsAddOrCut', title: 'Balance statement', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var m = "-";
+                        switch (val) {
+                            case 1:
+                                m = "Income"; break;
+                            case 0:
+                                m = "Expenditure"; break;
+                            default:
+
+                        }
+                        return m;
+                    }
+                },
+                { field: 'TypeName', title: 'Change Type', align: 'center', valign: 'middle', sortable: false },
+
+                { field: 'OldAmount', title: 'Original amount', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'AddOrCutAmount', title: 'Change amount', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        if (val >= 0) {
+                            return "+" + val;
+                        }
+                        return val;
+                    }
+                },
+                { field: 'NewAmount', title: 'Current amount', align: 'center', valign: 'middle', sortable: false },
+                { field: 'OrderNo', title: 'Order SN', align: 'center', valign: 'middle', sortable: false },
+                { field: 'CreateBy', title: 'Operator', align: 'center', valign: 'middle', sortable: false },
+                
+                { field: 'CreateDT', title: 'Create time', align: 'center', valign: 'middle', sortable: false, formatter: function (val) { return val.formatterString(true)/*true 日期格式2015-5-5*/ } },
+            { field: 'Remark', title: 'Remark', align: 'center', valign: 'middle', sortable: false }
+                //{ field: 'IsDisplay', title: '是否显示', align: 'center', valign: 'middle', sortable: false }
+
+
+                @*{
+                    field: 'ID',
+                    title: '操作',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (val) {
+                        return [
+                            '<a class="edit ml10" href="javascript:void(0)" title="余额充值">',
+                            '余额充值',
+                            '</a>',
+
+                        ].join('');
+                    },
+                    events: {
+                        'click .edit': function (e, value, row, index) {
+                            console.log(1);
+                            Tool.ShowModal('@Url.Action("Create")', { id: value }, '余额充值');
+                        },
+
+                    }
+                }*@
+            ];
+            //初始列表内容
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+
+                queryParams: function (params) {
+                    return {
+                        //ID: $('#ID').val(),
+                        IsAddOrCut: $('#IsAddOrCut').val(),
+                        AddOrCutType: $('#AddOrCutType').val(),
+                        //CreateBy: $('#CreateBy').val(),
+                        Email: $('#Email').val(),
+                        OrderNo: $('#OrderNo').val(),
+                        BeginCreateDT: $('#BeginCreateDT').val(),
+                        EndCreateDT: $('#EndCreateDT').val(),
+
+                        Account: $('#Account').val(),
+                        RealName: $('#RealName').val(),
+
+                        PagedIndex: this.pageNumber - 1,//params.pageNumber - 1  params.offset
+                        PagedSize: this.pageSize       //params.pageSize  params.limit
+                    };
+                },
+                sortOrder: 'desc',
+                pagination: true,
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns
+
+            });
+            //查询 刷新
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+
+            //清除
+            $('.js_reset').click(function () {
+                $('#IsAddOrCut').val("10");
+                $('#AddOrCutType').val("0");
+                $('#CreateBy').val("");
+                $('#OrderNo').val("");
+                $('#BeginCreateDT').val("");
+                $('#EndCreateDT').val("");
+                $('#BeginRechargeDT').val("");
+                $('#Account').val("");
+                $('#RealName').val("");
+                $('#ID').val("");
+                $('#Email').val("");
+
+
+            });
+
+
+           
+
+            //日期控件 开始
+            $('#BeginCreateDT').datepicker({
+                format: 'yyyy-mm-dd',
+                language: "en",
+                autoclose: true
+            }).on("changeDate", function (e) {
+
+                $('#EndCreateDT').datepicker('setStartDate', e.date);
+            });
+
+            //日期控件 结束
+            $('#EndCreateDT').datepicker({
+                format: 'yyyy-mm-dd',
+                language: "en",
+                autoclose: true
+            }).on("changeDate", function (e) {
+                $('#BeginCreateDT').datepicker('setEndDate', e.date);
+            });
+
+        });
+    </script>
+}

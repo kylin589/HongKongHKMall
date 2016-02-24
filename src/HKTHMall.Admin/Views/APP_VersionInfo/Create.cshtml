@@ -1,0 +1,194 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.APP.APP_VersionInfoModel
+
+@{
+    //Layout = null;
+    var IsTrueModel = ViewBag.IsTrueModel as List<SelectListItem>;
+    var GetAppModel = ViewBag.GetAppModel as List<SelectListItem>;
+}
+@*<script src="~/Content/plugins/jquery/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="~/Content/plugins/ajaxfileupload/ajaxfileupload.js" type="text/javascript"></script>*@
+<script type="text/javascript">
+    t = 0;//判断多次保存,修改用
+    var cf = "@ViewBag.Ts";
+    if (cf!="") {
+        t = 0;//判断多次保存,修改用
+    }
+
+    function GetUrl(date) {
+        if (date.IsValid==true) {
+            $("#DownloadURL").val(date.Data);
+            $("#FileSize").val(date.Messages);
+            
+            $("#vms").attr("style", "display");
+            Tool.Alert("File upload success", 1500);
+        }
+        else {
+            Tool.Alert(date.Messages, 1500);
+        }
+        
+
+    }
+
+ 
+</script>
+
+<div class="control-group">
+    <label class="control-label-form" style=" width: 32%;">
+        <label class="red">*</label>APP Name :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.ID)
+        @Html.TextBoxFor(t => t.APPName, new { @class = "form-control", maxlength = "50" })
+        @Html.ValidationMessageFor(m => m.APPName)
+        <div style=" display:none" id="divErrorName" class="red"></div>
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label-form" style=" width: 32%;">
+        <label class="red">*</label>Package name :
+    </label>
+    <div class="controls">
+        @Html.TextBoxFor(t => t.PackageName, new { @class = "form-control", maxlength = "200" })
+        @Html.ValidationMessageFor(m => m.PackageName)
+        <div style=" display:none" id="divError" class="red"></div>
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label-form" style=" width: 32%;">
+        <label class="red">*</label>APP Platform :
+    </label>
+    <div class="controls">
+        @*@Html.TextBoxFor(t => t.Platform, new { @class = "form-control", maxlength = "200" })
+        @Html.ValidationMessageFor(m => m.Platform)*@
+
+        @Html.DropDownList("Platform", GetAppModel, new { @class = "form-control", @Enlened = "false" })
+        @Html.ValidationMessageFor(m => m.Platform)
+       
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label-form" style=" width: 32%;">
+        <label class="red">*</label>Whether Forced Update  :
+    </label>
+    <div class="controls">
+        @*@Html.TextBoxFor(t => t.IsForceUpdate, new { @class = "form-control", maxlength = "200" })*@
+        @Html.DropDownList("IsForceUpdate", IsTrueModel, new { @class = "form-control", @Enlened = "false" })
+        @Html.ValidationMessageFor(m => m.IsForceUpdate)
+        
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label-form" style=" width: 32%;">
+        <label class="red">*</label>Version number :
+    </label>
+    <div class="controls">
+        @Html.TextBoxFor(t => t.VersionNO, new { @class = "form-control", maxlength = "200" })
+        @Html.ValidationMessageFor(m => m.VersionNO)
+        <div style=" display:none" id="divError" class="red"></div>
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label-form" style=" width: 32%;">
+        <label class="red">*</label>Version name :
+    </label>
+    <div class="controls">
+        @Html.TextBoxFor(t => t.VersionName, new { @class = "form-control", maxlength = "200" })
+        @Html.ValidationMessageFor(m => m.VersionName)
+        <div style=" display:none" id="divError" class="red"></div>
+    </div>
+</div>
+
+
+
+<div class="control-group">
+    <label class="control-label-form" style=" width: 32%;">
+        <label class="red">*</label>Update content(Chinese) :
+    </label>
+    <div class="controls">
+      
+
+        @Html.TextAreaFor(t => t.UpdateInfo, new { @class = "form-control", @maxlength = "400", @style = "width:206px !important;height:200px;" })
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label-form" style=" width: 32%;">
+        <label class="red">*</label>Update content(zh-hk) :
+    </label>
+    <div class="controls">
+
+
+        @Html.TextAreaFor(t => t.UpdateInfoTH, new { @class = "form-control", @maxlength = "500", @style = "width:206px !important;height:200px;" })
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label-form" style=" width: 32%;">
+        <label class="red">*</label>Update content(English) :
+    </label>
+    <div class="controls">
+
+
+        @Html.TextAreaFor(t => t.UpdateInfoEN, new { @class = "form-control", @maxlength = "400", @style = "width:206px !important;height:200px;" })
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label-form" style=" width: 32%;">
+        <label class="red">*</label>Upload file :
+    </label>
+
+    <div class="controls">
+
+
+        @*@Html.ValidationMessageFor(m => m.DownloadURL)
+            @Html.EditorFor(x => x.DownloadURL, "FileUploadT1", new { RootImage = ViewBag.RootImage })*@
+
+        <div style="display:none">
+            @Html.TextBoxFor(t => t.DownloadURL, new { @class = "form-control" })
+            @Html.TextBoxFor(t => t.FileSize, new { @class = "form-control" })
+        </div>
+
+       
+        @*<input id="upLoad" name="fileUpload" type="file" />*@
+            @*<input type="file" name="fileUpload" id="upload" />
+            <input type="button" onclick="uploadData()" value="上传" />*@
+                    
+        
+
+            <div id="vms"> @Html.ValidationMessageFor(m => m.DownloadURL)</div>
+            @Html.Partial("~/Views/Shared/ImgUpload.ascx")
+</div>
+</div>
+
+<script type="text/javascript">
+    function uploadData() {
+        $.ajaxFileUpload(
+            {
+                url: '/Upload/UploadFiles1?AppType=1',
+                secureuri: false,
+                fileElementId: "upLoad",
+                fileTypeExts: '*.apk;*.ipa;',
+                fileTypeDesc: 'Please select apk, ipa format',
+                dataType: "json",
+
+                success: function (data, status) {
+
+
+                    GetUrl(data); //使用该控件,请初始此方法
+                },
+                error: function (data, status, e) {
+                    Tool.Alert("upload failed!" + e, 111500);
+
+
+                }
+            })
+    }
+
+
+</script>

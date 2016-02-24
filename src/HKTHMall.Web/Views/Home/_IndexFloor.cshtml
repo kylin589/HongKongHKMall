@@ -1,0 +1,188 @@
+﻿@model List<HKTHMall.Domain.WebModel.Models.Index.IndexFloorInfo>
+@using HKTHMall.Domain.WebModel.Models.Index
+@using HKTHMall.Core.Extensions
+@using HKTHMall.Domain.WebModel.Models.Search
+@{
+    int idx = 1;
+    foreach (IndexFloorInfo item in Model)
+    {
+        <div class="@string.Format("m_infool m_fool_color{0}",idx)">
+            <!--m_fool_color1是每个楼层不同的颜色区分，会按顺序m_fool_color1，m_fool_color2，m_fool_color3写下去，颜色值最后上线了由前端来改-->
+            <div class="m_infool_left">
+                <span><a href="@Url.Action("ProductList", "Product", new { parentId = item.categoryId, cateName = item.categoryName, selectCategoryId = item.categoryId, level = 1 })" title="">@item.categoryName<i class="fa fa-angle-right"></i></a></span>
+                <ul>
+                    @foreach (var category in item.categoryList.Take(9))
+                    {
+                        <li><a href="@Url.Action("ProductList", "Product", new { parentId = item.categoryId, cateName = item.categoryName, selectCategoryId = category.CategoryId, level = 3 })" title="">@category.CategoryName</a></li>                         
+                    }
+                </ul><!--分类列表-->
+                <dl>
+                    @foreach (var brand in item.brandList)
+                    {
+                        <dd><a href="@Url.Action("ProductList", "Product", new { parentId = item.categoryId, cateName = item.categoryName,brandId=brand.BrandID})" title=""><img src="@Html.GetImagesUrl(brand.PicUrl)" alt="@brand.BrandName" width="119" height="44"></a></dd>
+                    }
+                </dl><!--品牌Logo-->
+            </div>
+            <div class="m_infool_midd" data-floor="@idx.ToString()">
+                <ul class="swiper-wrapper">
+                @foreach (var banner in item.bannerList)
+                { 
+                    <li class="swiper-slide"><a href="@banner.bannerUrl"><img src="@Html.GetImagesUrl(banner.bannerPic)" alt="" width="400" height="563"></a></li>
+                }
+                </ul><!--Banner-->
+                <div class="swiper-button-prev swiper-button-white"></div>
+                <div class="swiper-button-next swiper-button-white"></div>
+            </div>
+            <div class="m_infool_right">
+                <ul>
+                    @foreach (var product in item.bannerProductList)
+                    { 
+                        <li><a href="@Url.Action("Shopping", "Home", new { id = product.productId })" title=""><b><img src="@Html.GetImagesUrl(product.PicAddress)" alt="" width="185" height="185"></b><span>@product.ProductName</span><i><strong>$@product.HKPrice.ToString("0.00")</strong><ins>@HKTHMall.Services.Common.MultiLangKeys.CultureHelper.GetLangString("HOME_HZ_REWARDS")</ins></i></a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="m_infool_gg"><a href="@item.floorAd.bannerUrl" title=""><img src="@Html.GetImagesUrl(item.floorAd.bannerPic)" alt="" width="1198" height="90"></a></div><!--楼层广告-->
+        idx++;
+    }
+}
+@*<div class="m_infool m_fool_color1">
+    <!--m_fool_color1是每个楼层不同的颜色区分，会按顺序m_fool_color1，m_fool_color2，m_fool_color3写下去，颜色值最后上线了由前端来改-->
+    <div class="m_infool_left">
+        <span><a href="#" title="">美妆个护<i class="fa fa-angle-right"></i></a></span>
+        <ul>
+            <li><a href="#" title="">连衣裙</a></li>
+            <li><a href="#" title="">休闲风衣</a></li>
+            <li><a href="#" title="">尼大衣</a></li>
+            <li><a href="#" title="">羽绒服</a></li>
+            <li><a href="#" title="">休闲裤</a></li>
+            <li><a href="#" title="">女士睡衣</a></li>
+            <li><a href="#" title="">女士内衣</a></li>
+            <li><a href="#" title="">T恤</a></li>
+            <li><a href="#" title="">针织衫</a></li>
+        </ul>
+        <dl>
+            <dd><a href="#" title=""><img src="newcss/css/images/sb_06.png" alt="" width="119" height="44"></a></dd>
+            <dd><a href="#" title=""><img src="newcss/css/images/sb_06.png" alt="" width="119" height="44"></a></dd>
+            <dd><a href="#" title=""><img src="newcss/css/images/sb_06.png" alt="" width="119" height="44"></a></dd>
+            <dd><a href="#" title=""><img src="newcss/css/images/sb_06.png" alt="" width="119" height="44"></a></dd>
+        </dl>
+    </div>
+    <div class="m_infool_midd" data-floor="1">
+        <ul class="swiper-wrapper">
+            <li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb_01.png" alt="" width="400" height="563"></a></li>
+            <li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb_01.png" alt="" width="400" height="563"></a></li>
+            <li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb_01.png" alt="" width="400" height="563"></a></li>
+            <li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb_01.png" alt="" width="400" height="563"></a></li>
+            <li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb_01.png" alt="" width="400" height="563"></a></li>
+            <li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb_01.png" alt="" width="400" height="563"></a></li>
+        </ul>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+    <div class="m_infool_right">
+        <ul>
+            <li><a href="#" title=""><b><img src="newcss/css/images/sb_021.png" alt="" width="185" height="185"></b><span>都市女性早春新款高领毛衣早春黑色系列高领毛衣</span><i>$29.99</i></a></li>
+            <li><a href="#" title=""><b><img src="newcss/css/images/sb_022.png" alt="" width="185" height="185"></b><span>都市女性早春新款高领毛衣早春黑色系列高领毛衣</span><i>$29.99</i></a></li>
+            <li><a href="#" title=""><b><img src="newcss/css/images/sb_023.png" alt="" width="185" height="185"></b><span>都市女性早春新款高领毛衣早春黑色系列高领毛衣</span><i>$29.99</i></a></li>
+            <li><a href="#" title=""><b><img src="newcss/css/images/sb_024.png" alt="" width="185" height="185"></b><span>都市女性早春新款高领毛衣早春黑色系列高领毛衣</span><i>$29.99</i></a></li>
+            <li><a href="#" title=""><b><img src="newcss/css/images/sb_025.png" alt="" width="185" height="185"></b><span>都市女性早春新款高领毛衣早春黑色系列高领毛衣</span><i>$29.99</i></a></li>
+            <li><a href="#" title=""><b><img src="newcss/css/images/sb_026.png" alt="" width="185" height="185"></b><span>都市女性早春新款高领毛衣早春黑色系列高领毛衣</span><i>$29.99</i></a></li>
+        </ul>
+    </div>
+</div>
+<div class="m_infool_gg"><a href="#" title=""><img src="newcss/css/images/sb_03.png" alt="" width="1198" height="90"></a></div><!--楼层广告-->
+
+<div class="m_infool m_fool_color2">
+    <!--m_fool_color1是每个楼层不同的颜色区分，会按顺序m_fool_color1，m_fool_color2，m_fool_color3写下去，颜色值最后上线了由前端来改-->
+    <div class="m_infool_left">
+        <span><a href="#" title="">美妆个护<i class="fa fa-angle-right"></i></a></span>
+        <ul>
+            <li><a href="#" title="">连衣裙</a></li>
+            <li><a href="#" title="">休闲风衣</a></li>
+            <li><a href="#" title="">尼大衣</a></li>
+            <li><a href="#" title="">羽绒服</a></li>
+            <li><a href="#" title="">休闲裤</a></li>
+            <li><a href="#" title="">女士睡衣</a></li>
+            <li><a href="#" title="">女士内衣</a></li>
+            <li><a href="#" title="">T恤</a></li>
+            <li><a href="#" title="">针织衫</a></li>
+        </ul>
+        <dl>
+            <dd><a href="#" title=""><img src="newcss/css/images/sb_06.png" alt="" width="119" height="44"></a></dd>
+            <dd><a href="#" title=""><img src="newcss/css/images/sb_06.png" alt="" width="119" height="44"></a></dd>
+            <dd><a href="#" title=""><img src="newcss/css/images/sb_06.png" alt="" width="119" height="44"></a></dd>
+            <dd><a href="#" title=""><img src="newcss/css/images/sb_06.png" alt="" width="119" height="44"></a></dd>
+        </dl>
+    </div>
+    <div class="m_infool_midd" data-floor="2">
+        <ul class="swiper-wrapper">
+            <li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb_01.png" alt="" width="400" height="563"></a></li>
+            <li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb_01.png" alt="" width="400" height="563"></a></li>
+            <li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb_01.png" alt="" width="400" height="563"></a></li>
+            <li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb_01.png" alt="" width="400" height="563"></a></li>
+            <li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb_01.png" alt="" width="400" height="563"></a></li>
+            <li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb_01.png" alt="" width="400" height="563"></a></li>
+        </ul>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+    <div class="m_infool_right">
+        <ul>
+            <li><a href="#" title=""><b><img src="newcss/css/images/sb_021.png" alt="" width="185" height="185"></b><span>都市女性早春新款高领毛衣早春黑色系列高领毛衣</span><i>$29.99</i></a></li>
+            <li><a href="#" title=""><b><img src="newcss/css/images/sb_022.png" alt="" width="185" height="185"></b><span>都市女性早春新款高领毛衣早春黑色系列高领毛衣</span><i>$29.99</i></a></li>
+            <li><a href="#" title=""><b><img src="newcss/css/images/sb_023.png" alt="" width="185" height="185"></b><span>都市女性早春新款高领毛衣早春黑色系列高领毛衣</span><i>$29.99</i></a></li>
+            <li><a href="#" title=""><b><img src="newcss/css/images/sb_024.png" alt="" width="185" height="185"></b><span>都市女性早春新款高领毛衣早春黑色系列高领毛衣</span><i>$29.99</i></a></li>
+            <li><a href="#" title=""><b><img src="newcss/css/images/sb_025.png" alt="" width="185" height="185"></b><span>都市女性早春新款高领毛衣早春黑色系列高领毛衣</span><i>$29.99</i></a></li>
+            <li><a href="#" title=""><b><img src="newcss/css/images/sb_026.png" alt="" width="185" height="185"></b><span>都市女性早春新款高领毛衣早春黑色系列高领毛衣</span><i>$29.99</i></a></li>
+        </ul>
+    </div>
+</div>
+<div class="m_infool_gg"><a href="#" title=""><img src="newcss/css/images/sb_03.png" alt="" width="1198" height="90"></a></div><!--楼层广告-->
+
+<div class="m_infool m_fool_color3">
+    <!--m_fool_color1是每个楼层不同的颜色区分，会按顺序m_fool_color1，m_fool_color2，m_fool_color3写下去，颜色值最后上线了由前端来改-->
+    <div class="m_infool_left">
+        <span><a href="#" title="">美妆个护<i class="fa fa-angle-right"></i></a></span>
+        <ul>
+            <li><a href="#" title="">连衣裙</a></li>
+            <li><a href="#" title="">休闲风衣</a></li>
+            <li><a href="#" title="">尼大衣</a></li>
+            <li><a href="#" title="">羽绒服</a></li>
+            <li><a href="#" title="">休闲裤</a></li>
+            <li><a href="#" title="">女士睡衣</a></li>
+            <li><a href="#" title="">女士内衣</a></li>
+            <li><a href="#" title="">T恤</a></li>
+            <li><a href="#" title="">针织衫</a></li>
+        </ul>
+        <dl>
+            <dd><a href="#" title=""><img src="newcss/css/images/sb_06.png" alt="" width="119" height="44"></a></dd>
+            <dd><a href="#" title=""><img src="newcss/css/images/sb_06.png" alt="" width="119" height="44"></a></dd>
+            <dd><a href="#" title=""><img src="newcss/css/images/sb_06.png" alt="" width="119" height="44"></a></dd>
+            <dd><a href="#" title=""><img src="newcss/css/images/sb_06.png" alt="" width="119" height="44"></a></dd>
+        </dl>
+    </div>
+    <div class="m_infool_midd" data-floor="3">
+        <ul class="swiper-wrapper">
+            <li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb_01.png" alt="" width="400" height="563"></a></li>
+            <li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb_01.png" alt="" width="400" height="563"></a></li>
+            <li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb_01.png" alt="" width="400" height="563"></a></li>
+            <li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb_01.png" alt="" width="400" height="563"></a></li>
+            <li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb_01.png" alt="" width="400" height="563"></a></li>
+            <li class="swiper-slide"><a href="#"><img src="newcss/css/images/sb_01.png" alt="" width="400" height="563"></a></li>
+        </ul>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+    <div class="m_infool_right">
+        <ul>
+            <li><a href="#" title=""><b><img src="newcss/css/images/sb_021.png" alt="" width="185" height="185"></b><span>都市女性早春新款高领毛衣早春黑色系列高领毛衣</span><i>$29.99</i></a></li>
+            <li><a href="#" title=""><b><img src="newcss/css/images/sb_022.png" alt="" width="185" height="185"></b><span>都市女性早春新款高领毛衣早春黑色系列高领毛衣</span><i>$29.99</i></a></li>
+            <li><a href="#" title=""><b><img src="newcss/css/images/sb_023.png" alt="" width="185" height="185"></b><span>都市女性早春新款高领毛衣早春黑色系列高领毛衣</span><i>$29.99</i></a></li>
+            <li><a href="#" title=""><b><img src="newcss/css/images/sb_024.png" alt="" width="185" height="185"></b><span>都市女性早春新款高领毛衣早春黑色系列高领毛衣</span><i>$29.99</i></a></li>
+            <li><a href="#" title=""><b><img src="newcss/css/images/sb_025.png" alt="" width="185" height="185"></b><span>都市女性早春新款高领毛衣早春黑色系列高领毛衣</span><i>$29.99</i></a></li>
+            <li><a href="#" title=""><b><img src="newcss/css/images/sb_026.png" alt="" width="185" height="185"></b><span>都市女性早春新款高领毛衣早春黑色系列高领毛衣</span><i>$29.99</i></a></li>
+        </ul>
+    </div>
+</div>
+<div class="m_infool_gg"><a href="#" title=""><img src="newcss/css/images/sb_03.png" alt="" width="1198" height="90"></a></div><!--楼层广告-->*@

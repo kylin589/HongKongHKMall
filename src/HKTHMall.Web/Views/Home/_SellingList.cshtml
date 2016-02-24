@@ -1,0 +1,19 @@
+﻿@using HKTHMall.Core.Extensions
+@{
+    var list=ViewBag.list;
+    int i = 1;
+}
+@foreach (var item in list)
+{
+    <a class="rankMain" href="@Url.Action("Shopping", "Home", new { id = item.ProductId })" title="">
+        <span><b>@i</b></span>
+        <img src="@Html.GetImagesUrl((string)item.PicUrl)" alt="" width="110" height="110">
+        <ul>
+            <li>@item.ProductName</li>
+            <li>@(string.IsNullOrEmpty(item.Subheading) ? "" : (item.Subheading.Length > 20 ? item.Subheading.Substring(0,20) + "..." : item.Subheading))</li>
+            <li>$<span>@item.HKPrice.ToString("0.00")</span></li>
+            <li>@HKTHMall.Services.Common.MultiLangKeys.CultureHelper.GetLangString("HOME_HZ_REWARDS")@*600天返完*@</li>
+        </ul>
+    </a>
+    i++;
+}

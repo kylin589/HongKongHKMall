@@ -1,0 +1,23 @@
+﻿@using HKTHMall.Domain.AdminModel.Models.Keywork
+
+@{
+    Layout = null;
+    List<FloorKeywordModel> floorList = ViewBag.FloorList;
+    int forcount = 0;
+}
+
+<ul class="FastSea dib tl f12">
+    @foreach (var model in floorList)
+    {
+        if (forcount == 0)
+        {
+            <li class="dib mr20"><a href="@Url.Action("search", "home", new { area = "", k = @model.KeyWordName})" class="ed">@(model.KeyWordName)</a></li>
+        }
+        else
+        {
+            <li class="dib mr20"><a href="@Url.Action("search", "home", new { area = "", k = @model.KeyWordName})" class="fast trans">@(model.KeyWordName)</a></li>
+        }
+        forcount++;
+    }
+</ul>
+

@@ -1,0 +1,46 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys;
+@{var news = ViewBag.News;}
+<div class="main_about">
+    <script>
+        var desc = "@news.NewTitle";
+        var url = "http://www.huikamall.hk" + "@Url.Action("Deatils", "News", new { Id = news.NewInfoId })";
+        function ShareToFB() {
+            FB.ui({
+                method: "feed",
+                name: "@CultureHelper.GetLangString("HOME_FOOTER_FENXIANGTITLE")",
+                link: url,
+                picture: "http://www.huikamall.hk/Content/css/images/slogo.png",
+                caption: "www.huikamall.hk",
+                description: desc,
+                message: ""
+            })
+        }
+</script>
+
+    <div class="m_news_show">
+        <div class="m_news_show_bt">
+            <h3>@news.NewTitle</h3>
+            <dl>
+                @news.CreateDT.ToString("yyyy-MM-dd HH:mm:ss")
+                <div class="m_news_show_fx">
+                    <span>@CultureHelper.GetLangString("HOME_SHOPPING_ShareTo")</span>
+                    <i>
+                        <a href="#" title="" class="m_news_sfx1" onclick="ShareToFB()"></a>
+                        <!--facebook-->
+                        <a href="javascript:shareToTwitter(desc,url);" title="" class="m_news_sfx2"></a>
+                        <!--twitter-->
+                        <a href="javascript:shareToGooglePlus(url);" title="" class="m_news_sfx3"></a>
+                        <!--google+-->
+                        <a href="javascript:shareToPlurk(desc,url);" title="" class="m_news_sfx4"></a>
+                        <!--plurk-->
+                    </i>
+                </div>
+            </dl>
+        </div>
+
+        <div class="m_news_show_nr">
+            @Html.Raw(news.NewContent)
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+﻿@using HKTHMall.Core.Extensions
+@using HKTHMall.Domain.WebModel.Models.Product
+@using HKTHMall.Core.Extensions
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="main_a">
+
+    <div class="main_about">
+        <div class="ls_member">
+
+
+            <!--left-->
+            <div class="ls_member_lf">
+                @Html.Partial("_userLeft")
+            </div>
+
+
+            <!--right-->
+            <div class="ls_member_rg">
+
+
+                <!--右侧会员信息展示-->
+                <div class="m_user_pubtitle">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_MYEVALUATION")@*我的评价*@</div>
+                <div class="ls_pingjia">
+                    <div class="ls_pingjia_bt">
+                        <ul>
+                            <li>@CultureHelper.GetLangString("MONEY_SHOPPINGCART_GOODS")@*商品*@</li>
+                                <li>@CultureHelper.GetLangString("ACCOUNT_MY_REVIEW_COMMENTONCONTENT")@*评论内容*@</li>
+                                <li>@CultureHelper.GetLangString("HOME_TIME")@*时间*@</li>
+
+                            </ul>
+                        </div>
+                        <div class="ls_pingjia_list">
+                            @foreach (OrderProductCommentView view in Model)
+                            {
+                                <ul>
+                                    <li><a href="@Url.Action("shopping", "home", new {area = "", id = view.ProductId})"><img src="@Html.GetImagesUrl(view.PicUrl, 75, 75)" alt="" /></a></li>
+                                    <li><a href="#" title="">@view.ProductName<br />@view.SkuName</a></li>
+                                    @if (string.IsNullOrEmpty(@view.CommentContent))
+                                    {
+                                        <li>&nbsp;</li>
+                                    }
+                                    else
+                                    {
+                                        <li>@view.CommentContent</li>
+                                    }
+                                    <li>@view.CommentDT.DateTimeToString("yyyy-MM-dd hh:mm")</li>
+                                    <div class="clear"></div>
+                                </ul>
+                            }
+                        </div>
+
+                        @Html.Raw(Html.ToPageHtmlNew((int)ViewBag.SearchCommentView.page, 10, (int)Model.TotalCount)))
+                    </div>
+                    <!--会员中心惠卡推荐，和前台的惠卡推荐不一样-->
+                @Html.Action("HuikaRecommend", "Home", new { area = "" })
+                </div>
+                <div class="clear"></div>
+
+            </div>
+        </div>
+
+    </div>
+<script>
+    
+</script>

@@ -1,0 +1,9 @@
+﻿@model HKTHMall.Domain.WebModel.Models.Login.LoginModel
+@using HKTHMall.Services.Common.MultiLangKeys;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="loginbegin">@Html.Action("_Login", "Login", new { isDialog = false })</div>
+@section scripts{
+    <script src="~/Content/js/thirdLogin.js"></script>
+}

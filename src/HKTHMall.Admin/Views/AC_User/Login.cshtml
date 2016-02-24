@@ -1,0 +1,147 @@
+﻿@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Hongkong mall Background login</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.4 -->
+    <link href="~/Content/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome Icons -->
+    <link href="~/Content/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Theme style -->
+    <link href="~/Content/css/admin.min.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-box" style="position:absolute;left:50%;top:50%;margin-top:-114px;margin-left:-180px;">
+            <div class="login-box-body">
+                <h3 class="text-center" style="font-weight:bold;margin-top:-5px;">HongKong Mall  Login</h3>
+                <div class="form-group inner-addon left-addon">
+                    <span class="glyphicon glyphicon glyphicon-user"></span>
+                    <input type="text" id="txtUserName" class="form-control" placeholder="Please enter user name" />
+                </div>
+                <div class="form-group inner-addon left-addon">
+                    <input type="password" id="txtpassword" class="form-control" placeholder="Please enter the user password" />
+                    <span class="glyphicon glyphicon-lock"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4 col-xs-push-4 text-center">
+                        <button type="submit" id="submit" class="btn btn-success btn-block btn-flat">Login</button>
+                    </div><!-- /.col -->
+                </div>
+
+            </div><!-- /.login-box-body -->
+        </div><!-- /.login-box -->
+    </div>
+    <!--jquery-1.11.3 -->
+    <script src="~/Content/plugins/jquery/jquery-1.10.2.min.js"></script>
+    <!-- Bootstrap 3.3.2 JS -->
+    <script src="~/Content/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+    <script src="~/Content/plugins/bootbox/bootbox.js" type="text/javascript"></script>
+    <script src="~/Content/plugins/bootstrap-table/bootstrap-table.js" type="text/javascript"></script>
+    <script src="~/Content/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js" type="text/javascript"></script>
+    <script src="~/Content/js/common.js" type="text/javascript"></script>
+    <script src="~/Content/plugins/drag-drop/drag-drop.js"></script>
+    <script src="~/Content/plugins/drag-drop/jquery.dragdrop.js"></script>
+    <!-- iCheck -->
+
+    <script>
+        window.onload = function () { if (self != top) window.top.location.href = self.location.href; };
+        $(function () {
+
+            $("#submit").on("click", function () {
+                var username = $("#txtUserName").val();
+                var password = $("#txtpassword").val();
+                if (username == "" || password == "") {
+                    Tool.Alert("Please enter account and password", 1500);
+                    return;
+                }
+                $.ajax({
+                    url: '@Url.Action("IsLogin")',//'/AC_OperateLog/DeleteAC_OperateLog?OperateID=' + OperateID,
+                    data: {
+                        UserName: username,
+                        PassWord: password
+                    },
+                    type: 'post',
+                    dataType: "Json",
+                    success: function (data, status) {
+
+                        if (data.logintype == "3") {
+                            window.location.href = '/Home/index';
+                        }
+                        else {
+
+                            Tool.Alert(data.Messages, 1500);
+
+                        }
+                    },
+                    error: function (data, status, e) {
+
+                        Tool.Alert("Login failed", 1500);
+
+                    }
+
+                });
+            });
+
+            //密码框 回车自动登录
+            //$('#txtpassword').keypress(function (event) {
+            //    var keycode = (event.keyCode ? event.keyCode : event.which);
+            //    if (keycode == '13') {
+            //        $("#submit").click();
+            //    }
+            //});
+
+            //其他区域 回车自动登录
+            $(document).keypress(function (event) {
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '13') {
+                    $("#submit").click();
+                }
+            });
+            //增加拖拽效果
+            if ($.fn.dragdrop) {
+                $('body').delegate('.modal-header', 'mouseenter', function () {
+                    var $this = $(this);
+                    if (!$this.data('isbind')) {
+                        $this.parents('.modal-dialog').dragdrop({ anchor: $this });
+                        $this.data('isbind', 1);
+                    }
+
+                });
+            }
+
+            //自适应高度 居中显示
+            $('body').delegate(".modal", 'shown.bs.modal', function () {
+                var $this = $(this);
+                $this.find(".modal-body").css({
+                    "max-height": ($(window).height() - 250) + 'px',
+                    "overflow-y": "auto"
+                });
+
+                var marginTop = ($(window).height() - $this.find(".modal-dialog").height()) / 2;
+                $this.find(".modal-dialog").css({
+                    "margin-top": marginTop + 'px'
+                });
+            });
+
+            //窗体隐藏后自动重置位置
+            $('body').delegate('.modal', 'hidden.bs.modal', function () {
+                var $this = $(this);
+
+                $this.find(".modal-dialog").css({
+                    "top": 'auto',
+                    "left": 'auto'
+                });
+            });
+        });
+
+
+    </script>
+</body>
+</html>

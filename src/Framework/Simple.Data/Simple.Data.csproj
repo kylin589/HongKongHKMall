@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{148CEE80-2E84-4ABD-B5AB-20415B2BBD21}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Simple.Data</RootNamespace>
+    <AssemblyName>Simple.Data</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>SecurityRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActionDisposable.cs" />
+    <Compile Include="AdapterException.cs" />
+    <Compile Include="AdapterFactory.cs" />
+    <Compile Include="AdapterMethodDynamicInvoker.cs" />
+    <Compile Include="AdapterWithFunctionsExtensions.cs" />
+    <Compile Include="AdoCompatibleComparer.cs" />
+    <Compile Include="AllColumnsSpecialReference.cs" />
+    <Compile Include="AssemblyEx.cs" />
+    <Compile Include="BinderHelper.cs" />
+    <Compile Include="CachingAdapterFactory.cs" />
+    <Compile Include="CastEnumerable.cs" />
+    <Compile Include="Commands\CommandFactory.cs" />
+    <Compile Include="Commands\ArgumentHelper.cs" />
+    <Compile Include="Commands\GetCommand.cs" />
+    <Compile Include="Commands\GetCountByCommand.cs" />
+    <Compile Include="Commands\GetCountCommand.cs" />
+    <Compile Include="Commands\ExistsByCommand.cs" />
+    <Compile Include="Commands\ExistsCommand.cs" />
+    <Compile Include="Commands\QueryCommand.cs" />
+    <Compile Include="Commands\ResultHelper.cs" />
+    <Compile Include="Commands\UpdateAllCommand.cs" />
+    <Compile Include="Commands\DeleteAllCommand.cs" />
+    <Compile Include="Commands\ExecuteFunctionCommand.cs" />
+    <Compile Include="Commands\FindAllCommand.cs" />
+    <Compile Include="Commands\QueryByCommand.cs" />
+    <Compile Include="Commands\UpdateCommand.cs" />
+    <Compile Include="Commands\UpsertByCommand.cs" />
+    <Compile Include="Commands\UpsertCommand.cs" />
+    <Compile Include="CommonTypes.cs" />
+    <Compile Include="Composer.cs" />
+    <Compile Include="ConcreteCollectionTypeCreator.cs" />
+    <Compile Include="ConcreteObject.cs" />
+    <Compile Include="ConcreteTypeCreator.cs" />
+    <Compile Include="CountSpecialReference.cs" />
+    <Compile Include="Database.Open.cs" />
+    <Compile Include="DatabaseOpenerMethods.cs" />
+    <Compile Include="DatabaseRunner.cs" />
+    <Compile Include="DataStrategyWithOptions.cs" />
+    <Compile Include="DictionaryCloner.cs" />
+    <Compile Include="ErrorCallback.cs" />
+    <Compile Include="ForUpdateClause.cs" />
+    <Compile Include="FunctionSignature.cs" />
+    <Compile Include="InMemoryAdapter.cs" />
+    <Compile Include="InMemoryAdapterIAdapterWithRelation.cs" />
+    <Compile Include="InMemoryAdapterIAdapterWithTransactions.cs" />
+    <Compile Include="BadExpressionException.cs" />
+    <Compile Include="JoinType.cs" />
+    <Compile Include="OfTypeEnumerable.cs" />
+    <Compile Include="OptimizingDelegateFactory.cs" />
+    <Compile Include="OptionsBase.cs" />
+    <Compile Include="PropertySetterBuilder.cs" />
+    <Compile Include="QueryPolyfills\AggregateValueResolver.cs" />
+    <Compile Include="QueryPolyfills\DictionaryCreatorFactory.cs" />
+    <Compile Include="QueryPolyfills\DictionaryEqualityComparer.cs" />
+    <Compile Include="QueryPolyfills\DictionaryQueryRunner.cs" />
+    <Compile Include="DistinctClause.cs" />
+    <Compile Include="EnumerableEx.cs" />
+    <Compile Include="ExistsSpecialReference.cs" />
+    <Compile Include="Extensions\ArrayExtensions.cs" />
+    <Compile Include="Extensions\HomogenizeEx.cs" />
+    <Compile Include="Extensions\ResultSetExtensions.cs" />
+    <Compile Include="FunctionReference.cs" />
+    <Compile Include="Future1.cs" />
+    <Compile Include="HavingClause.cs" />
+    <Compile Include="HomogenizedEqualityComparer.cs" />
+    <Compile Include="IDatabaseOpener.cs" />
+    <Compile Include="IPluralizer.cs" />
+    <Compile Include="IRange.cs" />
+    <Compile Include="MathReference.cs" />
+    <Compile Include="Maybe.cs" />
+    <Compile Include="OrderByClause.cs" />
+    <Compile Include="OrderByDirection.cs" />
+    <Compile Include="Promise.cs" />
+    <Compile Include="QueryPolyfills\FunctionHandlers.cs" />
+    <Compile Include="QueryPolyfills\FunctionValueResolver.cs" />
+    <Compile Include="QueryPolyfills\GroupingHandler.cs" />
+    <Compile Include="QueryPolyfills\ObjectMaths.cs" />
+    <Compile Include="QueryPolyfills\ObjectValueResolver.cs" />
+    <Compile Include="QueryPolyfills\OrderByClauseHandler.cs" />
+    <Compile Include="QueryPolyfills\SelectClauseHandler.cs" />
+    <Compile Include="QueryPolyfills\ValueResolver.cs" />
+    <Compile Include="QueryPolyfills\WhereClauseHandler.cs" />
+    <Compile Include="Range.cs" />
+    <Compile Include="Range1.cs" />
+    <Compile Include="RunStrategy.cs" />
+    <Compile Include="SelectClause.cs" />
+    <Compile Include="SimpleDataConfigurationSection.cs" />
+    <Compile Include="SimpleDataTraceSources.cs" />
+    <Compile Include="SimpleEmptyExpression.cs" />
+    <Compile Include="SimpleFunction.cs" />
+    <Compile Include="SimpleList.cs" />
+    <Compile Include="SimpleObservable.cs" />
+    <Compile Include="SimpleOrderByItem.cs" />
+    <Compile Include="SimpleQuery.cs" />
+    <Compile Include="SimpleQueryClauseBase.cs" />
+    <Compile Include="JoinClause.cs" />
+    <Compile Include="SimpleReference.cs" />
+    <Compile Include="SimpleResultSet.cs" />
+    <Compile Include="DynamicSchema.cs" />
+    <Compile Include="Extensions\BinderExtensions.cs" />
+    <Compile Include="Extensions\IDictionaryExtensions.cs" />
+    <Compile Include="Extensions\ObjectEx.cs" />
+    <Compile Include="FunctionReturnType.cs" />
+    <Compile Include="ExpressionHelper.cs" />
+    <Compile Include="Commands\AllCommand.cs" />
+    <Compile Include="Commands\FindCommand.cs" />
+    <Compile Include="Database.cs" />
+    <Compile Include="DatabaseOpener.cs" />
+    <Compile Include="SimpleRecord.cs" />
+    <Compile Include="Extensions\DynamicStringExtensions.cs" />
+    <Compile Include="DynamicTable.cs" />
+    <Compile Include="ObjectReference.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Commands\FindAllByCommand.cs" />
+    <Compile Include="Commands\FindByCommand.cs" />
+    <Compile Include="Adapter.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\InsertCommand.cs" />
+    <Compile Include="Commands\DeleteByCommand.cs" />
+    <Compile Include="IAdapterFactory.cs" />
+    <Compile Include="IAdapterTransaction.cs" />
+    <Compile Include="IAdapterWithFunctions.cs" />
+    <Compile Include="IAdapterWithRelation.cs" />
+    <Compile Include="IAdapterWithTransactions.cs" />
+    <Compile Include="MefHelper.cs" />
+    <Compile Include="MethodNameParser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataStrategy.cs" />
+    <Compile Include="SimpleDataException.cs" />
+    <Compile Include="SimpleExpression.cs" />
+    <Compile Include="SimpleExpressionType.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="SimpleTransaction.cs" />
+    <Compile Include="SkipClause.cs" />
+    <Compile Include="SpecialReference.cs" />
+    <Compile Include="TakeClause.cs" />
+    <Compile Include="TransactionRunner.cs" />
+    <Compile Include="TypeExtensions.cs" />
+    <Compile Include="UnresolvableObjectException.cs" />
+    <Compile Include="Commands\UpdateByCommand.cs" />
+    <Compile Include="WhereClause.cs" />
+    <Compile Include="WithClause.cs" />
+    <Compile Include="WithCountClause.cs" />
+    <Compile Include="WithMode.cs" />
+    <Compile Include="WithType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <Compile Include="SimpleRecord.Dictionary2.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Mono|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,91 @@
+﻿@model HKTHMall.Domain.Models.banner.bannerModel
+
+@{
+    var BannerPlaceCodeModellist1 = ViewData["BannerPlaceCodeModel1"] as List<HKTHMall.Admin.Models.BannerPlaceCodeModel>;
+
+    var sun = 0;
+}
+<div class="control-group">
+    <div class="control-group">
+        <label class="control-label-form">
+            <label class="red">*</label>Location(category) :
+        </label>
+        <div class="controls">
+            <div style="display:none">
+                @Html.HiddenFor(t => t.bannerId)
+                @Html.TextBoxFor(t => t.PlaceCode, new { @class = "form-control" })
+            </div>
+            @if (Model.bannerId <= 0)
+            {
+                /*修改不需要显示*/
+                <select id="selBannerPlaceCode" onchange="onchangeBannerPlaceCode(this.value)" class="form-control">
+                    @foreach (var item in BannerPlaceCodeModellist1)
+                    {
+                        if (Model.PlaceCode == item.PlaceCode)
+                        {
+                            <option selected="selected" value="@item.PlaceCode">@item.PlaceCodeName</option>
+                        }
+                        else
+                        {
+                            <option value="@item.PlaceCode">@item.PlaceCodeName</option>
+                        }
+
+                    }
+
+                </select>
+            }
+            else
+            {
+                foreach (var item in BannerPlaceCodeModellist1)
+                {
+                    if (Model.PlaceCode == item.PlaceCode)
+                    {
+                        <label>@item.PlaceCodeName</label>
+                    }
+                }
+            }
+        </div>
+    </div>
+    <label class="control-label-form">
+        <label class="red">*</label>banner name :
+    </label>
+    <div class="controls">
+        
+        @Html.TextBoxFor(t => t.bannerName, new { @class = "form-control", maxlength = "50" })
+        @Html.ValidationMessageFor(m => m.bannerName)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>banner url :
+    </label>
+    <div class="controls">
+        @{Model.bannerUrl = (Model.bannerUrl != null && Model.bannerUrl != "") ? Model.bannerUrl : "http://";}
+        @Html.TextBoxFor(t => t.bannerUrl, new { @class = "form-control", maxlength = "200" })
+        @Html.ValidationMessageFor(m => m.bannerUrl)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>banner picture :
+    </label>
+
+    <div class="controls">
+        @Html.ValidationMessageFor(m => m.bannerPic)
+        @Html.EditorFor(x => x.bannerPic, "FileUploadT1", new { RootImage = ViewBag.RootImage })
+        @*<label class="red">*Broadcast picture size 964*300</label>*@
+        <label class="red">*Broadcast picture size 1198*90</label>
+    </div>
+
+</div>
+
+
+
+
+
+<!-- 为了给标识赋值 在父页面-->
+<div style="display:none">
+    @Html.TextBoxFor(t => t.IdentityStatus, new { @class = "form-control" })
+</div>
+
+

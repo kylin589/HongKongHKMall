@@ -1,0 +1,51 @@
+﻿@using HKTHMall.Core.Extensions
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+}
+@if (ViewBag.Data.Count > 0)
+{
+    <li id="tabpanel1" class="tabpanel tr">
+        <table width="930">
+            <tbody>
+                <tr>
+                    <td align="center" valign="middle" class="z_tabpanel1">@CultureHelper.GetLangString("HOME_TIME")</td>
+                    <td align="center" valign="middle" class="z_tabpanel2">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_EVENT")</td>
+                    <td align="center" valign="middle" class="z_tabpanel3">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_COLLECTBRANCH")（@CultureHelper.GetLangString("WEBSITE_DOLLARS")）</td>
+                    <td align="center" valign="middle" class="z_tabpanel4">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_DETAILS")</td>
+                </tr>
+            </tbody>
+        </table>
+        <ul class="Evaluation tl">
+            @foreach (var item in ViewBag.Data)
+            {
+                <li class="EvaluationSPec f14 f3e">
+                    <table width="930">
+                        <tbody>
+                            <tr>
+                                <td width="25%" align="center" valign="middle">@(DateTimeExtensions.DateTimeToString(item.CreateDT))</td>
+                                <td width="25%" align="center" valign="middle">@(item.TypeName)</td>
+                                <td width="25%" align="center" valign="middle">@(Convert.ToUInt32(item.IsAddOrCut) == 0 ? "" : "+")@(((decimal)item.AddOrCutAmount).DDAmountFormat())</td>
+                                <td width="25%" align="center" valign="middle">
+                                    <a href="javascript:void(0)" name="linkcheck">
+                                        @CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_TOVIEW")
+                                        <div class="l_examine">
+                                            <div class="l_examine1">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_AMOUNT")：<em>@(((decimal)item.AddOrCutAmount).DDAmountFormat()) @CultureHelper.GetLangString("WEBSITE_DOLLARS")</em></div>
+                                            <div class="l_examine2">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_SERIALNUMBER")：<em>@item.ID</em></div>
+                                            <div class="l_examine3">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_ORDERNUMBER")：<em>@item.OrderNo</em></div>
+                                        </div>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </li>
+            }
+        </ul>
+        @Html.Raw(Html.ToPageHtml((int)ViewBag.Page, 10, (int)ViewBag.Count, 1, "tab_content|Account/My/GetChangelogList"))
+        <script>jQuery('.tunepage>li>a').Page({ type: 1 }, { msg: jQuery("ul li a.tabNormal").attr("data-xxx").split("|")[1] })</script>
+    </li>
+}
+else
+{
+    <h4 style="text-align:center; padding:20px; background:#f2f2f2;"><i class="fb_ico"></i>@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_NOINFORMATION")</h4>
+}

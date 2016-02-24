@@ -1,0 +1,87 @@
+﻿@model HKTHMall.Domain.Models.AC.AC_FunctionModel
+@{
+    var FirstACModules = ViewData["FirstACModules"] as List<SelectListItem>;
+    var ACModules = ViewData["ACModules"] as List<SelectListItem>;
+}
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Function :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.FunctionID)
+        @Html.TextBoxFor(t => t.FunctionName, new { @class = "form-control", @placeholder = "Please enter function name", @maxlength = "50" })
+        @Html.ValidationMessageFor(m => m.FunctionName)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>1st level menu :
+    </label>
+    <div class="controls">
+        @if (FirstACModules != null)
+        {
+            <select class="form-control" id="FirstModuleID" name="FirstModuleID">
+                @foreach (var item in FirstACModules)
+                {
+                    <option value="@(item.Value)" selected="@(item.Selected)">@(item.Text)</option>
+                }
+            </select>
+        }
+        else
+        {
+            @Html.DropDownListFor(x => x.FirstModuleID, FirstACModules, new { @class = "form-control" })
+        }
+        @Html.ValidationMessageFor(m => m.FirstModuleID)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>2nd level menu :
+    </label>
+    <div class="controls">
+        @Html.DropDownList("ModuleID", ACModules, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ModuleID)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Control name :
+    </label>
+    <div class="controls">
+        @Html.TextBoxFor(t => t.Controller, new { @class = "form-control", @placeholder = "Please enter controller name", @maxlength = "50" })
+        @Html.ValidationMessageFor(m => m.Controller)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Control method :
+    </label>
+    <div class="controls">
+        @Html.TextBoxFor(t => t.Action, new { @class = "form-control", @placeholder = "Please enter controller method", @maxlength = "50" })
+        @Html.ValidationMessageFor(m => m.Action)
+    </div>
+</div>
+<script type="text/javascript">
+    //选择一级分类
+    $("#FirstModuleID").change(function () {
+        var url = "/AC_Function/GetAC_FunctionModuleId?parenId=" + $(this).val();
+        $.ajax({
+            url: url,
+            dataType: "text",
+            success: function (data, status) {
+                data = JSON.parse(data);
+                if (data) {
+                    var option = $("#ModuleID").find("option");
+                    option.not(option.eq(0)).remove();
+                    for (var i = 0; i < data.length; i++) {
+                        $("#ModuleID").append("<option value=\"" + data[i].ModuleID + "\">" + data[i].ModuleName + "</option>");
+                    }
+                }
+            },
+            error: function (data, status, e) {
+
+            }
+        });
+    });
+</script>
+

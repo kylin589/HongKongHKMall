@@ -1,0 +1,167 @@
+﻿@model HKTHMall.Domain.Models.Categoreis.SearchSP_ProductCommentModel
+@{
+    ViewBag.Title = "商品评论列表";
+}
+
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>Review by: </span>
+            @Html.TextBoxFor(x => x.CheckBy, new { @class = "form-control w70" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Comment Time: </span>
+            @Html.TextBoxFor(x => x.BeginCommentDT, new { @class = "form-control w70" })
+            &nbsp;--&nbsp;
+            @Html.TextBoxFor(x => x.EndCommentDT, new { @class = "form-control w70" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Review time: </span>
+            @Html.TextBoxFor(x => x.BeginCheckDT, new { @class = "form-control w70" })
+            &nbsp;--&nbsp;
+            @Html.TextBoxFor(x => x.EndCheckDT, new { @class = "form-control w70" })
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+
+            var columns = [
+
+                { field: 'ProductId', title: 'Product ID', align: 'center', valign: 'middle', sortable: true },
+                { field: 'OrderId', title: 'Order ID', align: 'center', valign: 'middle', sortable: true },
+                { field: 'UserID', title: 'User ID', align: 'center', valign: 'middle', sortable: true },
+                { field: 'CommentLevel', title: 'Reviews star', align: 'center', valign: 'middle', sortable: true },
+                { field: 'CommentContent', title: 'Comment content', align: 'center', valign: 'middle', sortable: true },
+                { field: 'CommentDT', title: 'Comment Time', align: 'center', valign: 'middle', sortable: true, formatter: function (val) { return val.formatterString(true)/*true 日期格式2015-5-5*/ } },
+                { field: 'IsAnonymous', title: 'Anonymous enable or Not', align: 'center', valign: 'middle', sortable: true },
+                { field: 'CheckStatus', title: 'Review status', align: 'center', valign: 'middle', sortable: true },
+                { field: 'CheckBy', title: 'Review by', align: 'center', valign: 'middle', sortable: true },
+                { field: 'CheckDT', title: 'Review time', align: 'center', valign: 'middle', sortable: true, formatter: function (val) { return val.formatterString(true)/*true 日期格式2015-5-5*/ } },
+                { field: 'ReplyBy', title: 'Reply', align: 'center', valign: 'middle', sortable: true },
+                { field: 'ReplyDT', title: 'Reply time', align: 'center', valign: 'middle', sortable: true, formatter: function (val) { return val.formatterString(true)/*true 日期格式2015-5-5*/ } },
+                { field: 'ReplyContent', title: 'Reply content', align: 'center', valign: 'middle', sortable: true },
+                {
+                    field: 'OperateID',
+                    title: 'Operation',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (val) {
+                        return [
+                            '<a class="edit ml10" href="javascript:void(0)" title="Update">',
+                            '<i class="glyphicon glyphicon-edit"></i>',
+                            '</a>',
+                            '<a class="remove ml10" href="javascript:void(0)" title="Remove">',
+                            '<i class="glyphicon glyphicon-remove"></i>',
+                            '</a>'
+                        ].join('');
+                    },
+                    events: {
+                        'click .edit': function (e, value, row, index) {
+                            console.log(1);
+                            Tool.ShowModal('@Url.Action("ProductCommentCreate")', { id: value }, 'Edite department');
+                        },
+                        'click .remove': function (e, value, row, index) {
+
+                            DeleteOperateLog(value);
+
+                        }
+                    }
+                }
+            ];
+
+            //初始化表哥
+                $('#u_grid').bootstrapTable({
+                    url: '@Url.Action("List")',
+
+                    queryParams: function (params) {
+                        return {
+                            BeginOperateTime: $('#BeginOperateTime').val(),
+                            EndOperateTime: $('#EndOperateTime').val(),
+                            OperateName: $('#OperateName').val(),
+                            PagedIndex: this.pageNumber - 1,//params.pageNumber - 1  params.offset
+                            PagedSize: this.pageSize       //params.pageSize  params.limit
+                        };
+                    },
+                    sortOrder: 'desc',
+                    pagination: true,
+                    showRefresh: true,
+                    showColumns: true,
+                    striped: true,
+                    sidePagination: 'server',
+                    columns: columns
+
+                });
+
+            //刷新
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+
+            //删除
+            function DeleteOperateLog(OperateID)
+            {
+                $.ajax({
+                    url:'@Url.Action("DeleteAC_OperateLog")'+"?OperateID=" + OperateID ,//'/AC_OperateLog/DeleteAC_OperateLog?OperateID=' + OperateID,
+                    dataType: "text",
+                    success: function (data, status) {
+
+                        alert(data);
+
+                    },
+                    error: function (data, status, e) {
+
+                        alert("Delete failed！");
+                        //alert(e);
+                    }
+
+                });
+            }
+
+            //审核时间 开始
+            $('#BeginCheckDT').datepicker({
+                language: "en",
+                autoclose: true
+            });
+
+            //审核时间 结束
+            $('#EndCheckDT').datepicker({
+                language: "en",
+                autoclose: true
+            });
+
+            //评论时间 开始
+            $('#BeginCommentDT').datepicker({
+                language: "en",
+                autoclose: true
+            });
+
+            //评论时间 结束
+            $('#EndCommentDT').datepicker({
+                language: "en",
+                autoclose: true
+            });
+
+
+        });
+    </script>
+}
+
+
+
+
+
+
+

@@ -1,0 +1,45 @@
+﻿
+@model HKTHMall.Domain.AdminModel.ProductConsultModel
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Product Name:
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            @Html.HiddenFor(t => t.ProductConsultId)
+            <label>@Model.ProductName</label>
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Consult DT:
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            <label>@Model.ConsultDT.ToString("yyyy-MM-dd HH:mm:dd")</label>
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Consult Content :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            <textarea class="form-control" style="width:406px !important" placeholder="@Model.ConsultContent" disabled="disabled"></textarea>
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Reply content :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            <textarea style="width:406px !important" id="ReplyContent" name="ReplyContent">@Model.ReplyContent</textarea>
+        </div>
+    </div>
+</div>
+
+

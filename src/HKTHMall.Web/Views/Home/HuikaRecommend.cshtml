@@ -1,0 +1,137 @@
+﻿@using HKTHMall.Core.Extensions
+@using HKTHMall.Domain.WebModel.Models.Product
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = null;
+    IEnumerable<ProductInfo> productList = ViewBag.ProductData;
+}
+<!--惠卡推荐，好多页面都在用，可以做成公共的-->
+<div class="m_hktj">
+    @*惠卡推荐*@
+    <div class="m_hktj_bt"><i></i><ul><b>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_CARDRECOMMENDED")</b></ul></div>
+    <div class="m_hktj_nr">
+        @if (productList != null && productList.Count() > 0)
+        {
+            foreach (var product in productList)
+            {
+                <a href="@Url.Action("shopping", "home", new { area = "", id = product.ProductId })" title="@product.ProductName">
+                    <img src="@Html.GetImagesUrl(product.PicUrl,210,210)" alt="" height="210" width="210">
+                    <span class="sectionLimited">
+                        @product.ProductName
+                    </span>
+                    <span><b>$@Math.Round(product.HKPrice,2)</b></span>
+                </a>
+            }
+        }
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+@*<div class="recommend_bt">
+    <div class="red"></div>
+</div>
+<div class="recommend_main">
+    <div class="recommend_name">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_CARDRECOMMENDED")</div>
+    <ul class="clr z_hxtuijian">
+        @if (productList != null && productList.Count() > 0)
+        {
+            foreach (var product in productList)
+            {
+                <li>
+                    <a target="_blank" href="@Url.Action("shopping", "home", new { area = "", id = product.ProductId })">
+                        <img src="@Html.GetImagesUrl(product.PicUrl,210,210)" width="210" height="210" title="@product.ProductName">
+                    </a>
+                    <span id="RcProductName">@product.ProductName</span>
+                    <p>
+                        <em>@product.HKPrice.ToString("F2") บาท</em>
+                        <s>@CultureHelper.GetLangString("HOME_INDEX_ORIGINALPRICE")：@product.MarketPrice.ToString("F2") บาท</s>
+                    </p>
+                    <a href="javascript:;" class="@(product.UserID == 0 ? "z_hxcollect" : "z_hxcollected") z_huixincoll" name="@product.ProductId">@(product.UserID == 0 ? CultureHelper.GetLangString("PRODUCT_LIST_COLLECT") : CultureHelper.GetLangString("HOME_SHOPPING_ALCOLLECTED"))</a>
+                </li>
+            }
+        }
+       
+    </ul>
+</div>
+<script type="text/javascript">
+    $(function(){
+        $(".z_hxtuijian li").hover(function(){
+            $(this).find('.z_huixincoll').animate({
+                'right':'5px'
+            });
+        },function(){
+            $(this).find('.z_huixincoll').animate({
+                'right':'-70px'
+            });
+        });
+    });    
+</script>
+<script type="text/javascript">
+    var languagevalue=@CultureHelper.GetLanguageID();
+    // var languagevalue = 1;
+    //爆款名字长度限定
+    $.fn.extend({
+        displayPart: function () {
+            var displayLength = 0;
+
+            if (languagevalue == 1) {
+                displayLength =45;  //中文
+            }
+            else if (languagevalue == 2) {
+                displayLength =60;  //英文
+            }
+            else if (languagevalue == 3) {
+                displayLength =100;  //泰文
+            } else {
+                displayLength =45;  //默认
+            }
+
+            displayLength = this.attr("displayLength") || displayLength;
+            var text = this.text();
+            if (!text) return "";
+            //alert(text);
+            var result = "";
+            var count = 0;
+            for (var i = 0; i < displayLength; i++) {
+                var _char = text.charAt(i);
+                if (count >= displayLength) break;
+                if (/[^x00-xff]/.test(_char)) count++;  //双字节字符，//[u4e00-u9fa5]中文
+                result += _char;
+                count++;
+            }
+            if (result.length < text.length) {
+                result += "...";
+            }
+            this.text(result);
+        }
+    });
+    var countbar = $(".recommend_main span").length;
+    for (var i = 0; i < countbar; i++) {
+        $(".recommend_main span").eq(i).displayPart();
+    }
+
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $(".z_huixincoll").click(function () {
+            if ($(this).hasClass("z_hxcollect")) {
+                addTJCollection($(this).attr("name"));
+            }
+        });
+    });
+    function addTJCollection(productId) {
+        jQuery.post("/Product/AddToCollection", { key: productId }, function (data) {
+            if (data.Data == undefined) {
+                window.location = '/Login/Index?ReturnUrl=' + encodeURIComponent(window.location.href);
+            } else if (data.Data) {
+                $("a.z_huixincoll[name=" + productId + "]").removeClass('z_hxcollect').addClass('z_hxcollected');
+                $("a.z_huixincoll[name=" + productId + "]").html($commonLang.HOME_SHOPPING_COLLECT);
+                var collectCount = parseInt($(".z_count2").text());
+                collectCount += 1;
+                $(".z_count2").empty().text(collectCount);
+            }
+        });
+    }
+</script>*@

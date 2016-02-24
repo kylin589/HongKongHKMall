@@ -1,0 +1,26 @@
+10:55:55|Error|HKTHMall.WebApi.GlobalException.ExceptionFilter.OnException|请求地址:http://localhost:19625/User/LoginValidate,原始请求地址:/User/LoginValidate,请求内容:|System.Data.SqlClient.SqlException (0x80131904): 违反了 PRIMARY KEY 约束 'PK_YH_GROUPMARK'。不能在对象 'dbo.YH_GroupMark' 中插入重复键。
+语句已终止。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   在 Simple.Data.Ado.DbCommandExtensions.TryExecuteNonQuery(IDbCommand command) 位置 e:\公司项目\SVN\国际\Sourcecode\trunk\HKTHMall\src\Framework\Simple.Data.Ado\DbCommandExtensions.cs:行号 78
+ClientConnectionId:0bd96e37-c955-4ac5-af12-7aeef2d81889
+10:58:24|Error|HKTHMall.WebApi.GlobalException.ExceptionFilter.OnException|请求地址:http://localhost:19625/User/LoginValidate,原始请求地址:/User/LoginValidate,请求内容:|System.Data.SqlClient.SqlException (0x80131904): 违反了 PRIMARY KEY 约束 'PK_YH_GROUPMARK'。不能在对象 'dbo.YH_GroupMark' 中插入重复键。
+语句已终止。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   在 Simple.Data.Ado.DbCommandExtensions.TryExecuteNonQuery(IDbCommand command) 位置 e:\公司项目\SVN\国际\Sourcecode\trunk\HKTHMall\src\Framework\Simple.Data.Ado\DbCommandExtensions.cs:行号 78
+ClientConnectionId:53a4e03a-bab4-4c2c-8dd9-51269a339580

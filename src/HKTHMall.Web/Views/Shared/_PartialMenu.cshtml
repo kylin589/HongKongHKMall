@@ -1,0 +1,78 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+@using HKTHMall.Domain.WebModel.Models.Product
+@model List<HKTHMall.Domain.AdminModel.Models.Categoreis.CategoryModel>
+@{
+    List<CategorysModel> catelist = ViewBag.CateTwo as List<CategorysModel>;
+    List<CategorysModel> parentList = catelist.Where(c => c.parentId == 0).OrderBy(p=>p.Place).Take(12).ToList();
+    List<CategorysModel> parentOneList = null;
+    List<CategorysModel> parentTwoList = null;
+    Layout = null;
+}
+
+<div class="layoutNav">
+    <div class="navMain">
+        <div class="navCategorys">
+            <div class="cateName"><a href="javascript:void()" class="cateAllLink">@(CultureHelper.GetLangString("ALL_MENU"))</a></div>
+            <div class="cateCover">
+                <ul class="cateInner">
+                    @if (catelist.Any())
+                    {
+                        foreach (var cate in parentList)
+                        {
+                            <li>
+                                
+                                <a href="@Url.Action("ProductList", "Product", new {area = "", parentId = cate.CategoryId, cateName = cate.CategoryName, selectCategoryId = cate.CategoryId, level=1 })"><i></i>@(cate.CategoryName)</a>
+                                @*<a href="@Url.Action("index", "search", new {type=1, cateId = cate.CategoryId })">@(cate.CategoryName)</a>*@
+                                @{parentOneList = catelist.Where(c => c.parentId == cate.CategoryId).Take(4).ToList();}
+                                @if (parentOneList.Any())
+                                {
+                                    <div class="cateInnerHide">
+                                        @foreach (var cateOne in parentOneList)
+                                        {
+                                        //二级商品栏目
+                                        <dl>
+                                            <dt>
+                                                <a href="@Url.Action("ProductList", "Product", new {area = "", parentId = cate.CategoryId, cateName = cate.CategoryName, selectCategoryId = cateOne.CategoryId, level = 2 })" title="@cateOne.CategoryName">@(cateOne.CategoryName)</a>
+                                            </dt>
+                                            @{ parentTwoList = catelist.Where(c => c.parentId == cateOne.CategoryId).Take(5).ToList();}
+                                            @if (parentTwoList.Any())
+                                            {
+                                                foreach (var cateTwo in parentTwoList)
+                                                {
+                                                    <dd>
+                                                        <a href="@Url.Action("ProductList", "Product", new {area = "", parentId = cate.CategoryId, cateName = cate.CategoryName, selectCategoryId = cateTwo.CategoryId, level = 3 })" title="@cateTwo.CategoryName">@(cateTwo.CategoryName)</a>
+                                                    </dd>
+                                                }
+                                            }
+                                        </dl>
+
+                                        }
+                                        <div class="ls_nav_adv">
+                                            <ul>
+                                                <li><a href="#"><img src="~/content/newcss/css/images/ls_nav_adv1.jpg" /></a></li>
+                                                <li><a href="#"><img src="~/content/newcss/css/images/ls_nav_adv2.jpg" /></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <span class="clearfix"></span>
+                                }
+                            </li>
+
+                        }
+                    }
+                </ul>
+                <div class="cateLayer"></div>
+            </div>
+        </div>
+        <div class="navItems">
+            <ul class="navGroup">
+                <li><a href="@Url.Action("Index", "Home", new { area = "" })" title="@CultureHelper.GetLangString("HOME_INDEX_HOMEPAGE")">@CultureHelper.GetLangString("HOME_INDEX_HOMEPAGE")</a></li>
+                @foreach (var m in Model)
+                {
+                    <li><a href="@Url.Action("ProductList", "Product", new { area = "",parentId = m.CategoryId, cateName = m.CategoryName, selectCategoryId = m.CategoryId, level = 1 })" title="@m.CategoryName">@(m.CategoryName)</a></li>
+                }
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

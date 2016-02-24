@@ -1,0 +1,406 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+@model HKTHMall.Domain.WebModel.Models.Login.YH_UserModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .upBtn {
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        color: #444;
+        width: 114px;
+        height: 23px;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .uploadify-queue {
+        display: none;
+    }
+
+    .uploadify {
+        position: relative; 
+        width:117px !important;
+        height:32px !important;
+    }
+    .swfupload{
+        left:-2px !important;
+        width:100%;
+        height:100%;
+    }
+</style>
+<div class="main_a">
+
+    <div class="main_about">
+        <div class="ls_member">
+            <!--left-->
+            @Html.Partial("_userLeft")
+            <!--right-->
+            <div class="ls_member_rg">
+                <!--右侧会员信息展示-->
+                <div class="ls_member_info">
+                    <div class="editOwnerInfo">
+                        <h3>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_PERSONALINFORMATION")@*个人信息*@</h3>
+                    </div>
+                    <div class="ownerInfoUpload">
+                        <span><img src="@Html.GetAvatarImagesUrl((string)Model.HeadImageUrl, 80, 80, 0, false)" id="fbuimg" alt="@CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_MYHEAD")" width="80" height="80"></span>
+                        <ul>
+                            <li><a href="javascript:;"><input type="file" name="uplodify" id="uploadify" /></a></li>
+                            <li>@CultureHelper.GetLangString("UPLOAD_TIP_ONE"),
+                            @CultureHelper.GetLangString("UPLOAD_TIP_TWO")</li>@*2M以内的jpg.png.gif.jpeg格式的图片推荐尺寸300*300像素*@
+                        </ul>
+                    </div>
+                    <div class="ownerInfoEdit">
+                        <dl>
+                            <dt>@CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_ACCOUNT")@*账号*@</dt>
+                            <dd>@Model.Account</dd>
+                            <span class="clearfix"></span>
+                        </dl>
+                        <dl>
+                            <dt>@CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_NICKNAME")@*昵称*@</dt>
+                            <dd><span class="infoinputCover"><input type="text" id="txtnickname" value="@Model.NickName"></span><div class="clearfix"></div></dd>
+                        </dl>
+                        <dl>
+                            <dt>@CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_EMAIL")@*邮箱*@</dt>
+                            <dd><span class="infoinputCover"><input id="txtEmail" type="text" value="@Model.Email" @(string.IsNullOrEmpty(Model.ThirdID)?"disabled=disabled":"")  style="background-color:white"></span><div class="clearfix"></div></dd>
+                        </dl>
+                        <dl>
+                            <dt>@CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_GENDER")@*性别*@</dt>
+                            <dd>
+                                <label><input type="radio" id="rnan" name="xingbie" checked="@(Model.Sex==1?true:false)" value="1">@CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_MAN")@*男*@</label>
+                                <label><input type="radio" name="xingbie" id="rnv" value="2" checked="@(Model.Sex == 2 ? true : false)">@CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_FEMALE")@*女*@</label>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>@CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_BIRTHDAY")@*生日*@</dt>
+                            <dd>
+                                <div class="birthdaySel">
+                                    @if (CultureHelper.GetLanguageID() == 1 || CultureHelper.GetLanguageID() == 4)//中文
+                                    {
+                                        <select name="" id="selectYear" onchange="ChangValueDay()">
+                                            <option value="0">@CultureHelper.GetLangString("SELECT_YEAR")</option>
+                                            @for (int i = ViewBag.YEAR; i > ViewBag.YEAR - 100; i--)
+                                            {
+                                                if (ViewBag.uYear != 0 && ViewBag.uYear == i)
+                                                {
+                                                    <option value="@i" selected="selected">@i @CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_YEAR")</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@i">@i @CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_YEAR")</option>
+                                                }
+                                            }
+                                        </select>
+                                        <span>—</span>
+                                        <select name="" id="selectMonth" onchange="ChangValueDay()">
+                                            <option value="0" selected="selected">@CultureHelper.GetLangString("SELECT_MONTH")</option>
+                                            @for (int i = 1; i <= 12; i++)
+                                            {
+                                                if (ViewBag.uMonth != 0 && ViewBag.uMonth == i)
+                                                {
+                                                     <option value="@i" selected="selected">@i @CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_MONTH")</option>
+                                                }
+                                                else
+                                                {
+                                                     <option value="@i">@i @CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_MONTH")</option>
+                                                }
+                                            }
+                                        </select>
+                                        <span>—</span>
+                                        <select name="" id="selectDay">
+                                            <option value="0">@CultureHelper.GetLangString("SELECT_DAY")</option>
+                                            @for (int i = 1; i <= 31; i++)
+                                            {
+                                                 if (ViewBag.uDay != 0 && ViewBag.uDay == i)
+                                                {
+                                                     <option value="@i" selected="selected">@i @CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_DAY")</option>
+                                                }
+                                                else
+                                                {
+                                                      <option value="@i">@i @CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_DAY")</option>
+                                                }
+
+                                            }
+                                        </select>
+                                    }
+                                    else
+                                    {
+                                        <select name="" id="selectMonth" onchange="ChangValueDay()">
+                                            <option value="0" selected="selected">@CultureHelper.GetLangString("SELECT_MONTH")</option>
+                                            @for (int i = 1; i <= 12; i++)
+                                            {
+                                                if (ViewBag.uMonth != 0 && ViewBag.uMonth == i)
+                                                {
+                                                    <option value="@i" selected="selected">@i </option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@i">@i </option>
+                                                }
+                                            }
+                                        </select>
+                                        <span>—</span>
+                                        <select name="" id="selectDay">
+                                            <option value="0">@CultureHelper.GetLangString("SELECT_DAY")</option>
+                                            @for (int i = 1; i <= 31; i++)
+                                            {
+                                                if (ViewBag.uDay != 0 && ViewBag.uDay == i)
+                                                {
+                                                    <option value="@i" selected="selected">@i </option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@i">@i </option>
+                                                }
+
+                                            }
+                                        </select>
+                                        <span>—</span>
+                                        <select name="" id="selectYear" onchange="ChangValueDay()">
+                                            <option value="0">@CultureHelper.GetLangString("SELECT_YEAR")</option>
+                                            @for (int i = ViewBag.YEAR; i > ViewBag.YEAR - 100; i--)
+                                            {
+                                                if (ViewBag.uYear != 0 && ViewBag.uYear == i)
+                                                {
+                                                    <option value="@i" selected="selected">@i </option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@i">@i </option>
+                                                }
+                                            }
+                                        </select>
+                                    }
+                                </div>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt></dt>
+                            <dd>
+                                <span class="sureColl">
+                                    <a href="javascript:void(submintData())">@CultureHelper.GetLangString("ACCOUNT_USERINFO_INDEX_SAVE")@*确认保存*@</a>
+                                </span>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="dialogCover">
+                <div class="dialogMain">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="~/Content/js/format.js"></script>
+<script src="~/Content/plugins/uploadify/jquery.uploadify.js?random=@(DateTime.Now.ToString("yyyyMMddHHmmssfff"))"></script>
+<script>
+    $(function () {
+        //聚焦“个人信息”菜单
+        focusCurrentMenu('uinfo');
+    });
+    
+    function ChangValueDay() {
+        var year = $("#selectYear").val();
+        if (year == 0) {
+            year = 1900;
+        }
+        var month = $("#selectMonth").val();
+        if (month == 0) {
+            month = 1;
+        }
+        $.post("/UserInfo/MonthDayCount",
+           { year: year, month: month },
+           function (data) {
+               if (data.rs == 1) {
+                   $("#selectDay").get(0).options.length = 0;
+                   $("<option value=\"0\">@CultureHelper.GetLangString("SELECT_DAY")</option>").appendTo($("#selectDay"));
+                   for (var i = 1; i <= data.msg; i++) {
+
+                       $("<option></option>").val(i).text(i + $commonLang.DAY).appendTo($("#selectDay"));
+                   }
+               }
+
+           }, "json");
+
+    }
+
+
+    var sex = '@Model.Sex';
+    $(document).ready(function () {
+        switch (sex) {
+            case '2':
+                $("#rnv").attr("checked", true);
+                break;
+            case '1':
+                $("#rnan").attr("checked", true);
+                break;
+            default:
+                $("#rnan").attr("checked", true);
+                break;
+        }
+    });
+
+
+    var auth = "@(Request.Cookies[FormsAuthentication.FormsCookieName]==null ? string.Empty : Request.Cookies[FormsAuthentication.FormsCookieName].Value)";
+    var ASPSESSID = "@Session.SessionID";
+    $("#uploadify").uploadify({
+        swf: '/Content/plugins/uploadify/uploadify.swf',
+        uploader: '/account/Userinfo/SubmintImg',
+        queueSizeLimit: 1,
+        auto: true,
+        multi: false,
+        fileTypeExts: '*.jpg;*.png;*.gif;*.jpeg;',
+        fileTypeDesc: 'Image Files',
+        buttonText: $commonLang.UPLOAD_TEXT,
+        buttonCursor: 'hand',
+        buttonClass: 'upBtn',
+        fileObjName: 'Filedata',
+        removeTimeout: 1,
+        fileSizeLimit: "2MB",//文件大小
+        formData: { 'ASPSESSID': ASPSESSID, 'AUTHID': auth },
+        overrideEvents: ['onSelectError', 'onDialogClose'],
+        //检测FLASH失败调用
+        onFallback: function () {
+            $(".dialogMain").html($commonLang.UPLOAD_FLASH_CONTROL);
+            ds.dialog({ title: $commonLang.MONEY_ORDER_INFO, content: $(".dialogCover").html(), yesText: $commonLang.ORDER_LIST_SURE, onyes: function () { this.close(); } });
+        },
+        onSelectError: function (file, errorCode, errorMsg) {
+            switch (errorCode) {
+                case -100:
+                    //数量超出限制,最多选择1个文件！
+                    $(".dialogMain").html($commonLang.UPLOAD_SELECT_LIMIT);
+                    ds.dialog({ title: $commonLang.MONEY_ORDER_INFO, content: $(".dialogCover").html(), yesText: $commonLang.ORDER_LIST_SURE, onyes: function () { this.close(); } });
+                    break;
+                case -110:
+                    //文件大小超过{0}限制,请重新上传
+                    $(".dialogMain").html($commonLang.UPLOAD_SIZE_LIMIT.format($('#uploadify').uploadify("settings", 'fileSizeLimit')));
+                    ds.dialog({ title: $commonLang.MONEY_ORDER_INFO, content: $(".dialogCover").html(), yesText: $commonLang.ORDER_LIST_SURE, onyes: function () { this.close(); } });
+                    break;
+                case -120:
+                    //文件大小异常
+                    $(".dialogMain").html($commonLang.UPLOAD_WROMH_SIZE);
+                    ds.dialog({ title: $commonLang.MONEY_ORDER_INFO, content: $(".dialogCover").html(), yesText: $commonLang.ORDER_LIST_SURE, onyes: function () { this.close(); } });
+                    break;
+                case -130:
+                    //文件类型不正确
+                    $(".dialogMain").html($commonLang.UPLOAD_WRONG_TYPE);
+                    ds.dialog({ title: $commonLang.MONEY_ORDER_INFO, content: $(".dialogCover").html(), yesText: $commonLang.ORDER_LIST_SURE, onyes: function () { this.close(); } });
+                    break;
+            }
+        },
+        onUploadStart: function (file) {
+        },
+        onUploadSuccess: function (file, data, response) {
+            eval('data=' + data);
+            if (data.flag) {
+                $("#fbuimg").attr("src", data.img);
+            } else {
+                $(".dialogMain").html(data.strMsg);
+                ds.dialog({ title: $commonLang.MONEY_ORDER_INFO, content: $(".dialogCover").html(), yesText: $commonLang.ORDER_LIST_SURE, onyes: function () { this.close(); } });
+            }
+        }
+    });
+
+    function GetStrLen(s) {
+        var l = 0;
+        var a = s.split("");
+        for (var i = 0; i < a.length; i++) {
+            if (a[i].charCodeAt(0) < 299) {
+                l++;
+            }
+            else
+                l += 2;
+        }
+        return l;
+    }
+
+    function submintData() {
+        var nickName =$("#txtnickname").val();
+        if ($.trim(nickName) == "") {
+            $(".dialogMain").html($commonLang.ACCOUNT_USERINFO_INDEX_ENTERNICKNAME);//请输入昵称
+            ds.dialog({title: $commonLang.MONEY_ORDER_INFO,content: $(".dialogCover").html(),yesText: $commonLang.ORDER_LIST_SURE,onyes: function () {this.close();}});
+            return false;
+        }
+        if (GetStrLen(nickName) > 20) {
+            $(".dialogMain").html($commonLang.ACCOUNT_USERINFO_INDEX_NICKNAMEMAXIMUM);//昵称最大字符长度为20字符
+            ds.dialog({ title: $commonLang.MONEY_ORDER_INFO, content: $(".dialogCover").html(), yesText: $commonLang.ORDER_LIST_SURE, onyes: function () { this.close(); } });
+            return false;
+        }
+
+        var pattern = new RegExp("[~'!$%^&*()-+_=:]");
+        if (pattern.test(nickName)) {
+            $(".dialogMain").html($commonLang.ACCOUNT_USERINFO_INDEX_ILLEGALCHARACTERS);//昵称中包含非法字符
+            ds.dialog({ title: $commonLang.MONEY_ORDER_INFO, content: $(".dialogCover").html(), yesText: $commonLang.ORDER_LIST_SURE, onyes: function () { this.close(); } });
+            return false;
+        }
+
+        var radioName = $('input:radio:checked').val();
+        if (radioName == undefined || radioName == "") {
+            $(".dialogMain").html($commonLang.ACCOUNT_USERINFO_INDEX_SELECTGENDER);//请选择性别
+            ds.dialog({ title: $commonLang.MONEY_ORDER_INFO, content: $(".dialogCover").html(), yesText: $commonLang.ORDER_LIST_SURE, onyes: function () { this.close(); } });
+            return false;
+        }
+
+        var txtemail = $('#txtEmail').val();
+
+        var selectYear = $("#selectYear").val();
+        var selectMonth = $("#selectMonth").val();
+        var selectDay = $("#selectDay").val();
+
+        var trus = 0;
+        if (selectYear != 0)++trus;
+        if (selectMonth != 0)++trus;
+        if (selectDay != 0)++trus;
+
+        if (trus > 0 && trus < 3) {
+            $(".dialogMain").html($commonLang.ACCOUNT_USERINFO_INDEX_ENTERFULLBIRTHDAY);//请输入完整的生日
+            ds.dialog({ title: $commonLang.MONEY_ORDER_INFO, content: $(".dialogCover").html(), yesText: $commonLang.ORDER_LIST_SURE, onyes: function () { this.close(); } });
+            return false;
+        }
+
+
+        $.post("/Userinfo/apdateUserinfo",
+           {
+               nickName: nickName,
+               radioName: radioName,
+               selectYear: selectYear,
+               selectMonth: selectMonth,
+               selectDay: selectDay,
+               email: txtemail
+           },
+           function (data) {
+               $(".dialogMain").html(data.msg);
+               var msg = $(".dialogCover").html();
+               if (data.rs == 1) {
+                   ds.dialog({
+                       title: $commonLang.MONEY_ORDER_INFO,
+                       content: msg,
+                       yesText: $commonLang.ORDER_LIST_SURE,
+                       onyes: function () {
+                           window.location.reload();
+                           this.close();
+                       },
+                   });
+               }
+               else {
+                   ds.dialog({
+                       title: $commonLang.MONEY_ORDER_INFO,
+                       content: msg,
+                       yesText: $commonLang.ORDER_LIST_SURE,
+                       onyes: function () {
+                           this.close();
+                       },
+                   });
+               }
+           }, "json");
+    }
+
+
+
+</script>
+

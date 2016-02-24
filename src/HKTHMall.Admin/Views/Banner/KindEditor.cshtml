@@ -1,0 +1,63 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>KindEditor</title>
+    <script src="~/Content/plugins/jquery/jquery-1.10.2.min.js" type="text/javascript"></script>
+    @*<script src="~/Content/plugins/kindeditor/kindeditor-min.js" type="text/javascript"></script>*@
+    
+
+
+    <script charset="utf-8" src="~/Content/plugins/kindeditor/kindeditor.js"></script>
+    <script src="~/Content/plugins/kindeditor/lang/zh_CN.js" type="text/javascript"></script>
+    
+
+</head>
+<body>
+    <div> 
+        editor:<br />
+        <textarea id="editor_id" name="content" style="width:700px;height:300px;">
+            &lt;strong&gt;HTML content&lt;/strong&gt;
+        </textarea>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <input id="url3" type="text" value="">
+    <input id="image3" type="button" value="Select picture">
+
+    <script>
+        KindEditor.ready(function (k) {
+            window.editor = k.create("#editor_id",{
+                showRemote: false,
+                uploadJson: '../KindEditor/UploadImage'
+
+            });
+
+            
+
+            k('#image3').click(function () {
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        showRemote: false,
+                        
+                    });
+
+                });
+            });
+
+
+        })
+
+        
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="Keywords" content="">
+		<title>香港商城</title>
+		<link rel="stylesheet" type="text/css" href="newcss/css/css.css" />
+		<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+	</head>
+
+<body>
+<div class="header">
+	<div class="clear" style="background: #ccc; height: 175px;"></div>
+</div><!--公共头部-->
+
+
+<div class="main_a">
+	
+	<div class="main_about">
+		<div class="ls_member">
+			
+				
+			<!--left-->
+			<div class="ls_member_lf" style="width: 200px;height: 1000px;"></div>
+			
+			
+			<!--right-->
+			<div class="ls_member_rg">
+				<div class="m_user_pubtitle">我的回赠</div>
+				<div class="ls_hsq_info1">
+					<ul>
+						<li>已回赠金额:<i>$3000.00</i></li>
+						<li>今日回赠:<i>$9.9</i><span></span>待回赠金额:<i>$9.9</i><a href="#">关于100%回赠</a></li>
+					</ul>
+				</div>
+				<div class="ls_huizeng_list">
+					<table  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td scope="col" width="170">商品信息</td>
+    <td scope="col" width="100">回赠金额</td>
+    <td scope="col" width="180">每天回赠</td>
+    <td scope="col" width="100">回赠时间</td>
+  </tr>
+  <tr>
+    <td width="170">
+    	<div class="ls_huizeng_pro">
+								<a href="###"><img src="" alt="" width="88" height="88"></a>
+								<ul>
+									<li><a href="###" class="contentName_2016">进口音箱 水仙家居桌面盆栽水培植物
+水 植物 洋仙人球 小球 喇叭</a></li>
+									<li><span>单价:<b>$350</b></span><h3>X6</h3></li>
+									<li><span>颜色分类:<b>1231111</b></span><span>颜色分类:<b>1231111</b></span></li>
+								</ul>
+								
+							</div>
+    </td>
+    <td width="100">$8888.88 </td>
+    <td width="180">$8.97</td>
+    <td width="170">02/12/2015至02/12/2016</td>
+  </tr>
+  
+  <tr>
+    <td width="170">
+    	<div class="ls_huizeng_pro">
+								<a href="###"><img src="" alt="" width="88" height="88"></a>
+								<ul>
+									<li><a href="###" class="contentName_2016">进口音箱 水仙家居桌面盆栽水培植物
+水 植物 洋仙人球 小球 喇叭</a></li>
+									<li><span>单价:<b>$350</b></span><h3>X6</h3></li>
+									<li><span>颜色分类:<b>1231111</b></span><span>颜色分类:<b>1231111</b></span></li>
+								</ul>
+								
+							</div>
+    </td>
+    <td width="100">$8888.88 </td>
+    <td width="180">$8.97</td>
+    <td width="170">02/12/2015至02/12/2016</td>
+  </tr>
+  <tr>
+    <td width="170">
+    	<div class="ls_huizeng_pro">
+								<a href="###"><img src="" alt="" width="88" height="88"></a>
+								<ul>
+									<li><a href="###" class="contentName_2016">进口音箱 水仙家居桌面盆栽水培植物
+水 植物 洋仙人球 小球 喇叭</a></li>
+									<li><span>单价:<b>$350</b></span><h3>X6</h3></li>
+									<li><span>颜色分类:<b>1231111</b></span><span>颜色分类:<b>1231111</b></span></li>
+								</ul>
+								
+							</div>
+    </td>
+    <td width="100">$8888.88 </td>
+    <td width="180">$8.97</td>
+    <td width="170">02/12/2015至02/12/2016</td>
+  </tr>
+  <tr>
+    <td width="170">
+    	<div class="ls_huizeng_pro">
+								<a href="###"><img src="" alt="" width="88" height="88"></a>
+								<ul>
+									<li><a href="###" class="contentName_2016">进口音箱 水仙家居桌面盆栽水培植物
+水 植物 洋仙人球 小球 喇叭</a></li>
+									<li><span>单价:<b>$350</b></span><h3>X6</h3></li>
+									<li><span>颜色分类:<b>1231111</b></span><span>颜色分类:<b>1231111</b></span></li>
+								</ul>
+								
+							</div>
+    </td>
+    <td width="100">$8888.88 </td>
+    <td width="180">$8.97</td>
+    <td width="170">02/12/2015至02/12/2016</td>
+  </tr>
+</table>
+				</div>
+				
+				<div class="sectionPaging">
+                        	<ul>
+                            	<li class="secPrevPage"><a href="###"><i class="fa-angle-left"></i>上一页</a></li>
+                                <li><a href="###" class="secPageOn">1</a></li>
+                                <li><a href="###">2</a></li>
+                                <li><a href="###">3</a></li>
+                                <li>...</li>
+                                <li><a href="###">8</a></li>
+                                <li class="secNextPage"><a href="###">下一页<i class="fa-angle-right"></i></a></li>
+                                <span class="clearfix"></span>
+                            </ul>
+                    </div>
+				
+			</div>
+			<div class="clear"></div>
+		
+		</div>
+	</div>
+
+</div><!--主体部分-->
+
+
+
+<div class="footer"></div><!--公共底部-->
+
+
+<script type="text/javascript">
+	$(".ls_hsq_info2 td a").hover(function(){
+		$(this).next(".ls_hsq_hidden").stop().fadeIn(400);
+	},function(){
+		$(this).next(".ls_hsq_hidden").stop().fadeOut(400);
+	}
+	)
+</script>
+</body>
+
+</html>

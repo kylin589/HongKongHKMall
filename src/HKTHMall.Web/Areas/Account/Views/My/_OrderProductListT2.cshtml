@@ -1,0 +1,113 @@
+﻿@using HKTHMall.Core.Extensions
+@using HKTHMall.Domain.Enum
+@using HKTHMall.Domain.WebModel.Models.Orders
+@using HKTHMall.Services.Common.MultiLangKeys
+@using HKTHMall.Services.Common.MultiLangKeys
+@model HKTHMall.Domain.WebModel.Models.Orders.OrderView
+
+<tbody>
+    @{
+        int index = 0;
+        int count = 1;
+        string orderId = "";
+        string orderStatusString = "";
+        foreach (var orderDetail in Model.OrderDetailViews)
+        {
+            //另一订单
+            if (orderId != orderDetail.OrderId)
+            {
+                orderId = orderDetail.OrderId;
+              
+                Model.OrderDetailViews.Count(x => x.Iscomment == 0);
+                count = 1;
+                index = 0;
+                orderStatusString = ML_OrderStatus.GetLocalOrderStatusDescription(CultureHelper.GetLanguageID(), (OrderEnums.OrderStatus)Model.OrderStatus);
+            }
+
+            count = Model.OrderDetailViews.Count(x => x.OrderId == orderDetail.OrderId);
+
+            if (index == 0)
+            {
+                <tr>
+                    @showOrderDetail(orderDetail)
+                    @*<td  align="center" valign="middle" width="113">
+                        @IsRefund(orderDetail)
+                    </td>*@
+                    <td rowspan="@count" align="center" valign="middle" width="113">
+                        <p>@Model.TotalAmount.Value.ToString("0.00")@CultureHelper.GetLangString("WEBSITE_DOLLARS")</p>
+                        <p>(@CultureHelper.GetLangString("ACCOUNT_MY_ORDERPRODUCTLISTT2_INCHARGES"))</p>
+                    </td>
+                    <td rowspan="@count" align="center" valign="middle" width="113">
+                        <p class="buyingLeads_tbbox_t2">@orderStatusString</p>
+                        <a href="/order/detail.html?orderId=@orderId" class="z_xiangqing">@CultureHelper.GetLangString("ACCOUNT_MY_ORDERPRODUCTLISTT2_ORDERDETAILS")</a>
+                    </td>
+                    <td rowspan="@count" align="center" valign="middle" width="113">
+                        @Html.Partial("_OrderAction", Model)
+                    </td>
+                </tr>
+            }
+            else if (count > 0 && index != 0)
+            {
+                <tr>
+                    @showOrderDetail(orderDetail)
+                </tr>
+            }
+            index++;
+        }
+    }
+
+</tbody>
+
+@helper showOrderDetail(OrderDetailsView orderDetail)
+{
+    <td align="center" valign="middle" width="484">
+        @******商品数量等******@
+        <div class="z_ddgoods">
+            <div class="z_ddimg">
+                <a href="@Url.Action("shopping", "home", new { id = orderDetail.ProductId, area = "" })" class="fl"><img src="@Html.GetImagesUrl(orderDetail.PicUrl,75,75)" width="92" height="83"></a>
+            </div>
+            <div class="z_dddetail">
+                <p class="z_detail_text1">@orderDetail.ProductName</p>
+                <p class="z_detail_price"><em>@CultureHelper.GetLangString("MONEY_SHOPPINGCART_THEUNITPRICE"):</em>@orderDetail.SalesPrice.ToString("0.00")</p>
+                @if (!string.IsNullOrEmpty(orderDetail.SkuName))
+                {
+                    foreach (string sku in orderDetail.SkuName.Split(','))
+                    {
+                        <p class="z_detail_text2">@sku</p>
+                    }
+                }
+            </div>
+            <div class="z_ddcount">x@(orderDetail.Quantity)</div>
+        </div>
+    </td>
+    <td align="center" valign="middle" width="113">
+        @if (orderDetail.IsReturn == 0 && Model.OrderStatus == (int)OrderEnums.OrderStatus.OutTimeReceiving)
+        {
+        <p class="buyingLeads_tbbox_t2" resource="2"><a href="@Url.Action("OrderReturnProductInfo", new { orderDetailsID = orderDetail.OrderDetailsID })">@CultureHelper.GetLangString("ACCOUNT_MY_ORDERPRODUCTLISTT2_RETURNMONEY")</a></p>
+        }
+        else if (orderDetail.IsReturn == 1 || orderDetail.IsReturn == 3)
+        {
+        <p class="buyingLeads_tbbox_t2" resource="2">@CultureHelper.GetLangString("ACCOUNT_MY_ORDERPRODUCTLISTT2_REFUND")</p>
+        }
+        else if (orderDetail.IsReturn == 2)
+        {
+        <p class="buyingLeads_tbbox_t2" resource="2">@CultureHelper.GetLangString("ACCOUNT_MY_ORDERPRODUCTLISTT2_REFUNDCOMPLETE")</p>
+        }
+    </td>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

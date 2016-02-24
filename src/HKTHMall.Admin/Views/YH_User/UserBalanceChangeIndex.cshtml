@@ -1,0 +1,155 @@
+﻿@model HKTHMall.Domain.Models.YHUser.SearchUserBalanceChangeModel
+@{
+    ViewBag.Title = "Change Balance List";
+}
+
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>SN: </span>&nbsp;
+            @Html.TextBoxFor(x => x.ID, new { @class = "form-control w70" })
+        </div>
+        &nbsp;&nbsp;
+        <div class="form-group">
+            <span>User ID: </span>&nbsp;
+            @Html.TextBoxFor(x => x.UserID, new { @class = "form-control w70" })
+        </div>
+        &nbsp;&nbsp;
+        <div class="form-group">
+            <span>Huixin account: </span>&nbsp;
+            @Html.TextBoxFor(x => x.Account, new { @class = "form-control w70" })
+        </div>
+        &nbsp;&nbsp;
+        <div class="form-group">
+            <span>Real Name: </span>&nbsp;
+            @Html.TextBoxFor(x => x.RealName, new { @class = "form-control w70" })
+        </div>
+        &nbsp;&nbsp;
+        <div class="form-group">
+            <span>Operator: </span>&nbsp;
+            @Html.TextBoxFor(x => x.CreateBy, new { @class = "form-control w70" })
+        </div><br /><br />
+        <div class="form-group">
+            <span>Balance statement: </span>&nbsp;
+            <select id="IsAddOrCut">
+                <option value="-1">-Select-</option>
+                <option value="1">Income</option>
+                <option value="0">Expenditure</option>
+            </select>
+        </div>
+        &nbsp;&nbsp;
+        <div class="form-group">
+            <span>Change Type: </span>&nbsp;
+            @Html.DropDownList("AddOrCutType", TempData["AddOrCutTypeEnum"] as SelectList)
+        </div>
+        &nbsp;&nbsp;
+        <div class="form-group">
+            <span>Order SN: </span>&nbsp;
+            @Html.TextBoxFor(x => x.OrderNo, new { @class = "form-control w70" })
+        </div>
+        &nbsp;&nbsp;
+        <div class="form-group">
+            <span>Time change: </span>
+            @Html.TextBoxFor(x => x.CreateDTBegin, new { @class = "form-control w70" })
+            &nbsp;-&nbsp;
+            @Html.TextBoxFor(x => x.CreateDTEnd, new { @class = "form-control w70" })
+        </div>
+        &nbsp;&nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+
+            var columns = [
+                { field: 'ID', title: 'SN', align: 'center', valign: 'middle', sortable: false },
+                { field: 'Account', title: 'Huixin account', align: 'center', valign: 'middle', sortable: false },
+                { field: 'RealName', title: 'Real Name', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'IsAddOrCut',
+                    title: 'Balance statement',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: false,
+                    formatter: function (val) {
+                        return val === 1 ? 'Income' : 'Expenditure';
+                    }
+                },
+                {
+                    field: 'AddOrCutType', title: 'Change Type', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        return GetAddOrCutTypeText(val);
+                    }
+                },
+                { field: 'OldAmount', title: 'Changes before amount ', align: 'center', valign: 'middle', sortable: false },
+                { field: 'AddOrCutAmount', title: 'Change amount', align: 'center', valign: 'middle', sortable: false },
+                { field: 'NewAmount', title: 'Current amount', align: 'center', valign: 'middle', sortable: false },
+                { field: 'OrderNo', title: 'Order SN', align: 'center', valign: 'middle', sortable: false },
+                { field: 'CreateBy', title: 'Operator', align: 'center', valign: 'middle', sortable: false },
+                { field: 'Remark', title: 'Remark', align: 'center', valign: 'middle', sortable: false },
+                { field: 'CreateDT', title: 'Time change', align: 'center', valign: 'middle', sortable: true, formatter: function (val) { return val.formatterString(false) } }
+            ];
+
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("GetUserBalanceChangeList")',
+                queryParams: function (params) {
+                    return {
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        ID: $('#ID').val(),
+                        Account: $('#Account').val(),
+                        RealName: $("#RealName").val(),
+                        CreateBy: $("#CreateBy").val(),
+                        IsAddOrCut: $("#IsAddOrCut").val(),
+                        AddOrCutType: $("#AddOrCutType").val(),
+                        OrderNo: $("#OrderNo").val(),
+                        CreateDTBegin: $("#CreateDTBegin").val(),
+                        CreateDTEnd: $("#CreateDTEnd").val(),
+                        UserID:$("#UserID").val(),
+                        Time: new Date().getTime()
+                    };
+                },
+                sortOrder: 'desc',
+                sortName: 'CreateDT',
+                columns: columns
+            });
+
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+        });
+
+        $('#CreateDTBegin,CreateDTEnd').datepicker({
+            language: "en",
+            option: "yyyy-MM-dd",
+            dateFormat: "yyyy-MM-dd",
+            autoclose: true
+        });
+
+        $('#CreateDTEnd').datepicker({
+            language: "en",
+            option: "yyyy-MM-dd",
+            dateFormat: "yyyy-MM-dd",
+            autoclose: true
+        });
+
+        function GetAddOrCutTypeText(value)
+        {
+            var result = "";
+            $("#AddOrCutType option").each(function () {
+                if ( $(this).val() == value)
+                {
+                    result=$(this).text();
+                    return false;
+                }
+            })
+            return result;
+        }
+    </script>
+}

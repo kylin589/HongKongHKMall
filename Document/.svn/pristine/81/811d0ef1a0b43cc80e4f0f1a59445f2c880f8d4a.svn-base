@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="Keywords" content="">
+		<title>香港商城</title>
+		<link rel="stylesheet" type="text/css" href="newcss/css/css.css" />
+		<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+	</head>
+
+<body>
+<div class="header">
+	<div class="clear" style="background: #ccc; height: 175px;"></div>
+</div><!--公共头部-->
+
+
+<div class="main_a">
+	
+	<div class="main_about">
+		<div class="ls_member">
+			
+				
+			<!--left-->
+			<div class="ls_member_lf">
+				<div class="ls_member_lf_top"><h1>会员中心</h1></div>
+				<div class="ls_member_lf_nav">
+					<dl>
+						<dt class="ls_user_on"><i></i>我的账户</dt>
+						<dd class="ls_user_on"><a href="#" title="">我的惠卡</a></dd><!--当打开当前页的时候，二级栏目里增加ls_user_on，并且当前的一级栏目也要增加ls_user_on-->
+						<dd><a href="#" title="">我的订单</a></dd>
+						<dd><a href="#" title="">我的收藏</a></dd>
+						<dd><a href="#" title="">我的评价</a></dd>
+					</dl>
+					<dl>	
+						<dt><i></i>账户设置</dt>
+						<dd><a href="#" title="">个人信息</a></dd>
+						<dd><a href="#" title="">收货地址</a></dd>
+						<dd><a href="#" title="">账户安全</a></dd>
+					</dl>
+					<dl>
+						<dt><i></i>退款维权</dt>
+						<dd><a href="#" title="">退款管理</a></dd>
+						<dd><a href="#" title="">我的投诉</a></dd>
+					</dl>
+					
+				</div>
+			</div>
+			
+			
+			<!--right-->
+			<div class="ls_member_rg">
+				
+					
+				<!--右侧会员信息展示-->
+				<div class="ls_member_info">
+					<h3>我的惠卡</h3>
+					<div class="ls_member_touxiang">
+						<img src="newcss/css/images/member_touxiang.jpg"/>
+						<ul>
+							<li><b>Andy</b><span>(13514789654)</span><a href="" title="">编辑</a></li>
+							<li>余额:$3000.00<a href="" title="">去购物拿返现</a></li>
+							<li><span>上次登录时间：2015-06-30 15:45 </span><span>上次登录IP：119.136.34.177</span></li>
+						</ul>
+						<div class="clear"></div>
+					</div>
+					<ul class="ls_member_safe">
+						<li>账户安全：</li>
+						<li></li>
+						<li>低</li>
+						<li><a href="" title="">提升</a></li>
+					</ul>
+					<div class="ls_order_info">
+						<ul>
+							<li><i></i><a href="" title="">待付款<span>5</span></a></li>
+							<li><i></i><a href="" title="">待收货<span>5</span></a></li>
+							<li><i></i><a href="" title="">待评价<span>5</span></a></li>
+							<div class="clear"></div>
+						</ul>
+						
+					</div>
+				</div>
+				
+				<!--会员中心惠卡推荐，和前台的惠卡推荐不一样-->
+				<div class="ls_hktj">
+					<div class="ls_hktj_bt"><i></i><ul><b>惠卡推荐</b></ul></div>
+					<div class="ls_hktj_nr">
+                    	<a href="" title="">
+                        	<img src="newcss/css/images/sb_021.png" alt="" width="210" height="210">
+                            <span class="sectionLimited">得力（deli）0105 二孔打孔机孔径6mm 颜色随机</span>
+                            <span><b>$99999.00</b><ins>Rebates:100%</ins></span>
+                        </a>
+                        <a href="" title="">
+                        	<img src="newcss/css/images/sb_022.png" alt="" width="210" height="210">
+                            <span class="sectionLimited">得力（deli）0105 二孔打孔机孔径6mm 颜色随机</span>
+                            <span><b>$99999.00</b><ins>Rebates:100%</ins></span>
+                        </a>
+                        <a href="" title="">
+                        	<img src="newcss/css/images/sb_022.png" alt="" width="210" height="210">
+                            <span class="sectionLimited">得力（deli）0105 二孔打孔机孔径6mm 颜色随机</span>
+                            <span><b>$99999.00</b><ins>Rebates:100%</ins></span>
+                        </a>
+                        <a href="" title="">
+                        	<img src="newcss/css/images/sb_023.png" alt="" width="210" height="210">
+                            <span class="sectionLimited">得力（deli）0105 二孔打孔机孔径6mm 颜色随机</span>
+                            <span><b>$99999.00</b><ins>Rebates:100%</ins></span>
+                        </a>
+                        
+            		</div>
+					<div class="clear"></div>
+					
+				</div>
+        
+				
+			</div>
+			<div class="clear"></div>
+		
+		</div>
+	</div>
+
+</div><!--主体部分-->
+
+
+
+<div class="footer"></div><!--公共底部-->
+
+
+
+</body>
+
+</html>

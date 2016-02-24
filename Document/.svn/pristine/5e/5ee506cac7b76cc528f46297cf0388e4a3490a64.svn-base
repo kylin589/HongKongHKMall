@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="Keywords" content="">
+		<title>香港商城</title>
+		<link rel="stylesheet" type="text/css" href="newcss/css/css.css" />
+		<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+	</head>
+
+<body>
+<div class="header">
+	<div class="clear" style="background: #ccc; height: 175px;"></div>
+</div><!--公共头部-->
+
+
+<div class="main_a">
+	
+	<div class="main_about">
+		<div class="ls_member">
+			
+				
+			<!--left-->
+			<div class="ls_member_lf">
+				<div class="ls_member_lf_top"><h1>会员中心</h1></div>
+				<div class="ls_member_lf_nav">
+					<dl>
+						<dt class="ls_user_on"><i></i>我的账户</dt>
+						<dd class="ls_user_on"><a href="#" title="">我的惠卡</a></dd><!--当打开当前页的时候，二级栏目里增加ls_user_on，并且当前的一级栏目也要增加ls_user_on-->
+						<dd><a href="#" title="">我的订单</a></dd>
+						<dd><a href="#" title="">我的收藏</a></dd>
+						<dd><a href="#" title="">我的评价</a></dd>
+					</dl>
+					<dl>	
+						<dt><i></i>账户设置</dt>
+						<dd><a href="#" title="">个人信息</a></dd>
+						<dd><a href="#" title="">收货地址</a></dd>
+						<dd><a href="#" title="">账户安全</a></dd>
+					</dl>
+					<dl>
+						<dt><i></i>退款维权</dt>
+						<dd><a href="#" title="">退款管理</a></dd>
+						<dd><a href="#" title="">我的投诉</a></dd>
+					</dl>
+					
+				</div>
+			</div>
+			
+			
+			<!--right-->
+			<div class="ls_member_rg">
+				
+					
+				<!--右侧会员信息展示-->
+				<div class="ls_member_info">
+					<div class="addressAdd">
+						<h3>收货地址</h3>
+					</div>
+					<div class="addBut">
+						<a href="###"><i></i>添加新的收货地址</a>
+						<span>已保存了<b>2</b>条地址，还能保存<b>18</b>条地址</span>
+						<div class="clearfix"></div>
+					</div>
+                    
+                    
+                    
+                    
+                        
+					<div class="m_add_emp">
+						<p><i></i>您的收货地址为空！</p>
+						<div><span></span><b>您的收货地址为空，请快去添加！</b></div>
+						<div class="m_add_emp_Button">
+							<a href="###">添加收货地址</a>
+						</div>
+					</div>
+                    
+                    
+                    
+				</div>
+				
+        
+				
+			</div>
+			<div class="clear"></div>
+		
+		</div>
+	</div>
+
+</div><!--主体部分-->
+
+
+
+<div class="footer"></div><!--公共底部-->
+
+
+
+</body>
+
+</html>

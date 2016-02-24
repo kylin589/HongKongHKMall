@@ -1,0 +1,59 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.SKU.SearchSKU_AttributesModel
+@{
+    ViewBag.Title = "Product specification list page";
+}
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>specification name: </span>&nbsp;
+            @Html.TextBoxFor(x => x.AttributeName, new { @class = "form-control w70", @placeholder = "Please enter specification name" })
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-danger js_reset" onclick="Tool.ClearForm($('#user-toolbar'))">
+            <span class="glyphicon glyphicon-bullhorn"></span> Clear
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-primary js_create">
+            <span class="glyphicon glyphicon-plus"></span> Add
+        </button>
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/x-template" id="itemTpl">
+        <tr data-option="{'DisplaySequence':{{DisplaySequence}},'Index':{{Index}}}" class="js-tr-item">
+            <td>
+                <input type="hidden" class="js-DisplaySequence" name="SKU_AttributeValuesModels[{{Index}}].DisplaySequence" value="{{DisplaySequence}}">
+                <input type="hidden" class="js-RowStatus" name="SKU_AttributeValuesModels[{{Index}}].RowStatus" value="0">
+                <div class="form-group" style="margin-left:0;">
+                    <input type="text" class="form-control js-ValueStr" name="SKU_AttributeValuesModels[{{Index}}].ValueStr" placeholder="Please enter a value name">
+                </div>
+            </td>
+            <td class="text-center">
+                {{#IsImage}}
+                <input type="file" id="imageItem{{Index}}" name="imageItem{{Index}}" class="js-item-file hide" />
+                <input type="hidden" name="SKU_AttributeValuesModels[{{Index}}].ImageUrl" class="js-ImageUrl" />
+                <img src="/Content/css/images/default-item.jpg" class="js-item-image" style="width:30px;height:30px;" />
+                <button class="btn btn-sm btn-default js-choice-item" type="button"><i class="glyphicon glyphicon-search"></i>&nbsp;Select picture</button>
+                <button class="btn btn-sm btn-default js-upload-item" type="button"><i class="glyphicon glyphicon-upload"></i>&nbsp;Upload picture</button>
+                {{/IsImage}}
+
+            </td>
+            <td class="text-center">
+                <div class="input-group-btn">
+                    <button class="btn btn-sm btn-default js-up-item" type="button"><i class="glyphicon glyphicon-arrow-up"></i></button>&nbsp;
+                    <button class="btn btn-sm btn-default js-down-item" type="button"><i class="glyphicon glyphicon-arrow-down"></i></button>&nbsp;
+                    <button class="btn btn-sm btn-default js-remove-item" type="button"><i class="glyphicon glyphicon-remove"></i></button>&nbsp;
+                </div>
+            </td>
+        </tr>
+    </script>
+    <script src="~/Content/js/SKU_Attributes.js" type="text/javascript"></script>
+}

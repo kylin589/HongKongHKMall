@@ -1,0 +1,95 @@
+﻿@using HKTHMall.Domain.WebModel.Models.Search;
+@using HKTHMall.Domain.AdminModel.Models.Categoreis
+@using HKTHMall.Domain.Enum
+@using HKTHMall.Services.Common.MultiLangKeys
+@model Dictionary<string, object>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    HKTHMall.Domain.WebModel.Models.Search.KeyWordsSearch searchModel = ViewData["searchModel"] as HKTHMall.Domain.WebModel.Models.Search.KeyWordsSearch;
+   // List<SearchModel> prodocutList = ViewData["products"] as List<SearchModel>;
+    IEnumerable<SearchModel> prodocutList = ViewBag.products;
+    var catetype = ViewBag.type;
+}
+
+<div class="SearchPagination clearfix" style="margin:10px auto 5px;">
+    @if (catetype == "2")
+    {
+        <p style="text-indent: 15px;">
+            <a href="@Url.Action("index","home")" style="color: #999;">@CultureHelper.GetLangString("HOME_INDEX_HOMEPAGE")></a>
+            <a href="@Url.Action("indexfirst", "home", new { cateId = ViewBag.yiCateID })" style="color: #999;">@ViewBag.yiCateName</a>
+        </p>
+    }else
+    {
+           <p style="text-indent: 15px;"><a href="@Url.Action("index","home")" style="color: #999;">@CultureHelper.GetLangString("HOME_INDEX_HOMEPAGE")></a>
+            <a href="@Url.Action("indexfirst", "home", new { cateId = ViewBag.yiCateID })" style="color: #999;">@ViewBag.yiCateName></a>
+            <a href="@Url.Action("indexall", "home", new { cateId = ViewBag.erCateID,type = 2 })" style="color: #999;">@ViewBag.erCateName</a></p>
+    } 
+    <div class="SearchPagination_name l lh30">@ViewBag.CateName</div>
+    <div class="SearchPagination_paging r clearfix">
+        <ul class="l clearfix sortord">
+            <li>
+                <a style="height: 28px;border:1px solid #b0b0b0;color: #666666; font-size: 14px;display: inline-block;text-align: center;line-height: 26px;padding:1px 5px;"
+                   href="@Url.Action("indexall", "home", new { cateId = searchModel.cateId, type = catetype })"
+                   @(searchModel.st == SearchType.ZongHe ? Html.Raw("class=\"nav1\"") : Html.Raw(""))>@CultureHelper.GetLangString("HOME_INDEXFIRST_COMPRSORT")</a>
+            </li>
+            <li>
+                <a style="height: 28px;border:1px solid #b0b0b0;color: #666666; font-size: 14px;display: inline-block;text-align: center;line-height: 26px;padding:1px 15px;"
+                    href="@Url.Action("indexall", "home", new
+                {
+                    cateId=searchModel.cateId,
+                    st = SearchType.Sales,
+                    type=catetype
+                })" @(searchModel.st == SearchType.Sales ? Html.Raw("class=\"nav1\"") : Html.Raw(""))>@CultureHelper.GetLangString("HOME_INDEXFIRST_SALES")</a>
+           </li>
+            <li>
+                <a style="height: 28px;border:1px solid #b0b0b0;color: #666666; font-size: 14px;display: inline-block;text-align: center;line-height: 26px;padding:1px 5px;"
+                    href="@Url.Action("indexall", "home", new
+                {
+                        cateId=searchModel.cateId,
+                    st = SearchType.PriceDesc,
+                        type = catetype
+                })" @(searchModel.st == SearchType.PriceDesc ? Html.Raw("class=\"nav1\"") : Html.Raw(""))>@CultureHelper.GetLangString("HOME_INDEXFIRST_PRICEHIGHTOLOW")</a>
+            </li>
+            <li>
+                <a style="height: 28px;border:1px solid #b0b0b0;color: #666666; font-size: 14px;display: inline-block;text-align: center;line-height: 26px;padding:1px 5px;"
+                    href="@Url.Action("indexall", "home", new
+                {
+                    cateId = searchModel.cateId,
+                    st = SearchType.PriceAsc,
+                    type = catetype
+                })" @(searchModel.st == SearchType.PriceAsc ? Html.Raw("class=\"nav1\"") : Html.Raw(""))>@CultureHelper.GetLangString("HOME_INDEXFIRST_PRICELOWTOHIGH")</a>
+            </li>
+                            </ul>
+                            <p class="count l">@Html.Raw(string.Format(CultureHelper.GetLangString("HOME_INDEXFIRST_ATOTALACOM"), "<span style='color:#ee343b;'>" + @searchModel.AllCount + "</span>"))</p>
+                        <div class="pager l" style="margin-top:5px">
+                            @Html.ToPager("Page", 20, searchModel.AllCount)
+                        </div>
+                        </div>
+</div>
+@if (prodocutList != null)
+{
+    Html.RenderPartial("NormalProductList", prodocutList);
+}
+@if (searchModel.AllCount / 20 > 0)
+{
+    @Html.Raw(Html.ToPageHtml(searchModel.Page, 20, searchModel.AllCount))
+}
+<script src="~/Content/js/jquery-1.9.1.min.js"></script>
+<script src="~/Content/js/Plug-in-unit.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.tunepage li a').Page({ type: "0" });
+        function classnum() {
+            for (var num = 0; num < 5; num++) {
+                $(".classify_cp1").eq(num).css({
+                    'marginTop':'0'
+                });
+            }
+        }
+        classnum();
+        $(".SearchPagination").parent().css({
+            'minHeight':'745px'
+        });
+    });
+    //window.onload = classnum();
+</script>

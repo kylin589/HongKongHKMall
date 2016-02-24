@@ -1,0 +1,17 @@
+﻿@charset "utf-8";
+/* CSS Document */
+body,html,div,blockquote,img,label,p,h1,h2,h3,h4,h5,h6,pre,ul,ol,li,dl,dt,dd,form,a,hr,fieldset,input,th,tr,td,input,select,textarea,button{margin:0;padding:0;border:0;outline:none;}
+html,body{font-family:"Microsoft Yahei",Arial,Helvetica,Arial,sans-serif; background:#eeeeee;}
+body{ font-size:62.5%;}
+ul,ol,li{list-style:none;}
+img{ max-width:100%;}
+.l{ float:left;}
+.r{ float:right;}
+
+/*团队详情*/
+.cb_8_26{ background:#fff;}
+.cb_8_7{ margin:10px; background:#fff;}
+.cb_8_26_bt{ clear:both;  color:#333; line-height:24px; font-size:18px; font-style:normal; text-decoration: none; padding:10px 10px 0px 10px;}
+.cb_8_26_bt1{ clear:both;  color:#999; line-height:30px; font-size:14px; font-style:normal; text-decoration: none; height:35px; padding:0 10px; border-bottom:1px solid #f0eeee;}
+.cb_8_26_nr{ clear:both;  color:#333; line-height:26px; font-size:16px; font-style:normal; text-decoration: none; padding:10px 0px 20px 0px;}
+.cb_8_26_ss{ padding:15px 10px 0px 10px;}

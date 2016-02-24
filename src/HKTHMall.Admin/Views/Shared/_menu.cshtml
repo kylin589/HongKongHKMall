@@ -1,0 +1,44 @@
+﻿@using HKTHMall.Domain.Models.AC;
+@model  List<AC_ModuleModel>
+@{var oneMenuList = Model.Where(p => p.ParentID == 0).OrderBy(p => p.Place).ToList();}
+<aside class="main-sidebar">
+    <section class="sidebar js-sidebar">
+        <ul class="sidebar-menu" id="menuList-Id">
+            <li class="header">Menu Bar</li>
+            @foreach (var Item in oneMenuList)
+            {
+                var twoMenuList = Model.Where(p => p.ParentID == Item.ModuleID).OrderBy(p => p.Place).ToList();
+                <li class="treeview">
+                    <a href="javascript:;" id="@("siderbar"+Item.ModuleID)">
+                        <i class="fa fa-th"></i>
+                        <span>@Item.ModuleName</span>
+                        <span class="label label-primary pull-right">@twoMenuList.Count</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        @foreach (var twoItem in twoMenuList)
+                        {
+                            <li>
+                                <a href="javascript:;" id="@("siderbar"+twoItem.ModuleID)" data-pid="@twoItem.ParentID" data-id="@twoItem.ModuleID" data-url="@Url.Action(twoItem.Action, twoItem.Controller)" data-title="@twoItem.ModuleName">
+                                    <i class="fa fa-circle-o text-red"></i> @twoItem.ModuleName
+                                </a>
+                            </li>
+                        }
+
+                    </ul>
+                </li>
+            }
+     
+                    @*<li>
+                        <a href="#" id="siderbar26" data-pid="2" data-id="26" data-url="/SalesRule/index" data-title="促销规则管理">
+                            <i class="fa fa-circle-o text-red"></i> 促销规则
+                        </a>
+                    </li>*@
+                    @*<li>
+                        <a href="#" id="siderbar26" data-pid="2" data-id="26" data-url="/ProductRule/index" data-title="商品促销信息管理">
+                            <i class="fa fa-circle-o text-red"></i> 商品促销信息
+                        </a>
+                    </li>*@
+                    
+        </ul>
+    </section>
+</aside>

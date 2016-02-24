@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="Keywords" content="">
+		<title>香港商城</title>
+		<link rel="stylesheet" type="text/css" href="newcss/css/css.css" />
+		<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+	</head>
+
+<body>
+<div class="header">
+	<div class="clear" style="background: #ccc; height: 175px;"></div>
+</div><!--公共头部-->
+
+
+<div class="main_a">
+	
+	<div class="main_about">
+		<div class="ls_member">
+			
+				
+			<!--left-->
+			<div class="ls_member_lf">
+				<div class="ls_member_lf_top"><h1>会员中心</h1></div>
+				<div class="ls_member_lf_nav">
+					<dl>
+						<dt class="ls_user_on"><i></i>我的账户</dt>
+						<dd class="ls_user_on"><a href="#" title="">我的惠卡</a></dd><!--当打开当前页的时候，二级栏目里增加ls_user_on，并且当前的一级栏目也要增加ls_user_on-->
+						<dd><a href="#" title="">我的订单</a></dd>
+						<dd><a href="#" title="">我的收藏</a></dd>
+						<dd><a href="#" title="">我的评价</a></dd>
+					</dl>
+					<dl>	
+						<dt><i></i>账户设置</dt>
+						<dd><a href="#" title="">个人信息</a></dd>
+						<dd><a href="#" title="">收货地址</a></dd>
+						<dd><a href="#" title="">账户安全</a></dd>
+					</dl>
+					<dl>
+						<dt><i></i>退款维权</dt>
+						<dd><a href="#" title="">退款管理</a></dd>
+						<dd><a href="#" title="">我的投诉</a></dd>
+					</dl>
+					
+				</div>
+			</div>
+			
+			
+			<!--right-->
+			<div class="ls_member_rg">
+				
+					
+				<!--右侧会员信息展示-->
+				<div class="m_user_pubtitle"><span>我的订单</span>  >  订单详情 </div>
+				<div class="ls_ddxq">
+					<div class="ls_ddxq_bt1">
+						订单状态：<span>已付款</span><!--代付款页面此处显示代付款，添加class="ls_ddxq_dfk"-->
+					</div>
+					<dl>
+						<dt>买家信息</dt>
+						<dd><span>收货地址：</span>黄兴亚，13547896587，广东省深圳市福田区上沙，340811</dd>
+					</dl>
+					<dl>
+						<dt>商家信息</dt>
+						<dd><span>商家名称：</span>惠卡自营</dd>
+						<dd><span>城市：</span>深圳</dd>
+						<dd><span>服务电话：</span>13578963254</dd>
+						<dd><span>邮箱：</span>87965478@qq.com</dd>
+					</dl>
+					<dl>
+						<dt>订单信息</dt>
+						<dd><span>订单编号：</span>1123629158035075</dd>
+						<dd><span>创建时间：</span>2015-06-22 18:49:09</dd>
+						<dd><span>付款时间：</span>2015-06-22 18:49:09</dd>
+					</dl>
+					<div class="ls_ddxq_bt2">
+						<ul>
+							<li class="ls_ddxq_1">商品</li>
+							<li class="ls_ddxq_2">规格</li>
+							<li class="ls_ddxq_3">状态</li>
+							<li class="ls_ddxq_4">单价</li>
+							<li class="ls_ddxq_5">数量</li>
+							<li class="ls_ddxq_6">商品总价</li>
+						</ul>
+					</div>
+					<div class="ls_ddxq_list">
+						<ul>
+							<li class="ls_ddxq_1">
+								<a href="#"><img src="newcss/css/images/sb_shop.jpg" alt="" /></a>
+								<div class="ls_ddxq_title">
+									<a href="" title="">进口音箱 水仙家居桌面盆栽水培植物水 植物 洋仙人球 小球 喇叭</a>
+									<p><span>颜色分类：黑色 </span><span>是否花盆：不含盆</span></p>
+								</div>
+							</li>
+							<li class="ls_ddxq_2">
+								<span>颜色：白色</span>
+								<span>颜色：白色</span>
+							</li>
+							<li class="ls_ddxq_3">已收货</li>
+							<li class="ls_ddxq_4">$5288.00</li>
+							<li class="ls_ddxq_5">2</li>
+							<li class="ls_ddxq_6">$5288.00</li>
+						</ul>
+						<ul>
+							<li class="ls_ddxq_1">
+								<a href="#"><img src="newcss/css/images/sb_shop.jpg" alt="" /></a>
+								<div class="ls_ddxq_title">
+									<a href="" title="">进口音箱 水仙家居桌面盆栽水培植物水 植物 洋仙人球 小球 喇叭</a>
+									<p><span>颜色分类：黑色 </span><span>是否花盆：不含盆</span></p>
+								</div>
+							</li>
+							<li class="ls_ddxq_2">
+								<span>颜色：白色</span>
+								<span>颜色：白色</span>
+							</li>
+							<li class="ls_ddxq_3">已收货</li>
+							<li class="ls_ddxq_4">$5288.00</li>
+							<li class="ls_ddxq_5">2</li>
+							<li class="ls_ddxq_6">$5288.00</li>
+						</ul>
+					</div>
+					<div class="ls_ddxq_fk">
+						<ul>
+							<li><i>3件</i>商品，总商品金额：<span>$2000.00</span></li>
+							<li>运费：<span>$2000.00</span></li>
+							<li>应付总额：<i>$1006.00</i></li>
+						</ul>
+						
+						<div class="ls_ddxq_fk_btn"><a href="#">立即付款</a></div>
+					</div>
+				</div>
+				
+			</div>
+			<div class="clear"></div>
+		
+		</div>
+	</div>
+
+</div><!--主体部分-->
+
+
+
+<div class="footer"></div><!--公共底部-->
+
+
+
+</body>
+
+</html>

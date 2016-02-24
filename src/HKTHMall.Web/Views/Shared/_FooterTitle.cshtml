@@ -1,0 +1,55 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+
+<div class="Footer2 pct100 tc" style="background:#f2f2f2;">
+    <div class="w1202 dib vm FootDet tc" style="border-bottom:none;">
+        <div class="footerDet3 dib tl vt">
+            <ul>
+                <li class="f14 g0 b mb10" style="margin-bottom:25px;"><i class="Human dib vb mr5"></i>@CultureHelper.GetLangString("HOME_CALL_CENTER")</li>
+                <li class="f13 c4c mb5">@CultureHelper.GetLangString("HOME_TEL"):026355484, 026355485</li>
+                <li class="f13 c4c mb5">@CultureHelper.GetLangString("FAX"):026355486</li>
+                <li class="f13 c4c mb5" style="margin-bottom:20px;">@CultureHelper.GetLangString("HOME_EMAILL"):0066mall@hksjinformation.com</li>
+                <li class="f13 c4c mb5">@CultureHelper.GetLangString("WORKING_TIME"):09:00-18:00</li>
+            </ul>
+        </div>
+        <div class="footerDet2 dib"></div>
+        <div class="footerDet1 dib">
+            <ul class="Guide dib tl">
+
+                <li class="f16 g0 b mb25" style="margin-right:66px;">@CultureHelper.GetLangString("HOME_FOOTER_NEWHAND_GUIDE")</li>
+                <li class="f12 mb5"><a class="g6 poi Guidelink trans" href="@(Url.Action("Shopping", "Help", new { area = "" }))">@CultureHelper.GetLangString("HOME_FOOTER_SHOPPING")</a></li>
+                @*<li class="f12 mb5"><a class="g6 poi Guidelink trans" href="@Url.Action("Register", "Help")">@CultureHelper.GetLangString("HOME_FOOTER_REGISTER")</a></li>*@
+                <li class="f12 mb5"><a class="g6 poi Guidelink trans" href="@(Url.Action("About", "Help", new { area = "" }))">@CultureHelper.GetLangString("HOME_INDEX_ABOUTHUIPOWDER")</a></li>
+                <li class="f12 mb5"><a class="g6 poi Guidelink trans" href="@(Url.Action("AboutAgent", "Help", new { area = "" }))">@CultureHelper.GetLangString("HOME_INDEX_AGENT")</a></li>
+                <li class="f12 mb5"><a class="g6 poi Guidelink trans" href="@(Url.Action("Pay", "Help", new { area = "" }))">@CultureHelper.GetLangString("HOME_FOOTER_PAY")</a></li>
+            </ul>
+            <ul class="Guide dib tl">
+                <li class="f16 g0 b mb25" style="margin-right:66px;">@CultureHelper.GetLangString("HOME_FOOTER_LOGISTICS_SERVICES")</li>
+                <li class="f12 mb5"><a class="g6 poi Guidelink trans" href="@(Url.Action("Distribution", "Help", new { area = "" }))">@CultureHelper.GetLangString("HOME_FOOTER_DISTRIBUTION")</a></li>
+                <li class="f12 mb5"><a class="g6 poi Guidelink trans" href="@(Url.Action("Receive", "Help", new { area = "" }))">@CultureHelper.GetLangString("HOME_FOOTER_RECEIVE")</a></li>
+                <li class="f12 mb5"><a class="g6 poi Guidelink trans" href="@(Url.Action("Return", "Help", new { area = "" }))">@CultureHelper.GetLangString("HOME_FOOTER_RETURN_POLICY")</a></li>
+                <li class="f12 mb5"><a class="g6 poi Guidelink trans" href="@(Url.Action("Return2", "Help", new { area = "" }))">@CultureHelper.GetLangString("HOME_FOOTER_RETURN_PROCESS")</a></li>
+            </ul>
+            <ul class="Guide dib tl" style="margin-right:66px;">
+                <li class="f16 g0 b mb25">@CultureHelper.GetLangString("HOME_FOOTER_CUSTOMER_SERVICES")</li>
+                <li class="f12 mb5"><a class="g6 poi Guidelink trans" href="@(Url.Action("Agreement", "Help", new { area = "" }))">@CultureHelper.GetLangString("HOME_FOOTER_AGREEMENT")</a></li>
+                <li class="f12 mb5"><a class="g6 poi Guidelink trans" href="@(Url.Action("SafePay", "Help", new { area = "" }))">@CultureHelper.GetLangString("HOME_FOOTER_SAFEPAY")</a></li>
+                <li class="f12 mb5"><a class="g6 poi Guidelink trans" href="@(Url.Action("Question", "Help", new { area = "" }))">@CultureHelper.GetLangString("HOME_FOOTER_QUESTION")</a></li>
+            </ul>
+
+            <ul class="Guide dib tl">
+                <li class="f16 g0 b mb25">@CultureHelper.GetLangString("FOOTER_ABOUT")</li>
+                @* <li class="f12 mb5"><a class="g6 poi Guidelink trans" href="@(Url.Action("WebsiteAbout", "Help"))">@CultureHelper.GetLangString("WEBSITE_ABOUT")</a></li>*@
+                <li class="f12 mb5"><a class="g6 poi Guidelink trans" href="@(Url.Action("HuikaPromise", "Help", new { area = "" }))">@CultureHelper.GetLangString("HUIKA_PROMISE")</a></li>
+                <li class="f12 mb5"><a class="g6 poi Guidelink trans" href="@(Url.Action("ContactUs", "Help", new { area = "" }))">@CultureHelper.GetLangString("FOOTER_CONTACT_US")</a></li>
+
+            </ul>
+
+        </div>
+        <div class="footerDet2 dib"></div>
+        <div class="Download_mb f16 g0 b mb25 dib" style="">
+            @CultureHelper.GetLangString("HOME_INDEX_XIAZAISHOUJIBAN")
+            <div class="WebApp"><img src="~/Content/css/images/cn-app.png" /></div>
+        </div>
+    </div>
+</div>
+

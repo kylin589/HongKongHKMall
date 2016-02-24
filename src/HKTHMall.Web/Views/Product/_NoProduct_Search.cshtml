@@ -1,0 +1,52 @@
+﻿
+@{
+    Layout = null;
+    var key = ViewBag.key;
+    var list = ViewBag.tuJian;
+}
+@using HKTHMall.Services.Common.MultiLangKeys;
+<div class="main_about">
+
+        <div class="m_hint">
+            <div class="m_hint_bt">
+                <div class="m_hint_butt">
+                    <ul><i></i>@Html.Raw(string.Format(CultureHelper.GetLangString("HOME_SEARCH_SEARCHNO"),ViewBag.searchName))</ul>
+                    <dl><b>—— @string.Format(CultureHelper.GetLangString("HOME_SEARCH_NOTFINDGOODS"),ViewBag.searchName)  ——</b></dl>
+                </div>
+            </div>
+            <div class="m_hint_nr">
+                <span>@CultureHelper.GetLangString("HOME_SEARCH_RECOMMENDED")</span>
+                <i>
+                    1.@CultureHelper.GetLangString("HOME_SEARCH_TEXTWRONG")<br>
+                    2.@CultureHelper.GetLangString("HOME_SEARCH_REMOVEWORDS")<br>
+                    3.@CultureHelper.GetLangString("HOME_SEARCH_ADJUSTKEYWORDS")<br>
+                </i>
+
+            </div>
+            <div class="clear"></div>
+        </div>  
+
+    <!--惠卡推荐，好多页面都在用，可以做成公共的-->
+    <div class="m_hktj">
+        <div class="m_hktj_bt"><i></i><ul><b>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_CARDRECOMMENDED")</b></ul></div>
+        <div class="m_hktj_nr">
+            @if (list != null)
+            {
+                foreach (var item in list)
+                {
+                    string productName = item.ProductName;
+                    productName = productName.Length > 20 ? productName.Substring(0, 20) + "..." : productName;
+                    <a href="@Url.Action("shopping", "home", new { area = "", id = item.ProductId })" title="">
+                        <img src="@ViewBag.RootImage@item.PicUrl" alt="" width="210" height="210">
+                        <span class="sectionLimited">@productName</span>
+                        <span><b>$@item.HKPrice.ToString("F2")</b></span>
+                    </a>
+                }
+            }
+        </div>
+        <div class="clear"></div>
+    </div>
+
+
+</div>
+

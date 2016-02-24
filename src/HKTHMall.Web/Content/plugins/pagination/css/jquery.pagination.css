@@ -1,0 +1,15 @@
+﻿@charset "utf-8";
+
+
+.pagination { text-align: center; vertical-align: top;}
+
+    .pagination a { text-decoration: none; border: 1px solid #e2e2e2; background: #f8f8f8; }
+    .pagination a, .pagination span { display: inline-block !important;text-align: center !important; padding: 0.1em 0.4em !important;font-weight: inherit !important; margin-right: 5px; margin-bottom: 5px; line-height: 24px; height: 24px; width: auto !important; font-size: 12px !important;min-width: 22px;}
+    .pagination .prev, .pagination .next { width: 65px; }
+    .pagination .current, .pagination a:hover { background: #696969 !important; color: #fff !important; border: 1px solid #696969 !important; }
+        .pagination .current.prev, .pagination .current.next { background: #f8f8f8 !important; border-color: #e2e2e2 !important; color: #999!important; }
+    .pagination input { width: 40px; height: 24px; text-align: center; line-height: 24px; border: 1px solid #e2e2e2; }
+    .pagination label, .pagination span { color: #333333; }
+    .pagination label { margin: 0 4px; }
+    .pagination a.lnk_goto { width: 30px; }
+    .pagination .input_goto{ margin-bottom: 5px;}

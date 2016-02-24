@@ -1,0 +1,28 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.YHUser.YH_MerchantInfoModel
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Audit Status :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            @Html.HiddenFor(t => t.MerchantID)
+            <select id="AuditStatus" name="AuditStatus" class="form-control text-center">
+                <option value="1" @(Model.AuditStatus==1?"selected='selected'":"")>Pending audit</option>
+                <option value="2" @(Model.AuditStatus == 2 ? "selected='selected'" : "")>Audit through</option>
+                <option value="3" @(Model.AuditStatus == 3 ? "selected='selected'" : "")>Audit rejection</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red"></label>Audit Remark :
+    </label>
+    <div class="controls">
+        <div class="form-group">
+            <textarea style="width:406px !important" id="AuditRemark" name="AuditRemark">@Model.AuditRemark</textarea>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="Keywords" content="">
+		<title>香港商城</title>
+		<link rel="stylesheet" type="text/css" href="newcss/css/css.css" />
+		<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+	</head>
+
+<body>
+<div class="header">
+	<div class="clear" style="background: #ccc; height: 175px;"></div>
+</div><!--公共头部-->
+
+
+<div class="main_a">
+	
+	<div class="main_about">
+    	<div class="specLayout">
+			<div class="specMain_2016">
+				<ul>
+					<li><a href="javascript:void();">首页</a></li>
+					<li class="spector"><i class="fa fa-angle-right"></i></li>
+					<li><a href="javascript:void();">购物车</a></li>
+					<span class="clear"></span>
+				</ul>
+			</div>
+            
+            <div class="specCart"> 
+            	<div class="cartStep">
+                	<div class="cartStepImg"></div>
+                	<ul>
+                		<li class="stepOnlink">我的购物车</li>
+                		<li>填写核对订单信息</li>
+                		<li>成功提交订单</li>
+                		<span class="clearfix"></span>
+                	</ul>
+                </div>
+                <h3>全部商品（<b>3</b>）</h3>
+                <ul class="cartTitle">
+                	<li><label for=""><input type="checkbox"><span>全选</span></label></li>
+                    <li>商品</li>
+                    <li>规格</li>
+                    <li>单价</li>
+                    <li>数量</li>
+                    <li>小计</li>
+                    <li>操作</li>
+                    <span class="clearfix"></span>
+                </ul>
+                <ul class="cartMain">
+                	<li><input type="checkbox"></li>
+                    <li>
+                    	<a href="###"><img src="newcss/css/images/sb_026.png" alt="" width="72" height="72"></a>
+                        <a href="###" class="carterName">索尼（SONY）Xperia T2（XM50t）
+Ultra 4G索尼手机</a>
+                    </li>
+                    <li>
+                    	<dl>
+                        	<dd>颜色：淡蓝色</dd>
+                            <dd>尺码：超大号</dd>
+                            <dd>尺码：超大号</dd>
+                            <dd>尺码：超大号</dd>
+                            <dd>尺码：超大号</dd>
+                            <dd>尺码：超大号</dd>
+                            <dd>尺码：超大号</dd>
+                            <dd>尺码：超大号</dd>
+                            <dd>尺码：超大号</dd>
+                            <dd>尺码：超大号</dd>
+                            <dd>尺码：超大号</dd>
+                        </dl>
+                    </li>
+                    <li>$<span>5,000</span></li>
+                    <li>
+                    	<a href="###" class="fa fa-plus"></a>
+                        <input type="text" value="1">
+                        <a href="###" class="fa fa-minus"></a>
+                    </li>
+                    <li>$<span>5,000</span></li>
+                    <li><a href="###">删除</a></li>
+                </ul>
+                <ul class="cartMain">
+                	<li><input type="checkbox"></li>
+                    <li>
+                    	<a href="###"><img src="newcss/css/images/sb_026.png" alt="" width="72" height="72"></a>
+                        <a href="###" class="carterName">索尼（SONY）Xperia T2（XM50t）
+Ultra 4G索尼手机</a>
+                    </li>
+                    <li>
+                    	<dl>
+                        	<dd>颜色：淡蓝色</dd>
+                            <dd>尺码：超大号</dd>
+                            <dd>尺码：超大号</dd>
+                            <dd>尺码：超大号</dd>
+                            <dd>尺码：超大号</dd>
+                            <dd>尺码：超大号</dd>
+                            <dd>尺码：超大号</dd>
+                            <dd>尺码：超大号</dd>
+                            <dd>尺码：超大号</dd>
+                            <dd>尺码：超大号</dd>
+                            <dd>尺码：超大号</dd>
+                        </dl>
+                    </li>
+                    <li>$<span>5,000</span></li>
+                    <li>
+                    	<a href="###" class="fa fa-plus"></a>
+                        <input type="text" value="1">
+                        <a href="###" class="fa fa-minus"></a>
+                    </li>
+                    <li>$<span>5,000</span></li>
+                    <li><a href="###">删除</a></li>
+                    <div class="cartDisabled">
+                    	<span><p>已失效</p></span>
+                    </div>
+                </ul>
+                
+                <div class="cartCount">
+                	<label for=""><input type="checkbox"><span>全选</span></label>
+                    <a href="###">删除选中商品</a>
+                    
+                    <ul>
+                    	<li>已选<span>0件</span>商品</li>
+                        <li>总价（不含运费）: <span>$<b>1006.00</b></span></li>
+                        <span class="clearfix"></span>
+                    </ul>
+                    
+                    <span class="clearfix"></span>
+                </div>
+                
+                <div class="carterGoBuy">
+                	<a href="###">去结算</a>
+                </div>
+            </div>
+		</div>
+	</div>
+
+</div><!--主体部分-->
+
+
+
+<div class="footer"></div><!--公共底部-->
+
+
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

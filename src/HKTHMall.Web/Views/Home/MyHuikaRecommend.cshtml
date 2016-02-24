@@ -1,0 +1,29 @@
+﻿@using HKTHMall.Core.Extensions
+@using HKTHMall.Domain.WebModel.Models.Product
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = null;
+    IEnumerable<ProductInfo> productList = ViewBag.ProductData;
+}
+
+<div class="ls_hktj">
+    <div class="ls_hktj_bt"><i></i><ul><b>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_CARDRECOMMENDED") @*惠卡推荐*@</b></ul></div>
+    <div class="ls_hktj_nr">
+
+        @if (productList != null && productList.Count() > 0)
+        {
+            foreach (var product in productList)
+            {
+                <a href="@Url.Action("shopping", "home", new { area = "", id = product.ProductId })" title="@product.ProductName">
+                    <img src="@Html.GetImagesUrl(product.PicUrl,210,210)" alt="" height="210" width="210">
+                    <span class="sectionLimited">
+                        @product.ProductName
+                    </span>
+                    <span><b>$@Math.Round(product.HKPrice, 2)</b><ins>@CultureHelper.GetLangString("HOME_HZ_REWARDS")</ins></span>
+                </a>
+            }
+        }
+    </div>
+    <div class="clear"></div>
+
+</div>

@@ -1,0 +1,57 @@
+﻿@using HKTHMall.Domain.Enum
+@using HKTHMall.Services.Common.MultiLangKeys
+@model HKTHMall.Domain.WebModel.Models.Orders.OrderView
+
+@{
+    OrderEnums.OrderStatus orderStatus = (OrderEnums.OrderStatus)Model.OrderStatus;     //订单状态
+    bool isCodePaid = (int)OrderEnums.PayChannel.COD == Model.PayChannel;              //是否为货到付款 支付方式
+
+    switch (orderStatus)
+    {
+        case OrderEnums.OrderStatus.Obligation:
+            @******付款******@
+            <a href="@Url.Action("AgainPaymentOrder", "Order", new { area = "Money", orderId = Model.OrderID })" class="buyingLeads_tbbox_t4">@CultureHelper.GetLangString("ACCOUNT_MY_ORDERACTION_IMMPAYMENT")</a>
+            @******取消订单******@
+            <a href="javascript:;" class="buyingLeads_tbbox_t3 js-cancel" data-id="@Model.OrderID">@CultureHelper.GetLangString("ACCOUNT_MY_ORDERACTION_CANCELORDER")</a>
+            break;
+        case OrderEnums.OrderStatus.WaitReceiving:
+        @******确认收货******@
+            //只有非货到付款方式，用户才有确认收货操作
+            if (!isCodePaid)
+            {
+                <a href="javascript:;" class="buyingLeads_tbbox_t3 js-sure" data-id="@Model.OrderID">@CultureHelper.GetLangString("ACCOUNT_RIGHTS_INDEX_CONFIRMGOODS")</a><br/>
+            }
+            if (Model.ComplaintStatus == 0)
+            {
+                <a href="/Account/My/OrderComplaints?orderId=@Model.OrderID" class="buyingLeads_tbbox_t3">@CultureHelper.GetLangString("ACCOUNT_MY_ORDERACTION_COMPLAINTS")</a><br />
+            }
+            break;
+        case OrderEnums.OrderStatus.OutTimeReceiving:
+            if (Model.ComplaintStatus == 0)
+            {
+                <a href="/Account/My/OrderComplaints?orderId=@Model.OrderID" class="buyingLeads_tbbox_t3">@CultureHelper.GetLangString("ACCOUNT_MY_ORDERACTION_COMPLAINTS")</a><br />
+            }
+            @ShowComment()
+            break;
+        case OrderEnums.OrderStatus.Completed:
+        @ShowComment()
+            break;
+        //case OrderEnums.OrderStatus.Canceled:
+        //    break;
+        case OrderEnums.OrderStatus.WaitDeliver:
+            if ((int)OrderEnums.PayChannel.COD == Model.PayChannel)
+            {
+                <a href="javascript:;" class="buyingLeads_tbbox_t3 js-cancel" data-id="@Model.OrderID">@CultureHelper.GetLangString("ACCOUNT_MY_ORDERACTION_CANCELORDER")</a><br />
+            }
+            break;
+
+    }
+}
+
+@helper ShowComment()
+{
+    if (Model.OrderDetailViews.Count(x => x.Iscomment == 0) > 0)
+    {
+        <a href="/trade/comment.html?orderId=@Model.OrderID" class="buyingLeads_tbbox_t3">@CultureHelper.GetLangString("ACCOUNT_MY_ORDERACTION_EVALUATION")</a>
+    }
+}

@@ -1,0 +1,135 @@
+﻿@model List<HKTHMall.Domain.WebModel.Models.Index.IndexFloorInfo>
+@using System.Web.UI.WebControls
+@using HKTHMall.Core.Extensions
+@using HKTHMall.Domain.AdminModel.Models.Categoreis
+@using HKTHMall.Domain.Models.banner
+
+@{
+    Layout = null;
+    int j = 1;  //初始化楼层变量
+    int floorId = 0;
+    var dataList = Model.OrderBy(a => a.Place);
+    int stylecount = 0;
+    <!--start floor-->
+    foreach (var indexFloorInfo in dataList)
+    {
+        var bannerProductList = indexFloorInfo.bannerProductList.OrderBy(a => a.Sorts).ToList<bannerProductModel>();
+        var categoryList = indexFloorInfo.categoryList.OrderBy(a => a.Place).ToList<CategoryModel>();
+        <div class="floor_1">
+            <div class="floor_hd @(j%2==0?"floor_hd2":"")">@(j)F&nbsp;&nbsp;&nbsp;@indexFloorInfo.categoryName</div>
+            <div class="floor_main clr">
+                <div class="main_1 clr fl">
+                    @if (bannerProductList.Count > 0 && bannerProductList[0] != null)
+                    {
+                        <a class="cp1 cp fl" target="_blank" href="@Url.Action("shopping", "home", new {area = "", id = bannerProductList[0].productId})">
+                            <img style="width: 239px; height: 269px;" src="@Html.GetImagesUrl(@bannerProductList[0].PicAddress)" />
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="#" class="cp1 cp fl"></a>
+                    }
+                    @if (bannerProductList.Count > 1 && bannerProductList[1] != null)
+                    {
+                        <a class="cp1 cp fl" target="_blank" href="@Url.Action("shopping", "home", new { area = "", id = bannerProductList[1].productId })">
+                            <img style="width:239px;height:269px;" src="@Html.GetImagesUrl(@bannerProductList[1].PicAddress)" />
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="#" class="cp1 cp fl"></a>
+                    }
+                    @if (indexFloorInfo.bannerList.Count > 0 && indexFloorInfo.bannerList[0] != null)
+                    {
+                        <a class="cp2 cp fl" target="_blank" href="@(indexFloorInfo.bannerList[0].bannerUrl)"><img style="width:479px;height:269px;" src="@Html.GetImagesUrl(indexFloorInfo.bannerList[0].bannerPic)" /></a>
+                    }
+                    else
+                    {
+                        <a href="#" class="cp2 cp fl"></a>
+                    }
+                    <div class="cp1 fl cp_nav cb_nav@(j)">
+                        <ul class="clr">
+                            @foreach (var model in categoryList)
+                            {
+                                <li>
+                                   
+                                   <a target="_blank" href="@Url.Action("index", "search", new { type = 3, cateId = model.CategoryId }) " class=" f14 f8a dib p1">@(model.CategoryName)</a>
+                                    @*<a target="_blank" href="~/search/index?type=3&cateId=@(model.CategoryId)" class="f14 f8a dib p1">@(model.CategoryName)</a>*@
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    @if (bannerProductList.Count > 2 && bannerProductList[2] != null)
+                    {
+                        <a class="cp1 cp fl" target="_blank" href="@Url.Action("shopping", "home", new { area = "", id = bannerProductList[2].productId })">
+                            <img style="width:239px;height:269px;" src="@Html.GetImagesUrl(@bannerProductList[2].PicAddress)" />
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="#" class="cp1 cp fl"></a>
+                    }
+                    @if (bannerProductList.Count > 3 && bannerProductList[3] != null)
+                    {
+                        <a class="cp1 cp fl" target="_blank" href="@Url.Action("shopping", "home", new { area = "", id = bannerProductList[3].productId })">
+                            <img style="width:239px;height:269px;" src="@Html.GetImagesUrl(@bannerProductList[3].PicAddress)" />
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="#" class="cp1 cp fl"></a>
+                    }
+                    @if (bannerProductList.Count > 4 && bannerProductList[4] != null)
+                    {
+                        <a class="cp1 cp fl" target="_blank" href="@Url.Action("shopping", "home", new { area = "", id = bannerProductList[4].productId })">
+                            <img style="width:239px;height:269px;" src="@Html.GetImagesUrl(@bannerProductList[4].PicAddress)" />
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="#" class="cp1 cp fl"></a>
+                    }
+                </div>
+                @if (indexFloorInfo.bannerList.Count > 1 && indexFloorInfo.bannerList[1] != null)
+                {
+                    <a class="main_2 cp fl trans" target="_blank" href="@(indexFloorInfo.bannerList[1].bannerUrl)"><img style="width:239px;height:539px;" src="@Html.GetImagesUrl(indexFloorInfo.bannerList[1].bannerPic)" /></a>
+                }
+                else
+                {
+                    <a href="#" class="main_2 cp fl trans"></a>
+                }
+            </div>
+            <div class="l_margin">
+            </div>
+        </div>
+                j++;
+                floorId++;
+    }
+}
+<!--end floor-->
+<script type="text/javascript">
+    $(function () {
+        if ($("#boom div:first").html() == undefined) {
+            $("#firstfloor").attr("href", "javascript:scroll(0,0)");
+            $("#firstfloor").attr("mce_href", "javascript:scroll(0,0)");
+        } else {
+            $("#firstfloor").attr("href", "#boom");
+        };
+        //var isIE = !!window.ActiveXObject;
+        //var isIE6 = isIE && !window.XMLHttpRequest;
+        //var isIE8 = isIE && !!document.documentMode;
+        //var isIE7 = isIE && !isIE6 && !isIE8;
+
+        //if (isIE) {
+        //    if (isIE8) {
+        //        $(".Cell a").find("img").hover(function () {
+        //            $(this).css({ zIndex: "9999", position: "relative", boxShadow: "0 0 10px #909090" });
+        //            $(this).stop().animate({ height: "178px", width: "252px", top: "-4px", left: "-6px" }, 200);
+        //        }, function () {
+        //            $(this).css({ zIndex: "0", position: "relative", boxShadow: "0 0 0 #fff" });
+        //            $(this).stop().animate({ height: "170px", width: "240px", top: "0", left: "0" }, 200);
+        //        });
+        //    }
+        //}
+    });
+</script>

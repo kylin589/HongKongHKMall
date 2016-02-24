@@ -1,0 +1,333 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+@using HKTHMall.Core.Extensions;
+@using HKTHMall.Domain.WebModel.Models.Product
+@{
+    List<HKTHMall.Domain.AdminModel.SearchConsle> searchModellist = ViewData["searchModellist"] as List<HKTHMall.Domain.AdminModel.SearchConsle>;
+    var API_VERIFICATIONERROR = CultureHelper.GetLangString("API_VERIFICATIONERROR");
+    var HOME_SHOPING_ZX_LOGION = CultureHelper.GetLangString("HOME_SHOPING_ZX_LOGION");
+    var HOME_SHOPING_ZX_HKZX = CultureHelper.GetLangString("HOME_SHOPING_ZX_HKZX");
+    var LIMITCONTENT = CultureHelper.GetLangString("HOME_SHOPING_ZX_LIMITCONTENT");
+    var SUCCESS = CultureHelper.GetLangString("SUBMIT_SUCCESS");
+}
+
+<style type="text/css">
+    .error {
+        border: 1px;
+        border-style: solid;
+        border-color: red;
+    }
+</style>
+<div class="ls_products_details_4 sliderDetail_2016" style="display:none;">
+    <div class="details_4_tit">
+        <ul>
+            <li class="ls_on"><a href="javascript:void(0)" title="">@CultureHelper.GetLangString("HOME_SHOPING_ZX_QUANBU")@*全部咨询*@&nbsp;<span contype="1">(@searchModellist[0].AllCount)</span></a></li>
+            <li><a href="javascript:void(0)" title="">@CultureHelper.GetLangString("HOME_SHOPING_ZX_CHANPIN")@*产品咨询*@&nbsp;<span contype="2">(@searchModellist[1].AllCount)</span></a></li>
+            <li><a href="javascript:void(0)" title="">@CultureHelper.GetLangString("HOME_SHOPING_ZX_KUCUN")@*库存配送*@&nbsp;<span contype="3">(@searchModellist[2].AllCount)</span></a></li>
+            <li><a href="javascript:void(0)" title="">@CultureHelper.GetLangString("HOME_SHOPING_ZX_FAPIAOBAOXIU")@*发票保修*@&nbsp;<span contype="4">(@searchModellist[3].AllCount)</span></a></li>
+            <li><a href="javascript:void(0)" title="">@CultureHelper.GetLangString("HOME_SHOPING_ZX_ZHIFU")@*支付信息*@&nbsp;<span contype="5">(@searchModellist[4].AllCount)</span></a></li>
+            <li><a href="javascript:void(0)" title="">@CultureHelper.GetLangString("HOME_SHOPING_ZX_CUXIAOYOUHUI")@*促销优惠*@&nbsp;<span contype="6">(@searchModellist[5].AllCount)</span></a></li>
+            <li><a href="javascript:void(0)" title="">@CultureHelper.GetLangString("HOME_SHOPING_ZX_QITAWENTI")@*其他问题*@&nbsp;<span contype="7">(@searchModellist[6].AllCount)</span></a></li>
+        </ul>
+        <div class="ls_fbzx">
+            @CultureHelper.GetLangString("HOME_SHOPING_ZX_QING")
+            <a href="javascript:void(0)" id="publishzx">@CultureHelper.GetLangString("HOME_SHOPING_ZX_FABIAOZX")</a>
+        </div>
+    </div>
+
+    <div class="details_4_nr">
+        <!--全部咨询列表-->
+        <div class="details_4_content details_4_1"></div>
+
+        <!--产品咨询列表-->
+        <div class="details_4_content details_4_2" style="display: none;"></div>
+
+        <!--库存配送列表-->
+        <div class="details_4_content details_4_3" style="display: none;"></div>
+
+        <!--发票保修列表-->
+        <div class="details_4_content details_4_4" style="display: none;"></div>
+
+        <!--支付信息列表-->
+        <div class="details_4_content details_4_5" style="display: none;"></div>
+
+        <!--促销优惠列表-->
+        <div class="details_4_content details_4_6 " style="display: none;"></div>
+
+        <!--其他问题列表-->
+        <div class="details_4_content details_4_7" style="display: none;"></div>
+    </div>
+</div>
+
+<div class="dialogCover">
+    <div class="dialogMain1">
+        <div class="consultDialog">
+            <ul>
+                <li>
+                    <span>@*分类*@@CultureHelper.GetLangString("HOME_SHOPING_ZX_FENLEI")：</span>
+                    <select name="contype" id="contype">
+                        <option value="2">@CultureHelper.GetLangString("HOME_SHOPING_ZX_CHANPIN")</option>
+                        <option value="3">@CultureHelper.GetLangString("HOME_SHOPING_ZX_KUCUN")</option>
+                        <option value="4">@CultureHelper.GetLangString("HOME_SHOPING_ZX_FAPIAOBAOXIU")</option>
+                        <option value="5">@CultureHelper.GetLangString("HOME_SHOPING_ZX_ZHIFU")</option>
+                        <option value="6">@CultureHelper.GetLangString("HOME_SHOPING_ZX_CUXIAOYOUHUI")</option>
+                        <option value="7">@CultureHelper.GetLangString("HOME_SHOPING_ZX_QITAWENTI")</option>
+                    </select>
+                </li>
+                <li>
+                    <span>@*内容*@@CultureHelper.GetLangString("HOME_SHOPING_ZX_NEIRONG")：</span>
+                    <dl>
+                        <dt><textarea name="ConsultContent" id="ConsultContent" placeholder="" maxlength="150" class="error" onkeydown="limitchar();" oninput="limitchar();" onchange="limitchar();"></textarea></dt>
+                        <dd id="contenttips">@Html.Raw(string.Format(LIMITCONTENT, 150))@*您还可以输入<b>150</b>个字*@</dd>
+                    </dl>
+                </li>
+                <li>
+                    <span>@*验证码*@@CultureHelper.GetLangString("HOME_SHOPING_ZX_YANZHENGMA")：</span>
+                    <dl class="yzmConsult">
+                        <dt class="m_reg_yzm"><label><input type="text" value="" id="yzm" name="yzm" maxlength="4" onkeydown="CheckYZM()" oninput="CheckYZM();" onchange="CheckYZM();"></label></dt>
+                        <dd><img src="@Url.Action("GetValidateCode","Register")" alt="" width="102" height="25" id="yzmPic"></dd>
+                        <dd><a href="javascript:GetValidateCode();">@CultureHelper.GetLangString("HOME_SHOPING_ZX_CHANGEVALIDCODE")@*看不清楚?换一张!*@</a></dd>
+                    </dl>
+                </li>
+                <li>
+                    <input type="submit" value="@CultureHelper.GetLangString("HOME_SHOPING_ZX_TIJIAO")" class="dialogSubmit">
+                    <strong id="zxtips"></strong>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    //全部咨询选项卡
+    $(".details_4_tit ul li").click(function () {
+        var panel = $(".details_4_tit ul li.ls_on");
+        var old_ls_num = $(".details_4_tit ul li").index(panel);
+        var isbind = $(this).attr("isbind");
+
+        $(this).addClass("ls_on").siblings().removeClass("ls_on");
+        var ls_num = $(".details_4_tit ul li").index(this);
+        $(".details_4_nr > div").eq(ls_num).show().siblings().hide();
+
+        if (old_ls_num != ls_num && isbind != "true") {
+            $(this).attr("isbind", "true");
+            loadpagedata(1);
+        }
+    });
+    var _html = $(".dialogMain1");
+
+    $("#publishzx").click(function (e) {
+        var cookinfo = getCookie("UserID");
+        if (cookinfo != null) {
+            showConsult();
+            return false;
+        } else {
+            ($("#publishzx").hasClass("clicked")) ? removeClick($(this)) : dialogLogin_click($(this));
+            return false;
+        }
+
+    })
+
+
+    function showConsult() {
+        ds.dialog({
+            title: '@HOME_SHOPING_ZX_HKZX',
+            content: _html,
+            tijiao: function () {
+                var issucc = zx();
+                if (issucc == "3") {
+                    return false;
+                }
+                else if (issucc == "2") {
+                    $("#zxtips").html("error");
+                }
+                else if (issucc == "0") {
+                    $("#zxtips").html("@HOME_SHOPING_ZX_LOGION");
+                }
+                else if (issucc == "1") {
+                    clearform();
+                    $(".ds_dialog_active").fadeOut(400);
+                    $("#ds_mask_1").fadeOut(400);
+                    loadpagedata(1);
+                    @*$("#zxtips").html("@SUCCESS");*@
+                }
+
+
+            }
+        });
+    }
+
+    $(function () {
+        $(".ls_products_tab_tit .ls_zx").find("span").html("(" +@searchModellist[0].AllCount +")");
+        $(".details_4_tit ul li.ls_on").attr("isbind", "true");
+        loadpagedata(1);
+
+        //var container = $(".details_4_content").html(),
+        //    contain = $(".details_4_content");
+        //(container == "") ? contain.addClass('noResult').html("暂无内容") : contain.css('height', 'auto');
+
+    });
+
+    //加载内容
+    function loadpagedata(pageindex) {
+        var panel = $(".details_4_tit ul li.ls_on").children("a").children("span");
+
+        var count = panel.html().replace("(", "").replace(")", "");
+        var contype = panel.attr("contype");
+        var productId = '@searchModellist[0].productId';
+
+        var fillpanel = $(".details_4_content.details_4_" + contype);
+
+        $.ajax({
+            url: "@Url.Action("LoanConsultData")",
+            type: "Post",
+            data: { contype: contype, count: count, productid: productId, pageindex: pageindex },
+            async: false,
+            success: function (data) {
+                fillpanel.html(data);
+            }
+        });
+    }
+
+    function zx() {
+        var issucc = "2";
+        if (!CheckYZM()) {
+            return 3;
+        }
+        var productId = '@searchModellist[0].productId';
+        var content = $.trim(document.getElementById("ConsultContent").value.substring(0, 150));
+        var contype = $("#contype").val();
+
+        if (content == '') {
+            return 3;
+        }
+
+        var issucc = "2";
+
+        $.ajax({
+            url: "@Url.Action("SubmitConsult")",
+            type: "Post",
+            data: { productId: productId, content: content, contype: contype },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                issucc = data;
+            }
+        });
+
+        if (issucc == "1") {
+            updatezx(contype);
+        }
+
+        return issucc;
+    };
+
+    function updatezx(contype) {
+        var ls_zx = $(".ls_products_tab_tit .ls_zx").find("span");
+        var ls_zx_data = parseInt(ls_zx.html().replace("(", "").replace(")", "")) + 1;
+        ls_zx.html("(" + ls_zx_data + ")");
+
+        $(".details_4_tit ul li").each(function (i) {
+            $(this).attr("isbind", "false");
+            var span = $(this).children("a").children("span");
+            var span_data = parseInt(span.html().replace("(", "").replace(")", ""));
+            if (span.attr("contype") == 1) {
+                span.html("(" + (span_data + 1) + ")");
+            } else if (span.attr("contype") == contype) {
+                span.html("(" + (span_data + 1) + ")");
+            }
+        });
+    }
+
+    function zan(id, src) {
+        var _isgood = $(".isgood_" + id).eq(0);
+        var _nogood = $(".nogood_" + id).eq(0);
+        var isgood = parseInt(_isgood.html().replace("(", "").replace(")", ""));
+        var nogood = parseInt(_nogood.html().replace("(", "").replace(")", ""));
+        $.ajax({
+            url: "@Url.Action("SubmitConsultGood")",
+            type: "Post",
+            data: { ConsultID: id, IsGood: src },
+            async: false,
+            success: function (data) {
+                if (data == 1) {
+                    isgood = isgood + 1;
+                    nogood = nogood - 1;
+                }
+                else if (data == -1) {
+                    isgood = isgood - 1;
+                    nogood = nogood + 1;
+                } else {
+                    return false;
+                }
+                if (isgood < 0) { isgood = 0; }
+                if (nogood <= 0) { nogood = 0; }
+
+                $(".isgood_" + id).each(function (i) {
+                    $(this).html("(" + isgood + ")");
+                });
+                $(".nogood_" + id).each(function (i) {
+                    $(this).html("(" + nogood + ")");
+                });
+            }
+        });
+        return false;
+    }
+
+    function clearform() {
+        document.getElementById("contype").value = "2";
+        document.getElementById("ConsultContent").value = "";
+        document.getElementById("yzm").value = "";
+
+        GetValidateCode();
+        $("#yzm").removeClass("error");
+        $("#yzm").attr("title", '');
+    }
+
+    function GetValidateCode() {
+        $("#yzmPic").attr("src", "@Url.Action("GetValidateCode", "Register")?t=" + (new Date()).getTime());
+    }
+
+    function limitchar() {
+        var tips = '@Html.Raw(LIMITCONTENT)';
+        var c = document.getElementById("ConsultContent").value;
+        var charlen = 0;
+
+        $("#ConsultContent").removeClass("error");
+        if (c.length <= 150) {
+            charlen = 150 - c.length;
+        }
+        else if (c.length > 0) {
+            document.getElementById("ConsultContent").value = c.substring(0, 150);
+        }
+        else {
+            $("#ConsultContent").addClass("error");
+        }
+
+        $("#contenttips").html(tips.replace("{0}", charlen));
+    }
+
+    function CheckYZM() {
+        var yzm = $("#yzm").val();
+        var flag = false;
+        $.ajax({
+            url: "@Url.Action("CheckVaildCode","Register")",
+            type: "Post",
+            data: { id: yzm },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                if (data == "true") {
+                    $("#yzm").removeClass("error");
+                    $("#yzm").attr("title", '');
+                    flag = true;
+                } else {
+                    $("#yzm").addClass("error");
+                    $("#yzm").attr("title", '@API_VERIFICATIONERROR');
+                    flag = false;
+                }
+            }
+        });
+        return flag;
+    }
+</script>

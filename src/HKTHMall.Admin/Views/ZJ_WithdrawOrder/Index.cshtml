@@ -1,0 +1,319 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@model HKTHMall.Domain.AdminModel.Models.User.SearchZJ_WithdrawOrderModel
+@{
+    ViewBag.Title = "Withdrawal order list page";
+
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Audit = _Authority.CheckAction(52);
+}
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>Order SN: </span>
+            @Html.TextBoxFor(x => x.OrderNO, new { @class = "form-control w70", @placeholder = "Please enter order number" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Email: </span>
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control w70", @placeholder = "Please enter Phone" })
+        </div>
+        &nbsp;
+        @*<div class="form-group">
+            <span>Name: </span>
+            @Html.TextBoxFor(x => x.RealName, new { @class = "form-control w70", @placeholder = "Please enter name of withdraw person" })
+        </div>
+        &nbsp;*@
+        <div class="form-group">
+            <span>Review by: </span>
+            @Html.TextBoxFor(x => x.Verifier, new { @class = "form-control w70", @placeholder = "Please enter name of review person" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Refund by: </span>
+            @Html.TextBoxFor(x => x.Remitter, new { @class = "form-control w70", @placeholder = "Please enter name of pay person" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Bank account: </span>
+            @Html.TextBoxFor(x => x.BankAccount, new { @class = "form-control w70", @placeholder = "Please enter bank account" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Bank branch: </span>
+            @Html.TextBoxFor(x => x.BankSubbranch, new { @class = "form-control w70", @placeholder = "Please enter branch name" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Bank account name: </span>
+            @Html.TextBoxFor(x => x.BankUserName, new { @class = "form-control w70", @placeholder = "Please enter account name" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Apply date: </span>
+            @Html.TextBoxFor(x => x.BeginPaymentDate, new { @class = "form-control w70", @placeholder = "Please select start time" })
+            &nbsp;--&nbsp;
+            @Html.TextBoxFor(x => x.EndPaymentDate, new { @class = "form-control w70", @placeholder = "Please select end time" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Withdraw status: </span>
+            <select class="form-control text-center" id="WithdrawResult" name="WithdrawResult">
+                <option value="">--All--</option>
+                <option value="1">Review Pending</option>
+                <option value="2">Play money to be audited</option>
+                <option value="3">Audit not passed</option>
+                <option value="4">Have paid money</option>
+                <option value="5">Play with failure</option>
+            </select>
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Order source: </span>
+            <select class="form-control text-center" id="OrderSource" name="OrderSource">
+                <option value="">--All--</option>
+                <option value="0">Website</option>
+                <option value="1">Mobile device</option>
+            </select>
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-danger js_reset" onclick="Tool.ClearForm($('#user-toolbar'))">
+            <span class="glyphicon glyphicon-bullhorn"></span> Clear
+        </button>
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts{
+    <script type="text/javascript">
+        //权限
+        var $auditCheck = eval("@(_Authority.Audit.ToString().ToLower())");
+        //加载数据
+        $(function () {
+            var columns = [
+                 {
+                     field: "OrderNOs", title: "Operation", align: 'center', valign: 'middle',
+                     formatter: function (val) {
+                         var operation = '';
+                         if ($auditCheck) {
+                             if (arguments && arguments[1]) {
+                                 switch (arguments[1].WithdrawResult) {
+                                     case 1:
+                                         operation = "<a class=\"VerifierState ml10\" href=\"javascript:void(0)\" title=\"Review\">Review</a>";
+                                         break;
+                                     case 2:
+                                         operation = "<a class=\"VerifierState ml10\" href=\"javascript:void(0)\" title=\"Pay money\">Pay money</a>";
+                                         break;
+                                     default:
+                                         break;
+
+                                 }
+                             }
+                         }
+                         if (operation == '') {
+                             operation = '-';
+                         }
+                         return [operation
+                         ].join('');
+                     },
+                     events: {
+                         //处理审核信息
+                         'click .VerifierState': function (e, value, row, index) {
+                             Tool.ShowModal("@Url.Action("Create")", { id: row.OrderNO }, "Audit information");
+                         },
+                     }
+                 },
+            { field: "OrderNO", title: "Order SN", align: 'center', valign: 'middle', sortable: false },
+            { field: 'NickName', title: 'NickName', align: 'center', valign: 'middle', sortable: false },
+            { field: 'Email', title: 'Email', align: 'center', valign: 'middle', sortable: false },
+            {
+                field: "OrderSource", title: "Order source", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                    if (arguments && arguments[1]) {
+                        //订单来源（0: 网站；1:移动设备）
+                        var OrderSource = "-";
+                        switch (arguments[1].OrderSource) {
+                            case 0:
+                                OrderSource = "Website";
+                                break;
+                            case 1:
+                                OrderSource = "Mobile device";
+                                break;
+                            default:
+                                break;
+
+                        }
+                        return OrderSource;
+                    }
+                }
+            },
+            { field: "WithdrawCommission", title: "Withdraw charge", align: 'center', valign: 'middle', sortable: false },
+            { field: "WithdrawAmount", title: "Withdraw amount", align: 'center', valign: 'middle', sortable: false },
+            { field: "WithdrawDT", title: "Apply date", align: 'center', valign: 'middle', sortable: false, formatter: function (val) { return val.formatterString(true) } },
+            { field: "BankAccount", title: "Bank account", align: 'center', valign: 'middle', sortable: false },
+            { field: "BankName", title: "Bank Name", align: 'center', valign: 'middle', sortable: false },
+            { field: "BankSubbranch", title: "Bank branch", align: 'center', valign: 'middle', sortable: false },
+            { field: "BankUserName", title: "Bank account name", align: 'center', valign: 'middle', sortable: false },
+            { field: "Verifier", title: "Apply person", align: 'center', valign: 'middle', sortable: false },
+            {
+                field: "VerifyDT", title: "Review time", align: 'center', valign: 'middle', sortable: false, formatter:
+                  function (val) {
+                      return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                  }
+            },
+            {
+                field: "WithdrawResult", title: "Withdraw status", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                    if (arguments && arguments[1]) {
+                        //提现结果,1:待审核,2:已审核,待打款,3:审核不通过,4:已打款,5:打款失败
+                        var WithdrawResultName = "-";
+                        switch (arguments[1].WithdrawResult) {
+                            case 1:
+                                WithdrawResultName = "Review Pending";
+                                break;
+                            case 2:
+                                WithdrawResultName = "Pay money to be audited";
+                                break;
+                            case 3:
+                                WithdrawResultName = "Audit not passed";
+                                break;
+                            case 4:
+                                WithdrawResultName = "Have money";
+                                break;
+                            case 5:
+                                WithdrawResultName = "Play with failure";
+                                break;
+                            default:
+                                break;
+
+                        }
+                        return WithdrawResultName;
+                    }
+                }
+            },
+            { field: "Remitter", title: "Refund by", align: 'center', valign: 'middle', sortable: false },
+            {
+                field: "RemittanceDT", title: "Pay date", align: 'center', valign: 'middle', sortable: false, formatter:
+                    function (val) {
+                        return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                    }
+            },
+            { field: "Remark", title: "Remark", align: 'center', valign: 'middle', sortable: false }
+            ];
+            //加载列表数据
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+                queryParams: function (params) {
+                    return {
+                        OrderNO: $('#OrderNO').val().trim(),
+                        Email: $('#Email').val().trim(),
+                        //RealName: $('#RealName').val().trim(),
+                        Verifier: $('#Verifier').val().trim(),
+                        Remitter: $('#Remitter').val().trim(),
+                        BankAccount: $('#BankAccount').val().trim(),
+                        BankSubbranch: $('#BankSubbranch').val().trim(),
+                        BankUserName: $('#BankUserName').val().trim(),
+                        BeginPaymentDate: $('#BeginPaymentDate').val().trim(),
+                        EndPaymentDate: $('#EndPaymentDate').val().trim(),
+                        OrderSource: $('#OrderSource').val().trim(),
+                        WithdrawResult: $('#WithdrawResult').val().trim(),
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        time: new Date().getTime()
+                    };
+                },
+                pagination: true,
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns
+            });
+            //搜索事件
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+            //按Enter键回车搜索
+            $('#OrderNO').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#Phone').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#NickName').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#Verifier').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#Remitter').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#BankAccount').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#BankSubbranch').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#BankUserName').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#EndPaymentDate').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#OrderSource').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#WithdrawResult').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            //日期控件 开始
+            $('#BeginPaymentDate').datepicker({
+                language: "en",
+                autoclose: true
+            }).on("changeDate", function (e) {
+                $('#EndPaymentDate').datepicker('setStartDate', e.date);
+            });
+
+            //日期控件 结束
+            $('#EndPaymentDate').datepicker({
+                language: "en",
+                autoclose: true
+            }).on("changeDate", function (e) {
+                $('#BeginPaymentDate').datepicker('setEndDate', e.date);
+            });
+
+        });
+        //保存
+        function Save() {
+            Tool.SaveModal($('#u_grid'));
+        }
+    </script>
+}

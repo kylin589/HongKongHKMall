@@ -1,0 +1,159 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@model HKTHMall.Domain.AdminModel.Models.YHUser.SearchReportModel
+@{
+    ViewBag.Title = "Report list page";
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(126);
+    _Authority.Delete = _Authority.CheckAction(127);
+}
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>Report by: </span>
+            @Html.TextBoxFor(x => x.Account, new { @class = "form-control w70", @placeholder = "Please enter report person" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Report type name: </span>
+            @Html.TextBoxFor(x => x.ReportTypeName, new { @class = "form-control w70", @placeholder = "Please enter report type" })
+        </div>
+        &nbsp;
+        <span>Language: </span>
+        <select class="form-control text-center" id="LanguageID" name="LanguageID">
+            @*update by liujc*@
+            @foreach (KeyValuePair<int, string> _pair in ACultureHelper.GetLanguageList())
+            {
+                <option value="@_pair.Key" @(ACultureHelper.GetLanguageID == _pair.Key ? "selected" : "")>@_pair.Value</option>
+            }
+        </select>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-danger js_reset" onclick="ClearSearch($('#user-toolbar'))">
+            <span class="glyphicon glyphicon-bullhorn"></span> Clear
+        </button>
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts{
+    <script type="text/javascript">
+        var $addCheck = eval("@(_Authority.Add.ToString().ToLower())");
+        var $deleteCheck = eval("@(_Authority.Delete.ToString().ToLower())");
+        //加载数据
+        $(function () {
+            var columns = [
+              { field: "Account", title: "Report by", align: 'center', valign: 'middle', sortable: false },
+              { field: "ReportedName", title: "Report against", align: 'center', valign: 'middle', sortable: false },
+              { field: "ReportTypeName", title: "Report type name", align: 'center', valign: 'middle', sortable: false },
+              { field: "ReportContent", title: "Report content", align: 'center', valign: 'middle', sortable: false },
+              {
+                  field: "CreateDT", title: "Report time", align: 'center', valign: 'middle', sortable: false, formatter:
+                    function (val) {
+                        return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                    }
+              },
+              {
+                  field: "Status", title: "Status", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+
+                      if (arguments && arguments[1]) {
+                          return arguments[1].Status == 0 ? "Untreated" : "Has been processed";
+                      }
+                  }
+              },
+              { field: "Result", title: "Process result", align: 'center', valign: 'middle', sortable: false },
+              {
+                  field: "DealDate", title: "Process time", align: 'center', valign: 'middle', sortable: false, formatter:
+                     function (val) {
+                         return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                     }
+              },
+              {
+                  field: "ReportId", title: "Operation", align: 'center', valign: 'middle',
+                  formatter: function (val) {
+                      var operation = '';
+                      if ($addCheck) {
+                          if (arguments[1].Status == 0)
+                              operation += '<a class="edit ml10" href="javascript:void(0)" title="Update"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                      }
+                      if ($deleteCheck) {
+                          operation += '<a class="remove ml10" href="javascript:void(0)" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>';
+                      }
+                      if (operation == '') {
+                          operation = '-';
+                      }
+                      return [operation
+                      ].join('');
+                  },
+                  events: {
+                      //编辑
+                      'click .edit': function (e, value, row, index) {
+                          Tool.ShowModal('@Url.Action("Create")', { id: value, time: new Date().getTime() }, 'Handle Huifen report');
+                      },
+                      //删除
+                      'click .remove': function (e, value, row, index) {
+                          Tool.DeleteRecord('@Url.Action("Delete")', { ReportId: value }, $('#u_grid'));
+                      }
+                  }
+              }];
+            //加载列表数据
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+                queryParams: function (params) {
+                    return {
+                        Account: $('#Account').val().trim(),
+                        ReportTypeName: $('#ReportTypeName').val().trim(),
+                        LanguageID: $('#LanguageID').val().trim(),
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        time: new Date().getTime()
+                    };
+                },
+                sortOrder: 'desc',
+                pagination: true,
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns
+            });
+            //搜索事件
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+            //按Enter键回车搜索
+            $('#Account').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            $('#ReportTypeName').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            //添加惠粉举报
+            $('.js_create').click(function () {
+                Tool.ShowModal("@Url.Action("Create")", {}, "Handle Huifen report");
+            });
+        })
+        //保存
+        function Save() {
+            Tool.SaveModal($('#u_grid'));
+        }
+        function ClearSearch(modal) {
+            modal.find(':input').not(':button, :submit, :reset,select').val('').removeAttr('checked');
+            try {
+                // modal.find('select').select2("destroy");
+            } catch (e) {
+
+            }
+        }
+    </script>
+}

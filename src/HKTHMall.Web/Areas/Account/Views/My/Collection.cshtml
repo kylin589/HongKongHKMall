@@ -1,0 +1,150 @@
+﻿@model Dictionary<string, object>
+    @using HKTHMall.Core.Extensions
+    @using HKTHMall.Domain.WebModel.Models.Collection
+    @using HKTHMall.Core.Extensions
+    @using HKTHMall.Services.Common.MultiLangKeys
+    @{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+        List<MyCollectionModel> prodocutList = ViewData["collects"] as List<MyCollectionModel>;
+        HKTHMall.Domain.WebModel.Models.Search.KeyWordsSearch searchModel = ViewData["searchModel"] as HKTHMall.Domain.WebModel.Models.Search.KeyWordsSearch;
+    }
+
+    <div class="main_a">
+
+        <div class="main_about">
+            <div class="ls_member">
+
+
+                <!--left-->
+                @Html.Partial("_userLeft")
+
+
+                <!--right-->
+                <div class="ls_member_rg">
+                    <div class="m_user_pubtitle">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_MYCOLLECTION")@*我的收藏*@</div>
+                    <div class="ls_member_shoucang">
+                        @if (prodocutList.Count > 0)
+                        {
+                            <div class="ls_member_shoucang_nr">
+
+                                <div class="ls_member_shoucang_nr">
+                                    @foreach (var product in prodocutList)
+                                    {
+                                        <ul>
+                                            <a href="@Url.Action("shopping", "home" , new { area="" , id=product.ProductId })" title="@product.ProductName">
+                                                <img src="@Html.GetImagesUrl(product.PicUrl, 210, 210)" alt="" width="210" height="210">
+                                                <span class="sectionLimited">@product.ProductName</span>
+                                                <span><b>$@product.HKPrice.ToString("F2")</b><ins>@CultureHelper.GetLangString("HOME_HZ_REWARDS")</ins></span>
+                                            </a>
+                                            <em onclick="del(this);" name="@product.FavoritesID"><i></i>@CultureHelper.GetLangString("MONEY_SHOPPINGCART_DELETE")</em>
+                                        </ul>
+                                    }
+                                </div>
+                                @Html.Raw(Html.ToPageHtmlNew(searchModel.Page, 20, searchModel.AllCount))
+
+                                <div class="clear"></div>
+                            </div>
+                        }
+                        else
+                        {
+
+                            <div class="m_c_emp">
+                                <p><i></i>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_NOCOLLECTION")!</p>
+                                <div><span></span><b>@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_HANGOUT")@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_SEELIKE")</b></div>
+                                <div class="m_c_emp_Button">
+                                    <a href="~/home/index">@CultureHelper.GetLangString("GO_HOME")</a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="clear"></div>
+
+                </div>
+                <span class="clear clearfix"></span>
+            </div>
+
+        </div><!--主体部分-->
+    </div>
+
+    <script>
+        $(function () {
+            $('.tunepage li a').Page({ type: "0" });
+        });
+
+        function del(src) {
+            var favoritesId = $(src).attr("name");
+            //mallbox.confirm({
+            //    message: $commonLang.HOME_SHOPPINGCART_DELETEGOOD,
+            //    modal: true,
+            //    callback: function () {
+            //        deleteCollection(favoritesId);
+            //    }
+            //});
+            ds.dialog({
+                title: '',
+                content: $commonLang.HOME_SHOPPINGCART_DELETEGOOD,
+                yesText: $commonLang.MESSAGEBOX_SURE,
+                onyes: function () {
+                    deleteCollection(favoritesId);
+                },
+                noText: $commonLang.MESSAGEBOX_CANCEL,
+                onno: function () {
+                    this.close();
+                }
+            });
+        };
+
+        function deleteCollection(favoritesId) {
+            jQuery.post("/My/DeleteCollection", { collectionId: favoritesId }, function (data) {
+                if (data.IsValid) {
+                    document.location = "/Account/My/Collection";
+                }
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        var languagevalue = 1;
+        //推荐名字长度限定
+        $.fn.extend({
+            displayPart: function () {
+                var displayLength = 0;
+
+                if (languagevalue == 1) {
+                    displayLength = 45;  //中文
+                }
+                else if (languagevalue == 2) {
+                    displayLength = 60;  //英文
+                }
+                else if (languagevalue == 3) {
+                    displayLength = 100;  //泰文
+                } else {
+                    displayLength = 45;  //默认
+                }
+
+                displayLength = this.attr("displayLength") || displayLength;
+                var text = this.text();
+                if (!text) return "";
+                //alert(text);
+                var result = "";
+                var count = 0;
+                for (var i = 0; i < displayLength; i++) {
+                    var _char = text.charAt(i);
+                    if (count >= displayLength) break;
+                    if (/[^x00-xff]/.test(_char)) count++;  //双字节字符，//[u4e00-u9fa5]中文
+                    result += _char;
+                    count++;
+                }
+                if (result.length < text.length) {
+                    result += "...";
+                }
+                this.text(result);
+            }
+
+        });
+        var countbar = $(".sectionLimited").length;
+        for (var i = 0; i < countbar; i++) {
+            $(".sectionLimited").eq(i).displayPart();
+        }
+    </script>
+

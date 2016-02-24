@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="Keywords" content="">
+		<title>香港商城</title>
+		<link rel="stylesheet" type="text/css" href="newcss/css/css.css" />
+		<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+	</head>
+
+<body>
+<div class="header">
+	<div class="clear" style="background: #ccc; height: 175px;"></div>
+</div><!--公共头部-->
+
+ 
+<div class="main_a">
+	<div class="main_about">
+    
+		<div class="m_reg_succ">
+			<div class="m_reg_succ_sb">
+                <div class="m_reg_succ_er">
+                    <ul><i></i><ins>恭喜您注册成功</ins></ul>
+                    <dl><b>——  您可以去用户中心完善资料  ——</b></dl>
+                </div>
+            </div>
+			<div class="m_reg_succ_wq">
+            	<span id="jumpTo">5</span> 秒后为您自动跳转至<a href="#" title="">huikamall.hk</a>首页
+            </div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div><!--主体部分-->
+
+
+<div class="footer"></div><!--公共底部-->
+
+<!--<script type="text/javascript">  -->
+ <!--$(document).ready(function() { -->
+	<!--delayURL("http://www.baidu.com");-->
+<!--}); -->
+<!--function delayURL(url) {-->
+    <!--var delay = document.getElementById("jumpTo").innerHTML;-->
+    <!--if (delay > 0) {-->
+        <!--delay&#45;&#45;;-->
+        <!--document.getElementById("jumpTo").innerHTML = delay-->
+    <!--} else {-->
+        <!--window.top.location.href = url-->
+    <!--}-->
+    <!--setTimeout("delayURL('" + url + "')", 1000)-->
+<!--}-->
+<!--</script>-->
+</body>
+
+</html>

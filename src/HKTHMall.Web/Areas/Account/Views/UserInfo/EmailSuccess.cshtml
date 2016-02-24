@@ -1,0 +1,20 @@
+﻿@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="main_a">
+    <div class="l_main_a">
+        <div class="l_shopping_main">
+            <a href="/Account/UserInfo/Safe" style="color: #999;">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_ACCOUNTSECURITY")</a> > <a href="javascript:;" style="color: #999;">@CultureHelper.GetLangString("ACCOUNT_USERINFO_SAFE_EMAILVERIFICATION")</a><br>
+        </div>
+        <div class="l_JSP_cg">
+            <p>@CultureHelper.GetLangString("ACCOUNT_USERINFO_EMAILSUCCESS_CONGRATULATION")！</p>
+            <span>@CultureHelper.GetLangString("ACCOUNT_USERINFO_UPDATEPAYPASSWORD_ACCOUNTLEVEL")！</span>
+        </div>
+    </div>
+    <div class="c_public_bottom"></div>
+</div>
+
+

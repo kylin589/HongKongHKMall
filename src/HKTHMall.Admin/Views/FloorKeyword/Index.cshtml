@@ -1,0 +1,248 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+
+@model HKTHMall.Domain.AdminModel.Models.Keywork.SearchFloorKeywordModel
+@{
+    ViewBag.Title = "The keyword list page";
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(2);
+    _Authority.Delete = _Authority.CheckAction(23);
+    _Authority.Move = _Authority.CheckAction(24);
+}
+<input type="hidden" id="hidPageIndex" value="0" />
+<input type="hidden" id="hidPageSize" value="10" />
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>@*关键字名称*@Keyword: </span>
+            @Html.TextBoxFor(x => x.KeyWordName, new { @class = "form-control w70", @placeholder = "Enter keyword" })
+        </div>
+        &nbsp;
+        <span>@*语言*@Language: </span>
+
+        <select class="form-control text-center" id="LanguageID" name="LanguageID">
+            @foreach (KeyValuePair<int, string> _pair in ACultureHelper.GetLanguageList())
+            {
+                <option value="@_pair.Key" @(ACultureHelper.GetLanguageID == _pair.Key ? "selected" : "")>@_pair.Value</option>
+            }
+        </select>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> @*搜索*@Search
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-danger js_reset" onclick="ClearSearch($('#user-toolbar'))">
+            <span class="glyphicon glyphicon-bullhorn"></span> @*清空*@Clear
+        </button>
+        &nbsp;
+        @if (_Authority.Add)
+        {
+            <button type="button" class="btn btn-primary js_create">
+                <span class="glyphicon glyphicon-plus"></span> @*添加*@Add
+            </button>
+        }
+
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+<script src="~/Content/js/setculture.js"></script>
+@section scripts{
+    <script type="text/javascript">
+        //权限
+        var $addCheck = eval("@(_Authority.Add.ToString().ToLower())");
+        var $deleteCheck = eval("@(_Authority.Delete.ToString().ToLower())");
+        var $moveCheck = eval("@(_Authority.Move.ToString().ToLower())");
+        //加载数据
+        $(function () {
+            var columns = [
+                //主键Id Keyword ID
+             { field: "FloorKeywordId", title: "Keyword ID", align: 'center', valign: 'middle', sortable: false },
+             // 关键字名称 Keyword
+             { field: "KeyWordName", title: "Keyword", align: 'center', valign: 'middle', sortable: false },
+             //Language 语言
+             {
+                 field: "LanguageID", title: "Language", align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                     if (arguments && arguments[1]) {
+                         return GetLanguageName(arguments[1].LanguageID);
+                         //1中文,2英语,3泰语,4.中文，香港地区（默认）
+                         //var languageName = "Hongkong";
+                         //switch (arguments[1].LanguageID) {
+                         //    case 1:
+                         //        languageName = "Chinese";
+                         //        break;
+                         //    case 2:
+                         //        languageName = "English";
+                         //        break;
+                         //    case 3:
+                         //        languageName = "Thai";
+                         //        break;
+                         //    case 4:
+                         //        languageName = "Hongkong";
+                         //        break;
+                         //    default:
+                         //        break;
+
+                         //}
+                         //return languageName;
+                     }
+                 }
+             },
+            { field: "CreateBy", title: "Create By", align: 'center', valign: 'middle', sortable: false },//创建人 Editor
+            {
+                field: "CreateDT", title: "Create time", align: 'center', valign: 'middle', sortable: false, formatter:
+                  function (val) {
+                      return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                  }
+            },//Create time 创建时间
+            //Operation 操作
+            {
+                field: "FloorKeywordIds", title: "Operation", align: 'center', valign: 'middle',
+                formatter: function (val) {
+                    var operation = '';
+                    if ($moveCheck) {
+                        operation += '<a class="ssorts ml10" href="javascript:void(0)" title="move up"><i class="glyphicon glyphicon-arrow-up"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;' +
+                        '<a class="xsorts ml10" href="javascript:void(0)" title="Down">' +
+                        '<i class="glyphicon glyphicon-arrow-down"></i>' +
+                        '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                    }
+                    if ($addCheck) {
+                        operation += '<a class="edit ml10" href="javascript:void(0)" title="Update"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                    }
+                    if ($deleteCheck) {
+                        operation += '<a class="remove ml10" href="javascript:void(0)" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>';
+                    }
+                    if (operation == '') {
+                        operation = '-';
+                    }
+                    return [
+                           operation
+                    ].join('');
+                },
+                events: {
+                    //上移
+                    'click .ssorts': function (e, value, row, index) {
+                        UpdateSorts(index, row.FloorKeywordId, 1, $('#KeyWordName').val().trim(), $("#LanguageID").val(), $("#hidPageIndex").val(), $("#hidPageSize").val());
+                    },
+                    //下移
+                    'click .xsorts': function (e, value, row, index) {
+                        UpdateSorts(index, row.FloorKeywordId, 2, $('#KeyWordName').val().trim(), $("#LanguageID").val(), $("#hidPageIndex").val(), $("#hidPageSize").val());
+                    },
+                    //编辑
+                    'click .edit': function (e, value, row, index) {
+                        Tool.ShowModal('@Url.Action("Create")', { id: row.FloorKeywordId, Time: new Date().getTime() }, 'Edit Keywords');
+                    },
+                    //删除
+                    'click .remove': function (e, value, row, index) {
+                        Tool.DeleteRecord('@Url.Action("Delete")', { floorKeywordId: row.FloorKeywordId }, $('#u_grid'));
+                    }
+                }
+            }];
+            //加载列表数据
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+                queryParams: function (params) {
+                    $("#hidPageIndex").val(this.pageNumber - 1);
+                    $("#hidPageSize").val(this.pageSize);
+                    return {
+                        KeyWordName: $('#KeyWordName').val().trim(),
+                        LanguageID: $("#LanguageID").val().trim(),
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        Time: new Date().getTime()
+                    };
+                },
+                sortOrder: 'desc',
+                sortName: 'CreateDT',
+                //pagination: true,
+                //showRefresh: true,
+                //showColumns: true,
+                //striped: true,
+                //sidePagination: 'server',
+                columns: columns
+            });
+            //搜索事件
+            $('.js-search').click(function (event) {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+            //按Enter键回车搜索
+            $('#KeyWordName').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            //按Enter键回车搜索
+            $('#KeyWordName', "#modal-form").keydown(function (event) {
+                debugger;
+                if (event.keyCode == 13) {
+                    Save();
+                }
+            });
+            //语言选择事件
+            $('#LanguageID').change(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+            //添加关键字
+            $('.js_create').click(function () {
+                Tool.ShowModal("@Url.Action("Create")", {}, "Add keywords");
+            });
+        })
+        //如果选择的语言是英文,只能输入英文字母
+        function validator() {
+            var $selectValue = $("#LanguageID", "#modal-form").val();
+            var $KeyWordName = $("#KeyWordName", "#modal-form").val();
+            switch ($selectValue) {
+                case '2':
+                    var r = /^[a-zA-Z 0-9]+$/;
+                    if (!r.test($KeyWordName)) {
+                        Tool.Alert("Language of your choice is English, you can only enter English letters keyword!", 1500);
+                        return false;
+                    }
+
+                    break;
+                default:
+                    break;
+
+            }
+            return true;
+        }
+        //保存
+        function Save() {
+            var $languageId = $("#LanguageID");
+            var $selectValue = $("#LanguageID", "#modal-form").val();
+            $languageId.find('option[value=' + $selectValue + ']').attr("selected", true);
+            $("#LanguageID").val($selectValue);
+            if (validator()) {
+                Tool.SaveModal($('#u_grid'));
+            }
+        }
+        //更新排序位置
+        function UpdateSorts(rowId, FloorKeywordId, sortType, KeyWordName, LanguageID, PagedIndex, PagedSize) {
+            $.ajax({
+                url: '@Url.Action("UpdatePlace")' + "?rowId=" + rowId + "&FloorKeywordId=" + FloorKeywordId + "&sortType=" + sortType + "&KeyWordName=" + KeyWordName + "&LanguageID=" + LanguageID + "&PagedIndex=" + PagedIndex + "&PagedSize=" + PagedSize,
+                dataType: "text",
+                success: function (data, status) {
+                    data = JSON.parse(data);
+                    if (data.IsValid) {
+                        Tool.ReloadDataTable($('#u_grid'));
+                    }
+                    Tool.Alert(data.Messages, 1500);
+                },
+                error: function (data, status, e) {
+                    Tool.Alert("Failed!", 1500);
+                }
+            });
+        }
+        function ClearSearch(modal) {
+            modal.find(':input').not(':button, :submit, :reset,select').val('').removeAttr('checked');
+            try {
+                // modal.find('select').select2("destroy");
+            } catch (e) {
+
+            }
+        }
+    </script>
+}

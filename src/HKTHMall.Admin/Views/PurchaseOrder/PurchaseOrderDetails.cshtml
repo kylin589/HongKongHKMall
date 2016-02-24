@@ -1,0 +1,149 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@model HKTHMall.Domain.AdminModel.Models.Orders.SearchPurchaseOrderDetailsModel
+@{
+    ViewBag.Title = "PurchaseOrder list page";
+    string purchaseOrderId = ViewData["purchaseOrderId"].ToString();
+    HKTHMall.Services.Orders.IPurchaseOrderSerivce purchaseOrderSerivce = BrCms.Framework.Infrastructure.BrEngineContext.Current.Resolve<HKTHMall.Services.Orders.IPurchaseOrderSerivce>();
+    HKTHMall.Services.Products.ISuppliersService suppliersService = BrCms.Framework.Infrastructure.BrEngineContext.Current.Resolve<HKTHMall.Services.Products.ISuppliersService>();
+    HKTHMall.Domain.AdminModel.Models.Orders.PurchaseOrderModel purchaseOrder = purchaseOrderSerivce.GetPurchaseOrder(purchaseOrderId).Data;
+    HKTHMall.Domain.AdminModel.Models.Products.SuppliersModel suppliers = suppliersService.GetSuppliersById(purchaseOrder != null ? purchaseOrder.SupplierId : 0).Data;
+    
+}
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#lan_1" aria-controls="home" role="tab" data-toggle="tab">Suppliers info</a></li>
+</ul>
+@if (suppliers != null)
+{
+    <table width="1100" style="order:1px red;">
+        <tr><td colspan="5">&nbsp;</td></tr>
+        <tr>
+            <td>
+                <div class="form-group" style="width:200px;">
+                    <span>SupplierId: </span><label class="control-label-form">@(suppliers.SupplierId)</label>
+                </div>
+            </td>
+            <td>
+                <div class="form-group" style="width:200px;">
+                    <span>SupplierName: </span><label class="control-label-form">@(suppliers.SupplierName)</label>
+                </div>
+            </td>
+            <td>
+                <div class="form-group" style="width:200px;">
+                    <span>Mobile: </span><label class="control-label-form">@(suppliers.Mobile)</label>
+                </div>
+            </td>
+            <td>
+                <div class="form-group" style="width:200px;">
+                    <span>Telephone: </span><label class="control-label-form">@(suppliers.Telephone)</label>
+                </div>
+            </td>
+            <td>
+                <div class="form-group">
+                    <span>Address: </span><label class="control-label-form">@(suppliers.Address)</label>
+                </div>
+            </td>
+        </tr>
+    </table>
+}
+
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#lan_1" aria-controls="home" role="tab" data-toggle="tab">PurchaseOrder info</a></li>
+</ul>
+@if (purchaseOrder != null)
+{
+    <table width="800">
+        <tr><td colspan="4">&nbsp;</td></tr>
+        <tr>
+            <td>
+                <div class="form-group">
+                    <span>PurchaseOrderId: </span><label class="control-label-form">@(purchaseOrder.PurchaseOrderId)</label>
+                </div>
+            </td>
+            <td>
+                <div class="form-group">
+                    <span>OrderID: </span><label class="control-label-form">@(purchaseOrder.OrderID)</label>
+                </div>
+            </td>
+            <td>
+                <div class="form-group">
+                    <span>PurchaseAmount: </span><label class="control-label-form">@(purchaseOrder.PurchaseAmount)</label>
+                </div>
+            </td>
+            <td>
+                <div class="form-group">
+                    <span>RealPurchaseAmount: </span><label class="control-label-form">@(purchaseOrder.RealPurchaseAmount)</label>
+                </div>
+            </td>
+        </tr>
+    </table>
+}
+
+
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>ProductName: </span>
+            @Html.TextBoxFor(x => x.ProductName, new { @class = "form-control w70", @placeholder = "Please enter ProductName" })
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-danger js_reset" onclick="Tool.ClearForm($('#user-toolbar'))">
+            <span class="glyphicon glyphicon-bullhorn"></span> Clear
+        </button>
+    </div>
+</div>
+<input id="purchaseOrderId" value="@ViewData["purchaseOrderId"]" type="hidden" />
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts{
+    <script type="text/javascript">
+        //加载数据
+        $(function () {
+            var columns = [
+            { field: "PurchaseOrderId", title: "PurchaseOrderId", align: 'center', valign: 'middle', sortable: false },
+            { field: 'ProductId', title: 'ProductId', align: 'center', valign: 'middle', sortable: false },
+            { field: 'ProductName', title: 'ProductName', align: 'center', valign: 'middle', sortable: false },
+            { field: "CostPrice", title: "CostPrice", align: 'center', valign: 'middle', sortable: false },
+            { field: "SalesPrice", title: "SalesPrice", align: 'center', valign: 'middle', sortable: false },
+            { field: "Quantity", title: "Quantity", align: 'center', valign: 'middle', sortable: false },
+            { field: "RealQty", title: "RealQty", align: 'center', valign: 'middle', sortable: false },
+            { field: "Subtotal", title: "Subtotal", align: 'center', valign: 'middle', sortable: false },
+            ];
+            //加载列表数据
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("PurchaseOrderList")',
+                queryParams: function (params) {
+                    return {
+                        PurchaseOrderId: $('#purchaseOrderId').val().trim(),
+                        ProductName: $('#ProductName').val().trim(),
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        time: new Date().getTime()
+                    };
+                },
+                pagination: true,
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns
+            });
+            $('#ProductName').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            //搜索事件
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+        });
+
+    </script>
+}

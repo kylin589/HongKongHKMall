@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="Keywords" content="">
+		<title>香港商城</title>
+		<link rel="stylesheet" type="text/css" href="newcss/css/css.css" />
+		<script type="text/javascript" src="newcss/js/jquery-1.8.2.min.js"></script>
+	</head>
+
+<body>
+<div class="header">
+	<div class="clear" style="background: #ccc; height: 175px;"></div>
+</div><!--公共头部-->
+
+
+<div class="main_a">
+	<div class="main_about">
+		<div class="m_register">
+			<div class="m_register_bt">
+            	<ul>忘记密码</ul>
+            </div>
+			<div class="m_register_nr"><!--标签strong是错误提示位置，当报错时，strong显示，i标签隐藏，当输入正确时，返回到i标签显示，strong标签隐藏，用来选取不同的标签的ID名，开发自己写-->
+            	<ul>
+                	<li><b>注册邮箱</b><span><input type="text" name="" id="" class="m_login_text" placeholder="请输入注册邮箱"></span>
+                    	<i>请输入您注册时的Email</i><strong style="display:none;">填写有误，请重新输入</strong>
+                    </li>
+                </ul>
+            	<dl>
+                    <b><input type="submit" name="" id="" class="m_reg_submit" value="找回密码"></b>
+                </dl>
+                
+                
+            </div>
+            
+            <div class="m_reg_other">
+                	<srtong>忘记注册邮箱？或者没有绑定邮箱<br>用第三方登录后，在 <a href="#" title="">我的惠卡</a> > <a href="#" title="">账号设置</a> 里查看或者绑定邮箱</srtong>
+                    <ul>
+                    	<a href="#" title="" class="m_reg_face"><i></i><span>Facebook</span></a>
+                    	<a href="#" title="" class="m_reg_twit"><i></i><span>Twitter</span></a>
+                    </ul>
+            </div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div><!--主体部分-->
+
+
+<div class="footer"></div><!--公共底部-->
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,181 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@{
+    ViewBag.Title = "Balance of user information table";
+
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Edit = _Authority.CheckAction(98);
+}
+@model HKTHMall.Domain.AdminModel.Models.User.SearchZJ_UserBalanceModel
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        @*<div class="form-group">
+            <span>User Name: </span>
+            @Html.TextBoxFor(x => x.Account, new { @class = "form-control w70" })
+        </div>
+        &nbsp;&nbsp;
+        <div class="form-group">
+            <span>Real Name: </span>
+            @Html.TextBoxFor(x => x.RealName, new { @class = "form-control w70" })
+        </div>*@
+        &nbsp;&nbsp;
+        <div class="form-group">
+            <span>Email: </span>
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control w70" })
+        </div>
+        &nbsp;&nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+
+    </div>
+
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/javascript">
+        var EditCheck = eval("@(_Authority.Edit.ToString().ToLower())");
+        var Operation = "";
+
+        if (EditCheck) {
+
+            Operation += '<a class="edit ml10" href="javascript:void(0)" title="Recharge by Balance">';
+            Operation += 'Recharge by Balance';
+            Operation += '</a>';
+        }
+        if (Operation == "") {
+            Operation = "-";
+        }
+
+        $(function () {
+
+            var columns = [
+
+                //{ field: 'Account', title: 'User Name', align: 'center', valign: 'middle', sortable: false },
+                //{ field: 'RealName', title: 'Real Name', align: 'center', valign: 'middle', sortable: false },
+                { field: 'Email', title: 'Email', align: 'center', valign: 'middle', sortable: false },
+                { field: 'NickName', title: 'NickName', align: 'center', valign: 'middle', sortable: false },
+                { field: 'ConsumeBalance', title: 'Balance', align: 'center', valign: 'middle', sortable: false },
+
+                {
+                    field: 'AccountStatus', title: 'Account Status', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var ms = "-";
+                        switch (val) {
+                            case 1:
+                                ms = "Normal";
+                                break;
+                            case 2:
+                                ms = "Abnormal";
+                                break;
+
+                            default:
+
+                        }
+                        return ms;
+                    }
+                },
+                //{ field: 'Remark', title: 'Remark', align: 'center', valign: 'middle', sortable: false },
+                {
+                    field: 'UserID',
+                    title: 'Operation',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (e, value, row, index) {
+
+                        if (value.Account != null && value.Account == "U13480801514") {
+                            return [
+                            "--" //公司账户,不显示余额充值
+
+                            ].join('');
+                        }
+                        else {
+                            return [
+                               Operation
+
+                            ].join('');
+                        }
+                    },
+                    events: {
+                        'click .edit': function (e, value, row, index) {
+                            console.log(1);
+                            Tool.ShowModal('@Url.Action("Create")', { id: value }, 'Recharge by Balance');
+                        },
+
+                    }
+                }
+            ];
+            //初始列表内容
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+
+                queryParams: function (params) {
+                    return {
+
+                        Account: $('#Account').val(),
+                        RealName: $('#RealName').val(),
+                        Email: $("#Email").val(),
+                        PagedIndex: this.pageNumber - 1,//params.pageNumber - 1  params.offset
+                        PagedSize: this.pageSize       //params.pageSize  params.limit
+                    };
+                },
+                sortOrder: 'desc',
+                pagination: true,
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns
+
+            });
+            //查询 刷新
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+
+
+
+        });
+
+        //保存
+        function Save() {
+            var AddOrCutAmount = $("#AddOrCutAmount").val();
+            if (AddOrCutAmount == "") {
+                Tool.Alert("Please enter the recharge amount"); return;
+            }
+            var z = /^(?:[1-9]\d{0,12}|0)(?:\.\d+)?$/;
+            
+            //var z = /^(\-|\+)?\d+(\.\d+)?$/;
+            if (!z.test(AddOrCutAmount) || AddOrCutAmount == "0" || AddOrCutAmount == 0) {
+
+                
+                Tool.Alert("Please enter the correct amount of recharge！"); return;
+            }
+
+            var leng = AddOrCutAmount.length;
+
+            if (AddOrCutAmount.indexOf(".") > -1) {
+                var s = AddOrCutAmount.split(".");
+
+                if (s[1].length > 2) {
+                    Tool.Alert("Enter the amount of recharge, only to allow 2 decimal places"); return;
+                }
+                //if (leng > 13) {
+                //    //判断输入的长度
+                //    Tool.Alert("The amount of a decimal point, which is only allowed to recharge 9999999999.99"); return;
+                //}
+            }
+            //else {
+            //    if (leng > 14) {
+            //        Tool.Alert("The amount can not be more than 9999999999999"); return;
+            //    }
+            //}
+
+            Tool.SaveModal($('#u_grid'));
+        }
+    </script>
+}

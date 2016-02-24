@@ -1,0 +1,411 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title id="cb_title"></title>
+
+    <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta charset="utf-8" />
+
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/changbiao.js"></script>
+
+</head>
+
+<body>
+    <div class="main_a" id="c2_zoom">
+        <div class="c2_pingjia">
+
+            <div class="c2_pj_bt" style="display:none;">
+                <div class="c2_pjbt1">
+                    <dl><span id="goodPersend"></span><i id="goodComment"></i></dl>
+                    <ul id="ul_id">
+                        <li><span id="goodComment1"></span><b class="c2_pj_color1" style="width:300px;"></b><i></i></li><!--全长300px一份30px-->
+                        <li><span id="eval"></span><b class="c2_pj_color2" style="width:300px;"></b><i></i></li>
+                        <li><span id="badReview"></span><b class="c2_pj_color3" style="width:300px;"></b><i></i></li>
+                    </ul>
+                </div>
+
+                <div class="c2_pjbt2">
+                    <ul>
+                        <li class="cb_hover" data-level="" id="all"></li>
+                        <li data-level="1" id="goodComment2"></li>
+                        <li data-level="2" id="eval2"></li>
+                        <li data-level="3" id="badReview2"></li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="main_loading" id="loading"><span><img src="images/loading.gif" /></span><p id="sh_loading"></p></div>
+            <div class="c2_pj_nr" id="pingjia">
+
+
+
+                <!--<div class="c2_pj_noneall" id="noComtent" style="display:none;"><img src="images/product1.png" /><span id="">暂无评价内容</span></div>--><!--暂无差评,中评,好评-->
+            </div><!--c2_pj_nr-->
+
+
+        </div><!--c2_pingjia-->
+        <div class="c2_pj_noneall" id="noComtent2" style="display:none;"><img src="images/product1.png" /><span id="cc_pj_te">暂无评价内容</span></div><!--暂无评价-->
+
+
+    </div><!--main_a-->
+    <script type="text/javascript">
+        //js获取url传递参数
+        function GetRequest() {
+            var url = location.search;
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+        var Request = new Object();
+        Request = GetRequest();
+        var cb_productId = Request['productId'];
+        var cb_lang = Request['lang'];
+        var varPageNo = 0;
+        var $orilTypeLevel = "";
+        var $isClearData = false;
+        var $isStart = false;
+        var typeLevel = "";//默认查询全部
+
+        //语言判断
+        $(function () {
+
+            if (cb_lang == "1") {
+                $("#cb_title").html("用户评价");
+                $("#sh_loading").html("正在加载...");
+                $("#zanwu").html("暂无评价");
+
+                var goodComment = "好评";
+                var eval = "中评";
+                var badReview = "差评";
+                $("#goodComment").html(goodComment);
+                $("#goodComment1").html(goodComment);
+                $("#eval").html(eval);
+                $("#badReview").html(badReview);
+
+                $("#all").html("全部");
+            }
+            if (cb_lang == "2") {
+                $("#cb_title").html("Feedback");
+                $("#sh_loading").html("Loading data...");
+                $("#zanwu").html("No reviews");
+
+                var goodComment = "Good";
+                var eval = "Average";
+                var badReview = "Poor";
+                $("#goodComment").html(goodComment);
+                $("#goodComment1").html(goodComment);
+                $("#eval").html(eval);
+                $("#badReview").html(badReview);
+
+                $("#all").html("All");
+            }
+            if (cb_lang == "3") {
+                $("#cb_title").html("ลูกค้ารีวิว");
+                $("#sh_loading").html("โหลดข้อมูลอยู่...");
+                $("#zanwu").html("ยังไม่มีวีวิว");
+
+                var goodComment = "รีวิวดีๆ";
+                var eval = "เฉยๆ";
+                var badReview = "ไม่พอใจ";
+                $("#goodComment").html(goodComment);
+                $("#goodComment1").html(goodComment);
+                $("#eval").html(eval);
+                $("#badReview").html(badReview);
+                $("#all").html("ทั้ง");
+            }
+            //筛选好、中和差评
+
+            $(".c2_pjbt2 ul li").bind("click", function () {
+                $(this).parent().find("li").removeClass("cb_hover");
+                var li = $(this).attr("data-level");
+                typeLevel = li;
+                $isClearData = true;
+                varPageNo = 0;
+                if ($orilTypeLevel != typeLevel) {
+                    $orilTypeLevel = typeLevel;
+                } 
+                switch (li) {
+                    case 1://好评
+                        $(this).addClass("cb_hover");
+                        break;
+                    case 2://中评
+                        $(this).addClass("cb_hover");
+                        break;
+                    case 3://差评
+                        $(this).addClass("cb_hover");
+                        break;
+                    default:
+                        $(this).addClass("cb_hover");
+                        break;
+                }
+                $("#pingjia").hide();
+                pingjia(typeLevel);
+            });
+        });
+
+        function pingjia(level) {
+            $(function () {
+
+                $("#loading").ajaxStart(function () {
+                    $(this).show();
+                });
+
+                $.ajax({
+                    type: "Post",//要用post方式
+                    url: "/Product/GetProductComment",//方法所在页面和方法名
+                    dataType: "json",
+                    data: {
+                        lang: cb_lang,
+                        PagedIndex: varPageNo,
+                        PagedSize: 10,
+                        productId: cb_productId,
+                        typeLevel: level
+                    },
+                    success: function (JsonData) {
+                        if (cb_lang == "1") {
+
+                            var goodComment = "好评(" + JsonData.GCount + ")";
+                            var eval = "中评(" + JsonData.MCount + ")";
+                            var badReview = "差评(" + JsonData.BCount + ")";
+                            $("#goodComment2").html(goodComment);
+                            $("#eval2").html(eval);
+                            $("#badReview2").html(badReview);
+                        }
+                        if (cb_lang == "2") {
+
+                            var goodComment = "Good(" + JsonData.GCount + ")";
+                            var eval = "Average(" + JsonData.MCount + ")";
+                            var badReview = "Poor(" + JsonData.BCount + ")";
+                            $("#goodComment2").html(goodComment);
+                            $("#eval2").html(eval);
+                            $("#badReview2").html(badReview);
+                        }
+                        if (cb_lang == "3") {
+
+                            var goodComment = "รีวิวดีๆ(" + JsonData.GCount + ")";
+                            var eval = "เฉยๆ(" + JsonData.MCount + ")";
+                            var badReview = "ไม่พอใจ(" + JsonData.BCount + ")";
+                            $("#goodComment2").html(goodComment);
+                            $("#eval2").html(eval);
+                            $("#badReview2").html(badReview);
+                        }
+
+                        if (JsonData.rs == "") {
+                            if (varPageNo == 0 && JsonData.AllCount == 0) {
+                                $("#pingjia").hide();
+                                $(".c2_pj_noneall").css("display", "block");
+                                if (cb_lang == "1") {
+                                    $("#cc_pj_te").html("暂无评价内容");
+                                }
+                                if (cb_lang == "2") {
+                                    $("#cc_pj_te").html("No reviews yet");
+                                }
+                                if (cb_lang == "3") {
+                                    $("#cc_pj_te").html("ยังไม่มีข้อมูล");
+                                }
+                            }
+
+                            if (level == '' && varPageNo == 0) {
+                                $("#pingjia").html('');
+                                if (cb_lang == "1") {
+                                    $("#pingjia").append('<div class="c2_pj_noneall" id="noComtent" ><img src="images/product1.png" /><span id="">暂无评价内容</span></div>');
+                                }
+                                if (cb_lang == "2") {
+                                    $("#pingjia").append('<div class="c2_pj_noneall" id="noComtent" ><img src="images/product1.png" /><span id="">No reviews yet</span></div>');
+                                }
+                                if (cb_lang == "3") {
+                                    $("#pingjia").append('<div class="c2_pj_noneall" id="noComtent" ><img src="images/product1.png" /><span id="">ยังไม่มีข้อมูล</span></div>');
+                                }
+                            } else if (varPageNo == 0) {
+                                $("#pingjia").html('');
+                                if (cb_lang == "1") {
+                                    $("#pingjia").append('<div class="c2_pj_noneall" id="noComtent" ><img src="images/product1.png" /><span id="">暂无评价内容</span></div>');
+                                }
+                                if (cb_lang == "2") {
+                                    $("#pingjia").append('<div class="c2_pj_noneall" id="noComtent" ><img src="images/product1.png" /><span id="">No reviews yet</span></div>');
+                                }
+                                if (cb_lang == "3") {
+                                    $("#pingjia").append('<div class="c2_pj_noneall" id="noComtent" ><img src="images/product1.png" /><span id="">ยังไม่มีข้อมูล</span></div>');
+                                }
+                            }
+
+
+                        }
+                        else {
+                         
+                            $(".c2_pj_bt").css("display", "block");
+                            $("#noComtent").css("display", "none");
+                            $("#noComtent2").css("display", "none");
+                            var Collapse;
+                            var Expand;
+                            if (cb_lang == "1") {
+                                Collapse = "收起";
+                                Expand = "展开";
+                            }
+                            if (cb_lang == "2") {
+                                Collapse = "Collapse";
+                                Expand = "Expand";
+                            }
+                            if (cb_lang == "3") {
+                                Collapse = "ย้าย";
+                                Expand = "แฉ";
+                            }
+                            if (JsonData) {
+                                var totalSize = JsonData.TotalCount;
+                                var goodCount = parseInt(JsonData.goodCount) * 3;
+                                var midCount = parseInt(JsonData.midCount) * 3;
+                                var badCount = parseInt(JsonData.badCount) * 3;
+
+                                $("#goodPersend").html(JsonData.goodCount);
+                                $(".c2_pj_color1").css("width", goodCount + "px");
+                                $(".c2_pj_color1").next("i").html(JsonData.goodCount);
+                                $(".c2_pj_color2").css("width", midCount + "px");
+                                $(".c2_pj_color2").next("i").html(JsonData.midCount);
+                                $(".c2_pj_color3").css("width", badCount + "px");
+                                $(".c2_pj_color3").next("i").html(JsonData.badCount);
+                                var html = "";
+                                //判断是否要清空数据
+                                if ($isClearData) {
+                                    $isClearData = false;
+                                    $("#pingjia").html('');
+                                }
+                                for (var i = 0; i < JsonData.rs.length; i++) {
+                                    var UserID = JsonData.rs[i].UserID;
+                                    var CommentLevel = JsonData.rs[i].CommentLevel;
+                                    var CommentContent_s = JsonData.rs[i].CommentContent;
+                                    var CommentContent;
+
+                                    if (CommentContent_s == "") {
+                                        if (cb_lang == "1") {
+                                            CommentContent = "好评！";
+
+                                        }
+                                        if (cb_lang == "2") {
+                                            CommentContent = "Good!";
+
+                                        }
+                                        if (cb_lang == "3") {
+                                            CommentContent = "รีวิวดีๆ!";
+
+                                        }
+                                    }
+                                    else {
+                                        CommentContent = CommentContent_s;
+                                    }
+
+                                    var dt = JsonData.rs[i].CommentDT;
+                                    var CommentDT = dt.replace("T", " ").replace("Z", "").substr(0, dt.indexOf('.'));
+                                    var IsAnonymous = JsonData.rs[i].IsAnonymous;
+
+                                    if (IsAnonymous == "1") {
+                                        var Phone = JsonData.rs[i].Phone;
+                                    } else {
+                                        var Phone = JsonData.rs[i].Phone.substring(0, 2) + "****" + JsonData.rs[i].Phone.substring(6, 11);
+                                    }
+
+                                    if (JsonData.rs[i].HeadImageUrl == "") {
+                                        var HeadImageUrl = "images/user.png";
+                                    } else {
+                                        var HeadImageUrl = commonUrl.ImageHeader + JsonData.rs[i].HeadImageUrl;
+                                    }
+                                    html += "<div class='c2_pj_list'><dl><span><img src='" + HeadImageUrl + "' alt='" + CommentContent + "'></span><i>" + Phone + "</i><b>" + CommentDT + "</b><div class='clear'></div></dl> <ul>";
+                                    html += "<div class='c2_pj_list_nr'>" + CommentContent + "</div><div class='c2_pj_click'>" + Expand + "</div>"
+                                    html += " </ul></div>";
+                                }
+                               
+                                $("#pingjia").append(html);
+                                $("#pingjia").show();
+
+                                var cb_num = $(".c2_pj_list_nr").length;
+                                var cc_height;
+                                for (var j = 0; j < cb_num; j++) {
+                                    cc_height = $(".c2_pj_list_nr").eq(j).height();
+                                    if (cc_height <= 96) {
+                                        $(".c2_pj_list_nr").eq(j).next(".c2_pj_click").hide();
+                                    } else {
+                                        $(".c2_pj_list_nr").eq(j).css({ 'height': '96px' });
+                                        $(".c2_pj_list_nr").eq(j).next(".c2_pj_click").show();
+                                    }
+                                }
+
+
+                                $(function () {
+                                    //---滚动触发事件
+                                    var winH = $(window).height(); //页面可视区域高度
+                                    $(window).scroll(function () {
+                                        var pageH = $(document.body).height();
+                                        var scrollT = $(window).scrollTop(); //滚动条top
+                                        var aa = (pageH - winH - scrollT) / winH;
+                                        if (aa < 0.02) {
+                                            if (varPageNo < Math.floor(totalSize / 10)) {
+                                                varPageNo += 1;
+                                                pingjia(typeLevel);
+                                            } else { }
+                                        }
+                                    });
+                                    //展开事件
+                                    $(".c2_pj_click").click(function () {
+                                        if ($(this).prev(".c2_pj_list_nr").height() == 96) {
+                                            $(this).prev(".c2_pj_list_nr").css({ "height": "auto" });
+                                            $(this).text(Collapse).addClass("c2_newtext");
+                                        } else if ($(this).prev(".c2_pj_list_nr").height() > 96) {
+                                            $(this).prev(".c2_pj_list_nr").css({ "height": "96px" });
+                                            $(this).text(Expand).removeClass("c2_newtext");
+                                        }
+                                    });
+
+                                    /*//收起事件
+                                    $(".c2_pj_clicks").click(function () {
+                                        $(this).text($("#content").is(":hidden") ? Collapse : Expand);
+                                        $(this).prev(".c2_pj_list_nr").animate({ overflow: auto });
+                                    });*/
+
+                                    $(".c2_pj_clicka").click(function () {
+                                        $("p").show();
+                                    });
+
+                                });
+
+
+
+                            } else {
+                                //$("#nodata").html("别滚动了,已经到底了。。。");
+                                return false;
+                            }
+                        };
+
+
+                    },
+                    error: function (err) {
+                        //alert(err);
+                    }
+
+                });
+                $("#loading").ajaxStop(function () {
+                    $(this).hide();
+                });
+
+            });
+        }
+        //加载评论
+        pingjia(typeLevel);
+
+    </script>
+
+</body>
+</html>

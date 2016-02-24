@@ -1,0 +1,115 @@
+﻿@model List<List<HKTHMall.Domain.WebModel.Models.Index.IndexExplosion>>
+@using HKTHMall.Core.Extensions
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    var shownow = CultureHelper.GetLangString("HOME_INDEX_SHOPNOW");
+    var tiqian = @CultureHelper.GetLangString("HOME_INDEX_TIQIANGUANGGUANG");
+    var todayModel = Model[0];
+    var otherDayModel = Model[1];
+}
+<div class="lazyBoom">
+    <h3>@CultureHelper.GetLangString("HOME_INDEX_BAOKUANMIAOSHA")</h3>
+    <div class="lazyBoomCover">
+        <div class="lazyBoomTitle">
+            <ul>
+                <li class="active">@CultureHelper.GetLangString("HOME_INDEX_JINRIBAOKUAN")</li>
+                @if (todayModel != null && todayModel.Any())
+                {
+                    <li>@CultureHelper.GetLangString("HOME_INDEX_YUSHOUBAOKUAN")</li>
+                }
+            </ul>
+            <!-- <div class="lazyBoomTime">
+                <span>距离爆款结束还有</span>
+                <div class="timeCover"><div class="clock"></div></div>
+            </div> -->
+        </div>
+
+        <div class="lazyBoomCover">
+            <div class="lazyBoomCover_1" data-time="8000">
+                <!--今日爆款 -->
+                @if (todayModel != null && todayModel.Any())
+                {
+
+                    for (int i = 0; i < todayModel.Count; i++)
+                    {
+                        var item = Model[0][i];
+                        <div class="lazyBoomMain_1">
+                            <!--循环这个-->
+                            <div class="timeCover" datatime="@(item.Intervalsecond)" isstart="@(item.StartStatus)">
+                                <i></i>00:00:00
+                            </div>
+                            <a href="@Url.Action("Shopping", "Home", new { id = item.ProductId })"><img src="@Html.GetImagesUrl(item.PicAddress, 280, 280)" alt="" width="280" height="280"></a>
+                            <ul>
+                                <li>save:<b>@((item.Discount * 100).ToString("F0"))%</b></li>
+                                <li>— @CultureHelper.GetLangString("HOME_HZ_REWARDS") —</li>
+                                @*<li><i></i><span>@string.Format(CultureHelper.GetLangString("HK_TIANFANWAN"), item.RebateDays)</span></li>*@
+                                <li><a href="@Url.Action("Shopping", "Home", new { id = item.ProductId })" class="boomName">@(Model[0][i].ProductName)</a></li>
+                                <li>$<span>@(Model[0][i].ActivityPrice.ToString("F2"))</span></li>
+                                <li><a href="@Url.Action("Shopping", "Home", new { id = item.ProductId })">@shownow<i class="fa-angle-right"></i></a></li>
+                            </ul>
+                        </div>
+                    }
+                }
+            </div>
+            @if (otherDayModel != null && otherDayModel.Any())
+                {
+                <div class="lazyBoomCover_2" data-time="9000">
+                    <!-- 预售爆款 -->
+                    @for (int i = 0; i < otherDayModel.Count; i++)
+                    {
+                        var item = Model[1][i];
+                        <div class="lazyBoomMain_2">
+                            <!--循环这个-->
+                            <div class="timeCover" datatime="@(item.Intervalsecond)" isstart="@(item.StartStatus)">
+                                <i></i>00:00:00
+                            </div>
+                            <a href="@Url.Action("Shopping", "Home", new { id = item.ProductId })"><img src="@Html.GetImagesUrl(item.PicAddress, 280, 280)" alt="" width="280" height="280"></a>
+                            <ul>
+                                <li>save:<b>@((item.Discount * 100).ToString("F0"))%</b></li>
+                                <li>— @CultureHelper.GetLangString("HOME_HZ_REWARDS") —</li>
+                                @*<li><i></i><span>@string.Format(CultureHelper.GetLangString("HK_TIANFANWAN"), item.RebateDays)</span></li>*@
+                                <li><a href="@Url.Action("Shopping", "Home", new { id = item.ProductId })" class="boomName">@(Model[0][i].ProductName)</a></li>
+                                <li>$<span>@(item.ActivityPrice.ToString("F2"))</span></li>
+                                <li><a href="@Url.Action("Shopping", "Home", new { id = item.ProductId })">@tiqian<i class="fa-angle-right"></i></a></li>
+                            </ul>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var objTimer = null;
+    var flag = false;
+    objTimer = window.setInterval(function () { ShowCountDown_iterate(); }, 1000);
+    function ShowCountDown_iterate() {
+        var leftsecond = 0;  //倒计时总时间
+        var isstart = 0;
+        flag = false;
+        $(".timeCover").each(function (i) {
+            leftsecond = parseInt($(this).attr("datatime"));
+            isstart = parseInt($(this).attr("isstart"));
+            if (leftsecond > 0) {
+                flag = true;
+                var hour = Math.floor((leftsecond) / 3600);
+                var minute = Math.floor((leftsecond - hour * 3600) / 60);
+                var second = Math.floor(leftsecond - hour * 3600 - minute * 60);
+
+                var txthour = (hour < 10 ? '0' + hour.toString() : hour.toString());
+                var txtminute = (minute < 10 ? '0' + minute.toString() : minute.toString());
+                var txtsecond = (second < 10 ? '0' + second.toString() : second.toString());
+
+                var txtTime = "<i></i>" + txthour + ":" + txtminute + ":" + txtsecond;
+                $(this).html(txtTime);
+                leftsecond--;
+                $(this).attr("datatime", leftsecond);
+            }
+        });
+        if (!flag) {
+            if (objTimer != null) {
+                window.clearInterval(objTimer);
+            }
+        }
+    }
+</script>

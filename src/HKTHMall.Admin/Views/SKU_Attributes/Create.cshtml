@@ -1,0 +1,92 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.SKU.SKU_AttributesModel
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>specification name :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.AttributeId)
+        @Html.TextBoxFor(t => t.AttributeName, new { @class = "form-control", @placeholder = "Please enter specification name" })
+        @Html.ValidationMessageFor(m => m.AttributeName)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Spec type :
+    </label>
+    <div class="controls">
+        @if (Model.AttributeId == 0)
+        {
+            @Html.DropDownListFor(t => t.AttributeType, Model.AttributeTypeList, new { @class = "form-control", @placeholder = "Enter specification type" })
+        }
+
+        else
+        {
+            @Html.DropDownList("TempAttributeType", Model.AttributeTypeList, new { @class = "form-control", @disabled = "disabled" })
+            @Html.HiddenFor(x => x.AttributeType)
+
+        }
+
+        @Html.ValidationMessageFor(m => m.AttributeType)
+    </div>
+</div>
+<div class="row" style="margin-top:10px;">
+    <div class="col-xs-12">
+        <div class="box box-success">
+            <div class="box-header">
+                <h3 class="box-title">Spec list</h3>
+                <div class="box-tools">
+
+                    <div class="pull-right">
+                        @Html.ValidationMessageFor(x => x.SKU_AttributeValuesModels)&nbsp;
+                        <button type="button" class="btn btn-sm btn-success js-add-item"><i class="fa fa-plus"></i>&nbsp;Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body table-responsive no-padding" style="height:200px;overflow-y:auto;display:block">
+                <table class="table table-hover js-tb-items">
+                    <tbody>
+                        <tr data-option="{'DisplaySequence':-1,'Index':-1}">
+                            <th width="33%" class="text-center">Spec</th>
+                            <th width="33%" class="text-center">Picture</th>
+                            <th class="text-center">Operation</th>
+                        </tr>
+                        @for (int i = 0; i < Model.SKU_AttributeValuesModels.Count; i++)
+                        {
+                            var prefix = "SKU_AttributeValuesModels[" + i + "].";
+                            var tempValue = Model.SKU_AttributeValuesModels[i];
+                            <tr data-option="{'DisplaySequence':@tempValue.DisplaySequence,'Index':@i}" class="js-tr-item">
+                                <td>
+                                    <input type="hidden" name="@(prefix+"ValueId")" value="@tempValue.ValueId" class="js-ValueId" />
+                                    <input type="hidden" name="@(prefix + "DisplaySequence")" value="@tempValue.DisplaySequence" class="js-DisplaySequence" />
+                                    <input type="hidden" name="@(prefix + "RowStatus")" value="0" class="js-RowStatus" />
+
+                                    <div class="form-group" style="margin-left:0;">
+                                        <input type="text" name="@(prefix + "ValueStr")" class="form-control js-ValueStr" value="@tempValue.ValueStr" />
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    @if (Model.AttributeType != 0)
+                                    {
+                                        <input type="file" id="imageItem@(i)" name="imageItem@(i)" class="js-item-file hide" />
+                                        <input type="hidden" name="@(prefix + "ImageUrl")" value="@tempValue.ImageUrl" class="js-ImageUrl" />
+                                        <img src="@(ViewBag.RootImage+tempValue.ImageUrl)" class="js-item-image" style="width:30px;height:30px;" />
+                                        <button class="btn btn-sm btn-default js-choice-item" type="button"><i class="glyphicon glyphicon-search"></i>&nbsp;Select picture</button>
+                                        <button class="btn btn-sm btn-default js-upload-item" type="button"><i class="glyphicon glyphicon-upload"></i>&nbsp;Upload picture</button>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-default js-up-item" type="button"><i class="glyphicon glyphicon-arrow-up"></i></button>&nbsp;
+                                        <button class="btn btn-sm btn-default js-down-item" type="button"><i class="glyphicon glyphicon-arrow-down"></i></button>&nbsp;
+                                        <button class="btn btn-sm btn-default js-remove-item" type="button"><i class="glyphicon glyphicon-remove"></i></button>&nbsp;
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,173 @@
+﻿@{
+    ViewBag.Title = "Member login log";
+}
+@model HKTHMall.Domain.Models.LoginLog.SearchYH_UserLoginLogModel
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>会员编号: </span>
+            @Html.TextBoxFor(x => x.UserID, new { @class = "form-control w70" })
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <span>Operation time: </span>
+            @Html.TextBoxFor(x => x.BeginLoginTime, new { @class = "form-control w70" })
+            &nbsp;--&nbsp;
+            @Html.TextBoxFor(x => x.EndLoginTime, new { @class = "form-control w70" })
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+
+    </div>
+    @*@Html.Partial("~/Views/Shared/ImgUpload.ascx")*@
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+
+            var columns = [
+
+                { field: 'UserID', title: '会员编号', align: 'center', valign: 'middle', sortable: false },
+                { field: 'Account', title: '会员名称', align: 'center', valign: 'middle', sortable: false },
+                
+                {
+                    field: 'LoginSource', title: '登录来源', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var ms = "-";
+                        switch (val) {
+                            case 1:
+                                ms = "Website";
+                                break;
+                            case 2:
+                                ms = "Android";
+                                break;
+                            case 3:
+                                ms = "IOS";
+                                break;
+                            default:
+
+                        }
+                        return ms;
+                    }
+                },
+                { field: 'LoginAddress', title: '登录地址', align: 'center', valign: 'middle', sortable: false },
+                { field: 'LoginTime', title: '登录时间', align: 'center', valign: 'middle', sortable: false, formatter: function (val) { return val.formatterString(false)/*true 日期格式2015-5-5*/ } },
+                { field: 'IP', title: 'IP', align: 'center', valign: 'middle', sortable: false },
+                @*{
+                    field: 'ID',
+                    title: '操作',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (val) {
+                        return [
+                            '<a class="edit ml10" href="javascript:void(0)" title="修改">',
+                            '<i class="glyphicon glyphicon-edit"></i>',
+                            '</a>',
+                            '<a class="remove ml10" href="javascript:void(0)" title="Remove">',
+                            '<i class="glyphicon glyphicon-remove"></i>',
+                            '</a>'
+                        ].join('');
+                    },
+                    events: {
+                        'click .edit': function (e, value, row, index) {
+                            console.log(1);
+                            Tool.ShowModal('@Url.Action("Create")', { id: value }, '编辑部门');
+                        },
+                        'click .remove': function (e, value, row, index) {
+
+                            DeleteOperateLog(value);
+
+                        }
+                    }
+                }*@
+            ];
+                //初始列表内容
+                $('#u_grid').bootstrapTable({
+                    url: '@Url.Action("List")',
+
+                    queryParams: function (params) {
+                        return {
+                            
+                            BeginLoginTime: $('#BeginLoginTime').val(),
+                            EndLoginTime: $('#EndLoginTime').val(),
+                            UserID: $('#UserID').val(),
+                            PagedIndex: this.pageNumber - 1,//params.pageNumber - 1  params.offset
+                            PagedSize: this.pageSize       //params.pageSize  params.limit
+                        };
+                    },
+                    sortOrder: 'desc',
+                    pagination: true,
+                    showRefresh: true,
+                    showColumns: true,
+                    striped: true,
+                    sidePagination: 'server',
+                    columns: columns
+
+                });
+            //查询 刷新
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+
+            //删除
+            function DeleteOperateLog(OperateID)
+            {
+                $.ajax({
+                    url:'@Url.Action("DeleteYH_UserLoginLogLog")'+"?OperateID=" + OperateID ,//'/AC_OperateLog/DeleteAC_OperateLog?OperateID=' + OperateID,
+                    dataType: "text",
+                    success: function (data, status) {
+                        Tool.Alert(data, 1500);
+                        
+                        
+                    },
+                    error: function (data, status, e) {
+                        Tool.Alert("Delete failed!", 1500);
+                        
+                        //alert(e);
+                    }
+
+                });
+            }
+            //日期控件 开始
+            $('#BeginLoginTime').datepicker({
+                format: 'yyyy-mm-dd',
+                language: "en",
+                autoclose: true
+            }).on("changeDate", function (e) {
+
+                $('#EndLoginTime').datepicker('setStartDate', e.date);
+            });
+
+            //日期控件 结束
+            $('#EndLoginTime').datepicker({
+                format: 'yyyy-mm-dd',
+                language: "en",
+                autoclose: true
+            }).on("changeDate", function (e) {
+                $('#BeginLoginTime').datepicker('setEndDate', e.date);
+            });
+
+            ////日期控件 开始
+            //$('#BeginLoginTime').datepicker({
+            //    language: "en",
+            //    autoclose: true
+            //});
+
+            ////日期控件 结束
+            //$('#EndLoginTime').datepicker({
+            //    language: "en",
+            //    autoclose: true
+            //});
+
+        });
+    </script>
+}
+
+
+
+

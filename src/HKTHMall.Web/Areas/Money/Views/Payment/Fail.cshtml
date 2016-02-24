@@ -1,0 +1,52 @@
+﻿@using HKTHMall.Domain.Models
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ResultModel result = ViewBag.Result;
+}
+<div class="main_a">
+    <div class="main_about">
+
+        <div class="m_pay_flase">
+            <div class="m_pay_flase_bt">
+                <div class="m_pay_flase_butt">
+                    @*抱歉，支付失败！*@
+                    <ul><i></i><ins>@CultureHelper.GetLangString("PAY_FAIL_MESSAGE")</ins></ul>
+                    @*失败的原因可能是：　付款太频繁　　网络有问题*@
+                    <dl>
+                        <b>
+                            ——  @CultureHelper.GetLangString("PAY_FAIL_MESSAGE_CAUSE_NAME") <span>
+                                @if (result == null || result.Messages.Count == 0)
+                                {
+                                    @CultureHelper.GetLangString("PAY_FAIL_MESSAGE_CAUSE_NETWORK")
+                                }
+                                else
+                                {
+                                    <text>@result.Messages[0]</text>
+                                }
+                            </span> ——
+                        </b>
+                    </dl>
+
+                </div>
+            </div>
+            <div class="m_pay_flase_nr">
+                @if (result != null && !string.IsNullOrEmpty(result.Data))
+                {
+                    @*重新付款*@
+                    <a href="@Url.Action("AgainPaymentOrder", "Order", new { orderId = result.Data })" title="" class="m_pay_button1">@CultureHelper.GetLangString("MONEY_ORDER_REPAY")</a>
+                }
+                else
+                {
+                    @*我的订单>>*@
+                    <a href="/order/list.html">@CultureHelper.GetLangString("HOME_INDEX_MYORDER")>></a>
+                }
+
+                @*返回首页>>*@
+                <a href="/" title="" class="m_pay_button2">@CultureHelper.GetLangString("GO_HOME")</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        @Html.Action("HuikaRecommend", "Home", new { area = "" })
+    </div>
+</div><!--主体部分-->

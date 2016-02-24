@@ -1,0 +1,215 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title id="cb_title"></title>
+
+    <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta charset="utf-8" />
+
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/config.js"></script>
+    <script>
+        //js获取url传递参数
+        function GetRequest() {
+            var url = location.search;
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+        var Request = new Object();
+        Request = GetRequest();
+        var cb_productId = Request['productId'];
+        var cb_lang = Request['lang'];
+        var varPageNo = 0;
+
+        //语言判断
+        $(function () {
+            if (cb_lang == "1") {
+                $("#cb_title").html("用户评价");
+                $("#sh_loading").html("数据加载中...");
+                $("#zanwu").html("暂无评价");
+            }
+            if (cb_lang == "2") {
+                $("#cb_title").html("Feedback");
+                $("#sh_loading").html("Loading data...");
+                $("#zanwu").html("No reviews");
+            }
+            if (cb_lang == "3") {
+                $("#cb_title").html("รีวิวของผู้ใช้");
+                $("#sh_loading").html("โหลดข้อมูลอยู่...");
+                $("#zanwu").html("ยังไม่มีวีวิว");
+            }
+        });
+
+
+        function dateToStr(datetime) {
+            var year = datetime.getFullYear();
+            var month = datetime.getMonth() + 1;//js从0开始取
+            var date = datetime.getDate();
+            var hour = datetime.getHours();
+            var minutes = datetime.getMinutes();
+            var second = datetime.getSeconds();
+
+            if (month < 10) {
+                month = "0" + month;
+            }
+            if (date < 10) {
+                date = "0" + date;
+            }
+            if (hour < 10) {
+                hour = "0" + hour;
+            }
+            if (minutes < 10) {
+                minutes = "0" + minutes;
+            }
+            if (second < 10) {
+                second = "0" + second;
+            }
+
+            var time = year + "-" + month + "-" + date + " " + hour + ":" + minutes + ":" + second;
+            return time;
+        }
+
+        function pingjia() {
+            $(function () {
+
+                $("#loading").ajaxStart(function () {
+                    $(this).show();
+                });
+
+                $.ajax({
+                    type: "Post",//要用post方式
+                    url: "/Product/GetProductComment",//方法所在页面和方法名
+                    dataType: "json",
+                    data: {
+                        lang: cb_lang,
+                        PagedIndex: varPageNo,
+                        PagedSize: 10,
+                        productId: cb_productId
+                    },
+                    success: function (JsonData) {
+                        if (JsonData.rs == "") {
+                            if (cb_lang == "1") {
+                                $("#pingjia").append("<div class='product_zw1'><img src='images/product.png'/><div id='zanwu'>暂无评价</div></div>");
+                            }
+                            if (cb_lang == "2") {
+                                $("#pingjia").append("<div class='product_zw1'><img src='images/product.png'/><div id='zanwu'>No reviews</div></div>");
+                            }
+                            if (cb_lang == "3") {
+                                $("#pingjia").append("<div class='product_zw1'><img src='images/product.png'/><div id='zanwu'>ยังไม่มีวีวิว</div></div>");
+                            }
+
+                        }
+                        else {
+                            if (JsonData) {
+                                var totalSize = JsonData.TotalCount;
+                                var html = "";
+                                for (var i = 0; i < JsonData.rs.length; i++) {
+                                    var UserID = JsonData.rs[i].UserID;
+                                    var CommentLevel = JsonData.rs[i].CommentLevel;
+                                    var CommentContent_s = JsonData.rs[i].CommentContent;
+                                    var CommentContent;
+                                    if (CommentContent_s == "") {
+                                        if (cb_lang == "1") {
+                                             CommentContent = "好评！";
+                                        }
+                                        if (cb_lang == "2") {
+                                            CommentContent = "Excellent!";
+                                        }
+                                        if (cb_lang == "3") {
+                                            CommentContent = "รีวิวดีๆ!";
+                                        }
+                                    }
+                                    else{
+                                        CommentContent = CommentContent_s;
+                                    }
+
+                                    var CommentDT1 = new Date(JsonData.rs[i].CommentDT);
+                                    var CommentDT = dateToStr(CommentDT1);
+                                    var IsAnonymous = JsonData.rs[i].IsAnonymous;
+
+                                    if (IsAnonymous == "1") {
+                                        var Phone = JsonData.rs[i].Phone;
+                                    } else {
+                                        var Phone = JsonData.rs[i].Phone.substring(0, 2) + "****" + JsonData.rs[i].Phone.substring(6, 11);
+                                    }
+
+
+                                    if (JsonData.rs[i].HeadImageUrl == "") {
+                                        var HeadImageUrl = "images/user.png";
+                                    } else {
+                                        var HeadImageUrl = commonUrl.ImageHeader + JsonData.rs[i].HeadImageUrl;
+                                    }
+
+                                    html += "<div class='pj_list'><span><img src='" + HeadImageUrl + "' alt='" + CommentContent + "'/></span><p><i>" + CommentDT.toLocaleString() + "</i><strong>" + Phone + "</strong><b>" + CommentContent + "</b></p><div class='clear'></div></div>";
+
+
+                                }
+                                $("#pingjia").append(html);
+
+                                $(function () {
+                                    var winH = $(window).height(); //页面可视区域高度
+                                    $(window).scroll(function () {
+                                        var pageH = $(document.body).height();
+                                        var scrollT = $(window).scrollTop(); //滚动条top
+                                        var aa = (pageH - winH - scrollT) / winH;
+                                        if (aa < 0.02) {
+                                            if (varPageNo < Math.floor(totalSize / 10)) {
+                                                varPageNo += 1;
+                                                pingjia();
+                                            } else { }
+                                        }
+                                    });
+                                });
+
+
+
+                            } else {
+                                //$("#nodata").html("别滚动了,已经到底了。。。");
+                                return false;
+                            }
+                        };
+
+
+                    },
+                    error: function (err) {
+                        //alert(err);
+                    }
+
+                });
+                $("#loading").ajaxStop(function () {
+                    $(this).hide();
+                });
+
+            });
+        }
+        pingjia();
+
+    </script>
+</head>
+
+<body>
+    <div class="main_a">
+
+        <div class="pingjia" id="pingjia">
+        </div>
+        <div class="main_loading" id="loading"><span><img src="images/loading.gif" /></span><p id="sh_loading"></p></div>
+        <div id="nodata">
+        </div>
+    </div>
+
+
+</body>
+</html>

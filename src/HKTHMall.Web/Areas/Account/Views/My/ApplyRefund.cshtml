@@ -1,0 +1,164 @@
+﻿@using HKTHMall.Core.Extensions;
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="main_about">
+        <div class="ls_member">
+
+
+            <!--left-->
+            @Html.Partial("_userLeft")
+
+            <!--right-->
+            <div class="ls_member_rg">
+
+
+                <!--右侧会员信息展示-->
+                 
+                <div class="ls_member_info">
+                    <div class="ownerComplain_2016">
+                        <h3>@CultureHelper.GetLangString("ORDER_SHOPING_BACKAPPLY")@*退货/款申请*@</h3>
+                        <span class="clearfix"></span>
+                    </div>
+                    <dl class="complain_2016">
+                        @if (Model!=null&&Model.Count>0)
+                        {
+                        <dd>
+                            <a href="@Url.Action("shopping", "home", new { id = Model[0].ProductId, area = "" })" target="_blank"><img src="@Html.GetImagesUrl((string)Model[0].PicUrl)" alt="" width="88" height="88"></a>
+                            <span>@Model[0].ProductName（@Model[0].ProductId）</span>
+                        </dd>
+                        <dd>
+                            <ul>
+                                <li><span class="complainTitle">@CultureHelper.GetLangString("ACCOUNT_My_OrderReturnProductInfo_SalesPrice")@*单价*@:</span><span><b>$@(Model[0].SalesPrice)</b></span><div class="clearfix"></div></li>
+                                <li><span class="complainTitle">@CultureHelper.GetLangString("ACCOUNT_My_OrderReturnProductInfo_SubTotal")@*小计*@:</span><span><b>$@Model[0].SubTotal</b></span><div class="clearfix"></li>
+                                <li><span class="complainTitle">@CultureHelper.GetLangString("ACCOUNT_My_OrderReturnProductInfo_ShopName")@*商家*@:</span><span><b>@Model[0].ShopName</b></span><div class="clearfix"></li>
+                            </ul>
+                        </dd>
+                        <dd>
+                            <ul>
+                                <li><span class="complainTitle">@CultureHelper.GetLangString("ACCOUNT_My_OrderReturnProductInfo_OrderID")@*订单编号*@:</span><span><b>@Model[0].OrderID</b></span><div class="clearfix"></li>
+                                <li><span class="complainTitle">@CultureHelper.GetLangString("ACCOUNT_My_OrderComplaints_ExpressMoney")@*运费*@:</span><span><b>$@(Model[0].ExpressMoney)</b></span><div class="clearfix"></li>
+                                <li><span class="complainTitle">@CultureHelper.GetLangString("ACCOUNT_My_OrderReturnProductInfo_TotalAmount")@*总计*@:</span><span><b>$@(Model[0].TotalAmount)</b></span><div class="clearfix"></li>
+                                <li><span class="complainTitle">@CultureHelper.GetLangString("ACCOUNT_My_OrderReturnProductInfo_OrderDate")@*成交时间*@:</span><span><time>@(DateTimeExtensions.DateTimeToString(Model[0].OrderDate))</time></span><div class="clearfix"></li>
+                            </ul>
+                        </dd>
+                        <dd>
+                            <ul class="complainForm">
+                                <li>
+                                    <p>@CultureHelper.GetLangString("ORDER_SHOPING_BACKAPPLY")</p>
+                                    <select name="" id="refundReason">
+                                        <option value="-1">@CultureHelper.GetLangString("ORDER_RETURNPRODUCT_SELECTRETURNREASON")@*请选择退货/款原因*@</option>
+                                        <option value="3">@CultureHelper.GetLangString("ACCOUNT_My_OrderReturnProductInfo_Notwhatyouwant")@*不是自己想要的*@</option>
+                                        <option value="2">@CultureHelper.GetLangString("ACCOUNT_My_OrderReturnProductInfo_goodsweredamaged")@*商品破损了*@</option>
+                                        <option value="2">@CultureHelper.GetLangString("ACCOUNT_My_OrderReturnProductInfo_Delayeddelivery")@*延迟发货*@</option>
+                                        <option value="4">@CultureHelper.GetLangString("ACCOUNT_My_OrderReturnProductInfo_Qualityproblems")@*质量有问题*@</option>
+                                        <option value="5">@CultureHelper.GetLangString("ACCOUNT_My_OrderReturnProductInfo_Otherreasons")@*其他原因*@</option>
+                                    </select>
+                                    <input type="hidden" id="hidOrderID" value="@Model[0].OrderID" />
+                                    <input type="hidden" id="hidOrderDetailsID" value="@Model[0].OrderDetailsID" />
+                                    <input type="hidden" id="hidProductId" value="@Model[0].ProductId" />
+                                    <input type="hidden" id="hidSalesPrice" value="@Model[0].SalesPrice" />
+                                </li>
+                                <li>
+                                    <p>@CultureHelper.GetLangString("ACCOUNT_Rights_index_RefundAmount")@*退款金额*@</p>
+                                    <label for="">$<b id="refundMoney">@Model[0].SalesPrice</b> x <div><input type="text" maxlength="3" onkeyup="this.value=value.replace(/[^\d]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" value="@Model[0].Quantity" placeholder="1" id="refundQuanity" tel="@Model[0].Quantity"></div><span>@CultureHelper.GetLangString("ACCOUNT_My_OrderReturnProductInfo_ZUIDUO")$<b id="mostMoney">@(Model[0].SalesPrice * Model[0].Quantity)</b></span></label>
+                                </li>
+                                <li>
+                                    <p>@CultureHelper.GetLangString("ACCOUNT_RIGHTS_COMPLAIN_RETURNREASONS")@*退款说明*@</p>
+                                    <textarea name="" id="refundDesc" class="complainArea" onkeyup="words_deal();" maxlength="500"></textarea>
+                                    <span class="limited">500</span>
+                                </li>
+                            </ul>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" onclick="submit()">@CultureHelper.GetLangString("ACCOUNT_My_OrderComplaints_Submitapplication")</a>
+                        </dd>
+                        }
+                    </dl>
+                </div>
+            </div>
+            <div class="clear clearfix"></div>
+            <div>asdasdasdasdadasdas</div>
+        </div>
+    </div>
+
+<div class="dialogCover"><div class="dialogMain"></div></div>
+<script src="~/Content/newcss/js/dsdialog.js"></script>
+<script>
+    $(function () {
+        $("#refundQuanity").blur(function () {
+            var quantityCount = $("#refundQuanity").attr("tel");
+            var quantity = $("#refundQuanity").val();
+            if (quantity != null && quantity != "") {
+                if (parseInt(quantity) > parseInt(quantityCount)) {
+                    $("#refundQuanity").val(quantityCount);
+                } else {
+                    //$("#emTotal").html($commonLang.ORDERRETURN_ATMOSTMONEY.format(quantity * $("#hidSalesPrice").val()) + "บาท");
+                    //$("#emTotal").html("&nbsp;&nbsp;最多" + (quantity * $("#hidSalesPrice").val()) + "บาท");
+                }
+            }
+        })
+    });
+    function submit()
+    {
+        var desc = $("#refundDesc").val();
+        var reason = $("#refundReason").val();
+        var count = $("#refundQuanity").attr("tel");
+        var quantity = $("#refundQuanity").val();
+        if (reason == "-1")
+        {
+            msgalert("@CultureHelper.GetLangString("ORDER_RETURNPRODUCT_SELECTRETURNREASON")");//请选择原因
+            return;
+        }
+        if (quantity == null || quantity == "")
+        {
+            msgalert("@CultureHelper.GetLangString("ACCOUNT_BACK_QTYNOTEMPTY")");
+            return;
+        }
+        if (parseInt(quantity) > parseInt(count))
+        {
+            msgalert("@CultureHelper.GetLangString("ACCOUNT_BACK_BUNENGDAYZONGSHU")");
+            return;
+        }
+        if (parseInt(quantity) < 1)
+        {
+            msgalert("@CultureHelper.GetLangString("ACCOUNT_BACK_SLXY")");
+            return;
+        }
+        $.ajax({
+            url: "@Url.Action("AddRefundInfo")",
+            type: "Post",
+            data: {
+                discription: desc.length > 500 ? desc.substr(0, 500) : desc,
+                reasonType: reason,
+                quantity: quantity,
+                orderID: $("#hidOrderID").val(),
+                orderDetailsID: $("#hidOrderDetailsID").val(),
+                productId: $("#hidProductId").val(),
+                salesPrice: $("#hidSalesPrice").val(),
+                time: new Date().getTime()
+            },
+            dataType:"text",
+            success: function (data, status) {
+                data = JSON.parse(data);
+                mallbox.alert({ message: data.Messages });
+                if (data.IsValid) {
+                    document.location.href = "@Url.Action("RefundProcess", "My", new { id=Model[0].OrderDetailsID })";
+                }
+                else {
+                    msgalert("@CultureHelper.GetLangString("ACCOUNT_SHOP_BACKTIP_SUBMITFAIL")");
+                }
+            },
+            error: function (data, status, e) {
+                msgalert("@CultureHelper.GetLangString("ACCOUNT_SHOP_BACKTIP_NETWORTERROR")");
+            }
+
+        });
+
+    }
+    function msgalert(str)
+    {
+        ds.dialog({ content: str, yesText: "@CultureHelper.GetLangString("ORDER_LIST_SURE")", onyes: function () { this.close(); }, });
+    }
+</script>

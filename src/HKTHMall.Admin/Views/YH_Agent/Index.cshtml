@@ -1,0 +1,288 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+@model HKTHMall.Domain.AdminModel.Models.SearchYH_AgentModel
+@{
+    ViewBag.Title = "Agent user list page";
+
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Delete = _Authority.CheckAction(170);
+    _Authority.Move = _Authority.CheckAction(169);
+}
+
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        
+        <div class="form-group">
+            <span>Email: </span>&nbsp;
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control w70" })
+        </div>
+        &nbsp;&nbsp;
+        <div class="form-group">
+            <span>Lock status: </span>&nbsp;
+            <select id="IsLock" class="form-control text-center">
+                <option value="-1">-Select-</option>
+                <option value="0">Normal</option>
+                <option value="1">Lock</option>
+            </select>
+        </div>
+        &nbsp;&nbsp;
+        <div class="form-group">
+            <span>Agent Type: </span>&nbsp;
+            <select id="AgentType" class="form-control text-center">
+                <option value="-1">-Select-</option>
+                <option value="1">District Agency</option>
+                <option value="2">Municipal agency</option>
+                <option value="3">Provincial agency</option>
+                <option value="4">Global agency</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <span>Create time: </span>
+            @Html.TextBoxFor(x => x.RegisterDateBegin, new { @class = "form-control w70" })
+            &nbsp;-&nbsp;
+            @Html.TextBoxFor(x => x.RegisterDateEnd, new { @class = "form-control w70" })
+        </div>
+        &nbsp;&nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;&nbsp;&nbsp;
+        <button type="button" class="btn btn-danger js_reset">
+            <span class="glyphicon glyphicon-bullhorn"></span> Clear
+        </button>
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/javascript">
+        
+        var deleterCheck = eval("@(_Authority.Delete.ToString().ToLower())");
+        
+
+        $(function () {
+
+             var columns = [
+
+                //列表行
+                
+                {
+                    field: 'Email', title: 'Email', width: '10%', align: 'center', valign: 'middle', sortable: false
+                },
+                
+                {
+                    field: 'AgentType', title: 'Agent Type', width: '10%', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        var m = "";
+                        switch (val) {
+                            case 1:
+                                m = "District Agency";//区
+                                break;
+                            case 2:
+                                m = "Municipal agency";//市
+                                break;
+                            case 3:
+                                m = "Provincial agency";//省
+                                break;
+                            case 4:
+                                m = "Global agency";//省
+                                break;
+                            default:
+                                m = "District Agency"; break;
+
+                        }
+
+                        return m;
+                    }
+                },
+                
+                
+
+
+                {
+                    field: 'UserID', title: 'Huifen Number', width: '10%', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        return GetYH_UserReferrerIDCount(val);
+                    }
+                },
+                {
+                    field: 'UserID', title: 'Consumption amount', width: '10%', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        return GetYH_UserMoney(val, 1);
+                    }
+                },
+                {
+                    field: 'UserID', title: 'Income', width: '10%', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        return GetYH_UserMoney(val, 2);
+                    }
+                },
+                {
+                    field: 'CreateDT', title: 'Create time', width: '10%', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        return val.formatterString(false)/*true 日期格式2015-5-5*/
+
+                    }
+                },
+                {
+                    field: 'IsLock', title: 'Lock status', width: '10%', align: 'center', valign: 'middle', sortable: false, formatter: function (val) {
+                        return val === 1 ? 'Lock' : 'Normal';
+                    }
+                },
+                //{ field: 'Sorts', title: '排序', align: 'center', style: "display:none", valign: 'middle', sortable: false },
+                {
+                    field: 'UserID',
+                    title: 'Operation',
+                    width: '10%',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (val) {
+                        var Operation = "";
+                        if (deleterCheck) {
+
+                            Operation += '<a class="remove ml10" href="javascript:void(0)" onclick="Delete(' + val + ')" title="Delete">';
+                            Operation += '<i class="glyphicon glyphicon-remove"></i>';
+                            Operation += '</a>';
+
+                        }
+                        if (Operation == "") {
+                            Operation = "-";
+                        }
+                        return [
+                            Operation
+                        ].join('');
+                    }
+                }
+            ];
+
+            //绑定列表   bootstrapTable
+             $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+
+                queryParams: function (params) {
+                    return {
+
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        
+                        
+                        Email: $("#Email").val(),
+                        IsLock: $("#IsLock").val(),
+                        RegisterDateBegin: $("#RegisterDateBegin").val(),
+                        RegisterDateEnd: $("#RegisterDateEnd").val(),
+                        AgentType: $("#AgentType").val(),
+                        Time: new Date().getTime()
+                    };
+                },
+                sortOrder: 'desc',
+                pagination: true,
+                
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns
+
+            });
+
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+
+            //清除
+            $('.js_reset').click(function () {
+                $('#IsLock').val("-1");
+                $('#Email').val("");
+                $('#RegisterDateBegin').val("");
+                $('#RegisterDateEnd').val("");
+                $('#AgentType').val("-1");
+                
+                
+
+
+            });
+        });
+
+
+        //删除
+      
+        function Delete(userID) {
+            var message = "Delete this Agent?";
+            
+            bootbox.setLocale("en");
+            bootbox.confirm(message, function (result) {
+                if (result) {
+                    var url = '@Url.Action("DeleteYH_User")' + "?UserID=" + userID;
+                    $.ajax({
+                        url: url,
+                        dataType: "json",
+                        success: function (data, status) {
+                            
+                            if (data.IsValid) {
+                                Tool.ReloadDataTable($('#u_grid'));
+                            }
+                            Tool.Alert(data.Messages[0], 1500);
+                        },
+                        error: function (data, status, e) {
+                            Tool.Alert("Delete failed.", 1500);
+                        }
+                    });
+                }
+            });
+        };
+
+
+
+
+
+    //感恩惠粉人数获取
+    function GetYH_UserReferrerIDCount(userID) {
+        result = 0;
+        var url = "/YH_User/GetYH_UserReferrerIDCount?userID=" + userID + "&time=" + new Date().getTime();
+        $.ajax({
+            url: url,
+            dataType: "text",
+            async: false,
+            success: function (data, status) {
+                result = data;
+            }
+        });
+        return result;
+    };
+
+    //用户金额变动获取
+    function GetYH_UserMoney(userID, type) {
+        result = 0;
+        var url = "/YH_User/GetYH_UserMoney?userID=" + userID + "&type=" + type + "&time=" + new Date().getTime();
+        $.ajax({
+            url: url,
+            dataType: "text",
+            async: false,
+            success: function (data, status) {
+                result = data;
+            }
+        });
+        return result;
+    };
+
+
+
+    //日期控件 开始
+    $('#RegisterDateBegin').datepicker({
+        format: 'yyyy-mm-dd',
+        language: "en",
+        autoclose: true
+    }).on("changeDate", function (e) {
+
+        $('#RegisterDateEnd').datepicker('setStartDate', e.date);
+    });
+
+    //日期控件 结束
+    $('#RegisterDateEnd').datepicker({
+        format: 'yyyy-mm-dd',
+        language: "en",
+        autoclose: true
+    }).on("changeDate", function (e) {
+        $('#RegisterDateBegin').datepicker('setEndDate', e.date);
+    });
+    </script>
+}

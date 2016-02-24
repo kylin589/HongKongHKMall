@@ -1,0 +1,275 @@
+﻿@using Autofac
+@using BrCms.Framework.Infrastructure
+@using HKTHMall.Admin.common
+@{
+    ViewBag.Title = "Language";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(129);
+    _Authority.Delete = _Authority.CheckAction(130);
+    bool ImportExcel = _Authority.CheckAction(145);
+    bool Export = _Authority.CheckAction(146);
+}
+
+<div class="form-inline" id="localization-toolbar">
+    <div class="form-group">
+        <label>keywords:</label>
+        <input class="form-control" type="text" id="keyword" style="width: 350px;" />
+    </div>
+    &nbsp;&nbsp;
+    <div class="form-group">
+        <label>Type:</label>
+        @Html.DropDownList("dataType", (SelectList)ViewBag.DataTypes, "---Select---", new { @class = "form-control" })
+    </div>
+    &nbsp;&nbsp;
+    <div class="form-group">
+        <button type="button" id="search_btn" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        @if (_Authority.Add)
+        {
+            <a id="add_but" class="btn btn-primary js_create">
+                <span class="glyphicon glyphicon-plus"></span> Add
+            </a>
+        }
+        @if (_Authority.Delete)
+        {
+            <a id="btn_delete" class="btn btn-primary">
+                <span class="glyphicon fa-"></span>Delete
+            </a>
+        }
+        @if (Export)
+        {
+        <a id="btn_exprot_ids" class="btn btn-primary">
+            <span class="fa fa-fw fa-download"></span>&nbsp;Export parts to Excel
+        </a>
+        <a id="btn_exprot_condition" class="btn btn-primary">
+            <span class="fa fa-fw fa-download"></span>&nbsp;Export condition to Excel
+
+        </a>
+        <a id="btn_exprot_all" class="btn btn-primary">
+            <span class="fa fa-fw fa-download"></span>&nbsp;Export all to Excel
+        </a>
+        }
+        @if (ImportExcel)
+        { 
+        <span class="btn btn-success fileinput-button">
+            <span class="fa fa-fw fa-upload"></span>
+            Import Excel
+            <input id="fileupload" type="file" name="files[]" multiple>
+        </span>
+        }
+    </div>
+</div>
+
+<table id="lang_grid" data-toolbar="#localization-toolbar"></table>
+
+<script type="text/javascript">
+    var addCheck = eval("@(_Authority.Add.ToString().ToLower())");
+    $(function () {
+
+        $('#fileupload').fileupload({
+            url: '@Url.Action("ImportExcel")',
+            dataType: 'json',
+            autoUpload: true,
+            //acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            maxFileSize: 9990000,
+            sequentialUploads: false,
+            disableImageResize: /Android(?!.*Chrome)|Opera/
+                .test(window.navigator.userAgent),
+            previewMaxWidth: 100,
+            previewMaxHeight: 100,
+            previewCrop: true,
+            done: function (e, data) {
+                if (data.result.IsValid) {
+                    $('#lang_grid').bootstrapTable('refresh');
+                    $.messager.alert('Tips', 'Import complete。');
+                } else {
+                    $.messager.alert('Wrong information', 'Import failure。');
+                }
+            }
+        });
+
+        $('#btn_exprot_ids').click(function () {
+            var rows = $('#lang_grid').bootstrapTable('getSelections');
+            if (rows === null || rows.length === 0) {
+                $.messager.alert('Tips', 'Choose the data you want to export.');
+                return;
+            }
+            var ids = '';
+            $(rows).each(function () {
+                ids += 'ids=' + this.ID + '&';
+            });
+            window.location.href = '@Url.Action("Export")?' + ids;
+        });
+
+        $('#btn_exprot_condition').click(function () {
+            window.location.href = '@Url.Action("ExportCondition")?KeyWord=' + $('#keyword').val() + '&DataType=' + $('#dataType').val();
+        });
+        $('#btn_exprot_all').click(function () {
+            window.location.href = '@Url.Action("Export")?isAll=true';
+        });
+
+        var columns = [
+            {
+                field: 'state',
+                checkbox: true,
+                align: 'center',
+                valign: 'middle',
+                width: 36,
+                //sortable: true,
+            },
+            { field: 'LangKey', title: 'Language Key', align: 'center', valign: 'middle', sortable: true },
+            //{ field: 'NameTH', title: 'Thai', align: 'center', valign: 'middle', sortable: true },//del by liujc
+            { field: 'NameEng', title: 'English', align: 'center', valign: 'middle', sortable: true },
+            { field: 'NameChs', title: 'Chinese', align: 'center', valign: 'middle', sortable: true },
+            { field: 'NameHK', title: 'Chinese(HK)', align: 'center', valign: 'middle', sortable: true },//add by liujc
+            //{ field: 'NameOther', title: '其他', align: 'center', valign: 'middle', sortable: true },
+            {
+                field: 'DataType', title: 'Type', align: 'center', valign: 'middle', sortable: true, formatter: function (value) {
+                    switch (parseInt(value)) {
+                        default:
+                            return "-";
+                        case 1:
+                            return "Web";
+                        case 2:
+                            return "JavaScript";
+                    }
+                }
+            },
+            { field: 'CreateBy', title: 'Creater', align: 'center', valign: 'middle', sortable: true },
+            {
+                field: 'CreateDT',
+                title: 'Create time',
+                align: 'center',
+                valign: 'middle',
+                sortable: true,
+                formatter: function (value) {
+                    return value === 'undefined' || !value ? '' : value.formatterString(false);
+                }
+            },
+            { field: 'UpdateBy', title: 'Update By', align: 'center', valign: 'middle', sortable: true },
+            {
+                field: 'UpdateDT',
+                title: 'Update time',
+                align: 'center',
+                valign: 'middle',
+                sortable: true,
+                formatter: function (value) {
+                    return value === 'undefined' || !value ? '' : value.formatterString(false);
+                }
+            },
+            {
+                field: '',
+                title: 'Operation',
+                align: 'center',
+                valign: 'middle',
+                sortable: true,
+                formatter: function (value, row, index) {
+                    if (addCheck) {
+                        return [
+                            '<a class="edit" href="javascript:void(0)" title="Update">',
+                            '<i class="glyphicon glyphicon-edit"></i>',
+                            '</a>'
+                        ].join('');
+                    }
+                },
+                events: {
+                    'click .edit': function (e, value, row, index) {
+                        var $dialog = $('<div>').hkdialog({
+                            title: 'Update Language',
+                            url: '@Url.Action("AddOrUpdate")/' + row.ID,
+                            form: '#lang_form',
+                            //type: 'get',
+                            //data: {},
+                            //submit: function() {
+                            //    return true;
+                            //},
+                            success: function (result) {
+                                if (result.IsValid) {
+                                    $dialog.dialog("destroy");
+                                } else {
+                                    $.messager.alert('Wrong information', result.Messages.join('<br/>'));
+                                }
+                                $('.btn-success').attr('disabled', false);
+                                $('#lang_grid').bootstrapTable('refresh');
+                            }
+                        });
+                    }
+                }
+            }
+        ];
+
+        $('#lang_grid').bootstrapTable({
+            url: '@Url.Action("Search")',
+            queryParams: function (params) {
+                return {
+                    PagedIndex: this.pageNumber - 1, //params.pageNumber - 1  params.offset
+                    PagedSize: this.pageSize, //params.pageSize  params.limit
+                    KeyWord: $('#keyword').val(),
+                    DataType: $('#dataType').val()
+                }
+            },
+            sidePagination: 'server',
+            pagination: true,
+            showColumns: true,
+            showRefresh: true,
+            idField: 'ID',
+            columns: columns
+        });
+
+        $('#search_btn').click(function () {
+            $('#lang_grid').bootstrapTable('refresh');
+        });
+
+        $('#add_but').click(function () {
+            var $dialog = $('<div>').hkdialog({
+                title: 'Add Language',
+                url: '@Url.Action("AddOrUpdate")',
+                form: '#lang_form',
+                //data: {},
+                //submit: function() {
+                //    return true;
+                //},
+                success: function (result) {
+                    if (result.IsValid) {
+                        $dialog.dialog("destroy");
+                    } else {
+                        $.messager.alert('Wrong information', result.Messages.join('<br/>'));
+                    }
+                    $('.btn-success').attr('disabled', false);
+                    $('#lang_grid').bootstrapTable('refresh');
+                }
+            });
+        });
+
+        $('#btn_delete').click(function () {
+            $.messager.model = {
+                ok: { text: "Confirm", classed: 'btn-success' },
+                cancel: { text: "Cancel", classed: 'btn-error' }
+            };
+            $.messager.confirm("Warning", "Sure to delete selected items?", function () {
+                var rows = $('#lang_grid').bootstrapTable('getSelections');
+                if (rows === null || rows.length === 0) {
+                    return;
+                }
+                var ids = [];
+                $(rows).each(function () {
+                    ids.push(this.ID);
+                });
+
+                $.post("@Url.Action("Delete")", { ids: ids }, function (result) {
+                    if (result && result.IsValid) {
+                        $('#lang_grid').bootstrapTable('refresh');
+                        $.messager.alert('Tips', 'Deleted');
+                    } else {
+                        $.messager.alert('Wrong information', result.Messages.join('\n'));
+                    }
+                });
+            });
+        });
+
+    });
+
+</script>

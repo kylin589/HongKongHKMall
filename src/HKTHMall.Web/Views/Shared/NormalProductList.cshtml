@@ -1,0 +1,56 @@
+﻿
+@using HKTHMall.Core.Extensions
+@using HKTHMall.Domain.WebModel.Models.Search;
+@using HKTHMall.Core.Extensions
+@{
+       var productList = Model as IEnumerable<SearchModel>;
+       string CSSClass = ViewData["CSSClass"] == null ? "classify_main clearfix" : ViewData["CSSClass"].ToString();
+       int imageWidth = ViewData["ImageWidth"] == null ? 232 : int.Parse(ViewData["ImageWidth"].ToString());
+       int imageHeight = ViewData["ImageHeight"] == null ? 236 : int.Parse(ViewData["ImageHeight"].ToString());
+}
+@if (productList != null)
+{
+    <div class="@CSSClass">
+        @foreach (var product in productList)
+        {
+            <div class="classify_cp1 l" title="@product.ProductName">
+                <a target="_blank" href="@Url.Action("shopping", "home" , new { area="" , id=product.ProductId })">
+                    @if (string.IsNullOrEmpty(product.PicUrl))
+                    {
+                        <img src="/images/Default_pro.jpg" width="@(imageWidth)px" height="@(imageHeight)px" />
+                    }
+                    else
+                    {
+                        <img src="@Html.GetImagesUrl(product.PicUrl, imageWidth, imageHeight)" />
+                    }
+                </a>
+                <p><a href="@Url.Action("shopping", "home" , new { area="" , id=product.ProductId })" class="cp_t1" style="color: #3e414f;">@product.ProductName</a></p>                
+                <span class="f14 fb8 tdd">@product.MarketPrice.ToString("F2") บาท</span>
+                <span class="f18 ed">@product.HKPrice.ToString("F2") บาท</span>
+            </div>
+        }
+    </div>
+
+}
+<script type="text/javascript">
+    var classifynum = $(".classify_cp1").length;
+    for (var i = 0; i < 5; i++) {
+        $(".classify_cp1").eq(i).css({
+            'marginTop':'15px'
+        });
+    }
+    //alert(classifynum);
+    //alert(num);
+    for (var j = 0; j < classifynum; j++) {        
+        if (j > 0 && (j+1) % 5 == 0) {
+            //alert(123);
+            $(".classify_cp1").eq(j).css({
+                'marginRight': '0'
+            });
+        } else if (j > 0 && (j+1) % 5 != 0) {
+            $(".classify_cp1").eq(j).css({
+                'marginRight': '10px'
+            });
+        }
+    }
+</script>

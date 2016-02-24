@@ -1,0 +1,124 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.Categoreis.FloorCategoryModel
+@{
+    var dCategoryIds = ViewData["DCategoryIds"] as List<SelectListItem>;
+    var CategoryTow = ViewBag.CategoryTow as List<HKTHMall.Domain.AdminModel.Models.Categoreis.CategoryModel>;
+    var categoryThress = ViewBag.categoryThress as HKTHMall.Domain.AdminModel.Models.Categoreis.CategoryModel;
+}
+
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>1st level category :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.FloorCategoryId)
+        @Html.DropDownList("DCategoryId", dCategoryIds, "--Select--", new { @class = "form-control", @placeholder = "Please enter a category" })
+        @Html.ValidationMessageFor(m => m.DCategoryId)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>2nd level category :
+    </label>
+    <div class="controls">
+        @if (CategoryTow != null)
+        {
+            <select class="form-control" id="CategoryIdSecond" name="CategoryIdSecond">
+                <option value="">--Select--</option>
+                @foreach (var item in CategoryTow)
+                {
+                    if (ViewBag.CategoryTowId == item.CategoryId)
+                    {
+                        <option value="@(item.CategoryId)" selected>@(item.CategoryName)</option>
+                    }
+                    else
+                    {
+                        <option value="@(item.CategoryId)">@(item.CategoryName)</option>
+                    }
+                }
+
+            </select>
+        }
+        else
+        {
+            <select class="form-control" id="CategoryIdSecond" name="CategoryIdSecond">
+                <option value="">--Select--</option>
+            </select>
+        }
+
+        @Html.ValidationMessageFor(m => m.CategoryIdSecond)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>3rd level category :
+    </label>
+    <div class="controls">
+        @if (categoryThress != null)
+        {
+            <select class="form-control" id="CategoryId" name="CategoryId">
+                <option value="">--Select--</option>
+                <option value="@(categoryThress.CategoryId)" selected>@(categoryThress.Category_Lang[0].CategoryName)</option>
+            </select>
+        }
+        else
+        {
+            <select class="form-control" id="CategoryId" name="CategoryId">
+                <option value="">--Select--</option>
+            </select>
+        }
+
+        @Html.ValidationMessageFor(m => m.CategoryId)
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        //选择一级分类
+        $("#DCategoryId").change(function () {
+            var url = "/FloorCategory/GetCategory?parenId=" + $(this).val();
+            $.ajax({
+                url: url,
+                dataType: "text",
+                success: function (data, status) {
+                    data = JSON.parse(data);
+                    if (data) {
+                        //清空二级分类
+                        var option = $("#CategoryIdSecond").find("option");
+                        option.not(option.eq(0)).remove();
+                        //清空三级分类
+                        var option2 = $("#CategoryId").find("option");
+                        option2.not(option2.eq(0)).remove();
+                        for (var i = 0; i < data.length; i++) {
+                            $("#CategoryIdSecond").append("<option value=\"" + data[i].CategoryId + "\">" + data[i].CategoryName + "</option>");
+                        }
+                    }
+                },
+                error: function (data, status, e) {
+
+                }
+            });
+        });
+
+        //选择二级分类
+        $("#CategoryIdSecond").change(function () {
+            var url = "/FloorCategory/GetCategory?parenId=" + $(this).val();
+            $.ajax({
+                url: url,
+                dataType: "text",
+                success: function (data, status) {
+                    data = JSON.parse(data);
+                    if (data) {
+                        var option = $("#CategoryId").find("option");
+                        option.not(option.eq(0)).remove();
+                        for (var i = 0; i < data.length; i++) {
+                            $("#CategoryId").append("<option value=\"" + data[i].CategoryId + "\">" + data[i].CategoryName + "</option>");
+                        }
+                    }
+                },
+                error: function (data, status, e) {
+
+                }
+            });
+        });
+    });
+</script>

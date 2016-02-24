@@ -1,0 +1,217 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@model HKTHMall.Domain.Models.User.SearchUsersModel
+@{
+    var UserMode = ViewData["UserMode"] as List<SelectListItem>;
+    var ID = ViewData["ID"] as List<SelectListItem>;
+
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(55);
+    _Authority.Delete = _Authority.CheckAction(56);
+    _Authority.Reset = _Authority.CheckAction(57);
+}
+@{
+    ViewBag.Title = "User list page";
+}
+
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <span>Account: </span>&nbsp;
+            @Html.TextBoxFor(x => x.UserName, new { @class = "form-control w70", @placeholder = "Please enter user account" })
+        </div>
+        <div class="form-group">
+            <span>True name: </span>&nbsp;
+            @Html.TextBoxFor(x => x.RealName, new { @class = "form-control w70", @placeholder = "Please enter real name" })
+        </div>
+        <div class="form-group">
+            <span>Section: </span>&nbsp;
+            @Html.DropDownList("ID", ID, "-Select-", new { @class = "form-control text-center" })
+        </div>
+        <div class="form-group">
+            <span>Status: </span>&nbsp;
+            @Html.DropDownList("UserMode", UserMode, "-Select-", new { @class = "form-control text-center" })
+        </div>
+        &nbsp;
+        <button type="button" class="btn btn-success js-search">
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+        &nbsp;
+        @if (_Authority.Add)
+        {
+            <button type="button" class="btn btn-primary js_create">
+                <span class="glyphicon glyphicon-plus"></span> Add
+            </button>
+        }
+
+    </div>
+</div>
+
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@Html.Partial("_FormModal")
+@section scripts
+{
+    <script type="text/javascript">
+        //权限
+        var $addCheck = eval("@(_Authority.Add.ToString().ToLower())");
+        var $deleteCheck = eval("@(_Authority.Delete.ToString().ToLower())");
+        var $resetCheck = eval("@(_Authority.Reset.ToString().ToLower())");
+        var UserID = "@ViewBag.UserID";
+        $(function () {
+
+            var columns = [
+                { field: 'UserName', title: 'Account', align: 'center', valign: 'middle', sortable: false },
+                { field: 'RealName', title: 'True name', align: 'center', valign: 'middle', sortable: false },
+                { field: 'RoleName', title: 'Role', align: 'center', valign: 'middle', sortable: false },
+                { field: 'DeptName', title: 'Dept', align: 'center', valign: 'middle', sortable: false },
+                { field: 'CreateDT', title: 'Register time', align: 'center', valign: 'middle', sortable: true, formatter: function (val) { return val.formatterString(true)/*true 日期格式2015-5-5*/ } },
+                {
+                    field: 'UserMode',
+                    title: 'Status',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: false,
+                    formatter: function (val) {
+                        return val === 1 ? 'Enable' : 'Lock';
+                    }
+                },
+                {
+                    field: 'UserID',
+                    title: 'Operation',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (val) {
+                        var operation = '';
+                        if ($addCheck) {
+                            operation += '<a class="edit ml10" href="javascript:void(0)" title="Update"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                        }
+                        if ($deleteCheck) {
+                            operation += '<a class="remove ml10" href="javascript:void(0)" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                        }
+                        if ($resetCheck && UserID != val) {
+                            operation += '<a class="reset ml10" href="javascript:void(0)" title="Reset password">Reset password</a>';
+                        }
+                        else {
+                            operation += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+                        }
+                        if ($addCheck == false && $deleteCheck == false && $resetCheck == false) {
+                            operation = '-';
+                        }
+
+                        return [operation,
+                                '</a>'
+                        ].join('');
+                    },
+                    events: {
+                        'click .edit': function (e, value, row, index) {
+                            Tool.ShowModal('@Url.Action("Edit")', {
+                                id: value, time: new Date().getTime()
+                            }, 'Edit user');
+                        },
+                        //删除
+                        'click .remove': function (e, value, row, index) {
+                            DelACUser(value);
+                        },
+                        'click .reset': function (e, value, row, index) {
+                            RetsetACUser(value);
+                        }
+                    }
+                }
+            ];
+
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+                queryParams: function (params) {
+                    return {
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        UserName: $('#UserName').val(),
+                        RealName: $("#RealName").val(),
+                        UserMode: $("#UserMode").val(),
+                        ID: $("#ID").val(),
+                        Time: new Date().getTime()
+                    };
+                },
+                sortOrder: 'desc',
+                sortName: 'CreateDT',
+                columns: columns
+            });
+
+
+            $('body').delegate('#chkIsActive', 'click', function () {
+                var value = $(this).is(':checked') ? 1 : 0;
+
+                $('#IsActive').val(value);
+                console.log($('#IsActive').val());
+            });
+
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+
+            $('.js_create').click(function () {
+                var actionUrl = "@Url.Action("Create")";
+                var param = {};
+                Tool.ShowModal(actionUrl, param, "Add user");
+            });
+
+
+
+        });
+
+
+        //删除用户信息
+        function DelACUser(userID) {
+            bootbox.setLocale("en");
+            //bootbox.setLocale("zh_CN");
+            bootbox.confirm("You sure you want to delete the user？", function (result) {
+                if (result) {
+                    var url = "/AC_UserManage/Delete?ParamenterID=" + userID;
+                    $.ajax({
+                        url: url,
+                        dataType: "text",
+                        success: function (data, status) {
+                            data = JSON.parse(data);
+                            Tool.Alert(data.Messages, 1500);
+                            Tool.ReloadDataTable($('#u_grid'));
+                        },
+                        error: function (data, status, e) {
+                            Tool.Alert("Delete failed！", 1500);
+                        }
+                    });
+                }
+            });
+        };
+
+
+        //密码重置
+        function RetsetACUser(userID) {
+            bootbox.setLocale("en");
+            //bootbox.setLocale("zh_CN");
+            bootbox.confirm("Reset password?(Default password is 111111)", function (result) {
+                if (result) {
+                    var url = "/AC_UserManage/RetSetPassword?ParamenterID=" + userID;
+                    $.ajax({
+                        url: url,
+                        dataType: "text",
+                        success: function (data, status) {
+                            data = JSON.parse(data);
+                            Tool.Alert(data.Messages, 1500);
+                            Tool.ReloadDataTable($('#u_grid'));
+                        },
+                        error: function (data, status, e) {
+                            Tool.Alert("Reset password failed!", 1500);
+                        }
+                    });
+                }
+            });
+        };
+
+        //保存
+        function Save() {
+            Tool.SaveModal($('#u_grid'));
+        }
+    </script>
+}

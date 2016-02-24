@@ -1,0 +1,6 @@
+﻿.tree { float:left;width: 20%; }
+.right{float: right;width: 78%;}
+.content{ border: 1px solid #ddd; }
+.language-content{ border: 1px solid #ddd;border-top: 0; }
+.tab-pane{ padding: 10px;}
+.form-inline { margin-bottom: 10px; }

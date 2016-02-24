@@ -1,0 +1,11 @@
+F:\WorkSpace\src\Framework\Simple.Data.SqlServer\bin\Debug\Simple.Data.SqlServer.dll
+F:\WorkSpace\src\Framework\Simple.Data.SqlServer\bin\Debug\Simple.Data.SqlServer.pdb
+F:\WorkSpace\src\Framework\Simple.Data.SqlServer\bin\Debug\Simple.Data.Ado.dll
+F:\WorkSpace\src\Framework\Simple.Data.SqlServer\bin\Debug\Simple.Data.dll
+F:\WorkSpace\src\Framework\Simple.Data.SqlServer\bin\Debug\Simple.Data.Ado.pdb
+F:\WorkSpace\src\Framework\Simple.Data.SqlServer\bin\Debug\Simple.Data.pdb
+F:\WorkSpace\src\Framework\Simple.Data.SqlServer\obj\Debug\Simple.Data.SqlServer.csprojResolveAssemblyReference.cache
+F:\WorkSpace\src\Framework\Simple.Data.SqlServer\obj\Debug\Simple.Data.SqlServer.Properties.Resources.resources
+F:\WorkSpace\src\Framework\Simple.Data.SqlServer\obj\Debug\Simple.Data.SqlServer.csproj.GenerateResource.Cache
+F:\WorkSpace\src\Framework\Simple.Data.SqlServer\obj\Debug\Simple.Data.SqlServer.dll
+F:\WorkSpace\src\Framework\Simple.Data.SqlServer\obj\Debug\Simple.Data.SqlServer.pdb

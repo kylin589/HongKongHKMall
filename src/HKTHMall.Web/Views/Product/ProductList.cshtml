@@ -1,0 +1,492 @@
+﻿@using HKTHMall.Domain.AdminModel.Models.Categoreis;
+@using HKTHMall.Domain.Models.Bra;
+@using HKTHMall.Domain.Models.banner;
+@{
+    ViewBag.Title = "ProductList";
+    var list = ViewBag.categoryList;
+    var bannerList = ViewBag.RecList;
+    var categoryId = ViewBag.categoryId;//分类ID
+    var level = ViewBag.level;//分类级别
+    var brandId = ViewBag.brandId;//品牌ID
+    var headImg = ViewBag.RootImage;//图片主路径
+    var key = ViewBag.key;//关键字搜索
+    var name = "";
+    var tjList = ViewBag.tuJian;
+}
+@using HKTHMall.Domain.Models.Bra;
+@using HKTHMall.Services.Common.MultiLangKeys;
+<link href="~/Content/newcss/css/base.css" rel="stylesheet" />
+<script src="~/Content/newcss/js/dsdialog.js"></script>
+<div class="main_about">
+
+    @if (ViewBag.isSearch == "true")
+    {
+        //搜索没有产品的页面
+        @Html.Action("_NoProduct_Search", "Product", new { searchName = ViewBag.searchName });
+    }
+    else
+    {
+        <div class="specLayout">
+            <div class="specMain_2016" id="divSYe">
+                <ul>
+                    <li><a href="@Url.Action("Index","Home")">@CultureHelper.GetLangString("HOME_INDEX_HOMEPAGE")@*首页*@</a></li>
+                    <li class="spector"><i class="fa fa-angle-right"></i></li>
+                    <li><a href="javascript:void();">@ViewBag.cateName</a></li>
+                    <li class="spector"><i class="fa fa-angle-right"></i></li>
+                    <li><a href="javascript:void();">@name</a></li>
+                    <span class="clear"></span>
+                </ul>
+            </div>
+        </div>
+        <div class="lbCommend">
+            <div class="lbCommendMain swiper-container">
+                <ul class="swiper-wrapper">
+                    @if (bannerList != null && bannerList.Count > 0)
+                    {
+                        foreach (var item in bannerList)
+                        {
+                            <li class="swiper-slide"><a href="@item.bannerUrl"><img src="@HKTHMall.Core.Extensions.HtmlExtensions.GetImagesUrl(item.bannerPic)" alt="" width="280" height="121"></a></li>
+                        }
+                    }
+                </ul>
+                <!-- 如果需要导航按钮 -->
+                
+            </div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+        <script>
+            $(function () {
+                $("ul.lbSpector li dl dd a").each(function () {
+                    $(this).click(function () {
+                        $("ul.lbSpector li dl dd a").removeClass("spectorSelected");
+                        $(this).addClass("spectorSelected");
+                    });
+                });
+            });
+        </script>
+        <div class="sectionCover">
+            <div class="sectionMain_2016">
+                <div class="sectionMainLeft">
+                    <h3 id="name" data-value="@ViewBag.ParentId">@ViewBag.cateName</h3>
+                    <ul class="lbSpector" id="divDaoHan">
+                        <!--默认展开的话data-show=1，不展开的话是0-->
+                        @if (list != null)
+                        {
+                            foreach (object item in list)
+                            {
+                                var nodes = item.GetPropertyValue("nodes") as IEnumerable<object>;
+                                <li data-show="1" data-name="@item.GetPropertyValue("text")" data-value="@item.GetPropertyValue("id")" data-level="2">
+                                    <span>
+                                        <span class="spector2016"><i class="fa fa-caret-right"></i><span onclick="GetAllLoad('1', { categoryId:'@item.GetPropertyValue("id")',level:2 });RewriteNav('@item.GetPropertyValue("id")', 2);">@item.GetPropertyValue("text")</span></span>
+                                    </span>
+                                    <dl>
+                                        @if (nodes != null)
+                                        {
+                                            foreach (object node in nodes)
+                                            {
+                                                int id = (int)node.GetPropertyValue("id");
+                                                var selectcs = "";
+                                                if (categoryId == id)
+                                                {
+                                                    selectcs = "spectorSelected";
+                                                    name = (string)item.GetPropertyValue("text");
+                                                }
+                                                <dd><a href="javascript:GetAllLoad('1', { categoryId:'@id',level:3 });RewriteNav('@id', 3);" class="@selectcs" data-name="@node.GetPropertyValue("text")" data-value="@id" data-level="3">@node.GetPropertyValue("text")</a></dd>
+                                            }
+                                        }
+                                    </dl>
+                                </li>
+                            }
+                        }
+                    </ul>
+                    <h3>@CultureHelper.GetLangString("HOME_LIST_ZUIZHONGGOUMAI")@*浏览此目录的客户最终购买*@</h3>
+                    <ul class="lbSearchHistory" id="historyBuy">                     
+                        @Html.Action("UserBuy", new { categoryId = categoryId, level = level, key = key })
+                    </ul>
+                </div>
+
+
+                <div class="sectionMainRight">
+                    <div class="spectorSellect" id="divBrand">
+                        @Html.Action("GetBrand", new { categoryId = categoryId, level = level, brandId = ViewBag.brandId })
+                    </div>
+
+                    <div id="productCondition" class="productlist_2016">
+                        @Html.Action("_ProductCondition", "Product")
+                    </div>
+                    <div class="sectionSpec" id="divProList">
+                        @Html.Action("_Products", new { categoryId = ViewBag.categoryId, level = ViewBag.level, brandId = ViewBag.brandId, ProductName = ViewBag.key })
+                    </div>
+                    <div id="pager1" class="sectionPaging">
+                    </div>
+                </div>
+                <span class="clearfix"></span>
+                <div class="dialogCover"><div class="dialogMain"></div></div>
+            </div>
+
+        </div>
+    }
+</div>
+
+<script>
+    $(function () {
+        //商品列表交互
+        $('.ls_pro_list').hover(function () {
+            $('.ls_list_sc').fadeIn(400);
+
+        }, function () {
+            $('.ls_list_sc').fadeOut(400);
+
+
+        });
+        $('.ls_list_sc').hover(function () {
+            $('.ls_list_sc_txt').fadeIn(200);
+        }, function () {
+            $('.ls_list_sc_txt').fadeOut(200);
+        });
+        $('.ls_list_sc').click(function () {
+            $(this).css("background-color", "#ff5040")
+        });
+        $('.ls_addToCart').click(function () {
+            $(this).css("background-color", "#ff5040");
+            $('.ls_addToCart_txt').fadeIn(400);
+            setTimeout(function () {
+                $('.ls_addToCart').css("background", "#404040");
+                $('.ls_addToCart_txt').fadeOut(200);
+            }, 3000);
+
+        });
+    })
+</script>
+
+
+<script>
+    $(function () {
+        var liebiao = new Swiper('.lbCommendMain', {
+            speed: 1000,
+            slidesPerView: 4,
+            simulateTouch: false,
+            direction: 'horizontal',
+            loop: true,
+        });
+        $('.lbCommend .swiper-button-prev').on('click', function (e) {
+            e.preventDefault()
+            liebiao.swipePrev()
+        });
+        $('.lbCommend .swiper-button-next').on('click', function (e) {
+            e.preventDefault()
+            liebiao.swipeNext()
+        });
+
+
+        /*惠卡推荐*/
+        var boomBanner = new Swiper('.lazyComCover', {
+            speed: 1000,
+            slidesPerView: 4,
+            simulateTouch: false,
+            direction: 'horizontal',
+            loop: true,
+        });
+        $('.lazyCommend_prev').on('click', function (e) {
+            e.preventDefault()
+            boomBanner.swipePrev()
+        });
+        $('.lazyCommend_next').on('click', function (e) {
+            e.preventDefault()
+            boomBanner.swipeNext()
+        });
+        
+    });
+    $(".sectionPaging a").on('click', function () {
+        $(window).scrollTop(0);
+    });
+</script>
+<script type="text/javascript">
+    var pageSize = 20;//每页显示条数
+    var keyValue = "@ViewBag.key";//关键字搜索
+    var cageId = "@categoryId";
+    var level = "@ViewBag.level";
+    var brandId = "@ViewBag.brandId";
+    $(document).ready(function () {
+        if (keyValue != "") {
+            //$("#divSYe").css("display", "none");
+            $("#name").css("display", "none");
+            $("#divDaoHan").css("display", "none");
+            $("#divBrand").css("display", "none");
+            $("#txtSearchKey").val(keyValue);
+            $("#hidkey").val(keyValue)
+        } else {
+            $("#name").css("display", "block");
+            //$("#divDaoHan").css("display", "block");
+            $("#divBrand").css("display", "block");
+            $("#divSYe").css("display", "block");
+            $("#txtSearchKey").val("");
+            $("#hidkey").val("");
+            $("#hidcategoryId").val(cageId);
+            $("#hidlevel").val(level);
+            $("#hidbrandId").val(brandId);
+        }
+
+        //LoadData(1, { categoryId: cageId });
+        GetAjaxData(1, GetObj());
+    })
+
+    function GetObj() {
+        var obj = {//初始化
+            categoryId: $("#hidcategoryId").val(),
+            level: $("#hidlevel").val(),
+            brandId: $("#hidbrandId").val(),
+            startPrice: $("#hidstartPrice").val(),
+            endPrice: $("#hidendPrice").val(),
+            sortSell: $("#hidsortSell").val(),
+            sortPrice: $("#hidsortPrice").val(),
+            key: $("#hidkey").val()
+        }
+        return obj;
+    }
+    //通过分类ID得到品牌，产品列表，
+    function GetAllLoad(pageIndex, obj) {
+        $("#hidsortSell").val("");
+        $("#hidsortPrice").val("");
+        //var obj = GetObj();
+        //产品列表更新
+        GetAjaxData(pageIndex, obj)
+        $("#productCondition").load("@Url.Action("_ProductCondition")");
+        //品牌更新
+        $("#divBrand").load("@Url.Action("GetBrand", "Product")", { categoryId: obj.categoryId, level: obj.level });
+        //客户最终购买
+        $("#historyBuy").load("@Url.Action("UserBuy", "Product")", { categoryId: obj.categoryId, level: obj.level });
+    }
+    //选择品牌
+    function GetBrand(categoryId, level, brandId) {
+        debugger;
+        //LoadData(1, { categoryId: categoryId, level: level, brandId: brandId })
+        GetAjaxData(1, { categoryId: categoryId, level: level, brandId: brandId })
+    }
+
+
+    //根据符号>获取下一页
+    function GetNext(pageNo, pageSum) {
+        if (parseInt(pageNo) >= parseInt(pageSum)) {
+            return;
+        }
+        var obj = GetObj();
+        //LoadData(parseInt(pageNo) + 1, { categoryId: categoryId, brandId: brandId });
+        GetAjaxData(parseInt(pageNo) + 1, obj);
+
+
+    }
+    //根据符号<获取上一页
+    function PreviousPage(pageNo) {    
+        if (parseInt(pageNo) - 1 == 0) {
+            return;
+        }
+        var obj = GetObj();
+        //LoadData(parseInt(pageNo) + -1, { categoryId: categoryId, brandId: brandId });
+        GetAjaxData(parseInt(pageNo) - 1, obj);
+
+    }
+</script>
+<script type="text/javascript">
+    var isSell = true;//销量排序 true:升序 flse:降序
+    var isPrice = true;//价格升序 true:升序 flse:降序
+    //价格筛选
+    $("#d1").addClass('selectedSpec');
+    function GetPrice(startPrice, endPrice, chose) {
+  
+        startPrice == "" ? 0 : startPrice;
+        endPrice == "" ? 0 : endPrice;
+        //选中行变行
+        for (var i = 1; i <9; i++) {
+            if (chose == "d" + i) {
+                $("#d" + i).addClass('selectedSpec');
+                $("#startPrice").val("");
+                $("#endPrice").val("");
+            } else {
+                $("#d" + i).removeClass();
+            }
+        }
+
+        $("#hidstartPrice").val(startPrice);
+        $("#hidendPrice").val(endPrice);
+        var obj = GetObj();
+        GetAjaxData(1, obj);
+    }
+    //排序
+    function GetSort(sell, price) {
+        var sortSell = 0;
+        var sortPrice = 0;
+        if (sell == 'true') {
+            sortSell = isSell ? 1 : 2;
+            if (isSell) {
+                $("#sellClass").attr("class", "fa-long-arrow-up");//升序
+            } else {
+                $("#sellClass").attr("class", "fa-long-arrow-down");//降序
+            }
+            isSell = !isSell;
+
+        } else if (price == 'true') {
+            sortPrice = isPrice ? 1 : 2;
+            if (isPrice) {
+                $("#priceClass").attr("class", "fa-long-arrow-up");//升序
+            } else {
+                $("#priceClass").attr("class", "fa-long-arrow-down");//降序
+            }
+            isPrice = !isPrice;
+        }
+        $("#hidsortSell").val(sortSell);
+        $("#hidsortPrice").val(sortPrice);
+        var obj = GetObj();
+        GetAjaxData(1, obj);
+    }
+
+    //刷新产品(必须在最外层)
+    function GetAjaxData(pageIndex, obj) {
+        var pageSize = 20;
+        $.ajax({
+            url: "@Url.Action("_Products")",
+            type: "Post",
+            data: {
+                categoryId: obj.categoryId,
+                level: obj.level,
+                pageIndex: pageIndex,
+                pageSize: pageSize,
+                startPrice: obj.startPrice,
+                endPrice: obj.endPrice,
+                sortSell: obj.sortSell,
+                sortPrice: obj.sortPrice,
+                sort: true,
+                ProductName: keyValue,
+                brandId: obj.brandId
+            },
+            dataType: "html",
+            success: function (data) {
+                //alert(data);
+                $("#divProList").html(data);
+                var pageTotal = parseInt($("#hidpageTotal").val());
+                if (pageTotal ==1) {
+                    $("#pager1").hide();
+                }
+                UpdatePager(parseInt(pageIndex), pageTotal, $("#pager1"), "GetAjaxData", obj);
+                $("#pageNo").html(pageIndex);
+                //$("#pageNo").html(pageIndex);
+                //alert(pageTotal)
+                $("#pageSum").html(pageTotal == 0 ? 1 : pageTotal);
+            },
+            error: function () {
+                //alert("error");
+            }
+        });
+    }
+</script>
+<script>
+    function RewriteNav(id, level)
+    {
+        $("div.specMain_2016 ul").html(ReWriteBreadNav(id, level));
+    }
+    function ReWriteBreadNav(id, level) {
+        var navName = "";
+        var navId = "";
+        var spectorHtml = "<li class='spector'><i class='fa fa-angle-right'></i></li>";
+        var endHtml = "<span class='clear'></span>";
+        var navHtml = "<li><a href='@Url.Action("Index","Home")'>@CultureHelper.GetLangString("HOME_INDEX_HOMEPAGE")@*首页*@</a></li>";
+        if (level == 0)//只有首页
+        {
+            return navHtml + endHtml;
+        }
+        if (level == 5) {
+            navHtml += spectorHtml + "<li><a href='" + GenerateUrl(null, null) + "'>" + $("div.sectionMainLeft h3").eq(0).html() + "</a></li>";
+            return navHtml + endHtml;
+        }
+        if (level >= 1) {
+            navHtml += spectorHtml + "<li><a href='" + GenerateUrl($("div.sectionMainLeft h3").eq(0).attr("data-value"), 1) + "'>@ViewBag.cateName</a></li>";
+            if(level==1)//如果是一级导航
+                return navHtml+endHtml;
+        }
+        if (level == 2)//如果是二级导航
+        {
+            var selector2 = $("ul.lbSpector li[data-value='" + id + "'] span.spector2016 span");
+            navName = selector2.html();
+            navHtml += spectorHtml + "<li><a href='" + GenerateUrl(id, 2) + "'>" + navName + "</a></li>";
+            return navHtml + endHtml;
+        }
+        if (level == 3)//如果是三级导航
+        {
+            //寻找第二级
+            var selector3 = $("ul.lbSpector li a[data-value='" + id + "']");
+            var selector2 = selector3.parent().parent().prev().children("span.spector2016").children("span");
+            navName = selector2.html();
+            navId = selector3.parent().parent().parent().attr("data-value");
+            navHtml += spectorHtml + "<li><a href='" + GenerateUrl(navId, 2) + "'>" + navName + "</a></li>";//二级
+            navName = $("ul.lbSpector li a[data-value='" + id + "']").html();
+            navHtml += spectorHtml + "<li><a href='" + GenerateUrl(id, 3) + "'>" + navName + "</a></li>";//三级
+            return navHtml + endHtml;
+        }
+        if (level == 4) {
+            var selector3 = $("ul.lbSpector li a.spectorSelected");
+            var selector2 = selector3.parent().parent().prev().children("span.spector2016").children("span");
+            var brandName = $(".specselMain a[data-select='true']").attr("data-name");
+            if (selector3.length > 0) {//左边有被选中状态
+                navName = selector2.html();
+                navId = selector3.parent().parent().parent().attr("data-value");
+                navHtml += spectorHtml + "<li><a href='" + GenerateUrl(navId, 2) + "'>" + navName + "</a></li>";//二级
+                navId = selector3.attr("data-value");
+                navName = selector3.html();
+                navHtml += spectorHtml + "<li><a href='" + GenerateUrl(navId, 3) + "'>" + navName + "</a></li>";//三级
+                navHtml += spectorHtml + "<li><a id='nav_for_brand' href='" + GenerateUrl(id, 4) + "'>" + brandName + "</a></li>";//品牌
+                return navHtml + endHtml;
+            }
+            else {
+                if ($("div.specMain_2016 ul li a#nav_for_brand").length > 0) {
+                    $("div.specMain_2016 ul li a#nav_for_brand").attr("href", GenerateUrl(id, 4));
+                    $("div.specMain_2016 ul li a#nav_for_brand").html(brandName);
+                }
+                else {
+                    //$("div.specMain_2016 ul li").eq($("div.specMain_2016 ul li").length - 1).remove();
+                    //$("div.specMain_2016 ul li").eq($("div.specMain_2016 ul li").length - 1).remove();
+                    $("div.specMain_2016 ul span").before(spectorHtml + "<li><a id='nav_for_brand' href='" + GenerateUrl(id, 4) + "'>" + brandName + "</a></li>");//品牌
+                }
+                return $("div.specMain_2016 ul").html();
+            }
+
+        }
+    }
+    function GenerateUrl(id, level) {
+        if (level) {
+            if (level < 4)
+                return "/Product/ProductList?parentId=" + $("div.sectionMainLeft h3").eq(0).attr("data-value") + "&cateName=" + $("div.sectionMainLeft h3").eq(0).html() + "&selectCategoryId=" + id + "&level=" + level;
+            else
+                return "/Product/ProductList?parentId=" + $("div.sectionMainLeft h3").eq(0).attr("data-value") + "&cateName=" + $("div.sectionMainLeft h3").eq(0).html() + "&brandId=" + id;
+        }
+        return "/Product/ProductList?key=" + $("div.sectionMainLeft h3").eq(0).html();
+    }
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+        if (r != null) return unescape(r[2]); return null; //返回参数值
+    }
+</script>
+<script>
+    $(function () {
+        var key = getUrlParam("key");
+        if (key)
+        {
+            $("div.specMain_2016 ul").html(ReWriteBreadNav(null, 5));
+            return;
+        }
+        var brandId = getUrlParam("brandId");
+        if (brandId)
+        {
+            $("div.specMain_2016 ul").html(ReWriteBreadNav(brandId,4));
+            return;
+        }
+        var cateId = getUrlParam("selectCategoryId");
+        var level = getUrlParam("level");
+        if (cateId) {
+            $("div.specMain_2016 ul").html(ReWriteBreadNav(cateId, level));
+            return;
+        }
+        return $("div.specMain_2016 ul").html(ReWriteBreadNav(0, 0));
+    })
+</script>

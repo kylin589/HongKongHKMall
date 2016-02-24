@@ -1,0 +1,151 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@model HKTHMall.Domain.Models.AC.SearchAC_FunctionModel
+@{
+    ViewBag.Title = "System permissions list page";
+
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(72);
+    _Authority.Delete = _Authority.CheckAction(73);
+}
+<div class="form-inline">
+    @Html.HiddenFor(x => x.ParentID, new { @class = "form-control w70", @value = "0" })
+    <div id="tree" class="tree"></div>
+    <div class="right">
+        <div id="user-toolbar">
+            <div class="form-inline" role="form">
+                <div class="form-group">
+                    <span>Function: </span>
+                    @Html.TextBoxFor(x => x.FunctionName, new { @class = "form-control w70", @placeholder = "Please enter function name" })
+                </div>
+                &nbsp;
+                <button type="button" class="btn btn-success js-search">
+                    <span class="glyphicon glyphicon-search"></span> Search
+                </button>
+                &nbsp;
+                <button type="button" class="btn btn-danger js_reset" onclick="Tool.ClearForm($('#user-toolbar'))">
+                    <span class="glyphicon glyphicon-bullhorn"></span> Clear
+                </button>
+                &nbsp;
+                @if (_Authority.Add)
+                {
+                    <button type="button" class="btn btn-primary js_create">
+                        <span class="glyphicon glyphicon-plus"></span> Add
+                    </button>
+                }
+
+            </div>
+        </div>
+        <table id="u_grid" data-toolbar="#user-toolbar"></table>
+    </div>
+</div>
+@section css{
+    <link href="~/Content/css/category.css" rel="stylesheet" />
+    <link href="~/Content/plugins/iCheck/all.css" rel="stylesheet" />
+}
+@Html.Partial("_FormModal")
+@section scripts{
+    <script type="text/javascript">
+        //权限
+        var $addCheck = eval("@(_Authority.Add.ToString().ToLower())");
+        var $deleteCheck = eval("@(_Authority.Delete.ToString().ToLower())");
+        //加载数据
+        $(function () {
+            var columns = [
+            { field: "FunctionID", title: "Key ID", align: 'center', valign: 'middle', sortable: false },
+            { field: "FunctionName", title: "Function", align: 'center', valign: 'middle', sortable: false },
+            { field: "ModuleName", title: "Menu name", align: 'center', valign: 'middle', sortable: false },
+            { field: "Controller", title: "Control name", align: 'center', valign: 'middle', sortable: false },
+            { field: "Action", title: "Control method", align: 'center', valign: 'middle', sortable: false },
+            {
+                field: "FunctionIDs", title: "Operation", align: 'center', valign: 'middle',
+                formatter: function (val) {
+                    var operation = '';
+                    if ($addCheck) {
+                        operation += '<a class="edit ml10" href="javascript:void(0)" title="Update"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                    }
+                    if ($deleteCheck) {
+                        operation += '<a class="remove ml10" href="javascript:void(0)" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>';
+                    }
+                    if (operation == '') {
+                        operation = '-';
+                    }
+                    return [
+                            operation
+                    ].join('');
+                },
+                events: {
+                    //编辑
+                    'click .edit': function (e, value, row, index) {
+                        Tool.ShowModal('@Url.Action("Create")', { id: row.FunctionID, time: new Date().getTime() }, 'Edit system privilege');
+                        LoadTree();
+                    },
+                    //删除
+                    'click .remove': function (e, value, row, index) {
+                        Tool.DeleteRecord('@Url.Action("Delete")', { functionID: row.FunctionID }, $('#u_grid'));
+                        LoadTree();
+                    }
+                }
+            }
+            ];
+            LoadTree();
+            //加载列表数据
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+                queryParams: function (params) {
+                    return {
+                        FunctionName: $('#FunctionName').val().trim(),
+                        ParentID: $("#ParentID").val(),
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        time: new Date().getTime()
+                    };
+                },
+                sortOrder: 'desc',
+                pagination: true,
+                showRefresh: true,
+                showColumns: true,
+                striped: true,
+                sidePagination: 'server',
+                columns: columns
+            });
+            //搜索事件
+            $('.js-search').click(function () {
+                Tool.ReloadDataTable($('#u_grid'));
+            });
+            //按Enter键回车搜索
+            $('#FunctionName').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    Tool.ReloadDataTable($('#u_grid'));
+                }
+            });
+            //添加系统参数设置
+            $('.js_create').click(function () {
+                Tool.ShowModal("@Url.Action("Create")", {}, "Add system privilege");
+            });
+        })
+        //保存
+        function Save() {
+            Tool.SaveModal($('#u_grid'));
+        }
+        //加载树型
+        function LoadTree() {
+            $.get("/AC_Module/GetAC_ModuleTree", { time: new Date().getTime() }, function (data) {
+                var tree = [{ "text": "Menu List", "id": 0, "nodes": data }];
+                $('#tree').treeview({
+                    data: tree,
+                    onhoverColor: "orange",
+                    expandIcon: "glyphicon glyphicon-plus-sign",
+                    collapseIcon: "glyphicon glyphicon-minus-sign",
+                    nodeIcon: "glyphicon glyphicon-file",
+                    onNodeSelected: function (event, node) {
+                        $("#ParentID").val(node.id);
+                        Tool.ReloadDataTable($('#u_grid'));
+                    }
+                });
+            });
+        }
+    </script>
+}

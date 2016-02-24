@@ -1,0 +1,122 @@
+﻿
+<div id="user-toolbar">
+    <div class="form-inline" role="form">
+        <div class="form-inline">
+            <span>Brand : </span>&nbsp;
+            <input id="brandID" value=@ViewData["brandID"] type="hidden" />
+            <input id="languageId" value=@ViewData["languageId"] type="hidden" />
+            @ViewData["brandName"]
+        </div>
+        <br />
+        <div class="form-inline">
+            <span>Category : </span>&nbsp;
+            <select id="ddlCategoryOne" name="ddlCategoryOne">
+                <option value="-1">-Choose-</option>
+            </select>&nbsp;&nbsp;
+            <select id="ddlCategoryTwo" name="ddlCategoryTwo">
+                <option value="-1">-Choose-</option>
+            </select>&nbsp;&nbsp;
+            <select id="ddlCategoryThree" name="ddlCategoryThree">
+                <option value="-1">-Choose-</option>
+            </select>
+        </div>
+        &nbsp;<br />
+        &nbsp;
+        <button type="button" class="btn btn-primary js_create">
+            <span class="glyphicon glyphicon-plus"></span> Add
+        </button>
+    </div>
+</div>
+<table id="u_grid" data-toolbar="#user-toolbar"></table>
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            GetCategory("One", "0");
+
+            $("#ddlCategoryOne").change(function () {
+                $("#ddlCategoryTwo").empty();
+                $("#ddlCategoryThree").empty();
+                $("<option></option>").val("-1").text("-Choose-").appendTo($("#ddlCategoryTwo"));
+                $("<option></option>").val("-1").text("-Choose-").appendTo($("#ddlCategoryThree"));
+                GetCategory("Two", $("#ddlCategoryOne").val());
+            })
+
+            $("#ddlCategoryTwo").change(function () {
+                $("#ddlCategoryThree").empty();
+                $("<option></option>").val("-1").text("-Choose-").appendTo($("#ddlCategoryThree"));
+                GetCategory("Three", $("#ddlCategoryTwo").val());
+            })
+
+            var columns = [
+              { field: 'AddUser', title: 'Category name', align: 'center', valign: 'middle', sortable: false },
+              {
+                  field: 'Brand_CategoryId',
+                  title: 'Operation',
+                  align: 'center',
+                  valign: 'middle',
+                  formatter: function (val) {
+                      return [
+                               '<a class="remove ml10" href="javascript:void(0)" title="Remove">',
+                              '<i class="glyphicon glyphicon-remove"></i>',
+                              '</a>'
+                      ].join('');
+                  },
+                  events: {
+                      //删除
+                      'click .remove': function (e, value, row, index) {
+                          Tool.DeleteRecord('@Url.Action("DeleteBrand_Category")', { ParamenterID: value, brandID: $("#brandID").val() }, $('#u_grid'));
+                      }
+                  }
+              }
+            ];
+
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("Brand_CategoryList")',
+                queryParams: function (params) {
+                    return {
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: this.pageSize,
+                        BrandID: $("#brandID").val(),
+                        LanguageID: $("#languageId").val(),
+                        Time: new Date().getTime()
+                    };
+                },
+                sortOrder: 'desc',
+                sortName: 'AddDate',
+                columns: columns
+            });
+        })
+
+        function GetCategory(name, parentId) {
+            $.getJSON("/Brand_Category/GetParentList", { languageId: $("#languageId").val(), parentId: parentId, time: new Date().getTime() }, function (data) {
+                $.each(data, function (i, item) {
+                    $("<option></option>")
+                        .val(item["CategoryId"])
+                        .text(item["CategoryName"])
+                        .appendTo($("#ddlCategory" + name));
+                });
+            });
+        }
+
+        $('.js_create').click(function () {
+            var threeId = $("#ddlCategoryThree").val();
+            if (threeId == "-1") {
+                Tool.Alert("Three-tier classification of goods can not be empty.", 1500);
+            } else {
+                $.ajax({
+                    url: "/Brand_Category/AddBrand_Category?brandID=" + $("#brandID").val() + "&categoryId=" + threeId + "&time=" + new Date().getTime(),
+                    dataType: "text",
+                    success: function (data, status) {
+                        data = JSON.parse(data);
+                        Tool.Alert(data.Messages, 1500);
+                        Tool.ReloadDataTable($('#u_grid'));
+                    },
+                    error: function (data, status, e) {
+                        Tool.Alert("Add brand association fail.", 1500);
+                    }
+                });
+            }
+        });
+</script>
+}

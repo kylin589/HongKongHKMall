@@ -1,0 +1,201 @@
+﻿@using HKTHMall.Admin.common;
+@using BrCms.Framework.Infrastructure;
+@using Autofac;
+
+@model HKTHMall.Domain.AdminModel.Models.Categoreis.SearchFloorCategoryModel
+@{
+    ViewBag.Title = "Floor show classification list page";
+    Authority _Authority = BrEngineContext.Current.Resolve<Authority>();
+    _Authority.Add = _Authority.CheckAction(26);
+    _Authority.Delete = _Authority.CheckAction(28);
+    _Authority.Move = _Authority.CheckAction(27);
+}
+<input type="hidden" id="hidPageIndex" value="0" />
+<input type="hidden" id="hidPageSize" value="10" />
+<div class="form-inline">
+    @Html.HiddenFor(x => x.ParentID, new { @class = "form-control w70", @value = "0" })
+    <div id="tree" class="tree"></div>
+    <div class="right">
+        <div id="user-toolbar">
+            <div class="form-inline" role="form">
+                @if (_Authority.Add)
+                {
+                    <button type="button" class="btn btn-primary js_create">
+                        <span class="glyphicon glyphicon-plus"></span> @*添加*@Add
+                    </button>
+                }
+            </div>
+        </div>
+        <table id="u_grid" data-toolbar="#user-toolbar"></table>
+    </div>
+</div>
+@section css{
+    <link href="~/Content/css/category.css" rel="stylesheet" />
+    <link href="~/Content/plugins/iCheck/all.css" rel="stylesheet" />
+}
+@Html.Partial("_FormModal")
+@section scripts{
+    <script type="text/javascript">
+        //权限
+        var $addCheck = eval("@(_Authority.Add.ToString().ToLower())");
+        var $deleteCheck = eval("@(_Authority.Delete.ToString().ToLower())");
+        var $moveCheck = eval("@(_Authority.Move.ToString().ToLower())");
+        //加载数据
+        $(function () {
+            var columns = [
+              { field: "FloorCategoryId", title: "Key ID", align: 'center', valign: 'middle', sortable: false },//主键ID Key ID
+              { field: "CategoryNameFirst", title: "1st level Category Name", align: 'center', valign: 'middle', sortable: false },//一级分类名称
+              { field: "CategoryNameThree", title: "3rd level Category Name", align: 'center', valign: 'middle', sortable: false },// 三级分类名称
+              { field: "AddUsers", title: "Creater", align: 'center', valign: 'middle', sortable: false },//添加人
+              {
+                  field: "AddTime", title: "Add time", align: 'center', valign: 'middle', sortable: false, formatter:
+                    function (val) {
+                        return val == 'undefined' || !val ? '-' : val.formatterString(false);
+                    }
+              },//添加时间
+              //操作
+              {
+                  field: "FloorCategoryIds", title: "Operation", align: 'center', valign: 'middle',
+                  formatter: function (val) {
+                      var operation = '';
+                      if ($moveCheck) {
+                          operation += '<a class="ssorts ml10" href="javascript:void(0)" title="move up"><i class="glyphicon glyphicon-arrow-up"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;' +
+                          '<a class="xsorts ml10" href="javascript:void(0)" title="Down">' +
+                          '<i class="glyphicon glyphicon-arrow-down"></i>' +
+                          '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+                      }
+                      if ($deleteCheck) {
+                          operation += '<a class="remove ml10" href="javascript:void(0)" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>';
+                      }
+                      if (operation == '') {
+                          operation = '-';
+                      }
+                      return [
+                            operation
+                      ].join('');
+                  },
+                  events: {
+                      //上移
+                      'click .ssorts': function (e, value, row, index) {
+                          UpdateSorts(index, row.FloorCategoryId, 1, $("#ParentID").val() == '' ? 0 : $("#ParentID").val(), $("#hidPageIndex").val(), $("#hidPageSize").val());
+                      },
+                      //下移
+                      'click .xsorts': function (e, value, row, index) {
+                          UpdateSorts(index, row.FloorCategoryId, 2, $("#ParentID").val() == '' ? 0 : $("#ParentID").val(), $("#hidPageIndex").val(), $("#hidPageSize").val());
+                      },
+                      //编辑
+                      'click .edit': function (e, value, row, index) {
+                          Tool.ShowModal('@Url.Action("Create")', { id: row.FloorCategoryId, time: new Date().getTime() }, 'Edit floor display classification');
+                      },
+                      //删除
+                      'click .remove': function (e, value, row, index) {
+                          Tool.DeleteRecord('@Url.Action("Delete")', { floorCategoryId: row.FloorCategoryId }, $('#u_grid'));
+                      }
+                  }
+              }
+            ];
+            LoadTree();
+
+            $('#u_grid').bootstrapTable({
+                url: '@Url.Action("List")',
+                queryParams: function (params) {
+                    $("#hidPageIndex").val(this.pageNumber - 1);
+                    $("#hidPageSize").val(this.pageSize);
+                    return {
+                        ParentID: $("#ParentID").val().trim(),
+                        PagedIndex: this.pageNumber - 1,
+                        PagedSize: 1000,
+                        time: new Date().getTime()
+                    };
+                },
+                pagination: false,
+                showRefresh: true,
+                columns: columns
+            });
+
+            //添加楼层显示分类
+            $('.js_create').click(function () {
+                Tool.ShowModal("@Url.Action("Create")", { time: new Date().getTime() }, "Add floor display classification");
+            });
+
+        })
+        //保存
+        function Save() {
+            if (Validator()) {
+                Tool.SaveModal($('#u_grid'));
+                Tool.ReloadDataTable($('#u_grid'));
+                LoadTree();
+            }
+        }
+        //验证
+        function Validator() {
+            var form = $("#modal-form");
+            //一级分类验证
+            var dCategoryId = $("#DCategoryId", form).val();
+            if (dCategoryId == '') {
+                Tool.Alert("1st level Category Name", 1500);
+                return false;
+            }
+            //二级分类验证
+            var categoryIdSecond = $("#CategoryIdSecond", form).val();
+            if (categoryIdSecond == '') {
+                Tool.Alert("2nd level Category Name", 1500);
+                return false;
+            }
+            //三级分类验证
+            var categoryId = $("#CategoryId", form).val();
+            if (categoryId == '') {
+                Tool.Alert("3rd level Category Name", 1500);
+                return false;
+            }
+            return true;
+        }
+        function LoadTree() {
+            $.get("/Category/GetCategoryTree", function (result) {
+                var tree = [
+                    {
+                        "text": "Category",//楼层分类
+                        "Id": 0,
+                        "nodes": null
+                    }
+                ];
+                if (result.IsValid) {
+                    //只显示一级分类
+                    for (var i = 0; i < result.Data.length; i++) {
+                        result.Data[i].nodes = null;
+                    }
+                    tree[0].nodes = result.Data;
+                }
+                $('#tree').treeview({
+                    data: tree,
+                    onhoverColor: "orange",
+                    expandIcon: "glyphicon glyphicon-plus-sign",
+                    collapseIcon: "glyphicon glyphicon-minus-sign",
+                    nodeIcon: "glyphicon glyphicon-file",
+                    onNodeSelected: function (event, node) {
+                        $("#ParentID").val(node.id);
+                        Tool.ReloadDataTable($('#u_grid'));
+                    },
+                });
+            });
+        }
+        //更新排序位置
+        function UpdateSorts(rowId, floorCategoryId, sortType, ParentID, PagedIndex, PagedSize) {
+            $.ajax({
+                url: '@Url.Action("UpdatePlace")' + "?rowId=" + rowId + "&floorCategoryId=" + floorCategoryId + "&sortType=" + sortType + "&ParentID=" + ParentID + "&PagedIndex=" + PagedIndex + "&PagedSize=" + PagedSize,
+                dataType: "text",
+                success: function (data, status) {
+                    data = JSON.parse(data);
+                    if (data.IsValid) {
+                        Tool.ReloadDataTable($('#u_grid'));
+                        LoadTree();
+                    }
+                    Tool.Alert(data.Messages, 1500);
+                },
+                error: function (data, status, e) {
+                    Tool.Alert("Failed!", 1500);
+                }
+            });
+        }
+    </script>
+}

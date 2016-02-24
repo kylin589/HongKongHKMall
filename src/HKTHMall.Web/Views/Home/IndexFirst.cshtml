@@ -1,0 +1,257 @@
+﻿@using HKTHMall.Domain.WebModel.Models.Search;
+@using HKTHMall.Domain.AdminModel.Models.Categoreis
+@using HKTHMall.Domain.Enum
+@using HKTHMall.Domain.WebModel.Models.Product
+@using HKTHMall.Core.Extensions
+@using HKTHMall.Services.Common.MultiLangKeys
+@{ 
+    IEnumerable<ProductInfo> recproductList = ViewBag.ProductData;
+    
+    HKTHMall.Domain.WebModel.Models.Search.KeyWordsSearch searchModel = ViewData["searchModel"] as HKTHMall.Domain.WebModel.Models.Search.KeyWordsSearch;
+    //List<SearchModel> prodocutList = ViewData["products"] as List<SearchModel>;
+    IEnumerable<SearchModel> prodocutList = ViewBag.products;
+    //获取类型
+    var name = ViewBag.CateName;
+    List<CateList> catelist = ViewBag.ErSanJi as List<CateList>;
+}
+<!--start main-->
+<div class="MainClass pct100 tc">
+    <div class="ClassSpec w1202 dib">
+        <div class="ClassMainLeft l">
+            <ul class="hand_toggle">
+                @{
+                    if (catelist.Count > 0)
+                    {
+                        int i=1;
+                        foreach (var cate in catelist)
+                        {
+                            if (i == 1)
+                            { 
+                              <li class="hand_list">
+                                  <a href="@Url.Action("indexall", "home", new { type=2,cateId=cate.CategoryId})" class="hand_title handTitle" data-rel="handContent@(i)">@cate.CategoryName</a>                               
+                                  <div id="handContent@(i)" class="hand_content">
+                                      @foreach (var item in cate.cateLlist)
+                                      {
+                                          <span>
+                                              <a href="@Url.Action("indexall", "home", new {
+                                              type=3,
+                                              cateId = item.CategoryId
+                                              })">@item.CategoryName</a>
+                                          </span>
+                                      }
+                                  </div>
+                              </li>
+                            }
+                            else
+                            {
+                                <li class="hand_list">
+                                    <a href="@Url.Action("indexall", "home", new { type=2,cateId=cate.CategoryId})" class="hand_title handTitle" data-rel="handContent@(i)">@cate.CategoryName</a>                               
+                                    <div id="handContent@(i)" class="hand_content" style="display:none;">
+                                        @foreach (var item in cate.cateLlist)
+                                        {
+                                            <span>
+                                                <a href="@Url.Action("indexall", "home", new {
+                                              type=3,
+                                              cateId = item.CategoryId
+                                              })">@item.CategoryName</a>
+                                        </span>
+                                        }
+                                    </div>
+                              </li>
+                            }
+                            i++;
+                        }
+                    }
+                }
+            </ul>
+        </div>
+        <div class="ClassMainRight l">
+            <div class="RightBanner">
+                @{Html.RenderAction("CateBanner", "Home", new { topCount = 5, identityStatus = 3, placeCode = searchModel.cateId });}
+            </div>
+
+            <div class="RightName clearfix">
+                <div class="ClassNameMain l">@ViewBag.CateName</div>
+                <div class="ClassMainPaging r clearfix">
+                    <ul class="l clearfix sortord">
+                        <li>
+                            <a style="height: 28px;border:1px solid #b0b0b0;color: #666666; font-size: 14px;display: inline-block;text-align: center;line-height: 26px;padding:1px 5px;"
+                               href="@Url.Action("indexfirst", "home", new { cateId = searchModel.cateId })"
+                               @(searchModel.st == SearchType.ZongHe ? Html.Raw("class=\"nav1\"") : Html.Raw(""))>@CultureHelper.GetLangString("HOME_INDEXFIRST_COMPRSORT")</a>
+                        </li>
+                        <li>
+                            <a style="height: 28px;border:1px solid #b0b0b0;color: #666666; font-size: 14px;display: inline-block;text-align: center;line-height: 26px;padding:1px 15px;"
+                               href="@Url.Action("indexfirst", "home", new
+                                    {
+                                        cateId = searchModel.cateId,
+                                        st = SearchType.Sales
+                                    })" @(searchModel.st == SearchType.Sales ? Html.Raw("class=\"nav1\"") : Html.Raw(""))>@CultureHelper.GetLangString("HOME_INDEXFIRST_SALES")</a>
+                        </li>
+                        <li>
+                            <a style="height: 28px;border:1px solid #b0b0b0;color: #666666; font-size: 14px;display: inline-block;text-align: center;line-height: 26px;padding:1px 5px;"
+                               href="@Url.Action("indexfirst", "home", new
+                                    {
+                                        cateId = searchModel.cateId,
+                                        st = SearchType.PriceDesc
+                                    })" @(searchModel.st == SearchType.PriceDesc ? Html.Raw("class=\"nav1\"") : Html.Raw(""))>@CultureHelper.GetLangString("HOME_INDEXFIRST_PRICEHIGHTOLOW")</a>
+                        </li>
+                        <li>
+                            <a style="height: 28px;border:1px solid #b0b0b0;color: #666666; font-size: 14px;display: inline-block;text-align: center;line-height: 26px;padding:1px 5px;"
+                               href="@Url.Action("indexfirst", "home", new
+                                    {
+                                        cateId = searchModel.cateId,
+                                        st = SearchType.PriceAsc
+                                    })" @(searchModel.st == SearchType.PriceAsc ? Html.Raw("class=\"nav1\"") : Html.Raw(""))>@CultureHelper.GetLangString("HOME_INDEXFIRST_PRICELOWTOHIGH")</a>
+                        </li>
+                    </ul>
+                    <p class="count l">@Html.Raw(string.Format(CultureHelper.GetLangString("HOME_INDEXFIRST_ATOTALACOM"), string.Format("<span style='color:#ee343b;'>{0}</span>", searchModel.AllCount)))</p>
+                    <div class="pager l" style="margin-top:5px">
+                        @Html.ToPager("Page", 20, searchModel.AllCount)
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="RightLine"></div>
+            <div class="classify_right clearfix">
+                @{
+                    if (prodocutList != null)
+                    {
+                        foreach (var product in prodocutList)
+                        {
+                            <div class="classifyright_cp1 l trans">
+                                <a style="display:block" target="_blank" href="@Url.Action("shopping", "home" , new { area="" , id=product.ProductId })" title="@product.ProductName">
+                                    @if (string.IsNullOrEmpty(product.PicUrl))
+                                    {
+                                        <img src="/images/Default_pro.jpg" width="232" height="236" />
+                                    }
+                                    else
+                                    {
+                                        <img src="@Html.GetImagesUrl(product.PicUrl, 232, 236)" />
+                                    }
+                                </a>
+                                <span style="display:block">
+                                    <a href="@Url.Action("shopping", "home" , new { area="" , id=product.ProductId })"
+                                       class="cp_t1" style="color: #3e414f;">@product.ProductName</a>
+                                </span>
+                                <p class="dib"><del>@product.MarketPrice.ToString("F2") บาท</del></p>
+                                <p class="f18 ed">@product.HKPrice.ToString("F2") บาท</p>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+            @if (searchModel.AllCount / 20 > 0)
+            {
+                @Html.Raw(Html.ToPageHtml(searchModel.Page, 20, searchModel.AllCount))
+            }
+
+            <div class="RightName clearfix"><div class="ClassNameMain l">@CultureHelper.GetLangString("HOME_INDEXFIRST_GUESSYOULIKE")</div></div>
+            <div class="RightLine" style="margin-bottom:15px;"></div>
+            <div class="RecommendGoods tl">
+                @foreach (var product in recproductList)
+                {
+
+                    <a target="_blank" href="@Url.Action("shopping", "home" , new { area="" , id=product.ProductId })" class="RecommendLink dib trans" title="@product.ProductName">
+                        <img src="@Html.GetImagesUrl(product.PicUrl,218,234)" style="width:218px;height: 234px;">
+                        <span class="RecommendName f14 l">@product.ProductName</span>
+                        <p class="RecommendPrice f14" style="color:#b8b8b8;text-decoration:line-through;vertical-align:1px;">@product.MarketPrice.ToString("F2") บาท</p>
+                        <p class="RecommendPrice f18" style="color:#ee343c;">@product.HKPrice.ToString("F2") บาท</p>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/js/jquery-1.9.1.min.js"></script>
+<script src="~/Content/js/Plug-in-unit.js"></script>
+<script src="~/Content/js/jquery-powerSwitch.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.tunepage li a').Page({ type: "0" });
+    });
+
+    $(".handTitle").powerSwitch({
+        eventType: "hover",
+        animation: "slide",
+        duration: 200        // 动画持续时间,单位毫秒, 如果使用"sync"则表示同步
+    });
+
+    //$("#moreList").click(function () {
+    //    $(".showdiv").show();
+    //    $("#moreList").hide();
+    //});
+    //$(function(){
+    //    $("div.ClassMainLeft div.ClassName").each(function () {
+    //        var id = $(this).attr("id");
+    //        var ul = $(this).find("ul:eq(0)");
+    //        $.ajax({
+    //            type: "GET",
+    //            async: true,
+    //            url: "/home/GetsubCate/" + id,
+    //            success: function (data) {
+    //                var str = "";
+    //                $.each(data, function (i,n) {
+    //                    str += "<li>";
+    //                    str += "<a href='/home/indexall?type=3&cateId=" + n.CategoryId + "'>";
+    //                    str += n.CategoryName + "</a>";
+    //                    str += "</li>";
+    //                })
+    //                ul.html(str);
+    //         }
+    //        });
+    //    });
+    //});
+    jQuery(document).ready(function ($) {
+        $.fn.smartFloat = function () {
+            var position = function (element) {
+                element = $(element);
+                var top = 0,
+                pos = element.css("position");
+                $(window).scroll(function () {
+                    if (top == 0) top = element.offset().top;
+                    var scrolls = $(window).scrollTop();
+                    if (scrolls > top) {
+                        if (window.XMLHttpRequest) {
+                            element.css({
+                                position: "fixed",
+                                top: '10px'
+                            });
+                        } else {
+                            element.css({
+                                top: scrolls
+                            });
+                        }
+                    } else {
+                        element.css({
+                            position: "",
+                            top: ""
+                        });
+                    }
+                });
+            };
+            return $(this).each(function () {
+                position(this);
+            });
+        };
+        //绑定,将引号中的内容替换成你想要下拉的模块的ID或者CLASS名字,如"#ABC",".ABC"
+        $(".hand_toggle").smartFloat();
+    });
+    var classifyright_cp1num = $(".classifyright_cp1").length;
+    for (var i = 0; i < 4; i++) {
+        $(".classifyright_cp1").eq(i).css({
+            'marginTop':'10px'
+        });
+    }
+    for (var j = 0; j < classifyright_cp1num ; j++) {
+        if (j > 0 && (j+1) % 4 == 0) {
+            $(".classifyright_cp1").eq(j).css({
+                'marginRight':'0'
+            });
+        }
+    }
+    var RecommendLinknum = $(".RecommendLink").length;
+    $(".RecommendLink").eq(3).css({
+        'marginRight':'0'
+    });
+</script>

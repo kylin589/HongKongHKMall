@@ -1,0 +1,245 @@
+﻿@model HKTHMall.Domain.WebModel.Models.Login.YH_UserModel
+@using HKTHMall.Services.Common.MultiLangKeys
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="main_a">
+    <div class="z_personal">
+        <div class="PersonMain">
+            <!--左边菜单栏-->
+            @Html.Partial("_userLeft")
+            <!--右边的写在这里-->
+            <div class="PmainRight" id="PmainRight">
+                <div class="l_treasure">
+                    <span class="l_treasure_head">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_MYWEALTH")</span>
+                    <table width="960" class="l_caifu">
+                        <tbody>
+                            <tr>
+                                <td align="left" valign="middle"><p class="l_zhanghuyue fl">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_ACCOUNTBALANCE")：</p><p class="l_taizhu fl">@(Model.ConsumeBalance) @CultureHelper.GetLangString("WEBSITE_DOLLARS")</p> @*<a class="l_chongzhiBut" href="~/Account/My/AccountRecharge">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_TOPUP")</a> <a class="l_tixianBut" href="#" id="tixianBut">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_WITHDRAWAL")</a>*@</td>
+                            </tr>
+                            <tr>
+                                <td class="l_jiaru">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_HUIFENCONSUMPTION")  <a class="l_chakan" href="~/Help/About" target="_blank">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_POWDERYIELDSFENRUN")</a> </td>
+                            </tr>
+                            <tr>
+                                <td class="l_jiaru">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_FAZHANHUIFEN")</td>
+                            </tr>
+                            <tr>
+                                <td align="left" valign="middle">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_YOURPROMOTIONLINK")：<span class="l_tuiguang"><input class="l_tuiguanglink" id="tuiguanglink" type="text" value="" placeholder="" disabled="true"></span><a class="l_copylink" href="#" id="copyReg">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_COPYTHELINK")</a></td>
+
+                            </tr>
+                            <tr><td class="l_generalize_xh"></td></tr>
+                            <tr><td class="l_generalize_xh2">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_CAIFUSHOUZHIJILU")</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="l_xuanxiang">
+                        <ul class="l_tablist tl l" id="tab_nav">
+                            <li class="tab"><a href="javascript:;" class="tab_a tabNormal" id="changelog" style="border-left:0;" data-xxx="tab_content|1|Account/My/GetChangelogList">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_PREPAIDPHONERECORDS")</a></li>
+                            <li class="tab"><a href="javascript:;" class="tab_a" data-xxx="tab_content|2|Account/My/GetChangelogList">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_RECORDSOFCONSUMPTION")</a></li>
+                            @*<li class="tab"><a href="javascript:;" class="tab_a" data-xxx="tab_content|3|Account/My/GetChangelogList">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_WITHDRAWALRECORD")</a></li>
+    <li class="tab"><a href="javascript:;" class="tab_a" data-xxx="tab_content|4|Account/My/GetChangelogList">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_SALESRECORD")</a></li>*@
+                            <li class="tab"><a href="javascript:;" class="tab_a" data-xxx="tab_content|5|Account/My/GetChangelogList">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_POWDEREARNINGSRECORD")</a></li>
+                            @*<li class="tab"><a href="javascript:;" class="tab_a" data-xxx="tab_content|6|Account/My/GetChangelogList">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_AGENTBENEFITRECORDS")</a></li>*@
+                        </ul>
+                        <ul class="tab_content l" id="tab_content">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="c_public_bottom"></div>
+    </div>
+</div>
+<!--提现-->
+<div class="mamain-rig dn" style="margin-left:-415px;margin-top: -300px;width:500px;" id="tixian">
+    <div class="mamain-rimain">
+        <div class="title clearfix">
+            <h2>@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_ACCOUNTWITHDRAWAL")</h2>
+            <div class="mamain_delete fr" id="delcloseBut"></div>
+        </div>
+        <div class="content tc" style="padding:10px 15px;">
+            <table class="tixian dib" name="TXinput" id="tixianrightNow">
+                <tbody>
+                    <tr>
+                        <td>@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_CASHACCOUNT") <em class="g3 ml10">@(Model.Account)</em></td>
+                    </tr>
+                    <tr>
+                        <td>@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_WITHDRAWALAMOUNT")<span class="g3 ml10"><input type="text" value="" id="withdrawAmount"></span><em class="g3 ml5">港元</em></td>
+                    </tr>
+                    <tr>
+                        <td align="center"><a href="#" id="rightNowTixian">@CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_IMMEDIATEWITHDRAWAL")</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="tixian dn" name="TXsucceed" id="successWithAmount">
+                <tbody>
+                    <tr>
+                        <td>
+                            <em class="TXsucceed"></em><p>
+                                @Html.Raw(string.Format(CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_RESPECT"), "<em>" + Model.Account + "</em>"))
+                            @*尊敬的<em>@(Model.Account)</em>用户,提现申请成功,资金会在工作人员审核后到账,请耐心等待*@
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center"><a href="#" name="queding" id="sure">@CultureHelper.GetLangString("HOME_SHOPPING_SURE")</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="tixian dn" name="TXsucceed" id="errorWithAmount">
+            <tbody>
+                <tr>
+                    <td align="center">
+                        <p>
+                            @Html.Raw(string.Format(CultureHelper.GetLangString("ACCOUNT_MY_WEALTH_CUSTOMERNOTBINDINGBANK"), Model.Account))
+                        @*尊敬的 @(Model.Account) 用户,抱歉,您还没有绑定银行卡请先绑定银行卡,再提现！*@
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td align="center"><a href="/Account/UserInfo/MyBankCard" name="queding" id="bindBank">@CultureHelper.GetLangString("ACCOUNT_MY_INDEX_BINDINGOFBANK")</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+<div class="mask opa3 dn" id="mask"></div>
+
+<script>
+    //Load文件
+    $(document).ready(function () {
+
+        $("div.PmainLeft .caifu").parent().addClass("Checked");
+        $("div.PmainLeft .caifu").removeClass("caifu").addClass("Rcaifu");
+        //触发弹出框事件
+        $('#tixianBut').click(function () {
+            $('#tixian').animate({ opacity: "show" }, 150);
+            $('#mask').animate({ opacity: "show" }, 150);
+        });
+        //关闭弹出框
+        $('#delcloseBut').click(function () {
+            $('#tixian').animate({ opacity: "hide" }, 150);
+            $('#mask').animate({ opacity: "hide" }, 150);
+        });
+        //确定关闭
+        $("#sure").click(function () {
+            location.reload();
+        });
+        //绑定银行卡
+        $("#bindBank").click(function () {
+            $('#tixian').animate({ opacity: "hide" }, 150);
+            $('#mask').animate({ opacity: "hide" }, 150);
+        });
+        //触发立即提现事件
+        $("#rightNowTixian").click(function () {
+            var amount = $("#withdrawAmount").val().trim();
+            if (amount == '' || amount.length == 0) {
+                mallbox.alert({ message: $commonLang.ACCOUNT_MY_WEALTH_ENTERMONEY });
+                return;
+            }
+            var r = /^(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/;
+            if (!r.test(amount)) {
+                mallbox.alert({ message: $commonLang.ACCOUNT_MY_WEALTH_EMPTYMONEY });
+                return;
+            }
+            ZJWithdrawOrder(parseFloat(amount));
+        });
+        var isSubmit = false;
+        //提现金额
+        function ZJWithdrawOrder(amount) {
+            $("#rightNowTixian").text($commonLang.ACCOUNT_MY_WEALTH_WAIT);
+            if (isSubmit == true) {//如果用户已在提现中,不能让用户重复点击
+                return;
+            }
+            isSubmit = true;
+            $.ajax({
+                url: '@Url.Action("ZJWithdrawOrder")' + "?withdrawAmount=" + amount,
+                dataType: "text",
+                success: function (data, status) {
+                    data = JSON.parse(data);
+                    isSubmit = false;
+                    if (data.IsValid) {
+                        $("#tixian #tixianrightNow").hide();
+                        $('#tixian #successWithAmount').show().stop();
+                        $('#mask').show().stop();
+                    } else {
+                        switch (data.Messages[0]) {
+                            case 'M01':
+                                mallbox.alert({ message: $commonLang.ACCOUNT_MY_WEALTH_USERNOTEXIST });
+                                $("#rightNowTixian").text($commonLang.ACCOUNT_MY_WEALTH_RIGHTNOW);
+                                break;
+                            case 'M02':
+                                mallbox.alert({ message: $commonLang.ACCOUNT_MY_WEALTH_MONEYOUTOFRANGE });
+                                $("#rightNowTixian").text($commonLang.ACCOUNT_MY_WEALTH_RIGHTNOW);
+                                break;
+                            case 'M03': //未绑定银行卡
+                                $("#tixian #tixianrightNow").hide().stop();
+                                $('#tixian #errorWithAmount').show().stop();
+                                $('#mask').show().stop();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                },
+                error: function (data, status, e) {
+                    isSubmit = false;
+                    mallbox.alert({ message: $commonLang.ACCOUNT_MY_WEALTH_FAIL });
+                    $("#rightNowTixian").text($commonLang.ACCOUNT_MY_WEALTH_RIGHTNOW);
+                }
+            });
+        }
+
+        //推广链接
+        var tuiguangurl = window.location.host + "/Register/Index?uid=" + '@(Model.Phone)';
+        $("#tuiguanglink").val(tuiguangurl);
+        //复制链接
+        initCopy();
+    });
+
+    function copy_code(copyText) {
+        if (window.clipboardData) {
+            window.clipboardData.setData("Text", copyText);
+        } else {
+            alert($commonLang.ACCOUNT_MY_WEALTH_COPYCONTENT);
+        }
+    }
+
+    function initCopy() {
+        ZeroClipboard.setMoviePath("/Scripts/ZeroClipboard.swf");
+        var clip = new ZeroClipboard.Client();
+        clip.setHandCursor(true);
+        clip.setText($('#tuiguanglink').val()); // 设置要复制的文本。
+        clip.addEventListener("mouseUp", function (client) {
+            //alert($commonLang.ACCOUNT_MY_WEALTH_COPYSUCCESS);
+            mallbox.alert({ message: $commonLang.ACCOUNT_MY_WEALTH_COPYSUCCESS });
+        });
+        // 注册一个 button,参数为 id。点击这个 button 就会复制。
+        clip.glue("copyReg"); // 和上一句位置不可调换
+
+        $(window).resize(function () {
+            clip.reposition();
+        });
+    }
+</script>
+<script type="text/javascript">
+    jQuery("ul li a[data-xxx]").click(function () {
+        var txt = jQuery(this).attr("data-xxx"), xata = txt.split("|");
+        jQuery.post("/" + xata[xata.length - 1], { page: 1, msg: xata[1] }, function (data) {
+            jQuery("#" + xata[0]).empty().append(data);
+        });
+    });
+    jQuery("#changelog").click();
+</script>
+
+<script type="text/javascript">
+    $("#tab_nav > li").click(function () {
+        $(this).siblings("li").children("a").removeClass("tabNormal");
+        $(this).children("a").addClass("tabNormal");
+        var num = $(this).index();
+        $("#tab_content").children("li").hide();
+        $("#tab_content > li").eq(num).show();
+    });
+</script>
+
+<script src="~/Scripts/ZeroClipboard.js"></script>

@@ -1,0 +1,13 @@
+%WINDIR%\System32\cscript E:\wwwRoot\HKTHMall_Admin_Trunk\IISStop.vbs
+
+%WINDIR%\System32\xcopy E:\wroot\HKTHMall_Admin_Trunk\111Config_notDelete\Web.config   E:\wroot\HKTHMall_Admin_Trunk\Admin\ /y
+%WINDIR%\System32\xcopy E:\wroot\HKTHMall_Admin_Trunk\111Config_notDelete\Web_bin\*.*   E:\wroot\HKTHMall_Admin_Trunk\Admin\bin\ /s/e/y
+
+%WINDIR%\System32\xcopy E:\wroot\HKTHMall_Admin_Trunk\Admin\*.*    E:\wroot\HKTHMall_Admin_Test\Admin\ /exclude:E:\wroot\HKTHMall_Admin_Test\Admin\uncopy.txt /s/e/y 
+
+%WINDIR%\System32\cscript E:\wwwRoot\HKTHMall_Admin_Trunk\IISStart.vbs
+
+%WINDIR%\System32\cscript E:\wwwRoot\HKTHMall_Admin_Trunk\IISStop.vbs
+
+%WINDIR%\System32\cscript E:\wwwRoot\HKTHMall_Admin_Trunk\IISStart.vbs
+

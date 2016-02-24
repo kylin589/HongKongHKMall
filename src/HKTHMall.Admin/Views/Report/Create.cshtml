@@ -1,0 +1,33 @@
+﻿@model HKTHMall.Domain.AdminModel.Models.YHUser.ReportModel
+@{
+    //  var flagList = ViewData["flagList"] as List<SelectListItem>;
+}
+
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Status :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.ReportId)
+        <label id="Flag" class="form-control">Pending</label>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Process result :
+    </label>
+    <div class="controls">
+        @Html.TextAreaFor(t => t.Result, new { @class = "form-control", @placeholder = "Please fill in the results", @style = "width: 306px; height: 170px;", @maxlength = "500" })
+        @Html.ValidationMessageFor(m => m.Result)
+    </div>
+</div>
+<script type="text/javascript">
+    //修改按钮的文字
+    $(function () {
+        var $btnText = $(".btn-primary", "#modal-form");
+        $btnText.text("Handle");
+    });
+</script>
+
+
+

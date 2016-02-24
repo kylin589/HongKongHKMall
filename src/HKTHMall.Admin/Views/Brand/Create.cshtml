@@ -1,0 +1,146 @@
+﻿@model HKTHMall.Domain.Models.Bra.BrandModel
+@{
+    var brandStates = ViewData["states"] as List<SelectListItem>;
+    // var langs = ViewData["langs"] as List<SelectListItem>;
+}
+@*update by liujc*@
+<div class="control-group" style="display:none;">
+    <label class="control-label-form">
+        <label class="red">*</label>ThaiBrandName :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.BrandID)
+        @Html.TextBoxFor(t => t.TaiBrandName, new { @class = "form-control", @placeholder = "Please enter product name in Thai", @maxlength = "50" })
+        @*@Html.ValidationMessageFor(m => m.TaiBrandName)*@
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>ChineseBrandName :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.BrandID)
+        @Html.TextBoxFor(t => t.ZhBrandName, new { @class = "form-control", @placeholder = "Please enter product name in Chinese", @maxlength = "50" })
+        @Html.ValidationMessageFor(m => m.ZhBrandName)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>EnglishBrandName :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.BrandID)
+        @Html.TextBoxFor(t => t.EnBrandName, new { @class = "form-control", @placeholder = "Please enter product name in English", @maxlength = "50" })
+        @Html.ValidationMessageFor(m => m.EnBrandName)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Chinese(HK)BrandName :
+    </label>
+    <div class="controls">
+        @Html.HiddenFor(t => t.BrandID)
+        @Html.TextBoxFor(t => t.HongkongBrandName, new { @class = "form-control", @placeholder = "Please enter product name in Chinese Hongkong", @maxlength = "50" })
+        @Html.ValidationMessageFor(m => m.HongkongBrandName)
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Product picture :
+    </label>
+    <div class="controls">
+        <input id="upLoad" type="file" name="upLoad" class="js-item-file hide" />
+        <span>
+            @if (ViewBag.ImgUrl != null)
+            {
+                <input type="hidden" id="BrandUrl" name="BrandUrl" value="@(ViewBag.ImgUrl)" />
+                <img src="@(ViewBag.ShowImgUrl)" id="UpImg" class="js-item-image" style="width:100px;height:100px;">
+            }
+            else
+            {
+                <input type="hidden" id="BrandUrl" name="BrandUrl" value="" />
+                <img src="/Content/css/images/default-item.jpg" id="UpImg" class="js-item-image" style="width:100px;height:100px;">
+            }
+        </span>
+        <label class="red">*Best size of picture 120*45</label>
+        <br />
+        <div style="padding-top:5px;">
+            <span><button class="btn btn-sm btn-default js-choice-item" type="button"><i class="glyphicon glyphicon-search"></i>&nbsp;Select picture</button></span>
+            <span> <input type="button" value="Upload picture" id="btnUpLoad" class="btn btn-sm btn-default js-upload-item" onclick="getBrandUrl()" /></span>
+            @Html.ValidationMessageFor(m => m.BrandUrl)
+        </div>
+    </div>
+
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Product State :
+    </label>
+    <div class="controls">
+        @Html.TextAreaFor(t => t.Remark, new { @class = "form-control", @placeholder = "Please enter product introduction", @style = "width: 206px; height: 70px;", @maxlength = "50" })
+        @Html.ValidationMessageFor(m => m.Remark)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label-form">
+        <label class="red">*</label>Status :
+    </label>
+    <div class="controls">
+        @Html.DropDownList("BrandState", brandStates, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.BrandState)
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        //选择图片
+        $('#modal-form .js-choice-item').on('click', function () {
+            var $parentTr = $(this).parents('.controls');
+            $('.js-item-file', $parentTr).click();
+        });
+    });
+    //上传商品品牌图片
+    function getBrandUrl() {
+        var name = $("#upLoad").val();
+        
+
+        var w = 660;
+        var h = 600;
+        
+        //var w = 120;
+        //var h = 45;
+        if (name == "") {
+            Tool.Alert("Please upload picture", 1500);
+            return;
+        }
+        else {
+            $.ajaxFileUpload(
+        {
+            url: '/Brand/GetUpLoad?w=' + w + "&h=" + h,
+            secureuri: false,
+            fileElementId: "upLoad",
+            fileTypeExts: '*.jpg;*.png;*.gif;*.jpeg;',
+            fileTypeDesc: 'Please select jpg, gif, png, jpeg format picture',
+            dataType: "text",
+            success: function (data, status) {
+                if (data) {
+                    if (data == "1") {
+                        Tool.Alert("Please upload jpg, gif or png format picture!", 1500);
+                    } else {
+                        $("#UpImg").attr("src", Tool.RootImage + data);
+                        $("#BrandUrl").val(data);
+                        $("#btnUpLoad").parents().find(".field-validation-error").text('');
+                    }
+                } else {
+                    Tool.Alert("Upload picture failed", 1500);
+                }
+
+            },
+            error: function (data, status, e) {
+                Tool.Alert("Upload picture failed", 1500);
+            }
+        });
+        }
+    }
+
+</script>
